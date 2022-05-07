@@ -1,0 +1,393 @@
+
+<style>
+.facet_label {
+  cursor: pointer;
+  display: block;
+  width: 100% !important;
+  margin-bottom: 5px;
+}
+</style>
+
+
+<%
+  facets = FACETS
+%>
+
+
+<% if false %>
+<div style='text-align: right'>
+  <a class='btn' href='/me/analytics'><i class='fal fa-analytics'></i> Profile Analytics </a>
+</div>
+<% end %>
+
+<!-- <h4 style='margin-left: 20px; margin-bottom: 40px'> My Nowcast Page </h4> -->
+
+  <div class='display_flex'>                  
+      <label> Name  <div></div></label>
+      <input class='input1' placeholder='' value="<%=user['name']%>" name='name' style='margin-right: 5px; margin-left: 0'/>
+      <!-- <span> This is what you'll be known as.</span> -->
+    </div>
+
+  <br/> 
+
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    
+    <div style='flex:1'>
+      
+      <label class='pic_label'> Profile Pic </label>
+      <div><br/></div>
+      
+      <div><button type=button id=profile_pic_uploader onclick=uploadProfilePic() > Upload Profile Pic</button></div>
+      <input name=img_url id=img_url style='display: none' value="<%=user[:img_url]%>"/>
+      <script>
+        function uploadProfilePic() {
+          filestackUpload(res => {
+            $("#user_profile_input_img").attr('src',res.url);      
+            $("input#img_url").val(res.url);
+            $("#submitMeForm").click();
+          });
+        }
+      </script>
+
+    </div>
+    <div class='ct flex1'>
+      <img style='cursor: pointer' id=user_profile_input_img onclick=$("#img_uploader").click() class=user_img_fullsize src="<%=user[:img_url]%>" />
+    </div>        
+  </div>
+
+  <br/>  
+  <% if false %>
+  <div class='display_flex'>                  
+    <label> Profile Page Title <div></div></label>
+    <input class='input1' placeholder='' value="<%=user['title']%>" name='title' style='margin-right: 0px; margin-left: 0'/>
+    <!-- <span> This is what you'll be known as.</span> -->
+  </div>
+
+  <div class='display_flex'>                  
+    <label> Profile Page Subtitle <div></div></label>
+    <input class='input1' placeholder='' value="<%=user['subtitle']%>" name='subtitle' style='margin-right: 0px; margin-left: 0'/>
+    <!-- <span> This is what you'll be known as.</span> -->
+  </div>
+
+  <% end %>
+
+  <div class='display_flex'>
+    <label> Description </label>
+    <textarea name=desc placeholder="Describe yourself." value=""><%=user['desc']%></textarea> 
+    <!-- <span>Use #hashtags like #actor or #dance_teacher</span> -->
+  </div>
+  <br/>
+
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Tags </label>
+    <input style='width:100%' name=tags placeholder='tag1, tag2, tag3-multiple-words, tag4' value="<%=user[:tags]%>" />
+  </div>
+
+  <hr/>
+  <br/>
+
+
+
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Web Site </label>
+    
+    <input name=website value="<%=user[:website]%>" placeholder='Your site' />
+  </div>
+
+  <br/>
+  
+    <% if false %>
+  <div class='display_flex'>
+    <label> Type </label>
+    <%= erb :'/login/type_chooser', locals: {pr: user} %>
+    <!-- <span>Use #hashtags like #actor or #dance_teacher</span> -->
+  </div>
+  <br/>
+
+
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+
+    <label class='ztooltip'> State</label>
+
+    <%
+      @chosen_state_short = user[:state]
+    %>
+    <%= erb :'/partials/select_area2', locals: {no_city: true, state_value: 'short', pr: {city: user[:city], state: (user[:state]), shipping: user[:shipping]}} %>      
+    <%#= erb :'/partials/select_state_city', locals: {city: user[:city]} %>          
+  </div>
+
+  
+  <div class='display_flex' style='margin-top:20px'>
+    <label class='ztooltip'> City</label>
+
+    <input class='input1' placeholder='Your city' value="<%=user['city']%>" name='city' style='margin-right: 0px; margin-left: 0'/>
+  </div>
+  <% end %>
+
+  <% if false && is_seller %>
+  <div class='display_flex' style='margin-top:20px'>
+    <label class='ztooltip'> Zip Codes Where You Deliver </label>
+
+    <textarea class='input1' required placeholder='12345,12346' value="<%=user['zipcodes'].to_a%>" name='zipcodes' style='margin-right: 0px; margin-left: 0'/><%=user['zipcodes'].to_a.join(',')%></textarea>
+  </div>
+  <% end %>
+
+
+  <% if false %>
+ <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Delivery Area 
+    </label>
+    
+    <input name=delivery_area value="<%=user[:delivery_area]%>" placeholder='In what areas of the city do you deliver?' />
+  </div>
+  <% end %>
+
+<% if false && is_seller %>  
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Address </label>
+    
+    <input name=address value="<%=user[:address]%>" placeholder='Address' />
+  </div>
+
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Phone Number </label>
+    
+    <input name=contact value="<%=user[:contact]%>" placeholder='Phone number' />
+  </div>
+
+  <% if false %>
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Room </label>
+    
+    <input name=room value="<%=user[:room]%>" placeholder='Room to advertise in' />
+  </div>
+  <% end %>
+
+
+  <br/>
+
+
+  <!-- <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Brand Ambassador </label>
+    
+    <input name=ambassador value="<%=user[:ambassador]%>" placeholder='@good-weed.com' />
+  </div>
+
+  <br/>
+ -->
+
+  <% if false %>
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Facets </label>
+    
+    <div style='flex:1'>
+      <% facets.each do |facet| %>
+        <label class='facet_label'>
+          <input name="<%=facet[:key]%>" type=checkbox <%="checked" if user[facet[:key]]=='on' %>  /> <i class='fas faz-<%=facet[:icon]%>'></i> <%= facet[:label] %> 
+        </label>
+      <% end %>
+      
+    </div>    
+  </div>
+  <% end %>
+
+  
+
+  <% if false %>
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+
+    <label> Cannabis License File </label>
+    <input name=license_url      class=license_url value="<%=user['license_url']%>" hidden />    
+    <input name=license_filename class=license_filename value="<%=user['license_filename']%>" hidden /> 
+    
+    <div>
+      <button type=button class='btn btn-raised btn-primary' onclick=submitLicense()> Click to upload</button>
+      <a class='simple_link license_url' href='<%=user['license_url']%>' target=_blank><%=user['license_filename']%></a>
+
+    </div>    
+  </div>
+  <% end %>
+
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Cannabis License 
+      <!-- <span class='tooltip_text'>This will change the look and feel of your profile page.</span> -->
+    </label>
+    
+    <input name=license_text value="<%=user[:license_text]%>" placeholder='Enter license type and number' />
+  </div>
+
+  <br/>
+
+
+
+  <% if false && is_seller(user) %>
+  <div class='display_flex' style='margin-top:20px; zdisplay: none'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Listing Type</label>
+    <%= erb :'partials/subtype_chooser', locals: {user: user} %>        
+  </div>
+
+  <br/>
+  <% end %>
+
+  <br/>
+
+  <div class='display_flex' style='margin-top:20px; display: none'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Show Your Profile?  
+    </label>
+    
+    <select name=active>
+      <% ['yes', 'no'].each do |opt| %>
+        <option <%="selected" if user[:active]==opt %>><%=opt%></option>
+      <% end %>
+    </select>
+  </div>
+
+  <br/>
+  <% if false %>
+  <div class='display_flex'>                  
+    <label> Location <div></div></label>
+    <input class='input1' placeholder='123 HaYarkon, Tel Aviv' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
+    <!-- <span> This is what you'll be known as.</span> -->
+  </div>
+  <% end %>
+
+  <% if false %>
+  <div class='display_flex' style='margin-top: 30px'>
+    <label class='tooltip'> My Page Theme           
+      <span class='tooltip_text'>This will change the look and feel of your profile page.</span>
+    </label>
+    <select name=my_theme style='margin-right: 0px; margin-left: 0; margin-top:0px'>
+      <% USER_PAGE_THEMES.each do |theme| %>
+        <option value="<%=theme[:val]%>" <%="selected" if cu[:my_theme]==theme[:val]%> >
+          <%= theme[:label] %>
+        </option>
+      <% end %>
+    </select>
+    <!-- <span> </span> -->
+  </div>
+  <% end %>
+  <br/>
+
+
+  <h4 style='margin-left: 20px; margin-bottom: 40px'> Images And Videos </h4>      
+
+  <%= erb :'/me/upload_media', locals: locals.merge(item: user) %>
+<% end %>
+  <% if false %>
+  <h4 style='margin-left: 20px; margin-bottom: 40px'> My Social Media </h4>      
+  <% 
+  sms = [
+    {val: 'twitter', placeholder: 'https://twitter.com/you'}, 
+    {val: 'instagram', placeholder: 'https://instagram.com/you'},
+    {val: 'facebook', placeholder: 'https://facebook.com/you'},
+    {val: 'linkedin', placeholder: 'https://linkedin.com/you'},
+    {val: 'github', placeholder: 'https://github.com/you'},
+    {val: 'behance', placeholder: 'https://behance.com/you'},
+    {val: 'dribbble', placeholder: 'https://dribbble.com/you'},
+    {val: 'website', placeholder: 'https://yourwebsite.tld', icon: 'globe'}
+  ] 
+  %>
+  <% sms.each_with_index do |sm, idx| %>
+  <div class='display_flex'>
+    <% val = sm[:val] %>
+
+    <label> 
+      <% if cu[val].present? %><b><% end %>
+      <i class='sm_icon fa fa-<%=sm[:icon] || val%>' style='margin-right: 10px '></i> <%= val.capitalize %> 
+      <% if cu[val].present? %></b><% end %>
+    </label>
+    <input class='input1 ltr' placeholder='<%=sm[:placeholder]%>' value="<%=cu[val]%>" name='<%=val%>' style='margin-right: 0px; margin-left: 0'/>
+    <!-- <span> </span> -->
+  </div>
+  <% end %>
+  
+  <br/>
+  
+  
+  <div class='display_flex'>
+    <label> Country </label>
+    <select name=country style='margin-right: 0px; margin-left: 0; margin-top:0px'>
+      <option value="" <%="selected" if !cu[:country].present? %> >
+      <% COUNTRIES.each do |country| %>
+        <option value="<%=country[:val]%>" <%="selected" if cu[:country]==country[:val]%> >
+          <%=country[:label]%>
+        </option>
+      <% end %>
+    </select>
+    <!-- <span> </span> -->
+  </div>
+
+  <br/>
+  <% end %>
+
+  <% if false %>
+  <div class='display_flex'>
+    <label> My time zone </label>
+    <select id='tz_input' class='input1 ltr' name='timezone' style='margin-right: 0px; margin-left: 0'>
+      <% tzones.each do |timezone| %>
+        <option value='<%=timezone[:val]%>' <%="selected" if user[:timezone] == timezone[:val] %>>GMT <%="+" if timezone[:val].to_i>0%><%=timezone[:val]%></option>
+      <% end %>
+    </select>
+    <!-- <span> </span> -->
+  </div>
+  <br/>
+
+  <div class='display_flex'>
+    <label> My Area (optional) </label>
+    <select name=geographic_area style='margin-right: 0px; margin-left: 0; margin-top:0px'>
+      <option value='' <%="selected" if cu[:geographic_area]==""%>> </option>
+      <% GEOGRAPHIC_AREAS.each do |geographic_area| %>
+        <option value="<%=geographic_area[:val]%>" <%="selected" if cu[:geographic_area]==geographic_area[:val]%> >
+          <%=geographic_area[:label]%>                
+        </option>
+      <% end %>
+    </select>
+    <!-- <span> </span> -->
+  </div>
+  <% end %>
+
+  <br/>
+
+  <% if false %>
+  <div class='display_flex'>
+    <label class='tooltip'> Layout Style
+      <span class='tooltip_text'>This will change the layout of your profile page.</span>
+    </label>
+    <select name=my_theme style='margin-right: 0px; margin-left: 0; margin-top:10px'>
+      <% USER_PAGE_LAYOUTS.each do |theme| %>
+        <option value="<%=theme[:val]%>" <%="selected" if cu[:my_theme]==theme[:val]%> >
+          <%= theme[:label] %>
+        </option>
+      <% end %>
+    </select>
+    <!-- <span> </span> -->
+  </div>
+  <% end %>
+
+  <% if false && user[:email].present? %>
+  <a target=_blank href='<%=stripe_url%>'>
+    <img class='stripe_button' src='/img/stripe_button.png' />
+  </a>
+  <% end %>
+  <br/>
+
+  <!-- <br/> -->
+  <button type='submit' style='display: none'>submit </button>
+  <br/>
+      <div class=ct>
+        <button id=submitMeForm onclick='$("#me_form").submit()' class='btn btn-raised btn-info'>Save</button>
+      </div>

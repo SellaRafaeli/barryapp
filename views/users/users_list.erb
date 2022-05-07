@@ -1,0 +1,33 @@
+<% 
+      users.each do |user| 
+      revs     = seller_reviews(user[:_id]) || []
+      last_rev = revs.last || {}
+    %>
+    <a href='<%=user_link(user)%>'>
+    <div class='hp_single_user flex'>    
+      <div class='flex1'>
+        <img src='<%=user[:img_url]%>' style='width: 40px; object-fit: cover' />
+      </div>
+
+      <div class='user_name flex2'>
+        <%= user[:name] %>
+        <div>
+          <small><%= user[:location] %></small>
+        </div>
+
+      </div>
+
+      <div class='user_desc flex2' style='text-align: left'>
+        <%= user[:desc] %>
+      </div>
+
+      <!-- <div class='last_review flex2'>
+         <%= last_rev[:text] %> <%=last_rev[:created_at]%>
+      </div> -->
+
+      <div class='num_reviews flex1'>
+        <%= revs.count %> <%= is_heb ? 'ביקורות' : 'המלצות' %>
+      </div>
+    </div>
+    </a>
+<% end %>

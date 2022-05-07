@@ -1,0 +1,126 @@
+<%
+  cast[:bla] = 'foo'
+  cast_id    = cast[:_id]
+  game       = get_cast_game(cast_id)
+%>
+
+<!-- <div class='b1'> RENDERED GAME for <%= cast[:'title'] %></div> -->
+
+<style>
+.game_cell {
+  border:1px solid whitesmoke;
+}
+.game_row {
+  margin-bottom: -10px;
+}
+.game_cell {
+  margin-right: -5px;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  position: relative;
+}
+.user_avatar {
+  height: 70%;
+  width: 70%;
+  position: absolute;
+  left: 15%;
+  top: 15%;
+}
+
+/*videos*/
+.player_video {
+  height:100px;
+  width: 100px;
+  border:1px solid gold;
+}
+.player_video video {
+  height: 100%;
+  width: 100%;
+  border:1px solid red;
+} 
+</style>
+<div id=game>
+  <% 
+  board   = (game[:board] || game_default_board).to_a
+  players = game[:users]
+  board.each_with_index do |row, row_index| 
+  %>
+    <div class='game_row'>
+      <% row.to_a.each_with_index do |coll, coll_index| %>
+        <% val = row_index.to_s+'-'+coll_index.to_s %>
+        <% cell = board[row_index][coll_index] %>
+        <span class='game_cell <%=row_index%>-<%=coll_index%>' style='background-color: <%=cell["background-color"]%>'>  
+          <% players.to_a.each do |key, player| %>
+          <% player = player.hwia %>
+          <% if player[:location].to_a == [row_index,coll_index] %>
+            <img class='user_avatar <%=player[:_id]%>' src="<%=player[:img_url]%>" />
+          <% end %>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+
+
+  <div id=videos style='display: flex'>
+    <% players.each do |key, player| %>
+      <% is_me = player[:_id] == cuid %>
+      <div class='<%= 'me' if is_me %> player_video <%=player[:_id]%>'>
+        <%= is_me ? 'me' : player[:_id] %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+  
+function paintGame(game) {  
+  for (user in game.users) { // move avatars
+    var user = game.users[user];
+    var loc  = user.location;
+    var userAvatar = $(`.user_avatar.${user._id}`);
+    var newLoc = $(`.${loc[0]}-${loc[1]}`);
+    userAvatar.appendTo(newLoc);
+  }
+}
+
+function refreshGame() { 
+  $.get('/games/<%=cast_id%>').then(res => {
+    window.game = res.game;
+    paintGame(res.game); 
+  });
+}
+
+function notifyServerGameMove(castId, data) {
+  postJSON(`/casts/game/move/${castId}`, data).then(res => {
+    paintGame(res.game);
+  });
+}
+
+function checkKey(e) {
+  e = e || window.event;
+  var key = e.keyCode
+  var left  = 37; var up = 38; var right = 39; var down = 40;
+  var moves = { 37: 'left', 38: 'up', 39: 'right', 40: 'down'}
+  //if (key == left) console.log('left'); if (key == right) console.log('right'); if (key == up) console.log('up'); if (key == down) console.log('down');
+  notifyServerGameMove("<%=cast_id%>",{move: moves[key]})
+}
+
+refreshGame();
+
+document.onkeydown = checkKey;
+
+window.cuid = "<%=cuid%>";
+
+</script>
+
+<script src='/js/game_vids.js'></script>
+
+<% if pr[:js] %>
+<script>
+console.log('injection successful!');
+</script>
+<script src='<%= pr[:js] %>'></script>
+<% end %>

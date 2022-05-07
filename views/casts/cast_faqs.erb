@@ -1,0 +1,39 @@
+<%
+  titles  = cast[:faq_titles].to_a
+  answers = cast[:faq_answers].to_a
+  any_faq = cast_faqs(cast).any?
+%>
+
+<style>
+
+.single_faq {
+  background-color: white;  
+}
+.faq_title {
+  color: #44bb06;
+  padding: 10px;
+  font-size: 25px;
+}
+.faq_title:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+.faq_answer {
+  padding: 10px;
+  background-color: whitesmoke;
+  padding-left: 35px;
+}
+</style>
+<% if any_faq %>
+<div class='cast_faqs cast_body_component' id=faqs>
+  <h4> FAQ </h4>
+  <% titles.each_with_index do |title,idx| %>
+  <% next unless title.present? && (answer = answers[idx]).present? %>
+    <div class='single_faq'>
+      <div class='faq_title' onclick=$(this).closest('.single_faq').find('.faq_answer').toggleClass("noDisplay")>
+       <i class='fal fa-question-circle' style='margin-right: 10px'></i> <%= title %></div>
+      <div class='faq_answer noDisplay'><%= answer %></div>
+    </div>
+  <% end %>
+</div>
+<% end %>

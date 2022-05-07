@@ -1,0 +1,31 @@
+<% 
+
+locations = $locations.all(user_id: cuid) 
+%>
+<h1> Locations </h1>
+
+<style>
+.single_location_list {
+  background-color: whitesmoke;
+  padding: 10px;
+  margin: 10px;
+  display: block;
+}
+</style>
+<div class='locations_list'>
+<% locations.each do |location| %>
+  <a href='/locations/<%=location[:_id]%>' class='single_location_list nice_list_item'>
+    <div> <%= location[:name] %> </div>
+    <b> <%= location[:address] %> </b>
+    <span> <%= location[:type] %> </span>
+  </a>
+<% end %>
+</div>
+ 
+<button class='btn btn-raised btn-primary' onclick=addLocation() type=button class='btn btn-primary'>+ Add Location</button>
+
+<script>
+  function addLocation() {
+    $.post('/locations').then(()=>document.location.reload());
+  }
+</script>

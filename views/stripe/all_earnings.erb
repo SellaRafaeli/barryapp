@@ -1,0 +1,32 @@
+<%
+  if !pr[:earn_id].present?
+%>
+
+  <%    
+    earns = $earnings.get_many
+  %>
+
+  <div class='container'>
+    <h1> All Earnings </h1>
+
+    <%
+      earns.each do |earn|
+    %>
+      <div>
+        <a href='/admin/earnings/<%=earn[:_id]%>'><%= earn[:_id] %> (<%=earn[:sales].to_a.size%> entries)</a>
+      </div>
+    <% end %>
+  </div>
+
+<% else %>
+
+
+<%
+  earns = $earnings.get(pr[:earn_id])[:sales].to_a
+%>
+<div class='container'>
+  <h1> Estimated earnings for <%= pr[:earn_id] %> </h1>
+  <a class='btn btn-warning' href='/admin/earnings'>all /admin/earnings</a>
+  <%= erb :'stripe/my_earnings', {}.merge(locals: {earnings: earns}) %>
+</div>
+<% end %>

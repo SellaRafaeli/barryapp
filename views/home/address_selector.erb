@@ -1,0 +1,64 @@
+<style>
+.main_search_input {
+  width: 300px; font-size: 16px; padding: 12px
+}
+
+@media (max-width: 800px) {
+  .main_search_input { 
+    width: 90%;
+  }
+}
+.magnifying-glass-icon {
+      color: #386256;
+    /* color: red; */
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+</style>
+
+<span class='location_input'>
+  <i class='fal fa-search magnifying-glass-icon'></i>
+  <input class='main_search_input' placeholder='Enter address to order delivery...' autofocus autocomplete="new-password" id=address_input name=address value="<%=pr[:address]%>" style=''/> 
+</span>
+
+
+<input hidden name=lat id=address_lat value="<%=pr[:lat]%>" type=string step=0.00000000000000000000000000000001 />
+<input hidden name=lng id=address_lng value="<%=pr[:lng]%>" type=string step=0.00000000000000000000000000000001 />
+
+
+<script>
+function initializeLocations() {
+      console.log('initializing location js')
+      var input = document.getElementById('address_input');
+
+      //prevent choosing place with enter from submitting 
+      google.maps.event.addDomListener(input, 'keydown', function(event) { if (event.keyCode === 13) { event.preventDefault(); } }); 
+
+      const autocomplete = new google.maps.places.Autocomplete(input);
+      console.log('set up google maps autocomplete on address_input')
+
+      autocomplete.addListener("place_changed", () => {
+        //ev.stopPropagation();
+        //infowindow.close();
+        //marker.setVisible(false);
+        const place = autocomplete.getPlace();
+        var geo = place.geometry;
+        if (geo) {
+          var lat = geo.location.lat()
+          var lng = geo.location.lng()  
+          $("#address_lat").val(lat);
+          $("#address_lng").val(lng);
+          console.log('set lat,lng as',lat,lng)
+        }
+        
+        window.place = place;
+        console.log('place',place)  
+        <% if locals[:cb] %>
+        <%= cb %>(place);
+        <% end %>      
+      });
+    
+    }
+    setTimeout(initializeLocations,0)
+</script>

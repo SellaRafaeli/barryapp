@@ -1,0 +1,52 @@
+<%
+  # user_id is passed in
+  vouches = $vouches.all(for: user_id)
+  user    = $users.get(user_id) || {handle: 'error'}
+  i_vouched = cu && $vouches.get(for: user_id, by: cuid)
+
+  my_recommendations = $vouches.all(by: user_id)
+%> 
+
+<style>
+.vouches_title {
+  font-size: 14px;
+  color: grey;
+}
+.single_vouch .user_img {
+  height: 20px;
+  width: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+  /* background-color: whitesmoke; */
+}
+</style>
+<div class='vouches_container'>
+ <!--  <h5> vouches </h5> -->
+
+  <div class='vouches_box'>
+    <div class='vouches_title'>
+      <%= user[:handle] %> has <%= vouches.count %> recommendations. 
+      <% if i_vouched %><div><b> You recommended <%= user[:handle] %>.</b></div><% end %>
+    </div>
+    <div class='vouches_list'>
+      <% vouches.each do |vouch| %>
+        <% by = $users.get(vouch[:by]) %>
+        <div class='single_vouch'>
+          <%= erb :'users/user_box', locals: {user: by, no_name: true} %>
+        </div>
+      <% end %>
+
+      <% if !i_vouched %>
+      <div>
+        <% if cu %>
+        <form method=post action='/vouches/<%=user_id%>'>
+          <button class='btn btn-primary btn-raised'> Click to Recommend <%= user[:handle] %>?</b></div>
+          </button>
+        </form>
+        <% else %>
+
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

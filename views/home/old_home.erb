@@ -1,0 +1,258 @@
+old_home.erb<%
+#events = $events.all.sort_by {|ev| ev[:date] }
+
+main_msg = "Live Video Teachers, Classes, Events, and Businesses."
+main_msg = "Top Pros, Creators and Businesses on Live Video"
+main_msg = "Creators Live Now"
+main_msg = "The Platform for Professional Live Creators"
+main_msg = "The Platform for Online Teachers and Professional Live Creators"
+main_msg = "Get paid to preach your passion: NowCast helps creators teach live online, get more clients, and bill efficiently. "
+main_msg = "Online Teachers and Professional Live Creators."
+main_msg = "Services marketplace for live video teachers, creators, and businesses."
+main_msg = "Marketplace for Live Video Teachers, Creators and Businesses."
+main_msg = "Live Video Instructors, Creators and Experiences."
+main_msg = "Live Video Classes and Experiences."
+main_msg = "Go Live, Get Paid."
+main_msg = "Go Live, Sell Tickets."
+main_msg = "Go Live and Start Selling."
+# main_msg = "Meet Your Audience Live. Get Paid."
+main_msg = "The Live Video Business Network"
+main_msg = "The Live Video Social Network"
+
+main_msg = "The Live Video Network for Creators"
+sub_msg  = "Friends around the world,<br/>classes, events, talks and shows."
+
+main_msg = "Go Live & Sell Tickets."
+main_msg = "Share Your Talents Live & Sell Tickets."
+main_msg = "Engage Live & Sell Tickets."
+main_msg = "Engage via Live Video & Sell."
+main_msg = "Engage & Sell via Live Video."
+main_msg = "Engage & Sell Live."
+# main_msg = "Connect Live."
+sub_msg  = "The Platform and Community for Live Video Creators:<br/> Classes, Events, Talks, Shows and Specials"
+sub_msg  = "<b>Live Interactive Video Programs</b><br/> Classes, Events, Talks, Shows and Specials<br/>"
+
+main_msg = "NowCast helps live video creators grow their online business<br/> and do more of what they love."
+
+casts = $casts.all(approved: true)
+query = pr[:q] || nil
+
+random_users = false
+search_hits = $users.all
+
+search_hits = search_hits.select { |u| u.to_json.to_s.include?(query.to_s) }
+
+
+if search_hits.size == 0 
+  search_hits = $users.all.sample(10)
+  random_users = true
+end
+
+search_hits.each do |hit| 
+  # hit[:num_reviews] = user_reviews(hit).count
+end
+
+search_hits = search_hits.sort_by {|h| h[:num_reviews].to_i }.reverse
+
+enable_search = false
+
+homepage_casts = $casts.all(tags: {"$regex" => Regexp.new('homepage', Regexp::IGNORECASE) })
+%>
+
+<style>
+.store_buttons {
+
+}
+.store_buttons img {
+  width: 45%;
+  display: inline-block;
+  height: 80px;
+}
+
+.hp_img {
+  width: 100%;
+}
+.hp_search {
+  border: 1px solid #dfe1e5;
+  box-shadow: none;
+  border-radius: 24px;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.no_hits {
+  text-align: left;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.search_hits {
+  text-align: left;
+  font-size: 18px;
+}
+.single_search_hit {
+  margin: 10px;
+}
+
+.trending_searches {
+  font-size: 18px;
+  margin: 20px;
+}
+
+.trending_searches a {
+  color: black; 
+}
+.hp_main_btn{
+  position: relative;
+  bottom: 2px;
+}
+
+.single_logo {
+  display: inline-block;
+  margin: 0 10px 20px 10px;
+  width: 170px;
+}
+
+.single_logo img {
+  height: 90px;
+  width: auto;    
+}
+
+.integrated_with_container {
+  margin: 20px;
+}
+
+.integrated_with_text {
+  margin-bottom: 10px;
+}
+
+#signup_btn {
+  font-size: 100%;
+}
+.sub_msg {
+  margin: 30px;
+  max-width: 600px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 45px;
+  margin-bottom: 40px;
+}
+
+.hero {
+  text-align: left;
+  background-color:whitesmoke;
+  width:100%;
+  padding: 40px;
+}
+</style>
+<div class='hp ct'>
+  <div class='hero'>
+    <h1 class='zib'>Nowcast helps you sell with live video.</h1>  
+    <h3 class='zib' style='margin:40px; color: #00b140'> 
+    <%= main_msg %>
+    <!-- <h4> Broadcast <b>anywhere</b>. Connect with awesome creators and people. </h4> -->    
+    <h3 class='sub_msg'> <%= sub_msg %> </h3>
+  </div>
+
+  <div>
+    <!-- <a href='/create' class='btn btn-primary btn-raised'> Create </a> -->
+  </div>
+  <div>
+    <% if enable_search %>
+    <form method=get action='/'>
+      <input name=q class='input1 hp_search' placeholder='🔍 Fitness coaches, yoga teachers, piano instructors...' value="<%=pr[:q]%>" autofocus style='width: 400px; font-size: 110%' />
+    <% end %>
+
+    <% if cu %>
+    <small><a href='/create' class='hp_main_btn btn btn-primary btn-raised'> Create a NowCast, <%= cu[:name] %> </a></small>
+    <% else %>
+    <div>
+      <small>      
+        <a id=signup_btn href='/signup' class='hp_main_btn btn btn-primary btn-raised'>Join Now</a>
+      </small>
+    </div>    
+    <% end %>
+    <div>
+      <!-- <div style='margin-top:40px'><h4>NowCast is the platform for live video classes, events, talks, and shows.</h4></div> -->
+      <a href='/about' class='btn'> Learn More </a>
+    </div>
+
+    <div>
+      
+    </div>
+    </form>
+
+    <% if !query %>
+    <div class='trending_searches noDisplay'>
+      <span><!-- Trending searches:  --></span>
+      <% SAMPLE_SEARCHES.sample(rand(4)+1).each do |opt| %>
+      <% term = opt[:label] %>
+      <a style='margin:20px' href='/?q=<%=term%>'><%= term %></a>
+      <% end %>
+    </div>
+
+    <div class='integrated_with'>
+      <br/>
+      <!-- <div class=integrated_with_text> Broadcasts with </div> -->
+      <br/>
+      <% LOGOS.each do |logo| %>
+        <div class='single_logo'>
+          <img src="/img/<%=logo%>" />
+        </div>
+      <% end %>
+      <br/>
+      <br/>
+    </div>
+    <% end %>
+  </div>
+
+  <div class='homepage_casts'>
+    <h3 class='ct'>Suggested</h3>
+    <%= erb :'casts/casts_list', locals: {casts: homepage_casts} %>
+  </div>
+
+  <% if query %>
+    <% if search_hits.any? %>
+      <% if random_users %>
+      <div style='margin:20px'> We couldn't find any exact matches, so here are some suggested results. </div>
+      <% end %>
+      <div class='search_hits'>
+        <% search_hits.to_a.each do |user| %>
+        <div class='single_search_hit'>
+          <a href='/@<%=user[:handle]%>' class='display_flex'>
+            <img class='user_img' src="<%=user[:img_url]%>">
+            <span class='ml10'>
+              <div class='deepblue1'><%=user[:name]%>, <%=user[:title]%></div>
+              <div>
+                <% if user[:desc].present? %>
+                  <span class='search_desc'><%=user[:desc]%>. </span>
+                <% end %>
+                
+                <span class='post_desc_line'>
+                <% if user[:num_reviews].to_i > 0 %>
+                  <%=user[:num_reviews]%> reviews; 
+                <% end %> 
+                  active <%=time_ago(user[:active_at] || user[:created_at])%></span>
+
+              </div>
+            </span>              
+          </a>
+        </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class='no_hits'>Nothing Found. Try searching for "fitness teacher" or "meditation teacher".</div>
+    <% end %>
+  <% else %>
+    <img class='hp_img' src='/img/bg1.jpeg' />
+  <% end %>
+  <div class="ct display_flex" style='margin-top:30px'>
+    <span class="flex1"><a href='/careers'>Careers</a></span>
+    <span class="flex1"><a href='/support'>Support</a></span>
+    <span class="flex1"><a href='/about'>About</a></span>
+    <span class="flex1"><a href='mailto:contact@nowcast.co'>contact@nowcast.co</a></span>
+  </div>
+  
+  <!-- <h2> Posts </h2> -->
+</div>

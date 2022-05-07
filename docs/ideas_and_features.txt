@@ -1,0 +1,21 @@
+Ideas and Features.txt
+----------------------
+Features
+* Ability to upload videos 
+* "Remind people 24 hours and 1 hour before" feature
+* Reviews 
+* Free Ticket Coupon (reusable or unique)
+* Make Stripe use staging if fed test password and user tags "allowed_test"
+* Build vanity zoom suite
+* Single cast: "Private Notes" and "Public Notes" for owner.
+
+Tiers:
+* Nowcast Premium: name of moderator. 
+* Nowcast Gold 
+
+Homepage:
+* Programming Bootcamp
+* Finance consulting 
+* Law consulting
+* Makeup Artist 
+* Dancing Lessons

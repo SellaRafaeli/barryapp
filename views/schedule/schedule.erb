@@ -1,0 +1,95 @@
+<%
+  casts = $casts.all
+
+  dows  = DOWS
+  hours = (0..23).to_a
+
+  if pr[:dow]
+    dows  = dows.select {|dow| dow[:val] == pr[:dow] } 
+  end
+
+  hours = [pr[:hour].to_i] if pr[:hour]
+
+  casts.each do |cast|
+    cast[:schedule_hour] = get_cast_hour(cast)
+    cast[:schedule_dow]  = get_cast_dow(cast)
+    #puts "#{cast['title']}, #{cast['schedule_hour']}, #{cast['schedule_dow']}".yellow
+  end
+
+  if pr[:hour]
+    casts.select! {|cast| (cast[:schedule_hour] == pr[:hour].to_i) }
+  end
+
+  if pr[:dow]
+    casts.select! {|cast| (cast[:schedule_dow] == pr[:dow]) }
+  end
+
+  
+  'done'
+
+%>
+
+<style>
+.schedule {
+  zmax-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.schedule .link {
+  color: darkblue;
+}
+.schedule .link:hover {
+  color: lightblue;
+}
+.schedule table {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class='schedule ct'>
+  <div class='display_flex'>
+    <div class='flex1'>
+      <h1> <a href='<%=_req.path%>'>schedule (time is GMT)</a> </h1>
+      <table>
+        <thead>
+          <tr>
+            <th> </th>
+          <% dows.each do |dow| %>
+            <th><a class=link href='<%=_req.path%>?dow=<%=dow[:val]%>'><%=dow[:val] %></a></th>
+          <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% hours.each do |hour| %>
+            <tr>
+              <td><a class=link href='<%=_req.path%>?hour=<%=hour%>&<%=pr[:dow] ? "dow=#{pr[:dow]}" : ''%>'><%=hour%>:00</a></td>
+              <% dows.each do |dow| %>
+                <%
+                  matching_casts = casts.select {|cast| 
+                    (cast[:schedule_hour] == hour) && (cast[:schedule_dow] == dow[:val])
+                  }
+                %>
+                <td>
+                  <a class=link href='<%=_req.path%>?dow=<%=dow[:val]%>&hour=<%=hour%>'><%= matching_casts.size %></a>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>    
+        </tbody>
+      </table>
+    </div>
+
+    <div style='flex:1; flex-wrap: wrap; display: flex; zborder:1px solid red; justify-content: center'>
+
+        <% if pr[:dow] && pr[:hour] %>
+        casts for day-of-week <%= pr[:dow] %> and hour <%= pr[:hour] %> - 
+        <% end %>
+        total: <%= casts.size %>
+      <br/>
+      <% casts.each do |cast| %>
+        <%= erb :'/casts/single_cast_box', locals: {cast: cast} %>
+      <% end %>
+    </div>
+  </div>
+</div>

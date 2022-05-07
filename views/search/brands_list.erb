@@ -1,0 +1,131 @@
+<%
+  msg = 'Explore Top Cannabis Brands'
+  city = pr[:city] || @cities[0]
+#  state = pr[:state].present? ? "#{pr[:state]}" : SELECT_STATES_LIST[0]
+  shipping = pr[:shipping]
+  msg = "Top Cannabis Recommendations in #{pr[:city]}" if pr[:city]
+  msg = "Order Weed Now #{city}"
+  msg = "Cannabis Delivery"  
+
+  #bp
+  trying_just_chat_white_telegrass = true
+  # trying_just_chat_white_telegrass = false
+
+  brands = []
+  if !trying_just_chat_white_telegrass
+    brands = $users.get_many({zipcodes: pr[:zipcode].to_i}, {limit: 30}).to_a
+    if city.present?
+      brands += $users.all({city: city, state: state}, {limit: 10})
+      # brands += $users.all({room: city},{limit: 10}).to_a
+    end
+
+    
+  else 
+    brands = []
+  end
+  brands = brands[0..1]
+  # brands = brands[0..2]
+  reviews = $reviews.get_many(seller_id: {'$in': brands.mapo(:_id)})
+
+  #bp
+  x=1
+  _is_homepage = is_homepage
+  # _is_homepage = false 
+%>
+
+<style>
+.brands_list {
+  zdisplay: flex;
+  flex-wrap: wrap;
+}
+.main_h1 {
+  display: inline-block; 
+  text-align: center; margin: 0; font-size: 18px; font-weight: normal; margin-bottom: 20px;
+  zwidth: 100%;
+}
+.main_h2 {
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+}
+.no_brands_found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgreen;
+  zcolor: white;
+  font-size: 20px;
+  zheight: 200px;
+  padding: 20px;
+}
+</style>
+  <% if false %>
+  <div class='links_city_selector_container'>
+    <%#= erb :'/partials/select_state_city', locals: {searchOnChange: true} %>      
+    <%= erb :'/partials/select_area2', locals: {searchOnChange: true, zip_search: true} %>
+  </div>
+
+  <br/>
+  <% end %>
+
+<!-- </h1> -->
+<% id = pr[:zip] || pr[:code] %>
+
+
+<div class='brands_list_container'>  
+  <!-- <a href='/signup?type=seller&city=<%=city%>&state=<%=state%>&shipping=<%=shipping%>' class='btn btn-raised btn-primary'>List Your Cannabis Service.</a> -->
+  <!-- <br/>
+  <br/> -->
+
+  <div class='brands_list'>
+      <div class=zdisplay_flex style='margin: auto'>        
+        <% if false %>
+          <img src='/img/cannabis_delivery.jpg' style='width: 100px; flex: 1' />
+          <h1 class='main_h1'> good weed, wherever it's legal. </h1> 
+          <h2 class='main_h1'> Cannabis delivery, dispensaries, and top local brands. </h2>    
+        <% elsif false %>
+          <div class=ct>
+            <h1 class='main_h1'> 
+              Cannabis in <%= pr[:city].titleize %><!-- , <%= @chosen_state %>:  -->
+            </h1> 
+            <h2 class='main_h1' style='display: none'> delivery, top dispensaries, recommendations </h2>    
+          </div>
+        <% end %>
+      </div>
+      <% if true %>
+        <%#= erb :'search/area_posts', locals: {state: state, city: city} %>
+          <%#= erb :'/brands/facet_filter', locals: {brands: brands} %>
+          
+        
+      <div class='chat_and_brands' style='display: flex; flex-wrap: wrap; flex-direction: column-reverse; flex-direction: column-reverse'>
+        <% if true %>
+        <style>
+          .chat_msgs_container {
+            max-width: 100%;
+          }
+        </style>
+        <div class='flex1 chat_msgs_container'>
+          <%= erb :'/casts/chat', locals: {cast_id: id, cast: {_id: id}} %>
+        </div>
+        <% end %>
+        
+        <% if !trying_just_chat_white_telegrass %>
+          <% if brands.any? %>
+          <div class='flex1'>
+            <%= erb :'/brands/subtype_filter', locals: {brands: brands} %>
+            <h4 style='zmargin-left: 10px'> Recommended </h4>
+            <% brands.each_with_index do |user, idx| %>
+              <% brand_reviews = reviews.select {|rev| rev[:seller_id] == user[:_id] } %>
+              <%= erb :'/brands/single_brand', locals: {user: user, idx: idx, reviews: brand_reviews} %>
+            <% end %>
+          <% elsif false %>
+            <div class='no_brands_found'>
+              <a class=simple_link href='/signup?type=seller&room=<%=id%>'>Sign up to advertise your cannabis here.</a>
+            </div>  
+          <% end %>  
+          </div>  
+        <% end %>
+        <% end %>
+      </div>
+  </div>
+</div>

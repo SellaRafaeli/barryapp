@@ -1,0 +1,80 @@
+<style>
+#site_imgs {
+  height: 100px;
+  background-color: whitesmoke;
+  overflow-y: scroll;
+}
+.single_site_media {
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+  vertical-align: bottom;
+  vertical-align: -webkit-baseline-middle;
+}
+.single_site_media img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: <%=item[:media_object_fit] %>;
+}
+.remove_media {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: grey;
+  cursor: pointer;
+}
+
+.remove_media:hover {
+  color: lightgrey;
+}
+</style>
+
+<% if false %>
+<div class='display_flex'>                  
+  <label> Media object fit </label>
+  <select name=media_object_fit>
+    <option <%="selected" if cu && cu[:media_object_fit]=="cover"%>>cover</option>
+    <option <%="selected" if cu && cu[:media_object_fit]=="contain"%>>contain</option>
+  </select>
+    <!-- <span> This is what you'll be known as.</span> -->
+</div>
+<% end %>
+<div style='margin:20px 0'>
+  
+  
+</div>
+
+
+<div id=site_imgs>
+    
+</div>
+
+<button class='btn btn-raised btn-primary' type=button onclick='filestackUpload(res=>addSiteMedia(res))'>+ Add </button>
+
+<script>
+var siteMedia      = <%= item[:media].to_a.to_json %>;
+var siteMediaTypes = <%= item[:media].to_a.to_json %>;
+function addSiteMedia(res) { 
+console.log('res',res)       
+  var url  = res.url;
+  var type = res.mimetype || res.type || '';
+  var html = `<div class='single_site_media'>
+        <span class='remove_media' onclick='if (confirm("Are you sure you wish to remove this?")) $(this).closest(".single_site_media").remove()'><i class='fa fa-close'></i></span>
+        <input hidden name=media_img[] value="${url}" />
+        <input hidden name=media_types[] value="${type}" />
+      `;
+        
+  if (type.includes('video')) {
+    html += `<video width="" height="200" controls>
+          <source src="${url}" type="video/mp4">
+        </video>`;
+  } else {
+    html += `<img src='${url}' />`
+  }
+  
+
+  html += `</div>`
+  $(site_imgs).append(html);
+}
+siteMedia.forEach(m => addSiteMedia(m));
+</script>

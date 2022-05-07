@@ -1,0 +1,20 @@
+<%#= review.to_json %>
+<%
+  seller = $users.get(review[:seller_id])
+%>
+
+<div class='hp_review'>
+  <div class='hp_review_top'>
+    <% if seller %> 
+      <a href='/@<%= seller[:handle] %>'><%=seller[:handle]%></a>
+    <% else %>
+      <%= review[:seller_name] %>
+    <% end %>
+  </div>
+  <div class='hp_review_body'>
+    <%= review[:text] %>
+    <div style='text-align: right'>
+      <small><%=nice_date review[:created_at]%></small>
+    </div>
+  </div>
+</div>

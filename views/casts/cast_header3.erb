@@ -1,0 +1,38 @@
+<%
+  main_img = get_custom_img(cast)
+  can_edit = is_owner || is_admin
+%>
+
+<div class='cast_header3 display_flex_wrap'>    
+    <div class='flex2 cast_title_and_username'>
+      <div class='cast_title'>
+        <%= cast[:title] %>        
+      </div>
+      
+      <div class='cast_username'>
+        by <a style='font-weight: bold' href='/@<%=owner[:handle]%>'> <%= owner[:name] %></a>
+      </div>
+
+      <div class='cast_rating_and_reviews'>
+      <% if (reviews = cast_reviews(cast[:_id])).size > 0 %>
+        <% rating = reviews.select {|r| r[:rating].to_i >= 1 }.mapo(:rating).avg %>
+        <div><small> <%= rating  %>⭐, <%= reviews.size %> reviews </small></div>
+      <% end %>
+      </div>
+
+      <% if can_edit %>
+      <div>
+        <a class='btn btn-primary nowcast_color' href='/casts/edit/<%=cast[:_id]%>'>edit</a> 
+      </div>
+      <% end %>
+    </div>
+
+    <div class='cast_pic flex1'>
+      <div style='text-align: right'>
+        <a target=_blank href='/@<%=owner[:handle]%>'>
+          <%= erb :'partials/nice_round_img', locals: {src: main_img} %>           
+        </a>
+      </div>
+    </div>
+
+  </div>

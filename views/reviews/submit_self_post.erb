@@ -1,0 +1,46 @@
+<% %>
+
+<style>
+.submit_review_form {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+</style>
+<div class='submit_review_form_container'>
+  <div class='submit_review_form'>    
+    <!-- <h5> Post video review of cannabis dispensary / brand / product </h5> -->
+    <form style='font-size: 14px' method=post action='/reviews/new' class="" zonsubmit='if(!$("#review_video_url").val()) { alert("bla"); return false; }'>
+      <label> Your review helps other! </label>
+      <textarea style='font-size: 14px' required name=seller_info placeholder="..."></textarea>
+
+      <input name=is_self_post value=true hidden />
+      <button class='btn btn-info btn-raised' type=button id=profile_pic_uploader onclick=uploadReviewVideo() > Add video </button>
+      <button class='btn btn-raised btn-primary btn-sm'> submit </button>
+      <input name=video_url id=review_video_url style='display: none' value="" />
+      <video id=review_upload_img_container width="320" height="240" controls class=noDisplay >
+        <source id=review_upload_video src="" type="video/mp4">
+      </video>
+      
+      <script>
+        function uploadReviewVideo() {
+          filestackUpload(res => {
+            $("#review_upload_video").attr('src',res.url);      
+            
+            var vidPlayer = $("#review_upload_img_container")
+            vidPlayer.removeClass('noDisplay');
+            vidPlayer.get(0).load(); //necessary to refresh the video
+
+            $("input#review_video_url").val(res.url);            
+            console.log('upload video res',res)
+          },{accept: ["video/*"]});
+        }
+      </script>
+
+      <br/>
+      
+    </form>
+  </div>
+</div>

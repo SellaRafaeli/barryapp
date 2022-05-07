@@ -1,0 +1,29 @@
+<style>
+.user_box {
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-block;
+  background-color: whitesmoke;
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+.user_box a {
+  display: inline-block;
+  height: 100%;
+}
+.user_box:hover {
+  box-shadow: 1px 1px #cccccc;
+}
+</style>
+<% if user %>
+<div class='user_box'>
+  <div>
+    <a href='/@<%=user[:handle]%>'>
+      <img class='user_img' src='<%=user[:img_url]%>'>
+      <% unless locals[:no_name] %>
+      <span><%= user[:handle] %></span>
+      <% end %>
+    </a>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,53 @@
+<style>
+
+.hcd_left {
+  text-align: left;
+  
+  flex: 1;
+}
+.hcd_right {
+  flex: 1;
+  margin-left: 50px;    
+}
+.home_cannabis_delivery {  
+  zmax-width: 800px;
+  margin: auto;
+}
+@media (max-width: 8000px) {
+  .hcd_right {
+    display: block;
+    text-align: center;
+    margin-left: 0px;    
+  }
+}
+
+.lp_h1 {
+  font-size: 18px;
+  font-weight: normal;
+  text-align: center;
+}
+.lp_h2 {
+  font-size: 22px;
+  font-weight: bold;
+  width: 100%;
+}
+</style>
+
+<div class='home_cannabis_delivery'>
+  <h1> Order Online. </h1>
+  <div class=''>
+    
+  </div>
+  
+  <div class=''>
+    <div class='links_city_selector_container'>
+    <%#= erb :'/partials/select_state_city', locals: {searchOnChange: true} %>      
+    <form method=get action='/zip'>
+      <%= erb :'/partials/select_area2', locals: {searchOnChange: true, zip_search: true, no_state: true, no_city: true, no_title: true} %>    
+      <button class='btn btn-primary btn-raised'> Let's Go </button>
+    </form>
+    </div>
+    <h1 class='lp_h1'> the best cannabis delivery services. </h1>    
+    <h2 class='lp_h2'> <small style='font-size:16px; display: block;'>top cannabis delivery dispensaries.</small><br/> order good weed now. </h2> 
+  </div>
+</div>

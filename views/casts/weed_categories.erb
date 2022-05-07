@@ -1,0 +1,72 @@
+<%
+
+%>
+
+<style>
+.weed_categories {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+@media screen and (max-width: 1000px) {
+  .weed_categories {
+    justify-content: center;
+  }
+}
+.single_category {
+  height: 100px;
+  width: 100px;
+  box-shadow: 1;
+  padding: 20px;
+  background-color: white;
+  margin-right: 10px;
+  margin-top: 3px;
+  text-align: center;
+  border-radius: 10%;
+  color: #1F5151;
+}
+.single_category_title {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.single_category.selected, .single_category:hover {
+  zcolor: grey;
+  cursor: pointer;
+  box-shadow: 1px 1px #cccccc;
+  color: #150000;
+}
+.single_category.selected {
+  font-weight: bold;
+}
+
+.single_category_img_container {
+
+}
+.single_category_img_container img {
+  height: 80px; 
+  width: 80px;
+  border-radius: 10%;
+  object-fit: cover;
+}
+
+</style>
+
+<div class='weed_categories'>    
+  <% PRODUCT_TYPES.each do |type, subtypes| %>
+    <div class='single_category' onclick='filterCategory(this, "<%=type%>")'>
+      <div class='single_category_img_container'>
+        <img src='/img/search/<%=type.to_s.downcase%>.jpeg' />
+      </div>
+      <div class='single_category_title'><%= type %></div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+function filterCategory(el, type) {
+  $('.single_category').removeClass('selected');
+  $(el).addClass('selected');
+  filterCasts(type);
+}
+</script>

@@ -1,0 +1,36 @@
+<%
+  my_cast_ids      = $casts.all(user_id: cuid).mapo(:_id)
+  
+  my_product_views = $stats.all(type: 'product_view', cast_id: {'$in': my_cast_ids})
+  my_store_views   = $stats.all(type: 'store_view', seller_id: cuid)
+
+  stats = (my_product_views + my_store_views).sort_by {|s| s[:created_at] }.reverse
+  # stats = (my_store_views).sort_by {|s| s[:created_at] }.reverse
+%>  
+<style>
+.single_stat {
+  zbackground-color: whitesmoke;
+}
+</style>
+
+<h1> Stats </h1>
+
+<div class='stats_list'>
+  <% stats.each do |stat| %>
+    <div class='single_stat single_list_item'>
+      <% if stat[:type] == 'product_view' %>
+        <% cast = $casts.get(stat[:cast_id]) %>
+        <span><%= nice_datetime stat[:created_at] %></span>       
+        <span><b> Product View </b></span> - 
+        <span><%= cast[:title] %></span> 
+        <!-- <span>buyer: <%= stat[:buyer_id] %></span> -->
+        
+      <% elsif stat[:type] == 'store_view' %>
+        <%# user = stat[:buyer_id] ? user_link($users.get(stat[:buyer_id])) : 'anonymous' rescue 'n/a'
+        %>
+        <span><%= nice_datetime stat[:created_at] %></span>       
+        <span><b>Store view </b></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

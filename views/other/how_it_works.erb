@@ -1,0 +1,34 @@
+<%
+  data = {
+    title: 'How NowCast Works',
+    subtitle: 'You Schedule a NowCast - a Live Online Interactive Video Program and Sell Tickets For It',
+
+    top_buttons: [
+      {link: '/signup', text: 'Get Started'},
+      {link: '/about', text: 'About NowCast'}
+    ],
+    rows: [
+      {title: 'Schedule Creative Casts.', 
+       content: 'Connect with clients, schedule live casts, and sell. We deduct a 20% commission on ticket sales to enable us to run the site, but only once you make more than 100$. We will be in touch with you via a human every month to make sure you receive your earnings, subject to terms of service. We provide personal human assistance in getting started: Please write us right now at hi@nowcast.co so we can follow up and help with any questions.', fa_icon: 'fa-clock-o'
+      },
+      {
+        title: 'Successful Casts Get More Viewers and Exposure',
+        content: 'If we see you run a successful NowCast, we will promote you to our front page and get you more exposure. Your success is our success',
+        fa_icon: 'fa-dollar'
+      },
+      {
+        title: 'Build a personal business relationship with us so we can build whatever you need to run your business.',
+        content: 'We are dedicated to giving you a super awesome experience and helping you live your dream job and reap the benefits of your expertise. Please contact us at hi@nowcast.co so we can see how we can help you today.',
+        fa_icon: 'fa-line-chart',
+      },
+      {
+        title: 'Take Your Business Global.',
+        content: 'Sell to anyone, anywhere in the world. Find your market. Live your passion. Contact us for help; we\'re here to help you grow.',
+        fa_icon: 'fa-globe',
+      }
+    ],
+    bottom_msg: 'Start Selling Seriously and Make a Difference.'
+  }
+%>
+
+<%= erb :'/other/template_page', locals: data %>

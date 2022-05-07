@@ -1,0 +1,234 @@
+/*whatever we needed from bootstrap*/
+
+/*container*/
+@media (min-width: 1200px)
+.container {
+    width: 1170px;
+}
+@media (min-width: 992px)
+.container {
+    width: 970px;
+}
+@media (min-width: 768px)
+.container {
+    width: 750px;
+}
+.container {
+    zheight: 100%;
+    zpadding-right: 15px;
+    zpadding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*buttons*/
+.btn:not(.btn-raised).btn-primary, .input-group-btn .btn:not(.btn-raised).btn-primary {
+    color: #009688;
+    color: #624038; /* !important;    */
+}
+.btn:not(.btn-raised), .btn:not(.btn-raised).btn-default, .input-group-btn .btn:not(.btn-raised), .input-group-btn .btn:not(.btn-raised).btn-default {
+    color: rgba(0,0,0,.87);
+}
+.btn:not(.btn-raised), .input-group-btn .btn:not(.btn-raised) {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.btn, .input-group-btn .btn {
+    border: none;
+    border-radius: 2px;
+    position: relative;
+    padding: 8px 30px;
+    margin: 10px 1px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow,transform;
+    -webkit-transition: -webkit-box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    -o-transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    outline: 0;
+    cursor: pointer;
+    text-decoration: none;
+    background: 0 0;
+}
+a {
+  /*color: grey;*/
+  text-decoration: none;
+}
+a, a:focus, a:hover {
+  color: #009688;
+}
+/** {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    -webkit-tap-highlight-color: transparent;
+}*/
+
+.btn:not(.btn-raised):not(.btn-link):focus, .btn:not(.btn-raised):not(.btn-link):hover, .input-group-btn .btn:not(.btn-raised):not(.btn-link):focus, .input-group-btn .btn:not(.btn-raised):not(.btn-link):hover {
+    background-color: rgba(153,153,153,.2);
+}
+
+.btn-group-raised .btn.btn-info, .btn-group-raised .input-group-btn .btn.btn-info, .btn.btn-fab.btn-info, .btn.btn-raised.btn-info, .input-group-btn .btn.btn-fab.btn-info, .input-group-btn .btn.btn-raised.btn-info {
+    background-color: #03a9f4;
+    color: rgba(255,255,255,.84);
+}
+
+.btn-group-raised .btn:not(.btn-link).active.btn-info, .btn-group-raised .btn:not(.btn-link):active.btn-info, .btn-group-raised .btn:not(.btn-link):focus.btn-info, .btn-group-raised .btn:not(.btn-link):hover.btn-info, .btn-group-raised .input-group-btn .btn:not(.btn-link).active.btn-info, .btn-group-raised .input-group-btn .btn:not(.btn-link):active.btn-info, .btn-group-raised .input-group-btn .btn:not(.btn-link):focus.btn-info, .btn-group-raised .input-group-btn .btn:not(.btn-link):hover.btn-info, .btn.btn-raised:not(.btn-link).active.btn-info, .btn.btn-raised:not(.btn-link):active.btn-info, .btn.btn-raised:not(.btn-link):focus.btn-info, .btn.btn-raised:not(.btn-link):hover.btn-info, .input-group-btn .btn.btn-raised:not(.btn-link).active.btn-info, .input-group-btn .btn.btn-raised:not(.btn-link):active.btn-info, .input-group-btn .btn.btn-raised:not(.btn-link):focus.btn-info, .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-info {
+    background-color: #0fb2fc;
+}
+
+.btn-group-raised .btn:not(.btn-link), .btn-group-raised .input-group-btn .btn:not(.btn-link), .btn.btn-raised:not(.btn-link), .input-group-btn .btn.btn-raised:not(.btn-link) {
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+	position: absolute;
+	top: 16px;
+	right: 20px;
+	color: inherit;
+	-webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: 0 0;
+	border: 0;
+	/* float: right; */
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 1;
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	filter: alpha(opacity=20);
+	opacity: .2;
+}
+
+.alert {
+    text-align: center;
+}
+/*.alert.alert-info {
+    background-color: #03a9f4;
+    color: rgba(255,255,255,.84);
+}
+
+.alert-danger, .alert-info, .alert-success, .alert-warning {
+    color: rgba(255,255,255,.84);
+}
+.alert, .alert.alert-default {
+    background-color: rgba(255,255,255,.84);
+    color: rgba(255,255,255,.84);
+}*/
+.alert-primary {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+.btn-danger {
+    background-color: red;
+}
+.alert {
+    border: 0;
+    border-radius: 0;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert-dismissable, .alert-dismissible {
+    padding-right: 35px;
+}
+.alert {
+    /*padding: 15px;*/
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert p {
+	padding-left: 10px;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    /*margin-bottom: 5px;*/
+    font-weight: 700;
+}
+
+.btn:not(.btn-raised).btn-info, .input-group-btn .btn:not(.btn-raised).btn-info {
+    color: #03a9f4;
+}
+.btn:not(.btn-raised), .input-group-btn .btn:not(.btn-raised) {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn.btn-raised.btn-primary, .input-group-btn .btn.btn-fab.btn-primary, .input-group-btn .btn.btn-raised.btn-primary {
+    background-color: #009688;
+    background-color: #00b140; /*green-screen green*/
+    background-color: #1e5353;
+    color: rgba(255,255,255,.84);
+}
+
+.btn.btn-raised:not(.btn-link):hover.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link).active.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):active.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):focus.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-primary {
+    background-color: #00aa9a;
+    background-color: #15cb12; /*green-screen green even lighter*/
+    /*color: black;*/
+}
+
+.btn_green {
+    background-color: #b4f5a8;
+}
+
+.btn {
+    white-space: nowrap;
+}
+.btn_green:hover {
+    background-color: #cef3c8 !important;
+}
+
+.btn-warning {
+    background-color: orange;
+}
+
+.btn-admin {
+    background-color: goldenrod;
+}
+
+img {
+	vertical-align: middle;
+}
+
+.h1, h1 {
+    font-size: 32px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+ 
+    color: inherit;
+}
+
+.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small {
+    font-size: 65%;
+}
+
+.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
+    font-weight: 400;
+    line-height: 1;
+    color: #777;
+}
+
+.alink {
+    color: #47b90e;
+}
+.alink:hover {
+    color: #5dcc25;
+}

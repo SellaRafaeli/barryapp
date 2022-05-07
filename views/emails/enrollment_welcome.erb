@@ -1,0 +1,18 @@
+<%
+# expects local called "cast"
+  title = cast[:title]
+  name  = owner[:name]
+  time  = cast_time1(cast, only_content: true)
+  link  = cast_link(cast)
+%>
+
+Thanks for ordering in "<%= title %>" by <%= name %>! See you at <%= time %>.
+
+<br/>
+<br/>
+
+Here's the link to the order:
+<br/>
+<br/>
+
+<a href="<%=link%>"><%= link %> </a>

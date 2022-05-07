@@ -1,0 +1,69 @@
+<%
+  rooms = [
+    {label: 'new-york-city', zip: 10009},
+    {label: 'san-francisco', zip: 94104},
+    {label: 'los-angeles', zip: 90210},
+    {label: 'seattle', zip: 98101},
+    {label: 'portland', zip: 97035},
+    {label: 'chicago', zip: 60610},
+    # {label: 'bend', zip: 97702},
+    {label: 'boulder', zip: 80301},
+    {label: 'denver', zip: 80014},    
+  ].sort_by {|z| z[:label]}
+
+  rooms = ROOMS_LIST
+%>
+
+<style>
+.just_chats_wrapper {
+  max-width: 1000px;
+  zmargin: auto;
+  margin: 30px auto;
+}
+.single_room {
+    vertical-align: top;
+    display: inline-block;
+    padding: 15px 5px;
+    width: 200px;
+    /* color: white; */
+    text-align: left;
+    zcolor: white !important;
+    background-color: rgba(153,153,153,.2);
+    background-color: white;
+    zcolor: #003c37 !important;
+    border: 1px solid transparent;
+    margin: 3px;
+    border-radius: 2px;
+}
+.single_room:hover {
+  background-color: #15cb12 !important;
+  border:1px solid white;
+  color: white !important;
+}
+.room_short {
+  background-color: purple;
+  color: orange;
+  font-size: 30px;
+  border-radius: 50%;
+  width: 40px;
+  margin:auto;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  
+}
+</style>
+
+<div class='just_chats_wrapper'>
+  <div class='rooms_list'>
+    <% rooms.each do |room| %>
+    <a class='single_room zbtn zbtn-inverse zbtn-primary ct' href='/chat/<%=room[:label]%>' style='text-align: center;'>
+      <i class='fal fa-leaf-maple noDisplay' style='padding-right: 5px'></i>
+      <!-- <div class='room_short'><%=room[:zip]%></div> -->
+      <%=room[:label].gsub('-',' ') %> 
+    </a>    
+    <% end %>
+  </div>
+</div>

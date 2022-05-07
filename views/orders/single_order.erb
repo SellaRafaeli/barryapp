@@ -1,0 +1,104 @@
+<%
+  is_seller ||= false
+  o = order
+  cast  = $casts.get(o[:cast_id]) 
+  buyer = $users.get(o[:user_id]) 
+  # casts = $casts.get_many(user_id: cuid) 
+  seller = $users.get(cast[:user_id])
+  buyer = {} unless buyer # for example for manually-created orders which are initially empty
+%>
+
+<style>
+.single_order_list {
+  background-color: whitesmoke;
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 30px;  
+}
+.single_order_details {
+  display: flex;
+}
+.order_img {
+  height: 50px;
+  width: 50px;
+}
+.order_right {
+  display: flex;
+  align-items: center;
+}
+
+</style>
+
+<div class='single_order_list_container'>
+  <div class='single_order_list single_list_item'>    
+    <div><a href='/me?sec=for_me&order_id=<%=o[:_id]%>'><small> order id: <%=o[:_id]%> </small></a></div>
+    <%#= o.to_json %>        
+    <div class='single_order_details <%=o[:_id]%>'>      
+      <div class=flex3>
+        <a class=simple_link href='/casts/<%=o[:cast_id]%>'>
+          <img src='<%=cast[:img_url]%>' class='order_img' />
+          <div><%= cast[:title] %></div>
+          <div><small><%= seller[:name] %></small></div>
+        </a>
+        <% if false %>
+        <!-- <div style='font-size: 14px'> Product </div> -->
+        <!-- <select class='input1 order_product' style='width: 100%; margin: 0; margin-top: 5px' onchange="updateOrder('<%=o[:_id]%>',{product_id: $(this).val()})" >
+          <% casts.each do |product| %>
+            <option value="<%=product[:_id]%>" <%="selected" if product[:_id] == o[:product_id] %>>
+              <%=product[:title]%> 
+            </option>           
+          <% end %>
+        </select> -->
+        <% end %>
+      </div>
+
+      <div class=flex3>
+        <a class=simple_link href='/users/<%=buyer[:_id]%>'>
+          <% if buyer[:img_url] && false %>
+          <img src='<%=buyer[:img_url]%>' class='order_img' />
+          <% end %>
+          
+          
+          <%#= buyer.to_json %>
+        </a>
+      </div>
+
+      <div class='flex3'>
+        <b> $<%= o[:amount].to_i %> </b> 
+        <div><%= nice_datetime(o[:created_at]) %></div>        
+        <div>address: <%= o[:address] %></div>
+        <div>name: <%= buyer[:name] %></div>
+        <div>phone: <%= o[:phone] %></div>
+      </div>
+
+      <% if false %>
+      <div class='flex3 order_right'>
+        <div class=flex3>  
+            <% if is_seller %>
+              <div style='font-size: 14px'> Status </div>
+              <select class=input1 style='width: 200px; margin: 0; margin-top: 5px;' onchange="updateOrderStatus($(this).val(), '<%=o[:_id]%>')">
+                <% ORDER_STATUSES.each do |status| %>
+                  <option <%="selected" if o[:status]==status %> ><%=status%></option>
+                <% end %>
+              </select>        
+            <% else %>
+              <%= o[:status] %>
+            <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <br/>
+
+    <% if true || !pr[:order_id].present? %>
+    <h5> Notes </h5>
+    <%= erb :'/partials/notes_box', locals: {item_id: o[:_id]} %>
+    <% end %>
+  </div>  
+</div>
+
+<script>
+function updateOrder(id, data) {
+  $.post(`/enrolls/${id}`, data).then(()=>screenToast('order updated'));
+}
+</script>

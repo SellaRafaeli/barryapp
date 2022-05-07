@@ -1,0 +1,289 @@
+<% 
+  title = 'Software for Cannabis e-Commerce '
+  title = 'A Cannabis Marketplace & CRM'
+  title = 'Online Marketplace for a Cannabis Enterprise'
+  title = "Your Enterprise's Online Cannabis Marketplace"
+  css   = 'https://raw.githubusercontent.com/dohliam/dropin-minimal-css/gh-pages/min/attri-dark-fairy-pink.min.css'
+  css   = '/css/lib/flat-ui.min.css'
+  # https://dohliam.github.io/dropin-minimal-css
+  # https://github.com/dohliam/dropin-minimal-css/tree/gh-pages/min
+%>
+
+<html>
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<title><%= title %></title>
+
+<!-- <link rel="stylesheet" type="text/css" href="<%=css%>">   -->
+<style>
+.rotate90 {-webkit-transform: rotate(270deg); -moz-transform: rotate(270deg); -o-transform: rotate(270deg); -ms-transform: rotate(270deg); transform: rotate(270deg); }
+p {
+  font-size: 1.5em;
+}
+.b {
+  color: black;
+}
+body {
+  zmax-width: 1200px;
+  margin: auto;
+  zpadding: 20px;
+  font-family: Rubik !important;
+  line-height: 40px;
+}
+h3 {
+  font-size: 200%;
+}
+a { cursor: pointer; text-decoration: none}
+
+.about_section, .center_text { 
+  zmax-width: 900px;
+  margin: auto;    
+}
+<% if false %>
+.about_section.aa { background-color: #BFCBA8; }
+.about_section.b { background-color: #5B8A72; }
+.about_section.c { background-color: #56776C; }
+.about_section.d { background-color: #464F41; } 
+.about_section.e { background-color: #1F5151; } 
+<% else %>
+.about_section a {
+  ztext-decoration: underline;
+  color: #C2D3D1;
+  text-decoration: none;
+}
+.about_section a:hover {
+  color: #C2D3D1;
+}
+.about_section.aa { background-color: white; padding-top: 0; }
+.about_section.b { background-color: #1F5151; color: white; }
+.about_section.b { zbackground: linear-gradient(#1F5151, black); }
+
+.about_section.c { background-color: white; }
+.about_section.d { background-color: #C2D3D1; color: white;} 
+.about_section.d { background-color: #1F5151; color: white;} 
+
+.about_section.d { zbackground: linear-gradient(#C2D3D1, black); }
+.about_section.e { background-color: white; border-bottom: none} 
+<% end %>
+
+.about_section {
+  border-bottom:10px solid green; 
+  padding-top: 20px;
+
+  zbackground-color: blue;
+  padding: 40px 200px 40px 200px;
+  color: black;
+}
+.links {
+  zdisplay: flex;
+  zheight: 100%;
+  zmax-width: 50%;
+  background-color: black;
+  padding: 10px;
+}
+.links_container {
+  zdisplay: inline-flex;
+  text-align: center;
+  width: 100%;
+  justify-content: space-around;
+}
+.links a {
+  flex:1;
+  font-size: 2.5em;
+  zbackground-color: green;
+  padding: 5px 10px;
+  color: darkgreen;
+  zborder-radius: 4px;
+  zheight: 100%;
+  font-size: 30px;
+  text-align: center;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+body {
+  font-size: 90%;
+}
+@media only screen and (max-width: 800px) {  
+  .about_section {
+    padding: 20px;
+  }
+  p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .links a {
+    font-size: 20px;
+  }
+}
+
+.links a:hover {
+  background-color: black;
+  font-weight: bold;
+  color: white;
+}
+.logo {
+  height: 200px;
+  max-width: 200px;
+  flex:1;
+}
+.ct {
+  text-align: center;
+}
+.looking {
+  border: 2px dashed gold;
+  padding: 20px;
+}
+</style>
+
+
+</html>
+
+<body>
+  <!-- <h3>    Good-Weed.co  </h3> -->
+  <div style='text-align: center'>
+    
+  </div>
+
+
+  
+  <div class=links_container>
+    <!-- <img src='/img/landing_page/logo1.jpeg' class=logo />
+    <h1 class='ct center_text' style='padding-bottom: 30px;'>
+      The Cannabis Marketplace
+      <%#= title %>        
+    </h1>
+    <h2 style='margin: 0 0 20px 0'>
+      For your cannabis enterprise's brands / July 21st, 2021
+    </h2> -->
+
+    <div class='links' style='flex:1'>
+      <!-- <a href='#intro'>Intro</a> -->
+      <!-- <a href='/'>good-weed </a>  -->
+      <!-- <a> / </a> -->
+      <a href='#about'>about</a>
+      <a href='#solution'>solution</a>
+      <a href='#team'>team</a>
+      <a href='#contact'>contact</a>
+    </div>
+  </div>
+  
+  <div class='about_section aa'>
+    <h3 id=intro></h3>
+    <p> Good-Weed is <b> <span class='' zstyle='padding: 3px;border-bottom: 2px dashed gold;'>an online cannabis marketplace</span></b>. <br/><br/>We help shoppers find the best legal weed, and we help sellers manage their sales and brand.<br/><br/> Your ratings and reviews help the best rise to the top. </p>    
+  </div>
+
+  <div class='about_section b'>
+    <h3 id=about> About </h3>
+    
+    <p>We are a cannabis-oriented tech startup. Our mission is to connect people with good weed everywhere.</p>
+
+    <p> Our product is an online, multi-brand cannabis marketplace which allows a cannabis enterprise to sell multiple self-managed brands. Our marketplace supplies each seller with robust tools to holistically manage all e-commerce aspects: customers, products, stores, stock, orders, payments, reviews, and more.</p>
+
+    <p> For customers, we provide the best e-commerce experience: reviews of products and brands, search tools, and every kind of support available to create the best online shopping experience for cannabis products and accessories.</p>
+
+    <p class='looking'>It's July of 2021. We are looking to join an ambitious cannabis enterprise, to facilitate a multi-brand, national and international marketplace for home-grown and third-party cannabis brands. 
+      <br/><br/>
+    Together, we will position ourselves as the go-to online marketplace for cannabis products.</p>
+  </div>
+
+  <div class='about_section c'>
+    <h3 id=solution>Solution</h3>
+    
+    <p>Our marketplace allows multiple cannabis brands (each "seller") to open an online store via which they can manage their customers, products, stock, physical locations, as well as accept and manage order life-cycle, payments, reviews and communicate with sellers and among themselves.</p>
+
+    <p> As for their customers - the marketplace is designed so that each customer can find the good weed suitable for them by searching for brands and products, locations and more, while enjoying an advanced review system.</p>
+
+    <!-- <p> As of July 2021, we are actively developing additional features to improve the e-commerce life for both buyers and sellers and for the administering enterprise - that's you.</p> -->
+
+    <p class=looking> If your enterprise is looking to scale its e-commerce to lead the online cannabis marketplace, <a onclick=contact()>contact us</a> today to schedule a demo. 
+    </p>
+  </div>
+
+
+  <div class='about_section d'>
+    <style>
+      #team-list img {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+      }
+      @media (max-width: 800px) {
+        #team-list img {
+          width: 100px;
+          height: 100px
+        }
+      }
+      #team-list .team-member {
+        text-align: center;
+        font-size: 25px;
+      }
+      #team-list small {
+        margin-top: 20px;
+      }
+      .team-member-name {
+        margin-bottom: 20px;
+        font-size: 100%;
+      }
+    </style>
+    <h3 id=team> Team </h3>
+    <br/>
+    <div style='display: flex; justify-content: space-around;' id=team-list>
+      <div class='flex1 team-member'>
+        <div class='img'>
+          <img src='https://i.imgur.com/NQvy8Qy.png' />
+        </div>
+        <p class='team-member-name'> 
+          <a target=_blank href='https://sellarafaeli.com'>Sella Rafaeli, <br/>CEO </a>
+        </p>
+      </div>
+
+      <div class='flex1 team-member'>
+        <div class='img'>
+          <img class=zrotate90 src='/img/landing_page/hadar2.jpeg'/>
+        </div>
+        <p class='team-member-name'> 
+          
+          <a target=_blank href='https://www.linkedin.com/in/hadar-d-64576216a/'>Hadar Daniel, <br/> COO </a>
+        </p>        
+      </div>
+
+      <div class='flex1 team-member'>
+        <div class='img'>
+          <img src='https://i.imgur.com/6tzwv77.png' />
+        </div>
+        <p class='team-member-name'> <a target=_blank href='https://www.linkedin.com/in/daniel-aronovich/'>Daniel Aronovich, <br/>VP R&D </a></p>
+      </div>
+
+      
+    </div> 
+  </div>
+
+  <div class='about_section e'>
+    <h3 id=contact> Contact </h3>
+    <!-- <p> 
+      <b>San Francisco</b>, Dolores St 121, suite 6. / <b>Tel Aviv</b>, Jabotisnky Rd 41, suite 2. 
+
+    </p> -->
+    <p class=ct>
+    <!--   <p class=ct><i class='fal fa-phone'></i> +1-415-727-3226 / +972-3-8244450 / +972-52-293-4321</p> -->
+      <p>Email us at <a mailto=hi@good-weed.co>hi@good-weed.co</a> or <a onclick=contact()>click here</a> to leave your email and we'll be in touch.</p>
+    </p>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+  </div>
+
+
+<script src='/js/lib/jquery-2.2.1.min.js'></script>
+<script>
+function contact() {
+  if (email = prompt('What is your email?')) {
+    $.post('/quick_contact',{email}).then(()=>alert('Thanks! We\'ll be in touch soon.'))
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+<link rel="stylesheet" href="/css/lib/fontawesome-pro-5.14.0-web/css/all.min.css">  
+</body>

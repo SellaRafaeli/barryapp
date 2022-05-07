@@ -1,0 +1,57 @@
+<%  
+  # msgs_crit[:created_at] = {'$gt': locals[:msgs_since]} if locals[:msgs_since]
+  msgs_crit   = {cast_id: cast_id, status: CHAT_MSG_OK}
+  chat_msgs   = $chat.get_many(msgs_crit)
+
+  ## refresh chat msgs with generated msgs? 
+  refresh_msgs = false
+  refresh_msgs = true if !chat_msgs.any? 
+  time_diff    = 24.hours
+  # time_diff    = 1.second
+  # refresh_msgs = true if chat_msgs.any? && (chat_msgs.first[:created_at] < Time.now - time_diff) && (chat_msgs.last[:created_at] < Time.now - time_diff) 
+  chat_msgs = generate_default_chat_msgs(cast_id) if refresh_msgs
+  ## 
+    
+  chat_videos ||= false
+%> 
+
+<style>
+.chat_msg_content {
+  display: block;
+  margin: 10px 0 0 60px;
+}
+.chat_msg_content a {
+  color: goldenrod;
+  font-weight: bold;
+}
+.chat_msg_content a:hover {
+  color: grey;
+}
+.user_type {
+  display: inline-block;
+  padding: 5px;
+  padding: 5px;
+  width: 20px;
+  margin-left: 10px;
+}
+.user_name {
+  width: 300px;
+}
+</style>
+
+<!-- <script src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script> -->
+
+<div>
+<% if !chat_msgs.any? %>
+<div>No posts here yet.</div>
+<% end %>
+
+<div class='buyers_sellers_titles' style='height: 20px; margin-bottom: 20px'>
+  <!-- <b style='float: left; color: darkgreen'> buying </b>
+  <b style='float: right'> selling </b> -->
+</div>
+<% chat_msgs.reverse.each do |msg| %>
+<%#= msg.to_json %>
+  <%= erb :'chat/single_chat_msg', locals: {msg: msg} %>  
+<% end %>
+</div>

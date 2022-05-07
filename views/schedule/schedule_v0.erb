@@ -1,0 +1,80 @@
+<%
+  # add_user_to_casts(casts)
+%>
+
+<style>
+.schedule .single_cast .origTime {
+  display: none;
+}
+.schedule_day {
+  flex:1; 
+  flex-wrap: wrap; 
+  display: flex; 
+  justify-content: center;
+}
+.dow_label {
+  display: inline-block;
+}
+.schedule_hour {
+  display: block;
+}
+.schedule_col_width {
+  border:1px solid purple;
+}
+</style>
+
+<%
+today_day_name         = DOWS[(Time.now.wday-1)%7][:label][0..-2]
+tmw_day_name           = DOWS[(Time.now.wday+0)%7][:label][0..-2]
+day_after_tmw_day_name = DOWS[(Time.now.wday+1)%7][:label][0..-2] 
+%>
+<div class=schedule>  
+  <h1 class='h1 today'> Today (<%=today_day_name%>) </h1>
+  <div class='schedule_day today' data-right_day="<%=today_day_name%>">
+    <% casts.each do |cast| %>
+      <%= erb :'/casts/single_cast_box', locals: {cast: cast} %>
+    <% end %>
+  </div>
+
+  <h1 class='h1 tomorrow'> Tomorrow (<%=tmw_day_name%>)</h1>
+  <div class='schedule_day tomorrow' data-right_day="<%=tmw_day_name%>">    
+    
+    <% casts.each do |cast| %>
+      <%= erb :'/casts/single_cast_box', locals: {cast: cast} %>
+    <% end %>
+  </div>
+
+  <h1 class='h1 day_after_tmw'> <%=day_after_tmw_day_name%> </h1>
+  <div class='schedule_day day_after_tmw' data-right_day="<%=day_after_tmw_day_name%>">    
+    <% casts.each do |cast| %>
+      <%= erb :'/casts/single_cast_box', locals: {cast: cast} %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+$('.schedule_day .single_type_box').each((idx,el) => {
+  //if (idx!=0) return;
+  
+  var displayedDay = $(el).find('.cast_time_recurring').text().substring(0,8);
+  var rightDay     = $(el).closest('.schedule_day').attr('data-right_day');
+
+  if (rightDay.slice(-1)=='s')     rightDay     = rightDay.slice(0, -1).trim(); 
+  if (displayedDay.slice(-1)=='s') displayedDay = displayedDay.slice(0, -1).trim(); 
+  
+  console.log('comparing',displayedDay,rightDay,displayedDay == rightDay)
+  if (displayedDay==rightDay) {
+    $(el).addClass('correct_day')
+  }
+  else {
+    console.log(`mismatch between ${displayedDay} and ${rightDay}`);
+    $(el).css('display','none');
+  }
+});
+
+['today', 'tomorrow', 'day_after_tmw'].forEach(k => {
+  if (!$(`.schedule_day.${k} .correct_day`).length) {
+    $('h1.'+k).hide();
+  }
+})
+</script>

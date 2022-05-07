@@ -1,0 +1,37 @@
+<style>
+.article_weed_pic {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+.article_weed_pic img {
+  max-width: 100%;
+  max-height: 300px;
+}
+.more_articles {
+  padding-bottom: 200px;
+}
+
+@media (min-width: 801px) {
+  .articles_and_sidebar {
+    display: flex;
+  }  
+  .articles_and_sidebar .article_container {
+    margin-right: 100px;
+  }
+}
+
+</style>
+
+
+<div class='articles_and_sidebar' style='display: flex;'>
+  <div class='article_container container700 flex4'>
+    <%= html %>
+  </div>
+
+  <div class='more_articles container800 flex1'>
+    <h4> More Articles </h4>
+    <%= erb :'articles_helpers/articles_list' %>
+  </div>
+</div>
+

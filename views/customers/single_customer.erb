@@ -1,0 +1,32 @@
+<%
+#  customer = customer.hwia
+  customer_fields = ['name', 'description']
+%>
+
+<style>
+.customer_form {
+  max-width: 800px;
+  margin: auto;
+}
+</style>
+
+<br/><br/>
+<%= erb :'me/profile_tabs', locals: {is_seller: true, sec: 'customers'} %>     
+
+<div class='customer_form'>
+  <h1> Customer Form: <%= customer[:name] %> </h1>
+
+  <h4> Customer Data </h4>
+  <form method=post action='/customers/<%=customer[:_id]%>'>
+    <div>  
+      <% customer_fields.each do |field| %>
+      <label class='customer_label' style='width: 300px; margin-bottom: 10px; text-align: left'> <%= field %></label>
+      <input name="<%=field%>" value="<%=customer[field]%>" />
+      <br>
+      <% end %>
+    </div>  
+    <button class='btn btn-primary btn-raised'>Submit </button>
+  </form>
+  <h4> Updates </h4>
+  <%= erb :'/partials/notes_box', locals: {item_id: customer[:_id]} %>
+</div>

@@ -1,0 +1,179 @@
+<%  
+  offer_cancel ||= locals[:offer_cancel] ||= false
+
+  series  = casts.select {|c| c[:recurrence].to_s == RECURRENCE_MULTI }
+  singles = casts.select {|c| c[:recurrence].to_s == RECURRENCE_SINGLE }
+  
+  series   = series.to_a.sort_by  { |c| [dow_idx(c[:dow]).to_i, c[:hour].to_i, c[:mins].to_i, c[:title].to_s]}
+  singles  = singles.to_a.sort_by { |c| [dow_idx(c[:dow]).to_i, c[:hour].to_i, c[:mins].to_i, c[:title].to_s]}
+
+  #casts    = casts.select { |cast| cast_is_soon(cast) }
+
+  #casts    = casts.select { |cast| cast['title'] == 'my awesome class' }
+  casts    = casts.select {|cast| !cast[:support_cast]}
+  casts    = add_user_to_casts(casts)
+  # casts    = casts.sort_by {|cast|     
+  #   date = cast_next_date_utc(cast) 
+  #   # puts cast['title'] + date.to_s.red
+  #   date
+  # } #singles + series
+%>  
+
+<style>
+.cast_box_li {
+  font-size: 20px;
+  width: 100%;
+  position: relative;
+/*  background-color: whitesmoke;*/
+  padding: 20px;
+/*  border-radius: 10px;*/
+  margin: 8px;
+  /*color: white;*/
+  border:2px solid whitesmoke;
+}
+
+.cast_box_title {
+  display: block;
+  max-width: 500px;
+  max-height: 120px;
+  /*font-size: 120%;*/
+  margin-bottom: 10px;
+  font-weight: normal;
+  color: darkgreen;
+  /*text-decoration: underline;*/
+  /*color: white;*/
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.single_member {
+  width: 50px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+}
+.single_member a {
+/*  color: white;*/
+}
+.cast_list_img {
+  max-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border-radius: 24px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.origTime {
+/*  display: block;*/
+}
+.cast_li_desc {
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+.cast_list_corner_pic {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 40px;
+  border-radius: 24px;
+}
+
+</style>
+
+<% if locals[:show_product_categories] %>
+<div style='zpadding: 20px'>
+  <%= erb :'casts/weed_categories' %>
+</div>
+<% end %>
+
+<ul style='list-style: none; display: flex; flex-wrap: wrap; padding-left: 0; justify-content: left'>
+<% casts.each do |cast| %>
+  <% 
+    id         = cast[:_id] 
+    is_owner   = cast[:user_id] == cuid    
+    owner      = $users.get(cast[:user_id]) || {}
+    custom_img = get_custom_img(cast)     
+    color      = "nowcast_#{string_color(cast[:title])}"
+    use_old_list = false
+  %>
+  
+  <% if use_old_list %>
+    <!-- <li class='cast_box_li <%=color%> <%=cast[:_id]%>'>
+      <img src="<%=owner[:img_url]%>" class='cast_list_corner_pic' />
+      <% if false && is_owner %>      
+        <a class='cast_box_title <%= color %>' href='/casts/edit/<%=id%>'><%=cast[:title] || 'Untitled'%> / <%=owner[:name]%></a>      
+      <% else %>
+        <a class='cast_box_title <%= color %>' href='<%=cast_link(cast)%>'><%=cast[:title] || 'Untitled'%> / <%=owner[:name]%></a>        
+      <% end %>
+      
+      <div style='max-width: 400px; margin-left: auto; margin-right: auto; text-align: center'><%= cast_line(cast) %></div>
+
+      <% if custom_img %>
+        <div>
+          <img src='<%=custom_img%>' class='cast_list_img' />
+        </div>
+      <% end %>
+
+      <div class='cast_li_desc'>
+        <%= cast[:desc] %>
+      </div>
+
+      <% if offer_cancel %>
+        <small><button class='btn' style='float: right;
+    position: relative;
+    bottom: 12px;' type=button onclick=cancelEnrollment("<%=id%>")> <i class='fa fa-trash'></i> </button></small>
+      <% end %>
+
+      <% 
+        if is_owner 
+        users = users_in_zcast(id)
+      %>
+      <div>
+        <% if users.size > 0 %> 
+          <h6> Registered (only you can see this): </h6>
+        <% end %> 
+        <%           
+          users.each do |user|            
+          next unless user && user[:name].present?
+        %>
+        <div class='single_member'>
+          <a href='/@<%=user[:handle]%>'>
+            <img src='<%=user[:img_url]%>' style='height: 20px'>
+            <div>
+              <small><%=user[:name]%></small>
+            </div>
+          </a>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </li> -->
+  <% else %>
+    <%= erb :'/casts/single_cast_box', locals: {cast: cast, show_enrolls: locals[:show_enrolls]} %>
+  <% end %>
+  
+<% end %>
+</ul>
+
+<script>
+function cancelEnrollment(cast_id) {
+  if (confirm("Do you want to cancel your enrollment? This is irreversible.")) {
+    var data = {cast_id};
+    postJSON('/enrollment/cancel', data).then(() => {
+      document.location.reload();
+    })  
+  }
+}
+
+function filterCasts(type){
+  $('.cast_box').hide();
+  $('.cast_box.'+type).show();
+};
+</script>

@@ -1,0 +1,34 @@
+<%
+  data = {
+    title: 'Frequently asked questions',
+    subtitle: 'Ask us anything',
+
+    top_buttons: [
+      {link: '/signup', text: 'List your cannabis service'},
+    ],
+    rows: [
+      {title: 'What is good-weed?', 
+       content: 'good-weed.com is a marketplace for cannabis - an app to help people get quality cannabis, primarily by delivery, from nearby licensed legal suppliers.'
+      },
+      {title: 'Am I buying from good-weed.com?', 
+       content: 'No, we ourselves do not have any cannabis. We just connect you with suppliers in your area, and you deal with them.'
+      },
+      {title: 'What can I find on good-weed?', 
+       content: 'You can find suppliers near you that have a license to sell cannabis (or paraphernalia).'
+      },
+      {title: 'Can I list my products on good-weed?', 
+       content: 'Yes, it is free to list your service and products on good-weed.'
+      },
+      {title: 'Must I have a license to sell cannabis?', 
+       content: 'Yes, you must observe your local laws. If you do not have a license to sell cannabis, you may not sell cannabis. If you do not have a license to deliver cannabis, you may not deliver cannabis. '
+      },
+      {title: 'Can I promote my page on good-weed?', 
+       content: 'Yes, please email promote@good-weed.com.'
+      },
+      
+    ],
+    bottom_msg: 'good-weed.com: helping deliver quality cannabis'
+  }
+%>
+
+<%= erb :'/other/template_page', locals: data %>

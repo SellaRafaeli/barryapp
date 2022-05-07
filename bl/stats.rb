@@ -1,0 +1,1 @@
+$stats = $mongo.collection('stats')

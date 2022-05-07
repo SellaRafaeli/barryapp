@@ -1,0 +1,34 @@
+<%
+  type = locals[:product_type] || pr[:product_type]
+%>
+
+
+<% if locals[:simple_drop_down] %>
+  <select class='input1' style='margin:0' id=product_type_selector name=product_type <% if locals[:searchOnChange] %> onchange='rerunSearch()' <% end %>>
+    <option value="">Any</option>
+    <% PRODUCT_TYPES.each do |category,product_types| %>
+      <% if true %>
+        <option value="<%=category%>" <%="selected" if type.to_s == category.to_s %> > <%=category%></option>
+      <% else %>
+          <optgroup label="<%=category%>">
+            <% product_types.each do |product_type| %>
+              <option value="<%=product_type%>" <%="selected" if type == product_type %>><%=product_type%></option>
+            <% end %>
+          </optgroup>
+          <% end %>
+    <% end %>
+    </select>
+  </select>
+
+<% else %>
+  <% PRODUCT_TYPES.each do |category,product_types| %>  
+    <h6> <%= category %> </h6>
+      <div> 
+        <% product_types.each do |product_type| %>
+          <div>
+            <a class='single_brand_search_link <%="selected" if pr[:product_type] == product_type %>' onclick='rerunSearch({product_type: "<%=product_type%>"})' <%="selected" if pr[:product_type] == product_type %>> <%= product_type %></a>  
+          </div>
+        <% end %>
+      </div>
+  <% end %>
+<% end %>

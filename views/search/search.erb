@@ -1,0 +1,339 @@
+<%
+  # pr[:city] = pr[:city] || 'New York City'  
+  # pr[:city] = pr[:city].gsub('-',' ')
+  
+
+  # pr[:state] = pr[:state] || 'NY'
+  city  = pr[:city] 
+  state = pr[:state].titleize
+  state = 'Idaho' unless AREAS[state] 
+
+  chosen_state       = state
+  chosen_state_short = AREAS.hwia[chosen_state][:short]
+  chosen_state_short ||= 'NY'
+
+  cities = []
+  
+  if (chosen_state) 
+    cities = [] # areas_get_existing_cities(chosen_state_short)
+    # cities = ['N/A'] if !cities.any?
+    if !pr[:city].present? && cities.any?
+      pr[:city] = cities[0]
+    end
+
+
+    chosen_city = pr[:city]
+    # pr[:city]   = chosen_city
+  end
+
+  @cities             = cities
+  @chosen_city        = chosen_city
+  @chosen_state       = chosen_state
+  @chosen_state_short = chosen_state_short
+
+  cast_owners = $casts.all.mapo(:user_id).uniq
+  # all_brands  = $users.all.select {|u| u[:type] == 'seller'} #.select {|u| u[:_id].in?(cast_owners)}  
+  # all_brands  = all_brands.select {|u| u[:active]!= 'no' }
+  # all_brands  = all_brands.select {|u| city && u[:city] == city } #&& u[:state] == state}
+
+  # all_brands = $users.get_many(city: city, active: {'$ne': 'no'}, type: 'seller')  
+
+  # if !all_brands.any? && false 
+  #   build_fake_brands(state, city) 
+  #   all_brands  = $users.all.select {|u| u[:type] == 'seller'} #.select {|u| u[:_id].in?(cast_owners)}  
+  #   all_brands  = all_brands.select {|u| u[:active]!= 'no' }
+  #   all_brands  = all_brands.select {|u| city && u[:city] == city } # && u[:state] == state}
+  # end
+
+
+  all_brands  = []
+  brands      = all_brands.clone
+
+
+  good_cast_ids = ['YNQqYcWAL', 'gPr6BRfRg', 'nRNwuBinl', 'c1kH9iX8Z', 'GQIkhxgXs', 'Ajx4sVD6E', 'eijAbrxpv', 'yZjuY33su', 'arJPs9izu', '5cvGxmNtF', 'scVXlGnrw', 'Lo2q6PP8i', 'gF7RiIkjQ', 'LE4tPWzTd', 'G5hUIACvj', 'WTiplOilp', 'eY3rmgMkU'].shuffle
+  # good_cast_ids = ['s5pICJJUb']
+  if $prod && false
+    casts = $casts.all(_id: {'$in': good_cast_ids })
+  else 
+    # good_cast_ids = ['s5pICJJUb']
+    # casts = $casts.all(_id: {'$in': good_cast_ids })
+    # casts = $casts.all 
+  end
+
+  casts = []
+  # casts = casts.shuffle 
+
+  selected_brand = brand = pr[:brand] 
+  # if selected_brand
+  #   user = $users.get(handle: brand)
+  #   casts = casts.select {|c| c[:user_id] == user[:_id] }
+  # end 
+
+  if pr[:city]
+
+    user_ids_with_that_location = $locations.all.select {|loc| loc[:city] == pr[:city] }.mapo(:user_id)
+    
+    # casts = casts.select {|c| c[:user_id].in?(user_ids_with_that_location) }
+    # casts.get_many(user_id: user_ids_with_that_location)
+    brands.select!{|user| user[:_id].to_s.in?(user_ids_with_that_location) }
+  end
+
+  # if pr[:product_type] 
+  #   casts = casts.select {|c| c[:product_type] == pr[:product_type] }
+  # end
+
+  # if pr[:casts]
+  #   casts = 
+  # end
+
+  # if pr[:q]
+  #   casts = casts.select {|c| c.to_json.to_s.downcase.include?(pr[:q])}
+  # end
+
+  # if pr[:q].present? && (user_matching = $users.get(handle: pr[:q]))
+  #   return redirect to user_link(user_matching) 
+  # end
+
+%>
+
+<style>
+.fa-caret-down {visibility: hidden; margin-left: 20px;}
+.open .fa-caret-down {visibility: inherit;}
+.open .fa-caret-up {visibility: hidden;}
+
+.single_brand_search_link {
+  cursor: pointer;
+  border-radius: 10px;
+  background-color:white;
+  margin: 5px;  
+  width: 80%;
+  padding: 5px 10px;
+  display: flex;
+  color: #1F5151;
+  align-items: baseline;
+  display: inline-flex;
+  text-transform: uppercase;
+}
+.single_brand_search_link.selected {
+  border:1px solid #028b25;
+}
+.single_brand_search_link:hover {
+  zfont-weight: bold;
+  box-shadow: 1px 1px #cccccc;;
+  color: #C2D3D1;
+  color: black;
+  
+}
+.product_type_selector, .brandSelector {
+  flex: 1;
+  zborder:1px solid blue;
+  overflow-y: scroll;
+}
+.selectorBox.closed .single_brand_search_link { display: none; }
+.single_brand_img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+.brand_text {
+  font-size: 14px;
+  margin-left: 10px;
+}
+.search_screen_container {
+  min-height: 700px;
+}
+.main_search_area {
+  zbackground-color: whitesmoke;
+  padding: 0 20px;
+}
+@media (max-width: 1000px) {
+  .main_search_area {
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+  }
+  .search_screen_container {
+    flex-direction: column;
+  }
+  .brandSelectorContainer {
+    max-height: 30%;
+  }
+  .right_of_results {
+    display: none;
+  }
+}
+.selector_options_list {
+  text-align: center;
+  padding-top: 1px;
+}
+.brandSelectorLabel {
+  background-color: #008b24;
+  color: white;
+  font-size: 20px;
+  margin: 20px;
+  padding: 9px;
+  text-transform: uppercase;
+}
+.recommended_city {
+  font-size: 14px;
+  display: block;
+}
+.recommended_date {
+  font-size: 14px;
+}
+.date_and_city {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 10px !important;
+  margin-left: 10px;
+}
+.top_img {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;  
+}
+.city_overlay_name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #150000;
+  color: white;
+  padding: 10px;
+  /* width: 100px; */
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, -50%);
+  background-color: #008b24;
+}
+.right_of_results {
+  padding-left: 20px;
+  border-left: 1px solid whitesmoke;
+  padding-top: 30px;
+}
+</style>
+<% 
+  if pr[:city_route_name]
+  
+  url = CITY_IMAGES[pr[:city_route_name]] 
+%>
+<div style='position: relative; display: none'>
+  <img class='top_img' src='<%=url%>'/>  
+</div>
+<% end %>
+
+<div class='displayFlex search_screen_container' style='zheight: 100%; zmax-width: 1000px; margin: 0 auto;'>
+  <div class='flex3 brandSelectorContainer' style='background-color: whitesmoke; padding-left: 20px; display: flex; flex-direction: column; padding-right: 20px; display: none'>    
+    <div class='selectorBox brandSelector open'>
+      <div class='brandSelectorLabel'>
+        Recommended
+        <div class='date_and_city'> 
+          <% if pr[:city] %>
+          <span class='recommended_city'><%= pr[:city] %></span>
+          <% end %>
+          <span class='recommended_date'><%= Date.today.strftime("%B") %> 2021 </span><i class='noDisplay zonly-on-mobile-inline-block fal fa-close' zonclick="$(this).closest('.brandSelectorContainer').css('display','none')"></i>          
+        </div>
+      </div>     
+      <!-- <h5 onclick='$(this).parent().toggleClass("open").toggleClass("closed")'> Brand</h5> -->
+      <% if true %>
+      <div class='selector_options_list'>        
+        <% all_brands.sort_by {|b| b[:handle]}.each do |brand_user| %>
+          <% 
+            brand = brand_user[:handle]
+          %>
+          <div>            
+            <a href='<%=user_link(brand_user)%>' class='single_brand_search_link <%=pr[:brand] == brand ? "selected" : "" %>' zonclick='rerunSearch({brand: "<%=brand%>"})' <%="selected" if pr[:brand] == brand %>> 
+              <div class=ct>
+                <img class='single_brand_img' src='<%=brand_user[:img_url]%>' />
+              </div>
+              <div class=ct>
+                <span class='brand_text'><%= brand %></span>
+              </div>
+            </a>  
+          </div>
+        <% end %>
+      </div>
+      
+      <% else %>
+      <!-- <select id='selectBrand' onchange='rerunSearch()'>
+        <option value=""> Any </option>
+        <% all_brands.each do |brand| %>
+          <option value="<%=brand%>" <%="selected" if pr[:brand] == brand %>> <%= brand %> </option>
+        <% end %>
+      </select> -->
+      <% end %>
+    </div>
+  </div>
+
+<%
+  #bp
+  x=1
+%>
+  
+    <div class='flex7 main_search_area'>  
+      <!-- <h5 class='ct only-on-mobile-inline-block' style='padding: 10px 20%'> Search Good-Weed </h5> -->
+
+        <% if pr[:article_id] %>
+          <br/>
+          <%= erb :'/search/articles' %>
+          <div class='article_body_container'>
+            <%= erb :"/articles/#{pr[:article_id]}" %>
+          </div>
+          
+        <% elsif selected_brand %>
+          <% 
+            $stats.add(type: 'store_view', seller_id: user[:_id], buyer_id: cu && cu[:_id], path: _req.path) if cuid!=user[:_id] 
+          %>
+          <%= erb :'users/user', locals: {user: user} %>
+        <% else %>
+          <div class='' style='text-align: left'>  
+            <%#= erb :'/search/search_inputs_row', locals: {searchOnChange: true} %>
+
+            <div class='map_wrapper'>
+              <%#= erb :'map/map', locals: {casts: casts} %>
+            </div>
+          </div>
+
+          <%#= erb :'/search/articles' %>
+          <% if casts.any? %>      
+            <h1> some casts </h1>
+            <%= erb :'casts/casts_list', locals: {casts: casts, show_product_categories: false} %>
+          <% else %>
+            <% if pr[:q] %>
+            <h5 style='padding:20px; background-color: lightblue; zmargin: 20px'> No Results Found. </h5>
+            <% end %>          
+            <%= erb :'search/brands_list', locals: {brands: all_brands, state: chosen_state_short} %>
+          <% end %>      
+        <% end %>
+      </div>
+    <% if false %>
+    <div class='right_of_results flex2'>
+      <%= erb :'other/articles' %>
+    </div>
+    <% end %> 
+</div>
+
+<script>
+function rerunSearch(opts = {}) {
+  var brand        = opts.brand || $('#selectBrand').val();
+  var city         = $('#city_selector').val();
+  var state        = $('#state_selector').val();
+  var shipping     = $('#shipping_selector').val();
+
+  var product_type = opts.product_type || $('#product_type_selector').val();
+  var q            = $('.search_input').val();
+  var loc   = '/search?p=1';
+  if (brand)         loc+='&brand='+brand;
+  if (city)          loc+='&city='+city;
+  if (state)         loc+='&state='+state;
+  if (shipping)      loc+='&shipping='+shipping;
+  if (product_type)  loc+='&product_type='+product_type;
+  if (q)             loc+='&q='+q;
+  //debugger
+  //document.location=loc;
+  //var cityRoute = replaceAll(city,' ','-').toLowerCase();
+
+  loc = '/'+city//.toLowerCase();
+  document.location = loc;
+}
+</script>

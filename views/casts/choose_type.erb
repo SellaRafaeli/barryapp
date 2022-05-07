@@ -1,0 +1,49 @@
+<style>
+.cast_type_single {
+  padding: 10px;
+  background-color: #2c6779;
+  color: white;
+  font-size: 20px;
+  width: 200px;
+  display: inline-block;
+  margin-right: 40px;
+  margin-bottom: 40px;
+  height: 200px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.cast_type_content {
+  
+  font-weight: bold;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.cast_type_single:hover {
+  background-color: #4ca1de;
+  cursor: pointer;
+}
+</style>
+
+<h1> Create </h1>
+
+<!-- <p> What would you like to create? </p> -->
+
+
+
+<% CAST_TYPES_SINGLE.each do |type| %>
+
+<a href='/casts/edit/new?type=<%=type.to_s.downcase%>'>
+<div class='cast_type_single'>
+    
+<!--     <i class='fa fa-gear'></i> -->
+    <div class='cast_type_content'>      
+      <span style='zmargin-left: 30px'><%= type %></span>
+    </div>  
+</div>
+</a>
+
+<% end %>

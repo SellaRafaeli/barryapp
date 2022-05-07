@@ -1,0 +1,94 @@
+<%
+  data = {}
+  earns = locals[:earnings]
+  
+  sellers_with_revenue = earns.mapo(:seller_id).uniq
+
+  sellers_sum = {}
+  sellers_with_revenue.each do |seller| 
+    sum = earns.select { |earn| earn[:seller_id] == seller }.mapo(:amount).sum
+    sellers_sum[seller] = sum / 100 # to get the sum in $
+  end
+  
+%>
+
+<style>
+.earn_col {
+  flex: 1;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 20px;
+}
+th {
+    cursor: pointer;
+}
+
+</style>
+  
+<div class='earnings_page'>
+  <p> The following is an estimation based on our calculations. It is not a final amount, and any disputes will be resolved by NowCast.co. For further details please see our Terms of Service or contact support@nowcast.co. </p>
+
+  <h2> Summary </h2>
+
+  <table>
+      <tr><th>Name</th><th>Total</th></tr>
+      <% sellers_sum.keys.to_a.each do |k| %>
+    <%
+      sum = sellers_sum[k]
+      data[k] ||= "@#{$users.get(k)[:handle]}" rescue 'Missing Seller Name'
+    %>
+      <tr>
+        <td><%=data[k]%></td>
+        <td>$ <%=number_with_delimiter(sum)%></td>
+      </tr>    
+  <% end %>
+  </table>
+
+
+
+
+  <h2> Transactions </h2>
+
+  <table>
+      <tr><th>Date</th><th>Buyer</th><th>Seller</th><th>Dollars</th></tr>
+  <% earns.to_a.each do |earn| %>
+    <%
+      earn      = earn.hwia
+      seller_id = earn[:seller_id]
+      buyer_id  = earn[:buyer_id]
+      cast_id   = earn[:cast_id]
+
+      data[seller_id] ||= $users.get(seller_id)[:name] rescue 'Missing Seller Name'
+      data[buyer_id]  ||= $users.get(buyer_id)[:name]  rescue 'Missing Buyer Name'
+      data[cast_id]   ||= $casts.get(cast_id)[:title]  rescue 'Missing Cast Title'
+    %>
+      <tr>        
+        <td><%=earn[:created_at]%></td>
+        <td><%=data[buyer_id]%></td>
+        <td><%=data[seller_id]%></td>
+        <td>$ <%=number_with_delimiter(earn[:amount] /100)%></td>
+        <td><%=earn.to_json%></td>
+      </tr>    
+  <% end %>
+  </table>
+</div>
+
+<script>
+
+  const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+// do the work...
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+})));
+
+</script>

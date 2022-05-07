@@ -1,0 +1,28 @@
+<style>
+.course_header {
+  border-bottom: 1px solid grey;
+  padding: 20px;
+}
+</style>
+<div class='course_header display_flex'>
+  <div class=flex1>
+    <div>
+      <a target=_blank href='/@<%=owner[:handle]%>' class='cast_user_title'>
+        <img class='user_img' style='height: 40px; width: 40px' src='<%=owner[:img_url]%>' />
+        <small class=handle style='margin-left: 10px; position: relative;'><%=owner[:handle]%></small> 
+      </a>
+    </div>
+  </div>
+
+  <div class=flex1>
+    <h1 style='margin:0'> <%= cast[:title] %></h1>    
+  </div>
+
+  <div class=flex1>
+    <% if is_owner || is_admin %>
+    <a href='/casts/edit/<%=cast[:_id]%>' class='nowcast_color'>
+      (edit <i class='cast_title_icon fa fa-gear'></i>) 
+    </a>
+    <% end %>
+  </div>
+</div>

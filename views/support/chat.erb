@@ -1,0 +1,4 @@
+<h1> NowCast - Support </h1>
+<p> Hey there, <%= cu['name'] %>. What can we do for you?</p>
+<p> We'll do our best to answer within 24 hours. </p>
+<%= erb :'casts/chat', locals: {cast: cast, is_owner: false} %>

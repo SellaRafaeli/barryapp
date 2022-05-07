@@ -1,0 +1,148 @@
+<%
+  top_buttons ||= []
+%>
+<meta charset="UTF-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"> -->
+<style>
+.template_row_content {
+  font-size: 18px;
+  text-align: justify;
+  margin-left: 0;
+  margin-right: auto;
+  max-width: 700px;
+}
+.w3-padding-64 {
+  padding:10px 20px !important;
+}
+
+.template_page .fa {
+  font-size: 100px;
+  /*color: #15cb12;*/
+  background: -webkit-linear-gradient(45deg, #09009f, #00ff95 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.w3-light-grey {
+  background-color: #f8f8f8 !important;
+}
+
+.contact_us_msg {  
+  color: black;
+  font-size: 18px;
+  margin: 20px;
+}
+
+.template_page a {
+  color: green;
+}
+
+.template_page a:hover {
+  color: darkgreen;
+}
+
+.tpage h1 {
+  font-size: 36px;
+  color: black;
+}
+.tpage .subtitle {
+  font-size: 24px;
+  color: black;
+}
+.template_section_title {
+  font-weight: bold;
+  text-align: left;
+}
+</style>
+
+<div class='tpage template_page'>
+<!-- Header -->
+<br/>
+<header class="w3-container zw3-center" >
+  <h3 style='text-decoration: underline;'><%= title %></h3>
+  <% if false %>
+  
+  <p class="subtitle"><%= subtitle %></p>
+
+  <% top_buttons.each_with_index do |button, idx| %>
+    <a href="<%=button[:link]%>" style='text-decoration: none'><button class="btn btn-raised <%= idx == 0 ? 'btn-primary' : 'btn-info' %>" style='border-radius: 3px'><%= button[:text] %></button></a>
+  <% end %>
+
+  <div class='contact_us_msg'>Ping us at hi@good-weed.com for anything. ❤️</div>
+  <% end %>
+</header>
+
+
+<!-- <div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa fa-video-camera w3-padding-64 nowcast_color"></i>
+    </div>
+    <div class="w3-twothird">
+      <h1>Interact in Real-Time with Friends, Family, and Services</h1>
+      <p class="template_row_content">Meet friends, family, and explore new virtual experiences. Meet creative people and brands from all over the world, all from the comfort of your own home.</p>      
+    </div>    
+  </div>
+</div> -->
+
+<!-- First Grid -->
+<% rows.each_with_index do |row, idx| %>
+  <% 
+    color       = '' #string_color(row[:title]) 
+    color_class = "nowcast_#{color}"
+  %>
+  <% if idx%2===0 %>
+    
+    <div class="w3-row-padding w3-container">
+
+      <div class="display_flex">
+        <% if row[:fa_icon].present? %>
+        <div class="flex1 ct">
+          <i class="fa <%=row[:fa_icon]%> <%=color_class%> w3-padding-64"></i>          
+        </div>
+        <% end %>
+
+        <div class="flex1 ct">
+          <h4 class="template_section_title nowcast <%=color_class%>"><%= row[:title] %></h4>      
+          <p class="template_row_content"><%= row[:content] %></p>
+        </div>
+      </div>
+    </div>
+
+  <% else %>
+    <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="display_flex">
+      <% if row[:fa_icon].present? %>
+      <div class="flex1 ct">
+        <i class="fa <%=row[:fa_icon]%> <%=color_class%> w3-padding-64 nowcast_color w3-margin-right"></i>
+      </div>
+      <% end %>
+      <div class="flex1 ct">
+        <h4 class="template_section_title <%=color_class%>"><%= row[:title]%> </h4>
+        <p class="template_row_content"><%=row[:content]%></p>
+      </div>
+    </div>
+    </div>
+  <% end %>
+
+<% end %>
+<% if false %>
+  <div class="w3-container ct">
+    <!-- <div class='contact_us_msg'> Contact us now at hi@good-weed.com to get started if you need any help. </div> -->
+    <h3> <%= bottom_msg %> </h3>
+    <% top_buttons.each_with_index do |button, idx| %>
+      <a href="<%=button[:link]%>" style='text-decoration: none'><button class="btn btn-raised <%= idx == 0 ? 'btn-primary' : 'btn-info' %>" style='border-radius: 3px'><%= button[:text] %></button></a>
+    <% end %>
+  </div>
+  <% end %>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div> <!-- end about page -->
+
+<%#= erb :'layout/footer' %>  

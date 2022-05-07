@@ -1,0 +1,75 @@
+<% 
+  any_amenities = cast_amenities(cast).any?
+%>
+
+<style>
+.single_amenity_control {
+  margin-bottom: 20px;
+  <% if !can_edit %>
+  display: inline-block;
+  margin-right: 40px;
+  vertical-align: text-top;
+  width: 300px;
+  font-weight: normal;
+  <% end %>
+}
+.single_amenity_control .amenity_details {
+  font-size: 75%;
+  /*margin-left: 35px;*/
+}
+.amenity_label_text {
+  width: 250px;
+  display: inline-block;
+  font-weight: normal;
+  display: inline-flex;
+}
+.amenity_label_text i {
+  margin-right: 20px;
+  width: 10px;
+  flex:1;
+  top: 4px;
+}
+.amenity_checkbox {
+  vertical-align: top;
+  position: relative;
+  top: 5px;
+}
+.cast_amenities {
+  <% if !can_edit %>
+  /*text-align: center;*/
+  <% end %>
+}
+</style>
+
+<% if any_amenities || can_edit %>
+<div class='cast_amenities' id=amenities>
+<h4 style='margin-bottom: 40px'> Amenities </h4>      
+<% CAST_AMENITIES.each do |item| 
+   name, label, icon = item[:name], item[:label], item[:icon]
+   amenity     = cast[name] 
+   details     = cast[name+"_details"]
+   next unless can_edit || amenity.present?
+ %>
+  <div class='single_amenity_control'>
+    <label style='cursor: pointer'>               
+      <span class='amenity_label_text'>
+        <i class='fal <%=icon%>'></i> 
+        <span style='flex:6'><%= label %></span>
+      </span>
+      <% if can_edit %>
+      <input class=amenity_checkbox name="<%=name%>" onclick='debugger; $(this).closest(".single_amenity_control").find(".details").toggleClass("noDisplay", !$(this).is(":checked"))' type='checkbox' <%="checked" if amenity.present? %> /> 
+      <% else %>
+      <i class='fa fa-check' style='color: #2951e6'></i>
+      <% end %>
+    </label>
+    <% if can_edit && !locals[:hide_details] %>
+    <textarea placeholder="Details on <%=label%>" style='width: 40%; font-family: inherit; height: 70px' class='details <%="noDisplay" unless amenity.present? %>' name="<%=name%>_details" ><%=details%></textarea>
+    <% else %>
+    <div class=amenity_details>
+      <%= details %>
+    </div>
+    <% end %>
+  </div>
+<% end %>
+</div>
+<% end %>

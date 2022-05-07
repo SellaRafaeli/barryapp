@@ -1,0 +1,10 @@
+<%
+  user_id = user[:_id]
+  reviews = seller_reviews(user_id).reverse
+  top_review = reviews[0]
+  # top_review = nil
+%>
+
+<% if top_review %>
+<%= erb :'/reviews/single_review', locals: {review: top_review, is_top_review: true} %>
+<% end %>

@@ -1,0 +1,23 @@
+Critical Flows.txt
+------------------
+
+https://docs.google.com/document/d/19RWreMGzsbObW_weOzNfYiFxumZZGitWR2f3YeJpumA/editSee 
+
+TODO: copy this into a doc for QA person.
+
+Scenario 1: Verify Subscription 
+===============================
+
+1. Log in as seller@seller.com, password sellarocks
+2. Create nowcast "test sub", recurring
+
+In a separate browser, 
+
+3. Log in as buyer@buyer.com, password sellarocks
+4. Go to NowCast "test sub" as above
+5. Sign up for it using test credit card: 42424242424242424242, 2/22, 22222
+
+6. Check buyer can access cast
+7. check buyer sees cast in list of his subscriptions
+8. Check seller sees buyer in list of cast subscribers
+

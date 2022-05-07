@@ -1,0 +1,18 @@
+<%
+  title = cast[:title]
+  owner_name   = owner[:name]
+  viewer_name  = viewer[:name]
+  time  = cast_time1(cast, only_content: true)
+  link  = cast_link(cast)
+%>
+
+Hey <%= owner_name%>, you have a new order for your product "<%= title %>", by <%=viewer_name%>! 
+
+<br/>
+<br/>
+
+Here's the link to the product page:
+<br/>
+<br/>
+
+<a href="<%=link%>"><%= link %> </a>

@@ -1,0 +1,119 @@
+<%
+  # users = $users.get_many({}, {limit: 3}) 
+  if pr[:search_anywhere]
+    users = $users.search_anywhere(pr[:search_anywhere])
+  else 
+    users = $users.get_many({}, {limit: 100})
+  end
+
+  users = users.sort_by {|u| u[pr[:sort_by]].to_s }
+
+  users = users.reverse if pr[:sort_by].to_s == 'help_status_date'
+%>
+
+<style>
+.creators {
+  margin: 20px;
+}
+.single_creator {
+  border:1px solid black;
+  zdisplay: flex;
+  padding: 10px;
+}
+.single_creator .cell {
+  padding: 0px 10px;
+  border-right:1px solid grey;
+  display: inline-block;
+  vertical-align: top;
+  height: 150px;
+  background-color: whitesmoke;
+  padding: 10px;
+  font-size: 16px;
+  max-width: 330px;
+}
+.single_creator form {
+  display: inline-block;
+  margin-left: 3px;
+}
+.column_inner_header {
+  font-size: 80%; color: grey;
+}
+.header {
+  font-size: 30px;
+  display: inline-block;
+}
+.cell1 {
+  width: 240px;
+}
+</style>
+<div class='creators'>
+  <div class='header'> Talent </div>
+    <div> 
+      Sort all by: 
+    <% ['created_at', 'active_at', 'email','name','help_status_date'].each do |field| %>
+    <a style='margin-right: 10px' href='/admin/talent?sort_by=<%=field%>'><button class=btn2><%= field %></button> </a>
+    <% end %>
+    </div>
+    <br/>
+    <div>
+      <form method=get action='/admin/talent'>
+      Search: <input name=search_anywhere value="<%=pr[:search_anywhere]%>"/>
+      <button> search </button>
+      </form>
+    </div>
+
+    <% users.each do |user| %>
+      <div class='single_creator'>        
+        <span class='cell cell1 flex1'>
+          <img style='height: 30px; width: 30px; margin-right: 20px' src='<%=user[:img_url]%>' />
+          <%= user[:name] %>, 
+          <div><%= user[:email] %></div>
+          <div style='margin-top: 20px'>
+            <a style='display: inline-block;' target=_blank class='btn btn-sm btn-primary' href='<%=user_link(user)%>'> profile </a>
+            <br/>
+            <a target=_blank class='btn btn-sm btn-primary' href='/admin/user_page?_id=<%=user[:_id]%>'> admin page </a>
+          </div>
+        </span>
+        <span class='cell flex1'>
+          <div class='column_inner_header'>last active at:</div><%= nice_datetime(user[:active_at])%> 
+          <div class='column_inner_header'>created at:</div><%= nice_datetime(user[:created_at])%> 
+          <div class='column_inner_header'>casts:</div><%= $casts.all(user_id: user[:_id]).mapo(:title).join(', <br/>') %>  
+        </span>
+
+        <!-- <span class='cell flex1'></span> -->
+          
+          
+            
+        <span class='cell'>
+        <div class='column_inner_header'> admin notes (autosaves) </div>
+        <form class='flex3' method=post action='/admin/update_talent'>
+          <input hidden name=user_id value="<%=user[:_id]%>" />
+          
+          <textarea onkeyup="updateNotesHelper('<%=user[:_id]%>', this)" style='height: 70px; width: 300px;' name=help_status ><%= user[:help_status] %></textarea>
+          <div>
+            <small><span class='help_status_date'> updated: <%= nice_datetime(user[:help_status_date]) %> </span></small>
+            <!-- <button class='btn2'> Submit </button> -->
+          </div>
+        </form>
+
+        </span>
+      </div>
+    <% end %>
+</div>
+
+
+<script>
+function updateNotesHelper(user_id, textarea) {
+  clearTimeout(window.updateTalentNotesTimeout);
+  window.updateTalentNotesTimeout = setTimeout(()=>updateNotes(user_id, textarea), 500);
+}
+function updateNotes(user_id, textarea) {
+  var help_status = $(textarea).val();
+  var data = {user_id, help_status}
+  var div  = $(textarea).closest('form').find('.help_status_date');
+  div.text('updating...');
+  $.post('/admin/update_talent', data).then(res => {
+    div.text('updated: '+new Date);
+  })
+}
+</script>

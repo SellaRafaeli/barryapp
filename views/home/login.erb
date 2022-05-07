@@ -1,0 +1,39 @@
+<div class='container1000'>
+<h3> 
+  <%= is_heb ? 'לוגין' : 'Login' %>
+</h3>
+<br/>
+
+<form action='/login' method='post' class="center_col znoDisplayImportant">
+    <label class=w200> Email: </label> <input class='input1' placeholder='you@gmail.com' name='email' value="<%=pr[:email]%>" <%= pr[:email] ? '' : 'autofocus' %> />
+    <br/>
+    <label class=w200> Password: </label> <input class='input1' placeholder='Password' name='password' type=password <%= pr[:email] ? 'autofocus' : '' %> />
+    <% if pr[:go_back_to] %>
+    <input hidden name=go_back_to value="<%=pr[:go_back_to]%>">
+    <% end %>
+    <br/>
+    <button class='btn btn-raised btn-info'>Let's Go!</button>        
+</form>
+
+<br/>
+<br/>
+
+<div class=ct><small><a style='cursor: pointer' onclick=promptForgotPassword() type=button class='btn btn-primary btn-raised'>
+<%= is_heb ? "לחצ/י עבור לינק כניסה שיישלח למייל" : 'Forgot password? Click for Magic Sign-In Link' %>
+</a></small></div>
+</div>
+<script>
+function promptForgotPassword() {
+  var email;
+  if (email=prompt('What is your email? We\'ll send you a sign-in link.')) {
+    postJSON('/emails/forgot_password', {email}).then(res => {
+      console.log('forgot_password res',res);
+      if (res.ok) {
+        alert('We sent you a sign-in link to your mail. Click it now to log in.');
+      } else {
+        alert('No such email! Try to sign up.')
+      }
+    })
+  }
+}
+</script>

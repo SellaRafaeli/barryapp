@@ -1,0 +1,201 @@
+<%
+  id       = pr[:_id]
+  cast_id  = id
+  cast     = $casts.get(id)
+
+  owner    = $users.get(cast[:user_id])
+
+  is_owner = owner[:_id] == cuid
+  
+  snip     = cast_time1(cast) 
+  platform = LIVE_PLATFORMS_HASH[cast[:platform]]
+  #snip    += " using <span style='display: inline-block; margin-top:10px; text-transform: lowercase'>#{platform}</span>"
+
+  snip    += "<br/><br/><span>#{cast[:series_start].to_s[5..9].to_s.gsub('-','/')}</span>" if cast[:series_start]
+  snip    += "<span> until #{cast[:series_end].to_s[5..9].to_s.gsub('-','/')}</span>" if cast[:series_end].present?
+  show_chat = true #cast[:is_live]
+
+  is_trial = pr[:trial].to_s == 'yes'
+
+  local_data = {cast: cast, is_owner: is_owner, owner: owner, snip: snip, is_trial: is_trial}
+  # can_watch = true
+    # verify private passcode if entered
+  passcode_key      = cast_private_passcode_session_key(cast)
+  passcode_required = cast[:private_passcode].present? && session[passcode_key] != cast[:private_passcode]
+  passcode_required = false if is_owner
+
+  show_game = pr[:game].to_s == 'true'
+
+  user_can_watch = can_watch(cast)
+
+  # if pr[:view_signup] 
+  #   is_admin = false
+  #   is_owner = false
+  #   user_can_watch = false
+  # end
+
+  is_website = cast[:type] == 'website'
+
+  view_only_html = false
+  
+  if is_website
+    user_can_watch = true  
+    view_only_html = true 
+  end
+%>
+
+<style>
+.cast_pending_wrapper {
+  height: 400px;
+  width: 560px;
+}
+.cast_pending {
+  text-align: center;
+  background-color: whitesmoke;
+  font-weight: bold;
+  /*padding: 100px;*/
+  font-size: 22px;
+  /*flex:1;*/
+  border-radius: 15%;
+  
+  /*https://stackoverflow.com/questions/41939831/flexbox-center-text-vertically*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  height: 100%;
+}
+.cast_chat_wrapper {
+  /*flex:1;*/
+  margin-left: 10px;
+  
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.single_present_user {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  margin: 10px;
+  vertical-align: bottom;
+  padding-right: 10px;
+}
+.single_present_user img {
+  height: 40px;
+  width: 40px;
+  display: block;
+  border-radius: 50%;
+  border:1px solid #cabfbf;
+  object-fit: contain;   
+}
+
+.owner_edit_html_btn {
+  position: absolute;
+  right: 10px;
+  text-align: left;
+  background-color: whitesmoke;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 9999;
+}
+</style>
+
+<div class='ct <%="zcontainer1300" if user_can_watch %>'>
+  <% if passcode_required %>
+  <div style='background-color: whitesmoke; padding: 20px;'>
+    <%= erb :'/casts/cast_header', locals: local_data.merge(no_bg: true) %>  
+    <form method=post action="/casts/passcode/<%=cast_id%>">
+      <div>
+        <h4> Please enter passcode to continue. </h4>
+        <input name=passcode style='width: 300px' autofocus=true placeholder='Enter passcode' />
+        <div>
+          <button class='btn btn-raised btn-primary'>Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <% elsif is_owner || user_can_watch %>        
+
+    <% if !is_website %>
+    <div>
+      <%= erb :'/casts/course_header2', locals: local_data.merge(no_bg: true) %>        
+      <div id=game_players style='word-break: break-word;'></div>
+    </div>
+    <% end %>
+
+    <div class='display_flex_wrap'>
+      <% if !(is_website)%>
+      <div class='chat_and_present_members' style='flex:2'>
+        <% if is_special_item(cast) %>
+          <% if cast[:private_video_url] %>
+          <video width="320" height="240" controls>
+            <source src="<%=cast[:private_video_url]%>" type="video/mp4">
+            <source src="<%=cast[:private_video_url]%>" type="video/ogg">
+          </video>
+          <% end %>
+        <% else %>    
+          
+        <div class='display_flex_wrap' style='justify-content: space-between; zmargin:10px 50px'>
+          <div class='cast_chat_wrapper'>
+<!--             <div><b> Chat </b></div> -->
+            <div class='crowd_area_container' style='flex:1; text-align: left;'>
+              <% if cu %>
+              <div> Here Now </div>
+              <div id=present_members></div>
+              <% end %>
+            </div>
+            <br/>
+            <hr/>
+            
+            <div style='text-align: left'>
+            <div><b><%=cast[:forum_thread_text]%></b></div>  
+            <% if false %>
+              <div><b>Messages</b></div>
+              <% if is_owner %>
+                <small style='font-weight: bold' class='nowcast_color'>Post info and links here, including to Zoom.</small>
+              <% end %>
+            </div>
+            <% end %>
+            
+            <span><%= erb :'casts/chat', locals: {cast: cast, is_owner: is_owner, promote_last_link: true} %></span>
+          </div>
+        </div>      
+
+        <% end %>
+      </div>  
+      
+
+      <% elsif is_website %>
+        <% if is_owner %>
+        <div class='owner_edit_html_btn'>
+          <a href='/casts/edit/<%=cast[:_id]%>'>edit</a> 
+        </div>
+        <% end %>
+
+      <div style='flex:4'>
+        <%= erb :'casts/html_editor', locals: {view_only_html: view_only_html, is_owner: is_owner, cast_id: cast_id, cast: cast} %>
+      </div>
+      <% end %>
+
+      <% if show_game %>
+        <div class='crowd_area_container' style='flex:3'>
+          <%= erb :'/casts/game/game', locals: local_data %>      
+        </div>
+      <% end %>
+    </div>    
+  <% else %>         
+      <%#= erb :'stripe/stripe_checkout_form', locals: local_data %>
+  <% end %>
+</div>
+
+<script>
+
+$(document).ready(function() {
+  convertTimesToLocal();
+}); 
+
+</script>

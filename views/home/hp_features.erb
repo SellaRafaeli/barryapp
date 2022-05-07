@@ -1,0 +1,53 @@
+<style>
+.hp_features {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.single_hp_feature {
+  flex: 1;
+  min-height: 100px;
+  padding:20px;
+  margin:10px;
+}
+.single_hp_feature:hover {
+  /*background-color: #e2e0e0;  */
+}
+.hp_feature_title {
+  height: 50px;
+  margin-bottom: 0;
+}
+.hp_feature_text {
+  text-align: justify;
+}
+</style>
+
+<div class='hp_features_container ct'>
+<!--     <hr/> -->    
+    <!-- <div style='margin-bottom: 20px; display: inline-block;' >
+      <%= erb :'partials/start_selling_btn' %>      
+    </div> -->
+</div>
+
+<div class='hp_features'>      
+    <%
+      features = [
+        {icon: 'search', label: 'Get Students', text: 'List yourself so relevant students will find you.'},          
+        {icon: 'credit-card', label: 'Get Paid', text: 'Get paid directly from your profile.'},          
+        {icon: 'user', label: 'Get Known', text: 'Use simple analytics to track your online marketing.'},
+        # {icon: 'users', label: 'Get Going', text: 'Manage your audience and clientbase in one place.'},
+        {icon: 'dollar', label: 'Get Serious', text: 'Make serious money doing what you love.'}
+      ]
+    %>  
+    <% features.each_with_index do |feature, idx| %>
+      <div class='single_hp_feature'>
+        <div><i class='nowcast_combo_<%=idx%> fa fa-<%=feature[:icon]%>'></i></div>
+        <h4 class='hp_feature_title'><b> <%= feature[:label] %></b> </h4>
+        <div class='hp_feature_text'><%= feature[:text]%></div>
+      </div>
+    <% end %>
+</div>    
+

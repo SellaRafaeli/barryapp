@@ -1,0 +1,128 @@
+<% if !@review_box_styles %>
+<% @review_box_styles = true %>
+<style>
+.review_box_li {
+  max-width: 800px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  list-style:none; 
+  border-left: 1px solid whitesmoke;
+  zpadding-left: 10px;
+}
+.review_box_li blockquote {
+  margin-left: 0;
+  display: inline-block;
+  width: 400px;
+  padding: 10px;
+  margin-top: 5px;  
+  
+}
+.review_user_img {
+  width: 40px;
+  height: 40px;
+  max-height: 200px;
+  border-radius: 50%;
+  border: 1px solid #cabfbf;
+  object-fit: contain;
+  position: relative;
+  top: 10px;
+  left: 3px;
+}
+.review_box_li small {
+/*  margin-left: 10px;*/
+  display: inline-block;
+}
+.delete_review_btn {
+  cursor: pointer;
+}
+.delete_review_btn:hover {
+  color: grey;
+}
+.review_rating {
+  zpadding: 10px;
+  display: inline-block;
+  zflex: 8;
+  text-align: left;
+}
+.review_text {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+@media (min-width: 800px) {
+  .review_body.not_top_review {
+    padding-left: 50px;
+  }
+}
+
+</style>
+<% end %>
+
+<% 
+  id     = review[:_id] 
+  reviewer_handle = ''
+  buyer_id        = review[:buyer_id]
+  reviewer        = $users.get(buyer_id) || {}
+  reviewer_name   = reviewer[:name] ? "#{reviewer[:name]}, " : 'anonymous' 
+  reviewer_name   = review[:reviewer_name] if review[:reviewer_name]
+  img_url = nil 
+  if reviewer[:_id] 
+    img_url = reviewer[:img_url]
+  elsif review[:reviewer_img_url]
+    img_url = review[:reviewer_img_url]
+  end
+%>  
+  <li class='review_box_li <%=review[:_id]%>'>
+
+    <div class='review_first_row'>      
+      <% if locals[:is_top_review] %>
+          <div style='margin-top:20px; font-size: 80%'>top review:</div>
+        <% end %>        
+      <div style='background-color: zwhitesmoke; display: flex'>
+        
+        <small style='zpadding: 15px; text-align: center; display: flex'>            
+          <% if img_url %>
+            <img class='review_user_img' src='<%=img_url%>' />            
+          <% end %>  
+          <div style='display: flex; flex-direction: column; margin-left: 10px;'>
+            <a href='<%=reviewer.any? ? user_link(reviewer) : '#'%>' style='zdisplay: block; margin-top:10px'>
+              <%= reviewer_name %> <%= nice_date(review[:created_at]) %>
+                
+              </a>
+            <div class='review_rating'>
+              <div><% review[:rating].to_i.times { %> ⭐ <% } %></div>
+              <br/>
+            </div>
+          </div>
+        </small>
+        
+        
+      </div>
+    </div>
+
+    <div class='review_body <%= locals[:is_top_review] ? '' : 'not_top_review' %>'>
+      <div class='review_text'><%= review[:text] %> </div>
+      <% if review[:video_url] %>
+        <div class='review_video'>
+          <video width="320" height="240" controls>
+            <source src="<%= review[:video_url] %>" type="video/mp4">
+          </video>
+          
+        </div>
+      <% end %>
+    </div>
+    
+    
+      <% if reviewer[:_id] %>
+        <% if can_delete_review(review) %>
+          <form method=post action='/reviews/<%=review[:_id]%>/delete' 
+            onsubmit='if (!confirm("Are you sure? This is irreversible.")) return false;'
+            style='margin-left:10px; display: inline-block;'
+            >
+            <button style='border: transparent; background-color: transparent;'><i class='delete_review_btn fa fa-trash'></i></button>
+          </form>
+        <% end %>
+      <% end %>
+  
+  </li>  

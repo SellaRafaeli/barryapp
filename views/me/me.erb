@@ -1,0 +1,180 @@
+<% 
+  puts "in me.erb"
+  start = Time.now
+  show_help = false
+  err = nil
+  user    = cu
+  user_id = user[:_id]
+  stripe_url = "https://connect.stripe.com/oauth/authorize?client_id=ca_HDQdpUCE1szAeh7NrwdA0BG0ZuHGu7RW&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=#{user[:email]}"
+  tzones = TIME_ZONES
+%>
+<style>
+.pic_label {
+/*  font-weight: bold; */
+  cursor: pointer;
+}
+.pic_label:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+form .user_img:hover {
+  cursor: pointer;
+}
+
+.delete_prog_btn {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.btn:hover > div {
+  background-color:rgba(0, 0, 0, 0.1);
+}
+
+.stripe_button {
+  width: 203px;
+  margin-top: 30px;
+}
+#me_form {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 1200px) {
+  #me_form {
+    margin-left: 300px;
+    margin-right: 200px;
+  }
+}
+
+#me_form .display_flex label, #me_form .display_flex span, #me_form .display_flex input, #me_form .display_flex img {
+  flex: 1;
+  margin-left: 20px;
+  text-align: left;
+}
+
+#me_form .display_flex label {
+/*  min-width: 200px;*/
+  margin-right: 10px;
+  top: 5px;
+}
+#me_form .display_flex span {
+  color: #938b8b;
+  font-weight: bold;
+}
+#me_form textarea, #me_form input, #me_form select {
+  font-size: 18px;
+  position: relative;
+  top: -5px;
+  width: 47%;
+}
+
+#me_form select {
+  padding: 10px;
+}
+
+</style>
+
+<div>    
+      <h1> <%#= cu[:name] %></h1>
+
+    <% sec = pr[:sec] || 'profile' %>
+    <%= erb :'me/profile_tabs', locals: {is_seller: is_seller, sec: sec} %>     
+    <script>
+      $('.profile_tabs a').click(ev => {
+        // when in "me" form, make behaviour SPA-like
+        var btn = $(ev.target).closest('a');
+        var sec = btn.attr('href').split('?')[1].split('=')[1];
+        $('.me_sec').addClass('noDisplay');
+        $('.me_sec.'+sec).removeClass('noDisplay');
+
+        $('.profile_tabs a').removeClass('chosen_me_form_link');
+        btn.addClass('chosen_me_form_link');
+
+        var href = btn.attr('href');
+//        document.location.history.push(href);
+        window.history.replaceState({}, '',href);
+        return false;
+      });
+    </script>
+
+    <form id=me_form action='update_me' method='post' class='form1' zonsubmit='if (!$("input[name=zipcode]").val()) { alert("Please enter Zip Code."); return false; }'>      
+
+    <div style='zmax-width: 800px; margin-left:auto; margin-right: auto;'>
+      <% ['dashboard','account', 'customers', 'convos', 'profile', 'by_me', 'for_me', 'locations', 'stats'].each do |part_sec| %>
+        <div class='me_sec <%=part_sec%> <%="noDisplay" unless sec == part_sec%>'>    
+          <% puts "#{part_sec} #{(Time.now - start)/1000.to_f}" %>
+          <%= erb :"me/#{part_sec}", locals: {user: user, user_id: user_id} %>    
+        </div>
+      <% end %>
+    </div>
+
+    <% if false %>    
+      <% zif sec == 'account' %>      
+        <%= erb :'me/account', locals: {user: user} %>    
+      <% zelsif true || sec == 'dashboard' %>
+        <%= erb :'me/dashboard', locals: {user: user} %>            
+      <% zelsif sec == 'customers' %>
+        <%= erb :'me/customers', locals: {user: user} %>            
+      <% zelsif sec == 'profile' %>
+        <%= erb :'me/profile', locals: {user: user} %>            
+      <% zelsif sec == 'by_me' %>
+        <%= erb :'me/by_me', locals: {user: user, user_id: user_id} %>            
+      <% zelsif sec == 'for_me' %>
+        <%= erb :'me/for_me', locals: {user: user, user_id: user_id} %>            
+      <% zelsif sec == 'locations' %>
+        <%= erb :'me/locations', locals: {user: user, user_id: user_id} %>            
+      <% zend %>  
+    <% end %>
+
+    <% if sec == 'account' || sec == 'profile' %>      
+    <% end %>
+    </form>
+
+</div>
+
+<script>
+
+function updateImgURL(res) {
+  console.log(res);
+  window.res = res;
+  var link = JSON.parse(res).data.link;
+  $("#img_url").val(link);
+  $("#user_profile_input_img").attr('src',link);
+}
+
+function attachImgUploader() {
+  $('#img_uploader').on("change", function() {
+    var file = $(this).get(0).files[0];
+    if (file) { uploadImg(file, updateImgURL) }
+  });
+}
+
+function setTZvalue() {
+  var offset = (new Date).getTimezoneOffset()/-60;
+  if (!$("#tz_input").val()) {
+    $("#tz_input").val(offset);
+  }
+}
+
+function onLoad() {
+  attachImgUploader();
+  setTZvalue();
+}
+
+function deleteProg(prog_id) {
+  if (confirm("Are you sure you want to delete this program?")) {
+    
+    $(`.prog_box_li.${prog_id}`).remove();
+    var inp = $('#deleted_prog_ids');
+
+    var vals= inp.val().split(',')
+    console.log(vals);
+    vals.push(prog_id);
+    console.log(vals);
+    vals = vals.filter(v=>v).join(',')
+    console.log(vals);
+    inp.val(vals);
+  }
+}
+
+$(document).ready(onLoad);
+</script>

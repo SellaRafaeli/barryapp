@@ -1,0 +1,7 @@
+<%
+  casts = $casts.all
+%>
+
+<h1> All Casts </h1>
+
+<%= erb :'casts/casts_list', locals: {casts: casts} %>

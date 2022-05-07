@@ -1,0 +1,646 @@
+<%
+id = pr[:id]
+
+is_new = id == 'new'
+cast   = nc = {}
+cast   = nc = $casts.get(id) || {recurrence: RECURRENCE_ON_DEMAND}
+
+min_cast_cost = 1 
+nc[:cost_dollars] = min_cast_cost if nc[:cost_dollars].to_i < min_cast_cost
+
+cast[:type] ||= pr[:type]
+dows = DOWS
+
+enable_rsvp_reminder = false 
+
+img_url = get_cast_img(cast)
+
+type_word  = cast[:type].to_s.gsub('_',' ')
+# type_word  = "cast"
+# type_word  = "event page"
+is_special = is_special_item(nc)
+
+is_website = cast[:type].to_s=='website' || pr[:type]=='website'
+
+is_forum = is_cast_forum(nc)
+
+tags = cast[:tags].to_a.join(',') rescue ''
+%>
+<style>
+.nc_box {
+  text-align: left;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nc_box label {
+  width: 50%;
+}
+.cost_input {
+  width: 65px;
+  margin-left: 10px;
+  font-size: 22px;
+  vertical-align: text-bottom;
+}
+.recurrence_btn {
+  outline: none!important;
+}
+
+.cast_desc_textarea {
+  height: 150px;
+  margin-left: 0;
+}
+.cast_input_video {
+  max-height: 200px;
+  object-fit: none;
+  /* min-height: 100px; */
+  min-width: 200px;
+  border:1px solid grey;
+}
+
+#cast_input_img {
+/*  width: 280px;
+  object-fit: contain;*/
+}
+
+.only_if_costs_money {
+  display: none;
+}
+
+<% if is_website %>
+.container {
+  max-width: 3000px;
+}
+.nc_box {
+  max-width: 3000px;
+}
+<% end %>
+</style>
+<div class='ct' style='font-size:16px; padding-bottom: 200px'>
+  <h1> 
+    <span><%= is_new ? 'Create' : 'Edit' %> Product </span>    
+  </h1>
+  <div style='font-weight: bold; font-size: 120%; margin:20px'>
+  
+    <% if !is_new %>
+      <%
+        if false 
+        cast_clicks  = $cast_clicks.get_many(cast_id: nc[:_id]).to_a
+        num_clicks   = cast_clicks.count
+        num_recently = cast_clicks.count {|click| click[:created_at] > Time.now - 24.hours }
+        end 
+      %>
+
+      <a target=_blank href='<%=cast_link(cast)%>' class='btn nowcast_color' > Product Page <i class='cast_title_icon fa fa-external-link'></i></a>
+      
+
+      <% if false %>
+      <a target=_blank href='/casts/<%=nc[:_id]%>/analytics' class='btn nowcast_color' >Analytics  <i class='cast_title_icon fal fa-analytics'></i> </a>
+      <% end %>
+    <% end %>
+
+  </div>
+  <% if !$prod %>
+  <%#= nc.to_json %>
+  <% end %>
+  <form id=edit_cast_form method=post action='/casts/edit/<%=id%>'>
+    <div>
+      <button class='btn btn-raised btn-info'>Update</button>    
+      <br/>
+      <br/>
+    </div>
+    <div class='nc_box ct'>
+
+      <div class=''>
+      <label style='zwidth: auto'> Name </label>
+
+      <input name=type hidden value='<%=cast[:type]%>' />
+      <input name=title style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Good weed"value="<%= nc[:title] %>" required />
+      <br/>
+
+      <% if false %>
+      <div class='only_if_single <%="noDisplay" if nc[:recurrence].to_s==RECURRENCE_MULTI.to_s%>'>
+        <!-- <label>Date and time</label> --> <input name=datetime value="<%=datetime_to_datetime_input(nc[:datetime])%>" type=datetime-local />
+      </div>
+      
+      <div class='only_if_recurring <%="noDisplay" if nc[:recurrence].to_s==RECURRENCE_SINGLE.to_s%>'>
+        <select style='margin-left: 20px' name=dow>
+          <% dows.each do |dow| %>
+            <option value='<%=dow[:val]%>' <%="selected" if nc[:dow] == dow[:val] %>><%=dow[:label]%></option>
+          <% end %>
+        </select>          
+        at 
+        <select name=hour>
+          <% (0..23).to_a.each do |hour| %>
+
+            <% display_hour = (hour > 9) ? hour : '0'+hour.to_s %>
+            <option value='<%=hour%>' <%="selected" if nc[:hour].to_s == hour.to_s %>> <%= display_hour %> </option>
+          <% end %>
+        </select>:<select name=mins>
+          <% ['00','05','10','15','20','25','30','35','40','45','50','55'].to_a.each do |mins| %>
+            <option value='<%=mins%>' <%="selected" if nc[:mins].to_s == mins %>> <%= mins %> </option>
+          <% end %>
+        </select>
+
+        <br/>
+        <br/>        
+      </div>
+      
+      <% end #end if is_pro %> 
+      </div>
+
+      <br/>
+      <!-- <br/>       -->      
+
+      <% if !is_special && false %>   
+      <div>
+        <label>Broadcast in </label>
+        <select id=platform_select name=platform onchange=toggleConditionals()>
+          <% LIVE_PLATFORMS.to_a.each do |platform| %>
+            <option value='<%=platform[:val]%>' <%="selected" if nc[:platform] == platform[:val] %>> <%= platform[:label] %> </option>
+          <% end %>
+        </select>
+      </div>
+      <% end %>   
+
+      <!-- <div class='only_if_nowcast'>
+        <br/>
+        <label> YouTube Share Link </label>
+        <input name=youtube_link value="<%=nc[:youtube_link]%>" style='width: 40%; margin-left:10px'/>
+      </div> -->
+    <% if is_forum  %>
+      <div>
+        <label>
+          <div>Text</div>
+          <div style='margin-top:20px; color:grey; padding-right: 20px'></div>
+        </label>
+        <textarea placeholder="What do you want to say?" style='width: 80%; font-family: inherit;' class='ml10 cast_desc_textarea' name=forum_thread_text><%=nc[:forum_thread_text]%></textarea>
+      </div>
+
+    <% elsif is_website %>
+      <% if !is_new %>
+      <h3> Code </h3>
+      <div style='flex:4; overflow: scroll'>
+        <%= erb :'casts/html_editor', locals: {is_owner: true, cast_id: cast[:_id], cast: cast} %>
+      </div>
+      <% end %>
+    
+    <% else %>              
+      <div>
+        <label>
+          <div>Description</div>
+          <div style='margin-top:20px; color:grey; padding-right: 20px'><!-- What can people expect from you? Make it both informational and attractive! The more info and details you can give, the more prepared and interested potential viewers will be. --></div>
+        </label>
+        <textarea placeholder="Describe the item to be sold" style='width: 40%; font-family: inherit;' class='ml10 cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
+      </div>
+
+      
+      <% if false %>
+      <br/>
+      <div>
+        <label> Schedule and duration
+        <!-- <div style='margin-top:20px; color:grey; padding-right: 20px'>Specify when course classes take place, and how much it costs.</div> -->
+        </label>
+        <textarea placeholder="When should people book this cast?" style='width: 40%; font-family: inherit; height: 70px' class='ml10 cast_desc_textarea' name=custom_time><%=nc[:custom_time]%></textarea>
+      </div>
+      <% end %>
+      
+
+      <% if true %>
+        <br/>
+        <div>
+          <label style='vertical-align: top;'>Cost
+          <!-- <div><small>Leave at 0 to decide later.</small></div> -->
+          </label>
+          <span style='position: relative; bottom: 10px;'>$</span><input class='cost_input' value="<%= nc[:cost_dollars].to_i %>" name=cost_dollars type=number min=<%=min_cast_cost%> onchange="toggleOnlyIfCostsMoney()" /> <span class='only_if_recurring'> </span>
+        </div>
+        <br/>
+        
+      <% else %>
+        <br/>
+      <% end %>
+
+      
+      <% if false %>
+      <div>
+        <label>
+          <div>Private Notes</div>
+          <div style='margin-top:20px; color:grey; padding-right: 20px'>This will not be shown to anyone except you. Use them to plan your cast.</div>
+        </label>
+        <textarea placeholder="Plan your event for yourself: what are you planning to do? Use these notes to make sure everything goes smoothly." style='width: 40%; font-family: inherit' class='ml10 cast_desc_textarea' name=private_notes><%=nc[:private_notes]%></textarea>
+      </div>
+      <% end %>
+      
+      <div>
+        <!-- <label>Cast Image</label> -->
+        <div class='display_flex' style='margin-top:20px'>
+          <span type=file id=img_uploader style='display: none'> </span>
+          <label class='pic_label' onclick=$("#img_uploader").click()>
+            <div> Preview Pic </div>
+            <div style='margin-top:20px; color:grey; padding-right: 20px'></div>          
+          </label>
+          
+          <input name=img_url id=img_url style='display: none' value="<%=img_url %>"/>
+          <img style='cursor: pointer; min-width: 40px; border: 1px solid grey' id=cast_input_img onclick=$("#img_uploader").click() class=user_img_fullsize src="<%=img_url%>" />          
+          <span></span>        
+        </div>
+
+        <% if false %>
+        <div class='display_flex' style='margin-top: 20px'>
+          <label>Product Type</label>
+        <%= erb :'/partials/select_product_type', locals: {product_type: cast[:product_type], simple_drop_down: true} %>      
+        </div>
+        <% end %>
+
+        <div class='display_flex' style='margin-top:20px; display: none'>
+          <label class='pic_label' onclick=$("#img_uploader").click()>
+            <div> Location </div>            
+          </label>          
+          <select name=location_id>
+              <% $locations.all(user_id: cuid).to_a.each do |loc|  %>
+                <option <%="selected" if cast[:loc]=="loc[:_id]"%>><%=loc[:name] %></option>                
+              <% end %>
+            </select>
+        </div>
+
+        <%#= erb :'/casts/cast_amenities', locals: {cast: cast, can_edit: true} %>
+      
+        <br/>
+        <br/>
+        
+      <% if true %>
+      <div>
+        <label> Tags </label>
+        <span style="width: 40%; display: inline-block; text-align: right">
+          <input style='width: 100%' value="<%=tags%>" name=tags placeholder='e.g. sativa, relaxing, edibles, og-kush' />
+        </span>          
+      </div>
+      <br/>
+
+      <div class='zonly_if_costs_money'>
+        <label> Payment Note </label>
+        <span style="width: 40%; display: inline-block; text-align: right">
+          <input style='width: 100%' value="<%=nc[:payment_note]%>" name=payment_note placeholder='e.g. "Introductory Price" or "COVID19 Special"' />
+        </span>          
+      </div>
+      <br/>
+
+      
+      <% end %>
+
+
+        <% if false && is_admin %>
+        <div style='background-color: goldenrod'>
+        <label> Tags (Admin) </label>
+          <span style="width: 40%; display: inline-block; text-align: right">
+            <input style='width: 100%' value="<%=nc[:tags]%>" name=tags placeholder='sativa, relaxation'/>
+          </span>       
+        </div>
+        <% end %>
+
+
+        <h4 style='margin-bottom: 40px'> Additional Images/Videos </h4>      
+        <%= erb :'/me/upload_media', locals: locals.merge(item: cast) %>
+
+        <% if is_special %>
+        <div class='display_flex' style='margin-top:20px'>
+          <label class='video_label private_video_uploader'>Private Video</label>
+          <input name=private_video_url id=private_video_url style='display: none' value="<%=nc[:private_video_url] %>"/>
+          
+          <video class='video_uploader cast_input_video' id=cast_input_private_video <%="poster='/favicon.ico'" unless nc[:private_video_url] %>  controls>
+            <source src="<%=nc[:private_video_url]%>" type="video/mp4">
+            <source src="<%=nc[:private_video_url]%>" type="video/ogg">
+          </video>
+        </div>
+        <% end %>
+      </div>
+
+      <br/>
+      
+
+      <% if enable_rsvp_reminder %>
+      <div>
+        <label>Send RSVP Reminder? </label>
+        <select name=send_rsvp_reminder>          
+          <option <%="selected" if cast[:send_rsvp_reminder]=="no" %>>no</option>
+          <option <%="selected" if cast[:send_rsvp_reminder]=="yes" %>>10 minutes before</option>
+          <option <%="selected" if cast[:send_rsvp_reminder]=="yes" %>>30 minutes before</option>
+          <option <%="selected" if cast[:send_rsvp_reminder]=="yes" %>>60 minutes before</option>          
+        </select>
+      </div>
+      <% end %>
+
+      <!-- <div>
+        max number of viewers:  
+        <input class='max_participants' value="<%= nc[:max_participants].to_i %>" name=max_participants type=number /> 
+      </div> -->
+
+      <% if false %>
+      <div style='text-align: left'>
+        <h4 style='margin-bottom: 40px'><button type=button class='zbtn' onclick='$(".faq_area").toggleClass("noDisplay")'>FAQ (click to toggle)</button> </h4>  
+      </div>
+      <% end %>
+
+      <div class='faq_area noDisplay' style='margin-bottom: 20px'>
+          <div>
+          <% (1..5).to_a.each do |idx| %>
+            <div>
+              <span style='width:300px; display: inline-block;'>
+                <span><%= idx %>)</span><input placeholder="FAQ <%=idx%>" style='width: 100%' name=faq_titles[] value=<%=nc[:faq_titles].to_a[idx-1]%>>
+                <div>
+                  <textarea name=faq_answers[] placeholder='Answer to FAQ <%=idx%>'><%=nc[:faq_answers].to_a[idx-1]%></textarea>
+                </div>
+              </span>            
+            </div>  
+          <% end %>
+          </div>
+        </div>
+
+      <% if false %>
+      <div style='text-align: left'>
+        <h4 style='margin-bottom: 40px'><span type=button class='zbtn' zonclick='$(".more_options").toggleClass("noDisplay")'>Extra Options </span> </h4>  
+      </div>
+
+      <div class="more_options" >
+
+        <div class='display_flex'>
+          <label> Strain </label>
+            <select name=strain style='margin-right: 0px; margin-left: 0; margin-top:0px'>
+              <option value="" <%="selected" if !nc[:lang].present? %> >
+              <% [{val: 'hybrid', label: 'Hybrid'}, {val: 'sativa', label: 'Sativa'}, {val: 'indica', label: 'Indica'}].each do |strain| %>
+                <option value="<%=strain[:val]%>" <%="selected" if nc[:strain]==strain[:val]%> >
+                  <%=strain[:label]%>
+                </option>
+              <% end %>
+            </select>
+            <!-- <span> </span> -->
+        </div>
+        <br/>
+        <div class='display_flex'>
+          <label style='vertical-align: top;'>THC % </label>
+          <span style='position: relative; bottom: -7px;'>%</span><input class='cost_input' value="<%= nc[:thc].to_i %>" name=thc type=number min=0 max=100 />
+        </div>
+
+      <% end %>
+      <% if false %>
+        <div class='display_flex'>
+        <label> Language </label>
+          <select name=lang style='margin-right: 0px; margin-left: 0; margin-top:0px'>
+            <option value="" <%="selected" if !nc[:lang].present? %> >
+            <% LANGUAGES.each do |lang| %>
+              <option value="<%=lang[:val]%>" <%="selected" if nc[:lang]==lang[:val]%> >
+                <%=lang[:label]%>
+              </option>
+            <% end %>
+          </select>
+          <!-- <span> </span> -->
+        </div>
+
+
+        <% if false %>
+        <div>
+          <label>
+            <span class='tooltip'>Require Private Passcode
+              <span class='tooltip_text'>This passcode will be necessary to access your course, before payment.</span>
+            </span>
+          </label>
+          <span style='width: 40%; display: inline-block; text-align: right'>
+            <input class='private_passcode' value="<%= nc[:private_passcode].to_s %>" name=private_passcode placeholder="e.g. secret123" style='width: 100%' /> 
+          </span>
+        </div>
+        <% end %>
+        <br/>
+
+        <div>
+          <label><span class='ztooltip'>Link Directly To External Site?</span></label>
+          <span style='width: 40%; display: inline-block; text-align: right'>
+            <input value="<%= nc[:external_link].to_s %>" name=external_link placeholder="https://yoursite.com" style='width: 100%' /> 
+          </span>
+        </div>
+
+        <br/>
+
+        <div>
+          <label>
+            <span class='tooltip'>Pay Per Click
+              <span class='tooltip_text'>Paid clicks promote you in search results.</span>
+            </span>
+          </label>
+          <span style='width: 40%; display: inline-block; text-align: left'>
+            $ <input class='ppc' type=number value="<%= nc[:ppc].to_i %>" name=ppc style='width: 100px' /> 
+          </span>
+        </div>
+
+        <br/>
+
+        <div class='display_flex'>
+        <label> Privacy (Who can see this?) </label>
+          <select name=privacy style='margin-right: 0px; margin-left: 0; margin-top:0px'>
+            <option value="public" <%="selected"  if nc[:privacy]=="public" %> > Public (anyone) </option>
+            <!-- <option value="private" <%="selected" if nc[:privacy]=="private" %> > Private (only people with the link) </option> -->
+            <option value="hidden" <%="selected" if nc[:privacy]=="hidden" %> > Hidden (only me) </option>
+          </select>
+          <!-- <span> </span> -->
+        </div>
+
+        <% if is_pro %>       
+        <h4 style='background-color: black; color: white; padding: 10px'> Pro features </h4>
+
+        <div class='display_flex'>
+        <!-- <button type=button class='recurrence_btn on_demand btn zbtn-raised <%= "bold zbtn-raised btn-info" if nc[:recurrence].to_s=="<%=RECURRENCE_ON_DEMAND" %>' onclick="recurrenceChange('on_demand')"> On-Demand </button> -->
+          <div class=flex1>
+            <label> Billing </label>
+          </div>
+          <div class=flex1>
+            <button type=button class='recurrence_btn single btn zbtn-raised <%= "bold zbtn-raised btn-info" if nc[:recurrence].to_s=="single"    %>' onclick="recurrenceChange('single')">  Single </button>
+            <button type=button class='recurrence_btn recurring btn zbtn-raised <%= "bold zbtn-raised btn-info" if nc[:recurrence].to_s=="recurring" %>' onclick="recurrenceChange('recurring')">  Monthly </button>                
+            <input name=recurrence hidden value="<%=nc[:recurrence]%>" />
+          </div>
+        </div>
+        <br/>
+        <br/>
+        
+        <div class='zonly_if_costs_money'>
+          <label> Special Payment Conditions </label>
+          <select style='margin-left: 0px' name=special_pay>
+            <option value='none' <%="selected" if nc[:special_pay] == 'none'%>> None</option>
+            <option value='<%=CAST_PAY_VARIABLE_AMOUNT%>' <%="selected" if nc[:special_pay] == CAST_PAY_VARIABLE_AMOUNT %>>Pay-as-you-can</option>            
+          </select>          
+        </div>
+
+        <br/>
+
+          <% if false %>
+            <div class='only_if_costs_money'>
+              <label> Donate proceeds to anyone? </label>
+              <span style="width: 40%; display: inline-block; text-align: right">
+                <input style='width: 100%' value="<%=nc[:donation_target]%>" name=donation_target placeholder='Revenues will be donated to...' />
+              </span>          
+            </div>
+            <br/>
+            
+
+
+            
+            <div class='zonly_if_costs_money'>
+              <label>
+                <span class='tooltip'>Call To Action Word
+                  <span class='tooltip_text'>This word will appear on the button for users to get your cast.</span>
+                </span>
+              </label>
+              <select name=cta_word style='margin-right: 0px; margin-left: 0; margin-top:10px'>
+              <% ['Buy', 'Submit', 'Purchase', 'Get It', 'Continue'].each do |val| %>
+                  <option value="<%=val%>" <%="selected" if nc[:cta_word]==val%> >
+                    <%=val%>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+            <% end # end if false %>
+        <% end # end if pro %> 
+
+
+        <div class='display_flex' style='margin-top:20px'>
+          <label class='video_label public_video_uploader'>Preview video (click to upload)</label>
+          <input name=public_video_url id=public_video_url style='display: none' value="<%=nc[:public_video_url] %>"/>
+          
+          <video class='video_uploader cast_input_video' id=cast_input_public_video <%="poster='/favicon.ico'" unless nc[:public_video_url] %>  controls>
+            <source src="<%=nc[:public_video_url]%>" type="video/mp4">
+            <source src="<%=nc[:public_video_url]%>" type="video/ogg">
+          </video>
+        </div>
+
+        <br/>        
+
+        <!-- <div>
+          <label> Free Ticket Code </label>
+          <span style='width: 40%; display: inline-block; text-align: right'>
+            <input data-placement=top data-toggle=tooltip data-title='This code allow anyone to register for free for this cast.' class='free_ticket_code' value="<%= nc[:free_ticket_code].to_s %>" name=private_passcode placeholder="" style='width: 100%' /> 
+          </span>
+        </div> -->
+        <% show_starts_on = false %>
+        <% if show_starts_on %>
+        <div style='text-align: left; margin-top: 20px; margin-bottom: 20px'>
+          <label> Starts on </label><input name=series_start value="<%=nc[:series_start].to_s[0..9]%>" type=date />
+          <br/>
+          <br/>
+          <label> Ends on </label><input name=series_end value="<%=nc[:series_end].to_s[0..9]%>" type=date />
+        </div>      
+        <% end %>
+
+        
+        <br/>
+
+        <br/>
+
+        <div id='delete_cast_btn'>
+          <small style='text-align: right; display: inline-block; width: 100%'>
+            <button type=button class='btn btn-danger btn-raised' onclick="deleteCast();">Delete <i class='fa fa-trash'></i>
+            </button>
+          </small>
+          <small style='text-align: right; display: inline-block; width: 100%'>
+            <a href='/casts/duplicate/<%=cast[:_id]%>' style='color:black' class='btn btn-info btn-raised btn-warning'>Duplicate <i class='fa fa-copy'></i></a>
+          </small>
+        </div>
+      </div>
+
+      <% end #end more options %>
+
+  
+
+    <% end %> <!-- end !is_website -->
+    </div> <!-- end nc box -->
+    <br/>    
+    
+    <br/>
+    <div><button class='btn btn-raised btn-info'>Update</button>    </div>
+  </form>
+
+  
+</div>
+
+<script>
+function deleteCast() {
+  if (confirm('Are you sure? This is not  reversible')) {
+    postJSON('/casts/delete/<%=id%>').then(res => { 
+      alert(res.msg || res.err); 
+      document.location = '/me';
+    });
+  }
+}
+
+function updatePublicVideoURL(res) {
+  console.log(res);
+  window.res = res;
+  
+  var link   = res.url;
+
+  $("#public_video_url").val(link);
+  $("#cast_input_public_video").attr('src',link).removeAttr('poster');
+}
+
+function updatePrivateVideoURL(res) {
+  console.log(res);
+  window.res = res;
+  
+  var link   = res.url;
+
+  $("#private_video_url").val(link);
+  $("#cast_input_private_video").attr('src',link).removeAttr('poster');
+}
+
+function updateImgURL(res) {
+  console.log(res);
+  window.res = res;
+  //var link = JSON.parse(res).data.link;
+  var link = res.url;
+  $("#img_url").val(link);
+  $("#cast_input_img").attr('src',link);
+}
+
+function attachImgUploader() {  
+  // $('#img_uploader').on("change", function() {
+  //   var file = $(this).get(0).files[0];
+  //   if (file) { uploadImg(file, updateImgURL) }
+  // });  
+  $('#img_uploader').on("click", function() {
+    filestackUpload(res => updateImgURL(res))
+  });  
+
+  $('.private_video_uploader').on("click", function() {
+    filestackUpload(res => updatePrivateVideoURL(res))
+  });  
+
+  $('.public_video_uploader').on("click", function() {
+    filestackUpload(res => updatePublicVideoURL(res))
+  });  
+}
+
+function recurrenceChange(recurrence) {
+  $('.recurrence_btn').removeClass('bold').removeClass('btn-info').removeClass('zbtn-raised');
+  $('.only_if_recurring').toggle(recurrence=='<%=RECURRENCE_MULTI%>')
+  $('.only_if_single').toggle(recurrence=='<%=RECURRENCE_SINGLE%>')
+  $('.recurrence_btn.'+recurrence).show().addClass('bold').addClass('btn-info').addClass('zbtn-raised');
+  $('input[name=recurrence').val(recurrence);
+}
+
+// function toggleConditionals() {
+//   var isVimeo = ($('#platform_select').val() == "vimeo");
+//   $('.only_if_vimeo').toggle(isVimeo);
+// }
+
+// setTimeout(toggleConditionals,0)
+function onLoadEditCast() {
+  toggleOnlyIfCostsMoney();
+  attachImgUploader();
+  recurrenceChange("<%=nc[:recurrence]%>");
+}
+
+function toggleOnlyIfCostsMoney() {
+  $('.only_if_costs_money').toggle(parseInt($('.cost_input').val())>0)
+}
+
+onLoadEditCast();
+//$(document).ready(onLoadEditCast)
+
+</script>

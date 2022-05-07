@@ -1,0 +1,351 @@
+<style>
+.top-nav {
+  margin: 0 20px;
+  margin: 0;
+  <% if !$prod %>
+  border: 1px solid goldenrod;
+  <% end %>
+
+  <% if heb %>
+  zdirection: rtl;
+  <% end %>
+
+}
+.footer a {
+  margin: 20px;  
+  /*color: #209CEE;*/
+  color: #aab8c2
+}
+
+.top-nav a:not(.logo) {
+  color: #1e5353;
+  margin: 20px;
+  font-size: 14px;
+}
+
+.top-nav a:not(.logo):hover {
+  color: black;
+}
+
+@media screen and (min-width: 1000px) {
+  .logo {
+    width: 200px;
+    zborder:1px solid red;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+  }
+  .search_go_btn {
+    /*display: none;*/
+  }
+
+  .top-nav {
+    margin: 0 20px;
+    padding: 20px 0 10px;    
+    height: 50px;
+    /*position: absolute;
+    
+    top: 0;
+    left: 0;
+    z-index: 999;*/
+  }
+
+  .top-nav a:not(.logo) {
+    background-color: white;
+    padding: 5px 10px;
+  }
+}
+
+
+.search_input {
+  padding: 13px 40px 13px 20px;
+  border: 1px solid grey;
+  font-size: 17px;
+  width: 200px;
+  margin-left: 0px;
+}
+.links_city_selector_container {
+  display: inline-block;
+  vertical-align: super;
+  margin-bottom: 20px;  
+}
+@media screen and (max-width: 800px) {
+  .links_city_selector_container {
+    zmargin-left: 40px;
+  }
+  .container {
+    margin:10px 0;
+    padding:10px 0;
+    position: relative;
+    /*top: 30px;*/
+  }
+  .search_input {
+    width: 300px;
+  }
+  .top-nav {
+    margin: 10px;
+/*    border-bottom:1px solid whitesmoke;*/
+    position: relative;
+
+  }
+  .top-nav a, .top-nav .search_input_form {
+    display: none;
+    margin: 5px;
+  }
+  /*.fa-gear:hover {
+    color: red;
+  }*/
+  .top-nav a:not(.logo).expanded, .top-nav .search_input_form.expanded {
+    display: block;
+    padding: 15px;
+    background:whitesmoke;
+    padding-right: 30px;
+    margin-left: 50px;
+    color: black;
+    text-align: center;
+  }
+
+  .top-nav a.logo {
+    display: block;
+    text-align: center;
+  }
+  .top-nav a .sub_logo_msg {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+  .hamburger {
+    display: block;
+  }
+
+  .create_form {
+    float: left;
+  }
+
+  .search_input {
+    padding-right: 0;
+  }
+}
+
+.search_input_form {
+/*  display: inline-block;*/
+}
+
+.logo_sub_text {
+  position: relative;
+  top: 20px;
+  <% if heb %>  
+  left: 80px;
+  <% else %>
+  right: 80px;
+  <% end %>
+  font-size: 13px;
+  color: grey;
+}
+
+#top_plus_btn {
+  font-size: 17px;
+  border-radius: 4px;
+  padding: 3px 20px;
+  position: relative;
+  top: 0px;
+}
+
+.country_icon_container {
+  zbackground: linear-gradient(#e66465, #9198e5, #47f53b);  
+}
+
+.country_icon {
+  height: 35px;
+  width: 35px;
+  padding: 0;
+  border-radius: 50%;
+}
+.client_logo {
+  background-color: #324167;
+  padding: 10px;
+  border-radius: 10px;
+}
+.sub_logo_msg {
+  font-size: 14px; 
+  color:#1F5151; 
+  left: 6px;
+  position: absolute;
+  top: 26px;
+}
+
+.links_profile_pic {
+  height: 20px;
+  border-radius: 2px;
+  border: 1px solid #386256;
+  padding: 4px;
+  margin-right: 5px;
+}
+
+</style>
+
+<%
+  path = _req.path rescue ''
+  logo = '/favicon.ico'
+  logo = '/img/landing_page/logo6.png'
+  use_client_logo = pr[:use_client_logo]
+  if use_client_logo 
+    logo = 'https://images.squarespace-cdn.com/content/v1/5488a9e6e4b0563d5788db1a/12d1da8f-17e9-4462-a4df-d58a3e7c0f27/Tilray+Logo+-+Header.png?format=1500w'
+  end
+  is_post_page = path.to_s.starts_with?('/posts/') rescue false
+  is_main_page = path.to_s == '/' rescue false
+%>
+
+<% if path.starts_with?('/admin') %>
+  <div style='padding:10px'>
+    
+    <a class='btn' href='/'>Homepage</a>
+    <a href='/admin'><b>Admin</b></a>
+    <a target=_blank class='btn btn-info' href='/admin/admin_stats'>Admin Stats</a>
+    <a target=_blank class='btn btn-info' href='/admin/sellers'>Sellers Notes</a>
+    
+    <form method=post action="/admin/upload_gdoc_sellers" style='display: inline-block;' enctype="multipart/form-data">
+      <label class='btn btn-warning btn-raised'> upload new gdoc of sellers </label>
+      <input name=file size=50 type="file" onchange="if (confirm('confirm submission of this file?')) form.submit()" />
+    </form>
+  </div>
+<% else %>
+
+  <div class='top-nav'>
+    <% if path!='/z' %>
+    <span>
+      <a class='logo <%=use_client_logo ? 'client_logo' : ''%>' href='/' style='display: none'> 
+        <img src='<%=logo%>' style='height:30px'/>
+        <% 
+          msg = OUR_TAGLINES.sample
+          msg = 'the online cannabis economy'
+          msg = 'hire professional developers.'
+        %>
+        <div class='sub_logo_msg'><%= msg %></div>
+      </a>
+    </span>
+    <% if use_client_logo %>
+    <!-- <div>A world of well-being</div> -->
+    <% end %>
+    <% end %>       
+
+
+    <div class='logo_container' style='display: inline-block; display: none'>
+      <a href='/' class='logo'>
+        <b style='color: #00b140'>
+          <img src='/img/nowcast_logo_pause.png' style='height:80px' />
+        </b> 
+        <small class='logo_sub_text'>
+          <%= html_title %>
+        </small>
+      </a>    
+    </div>
+    
+    <% unless @hide_header %>
+    
+    <!-- <a class='nowcast_color' href='/' style='color: #00b140'>
+      Good-Weed
+    </a>     -->
+    <style>
+      .logo-text {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .logo-slogan {
+
+      }
+    </style>
+    <a class='zbtn' href='/'>
+      <span class='logo-text'>okFreelance</span>
+      <span class='logo-slogan'>devs & more</span>
+    </a>
+    <% if cu %>
+      <a class='user_name' href='/me'>
+        <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
+        <%#= cu_logo %>         
+
+         <b><%= cu[:name] %> </b><%= "<b class='nowcast_color'>(pro)</b>" if is_pro(cu) %>
+       </a>       
+      <!-- <a class='' target=_blank href='/@<%=cu['handle']%>'>
+        <i class='fa fa-external-link' style='margin-right: 5px'></i> View @<%=cu['handle']%>         
+      </a>     -->
+    <% else %>      
+      
+      
+
+      <a class='' href='/login'>
+      <%= !heb ? 'Login' : 'כניסה' %>
+      </a>    
+      
+      <% if false %>
+      <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>
+      <!-- https://fontawesome.com/v5.15/icons?d=gallery&p=2&q=dollar -->
+      <i class='fal fa-smile' style='margin-right: 10px'></i> <%= !heb ? 'Sign up to buy' : 'הרשמה' %>
+      
+      </a>          
+      <% end %>  
+      
+    <% end %>
+
+    <% if false && !is_homepage %>
+    <a class='' href='/search'><i class='fa fa-search'></i> <%= 'search' %> </a>
+    <% end %>
+
+    <% if cu && !is_pro(cu) %>
+      <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
+    <% end %>
+    <!-- <a class='' href='/about'>about</a>
+    <a class='' href='/contact'>contact</a>
+    <a class='' href='/articles'>blog</a> -->
+
+    <% if !cu %>
+
+    <% if _req.path == '/' %>
+      <a class='zbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
+    <% else %>
+      <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
+    <% end %>
+
+      <i class='fas zfa-store' style='margin-right: 10px'></i> <%= !heb ? 'Sign Up' : 'הרשמה' %></a>  
+    <% end %>    
+    <!-- <a class='' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a> -->
+    <% if false %>
+    <a class='' href='/vip'><i class='fa fa-question-smiley' style='margin-right: 5px'></i> <%= 'VIP chat' %> </a>
+    <% end %>
+    <% if false%>
+    <a class='noD' href='/help'><i class='fa fa-question-circle noDisplay' style='margin-right: 5px'></i> <%= 'About' %> </a>
+    <% end %>
+    <!-- <a class='' href='/influencers'><i class='fas fa-user-tie' style='margin-right: 5px'></i> <%= 'influencers' %> </a> -->
+    
+      <% ([] || ['usa', 'israel']).each do |country| %>
+        <a style='padding: 0' class='country_icon_container' href='/?country=<%=country%>'><img class='country_icon' src='/img/icons/<%=country%>.png' /></a>
+      <% end %>
+      <!-- <a class='' href='/community'>Community</a> -->
+    <% if cu && false %>
+      <a href='/chat'>
+
+        <i style='zfont-size: 50%; position: relative; zbottom:5px; zmargin-left:20px' class='fal fa-envelope'></i>
+        <span class='header_envelope_num_unreads noDisplay'></span>
+        <span style='margin-left: 5px'>Messages</span>
+      </a>
+    <% end %>
+
+    <%#= erb :'search/search_inputs_row' if search_input_on_top %>      
+    <% 
+      link = cu ? '/create' : '/signup?type=event' 
+      text = cu ? '+ create' : 'join'
+    %>
+
+    <% if false %>
+      <a href='<%= link %>' class='btn btn-primary btn-raised btn-info' id='top_plus_btn'><%= text %></a>
+    <% end %>
+    <% if cu %>      
+      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times-circle' ></i></a>
+    <% end %>    
+
+    
+    <% end %>
+
+    <%= erb :'header/hamburger' %>
+  </div>  
+<% end %>  

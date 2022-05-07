@@ -1,0 +1,34 @@
+<%
+  customers = $customers.get_many(user_id: cuid).to_a
+%>
+<style>
+.single_customer_list {
+
+}
+</style>
+
+<h1> Customers </h1>
+
+<div class='customers_list'>
+  <% customers.each do |customer| %>
+    <a href='/customers/<%=customer[:_id]%>'>
+      <div class='single_list_item single_customer_list nice_list_item'>
+        <div class=''><i class='fal fa-user'></i> <%= customer[:name] || '(missing name)' %></div> 
+        <div class=''><%= customer[:notes] %></div>        
+      </div>
+    </a>
+  <% end %>
+</div>
+
+<form method=post action=/customers>
+  <button class='btn btn-raised btn-primary' onclick=addCustomer() type=button>+ Add Customer </button>
+</form>
+
+<script>
+  function addCustomer() {
+    $.post('/customers').then(()=> {
+      
+      document.location.reload()
+    });
+  }
+</script>

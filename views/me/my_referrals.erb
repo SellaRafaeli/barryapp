@@ -1,0 +1,35 @@
+<%
+  teachers_referred_by_me = $users.get_many(referrer_id: cuid)
+  my_referral_link        = "#{$root_url}/signup?referrer_id=#{cuid}"
+%>
+
+<style>
+a.referral_link {
+  border: 3px dashed black;
+  background-color: #ffd300;
+  padding: 10px;
+}
+</style>
+
+<h4> Referrals </h4>
+<div class='my_referrals container'>
+<div>For every teacher that signs up using your referral link and ends up earning a "green badge" (<i class='check fas fa-badge-check'></i>) we will credit you 20$. </div>
+<Br/>
+<!-- <div> <b>We'll give you a bonus of <%=REFERRAL_PCT%>%</b> of what they made in their first <%= REFERRAL_MONTHS%> months. (up to a maximum of 1,000$ to you per teacher, subject to terms of service.). If they make 2,000$ a month teaching, you will make <%=(REFERRAL_PCT * 0.01 * 2000).round %>$ a month just for referring them. </div> -->
+<!-- <div> 2. <b>We'll give them a 50% discount on Nowcast Pro. </b></div> -->
+<br/>
+
+<div> Your referral link: </div>
+<br/>
+<div><b><a class='referral_link' href='<%=my_referral_link%>'><%=my_referral_link%></a></b></div>
+<% if teachers_referred_by_me.any? %>
+  <br/>
+  <div> Teachers referred by you: </div>
+  <ul>
+  <% teachers_referred_by_me.to_a.each do |user| %>
+  <li> <a href='<%=user_link(user)%>'><%= user[:handle] %></a> (<%=user[:created_at]%>)</li>
+  <% end %>
+  </ul>
+
+</div>
+<% end %>

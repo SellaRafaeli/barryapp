@@ -1,0 +1,5 @@
+<select name=subtype>
+  <% ['dispensary', 'brand'].each do |opt| %>
+    <option value="<%=opt%>" <%="selected" if user[:subtype]==opt %>><%=opt.capitalize%></option>
+  <% end %>
+</select>

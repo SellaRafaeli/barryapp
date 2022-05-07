@@ -1,0 +1,361 @@
+<%
+  email   = cu ? cu[:email] : ''
+  name    = cu ? cu[:name] : ''
+  cast_id = cast[:_id]
+  is_free    = cast_free(cast)
+  is_billing = is_series(cast)
+  is_single  = !is_billing
+  is_trial ||= false
+  
+  # https://dashboard.stripe.com/test/apikeys
+  api_key = ENV['STRIPE_PUBLISHABLE_KEY']   
+  api_key = ENV['STRIPE_PUBLISHABLE_STAGING_KEY'] if is_test_buy(cast)  
+
+  # offer_pay = pr[:pay] || pr[:enroll]
+  # offer_pay = true if is_free
+  offer_pay = true
+%>
+
+<style>
+.submit_stripe_form_btn {
+  position: absolute;
+  bottom: 10px;
+  right: 19px;
+}
+.signup_form_container {
+  background-color: whitesmoke;
+  padding: 20px;
+/*  border-radius: 4px;*/
+  position: relative;
+  padding-bottom: 75px;
+  text-align: left;
+}
+
+/*stripe css*/
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {box-shadow: 0 1px 3px 0 #cfd7df; }
+.StripeElement--invalid { border-color: #fa755a; }
+.StripeElement--webkit-autofill { background-color: #fefde5 !important; }
+
+/* loader spinner: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_loader */
+
+.spinner {
+  background-color: #333;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% { 
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+  } 100% { 
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+#subscription-form a {
+  color: grey;
+}
+#subscription-form a:hover {
+  color: darkgrey;
+}
+
+.cast_action_btn {
+  width: 200px;
+  display: inline-block;
+}
+</style>
+
+<div class='signup_form_container'>
+  <% if is_test_buy(cast) %>
+  <h6 style='zbackground-color: red'> test buy </h6>
+  <% end %>
+<!--   <h3> Sign up for </h3> -->
+  <%#= erb :'/casts/cast_header', locals: {cast: cast, is_owner: is_owner, owner: owner, snip: snip, show_cost: true, is_trial: is_trial} %>  
+
+  <% if offer_pay %>
+    <form id="subscription-form" style='ztext-align: right'>    
+      <% if cast_allows_variable_amount(cast) %>
+        <div style='margin-top:10px'>
+          <span>Pay as you can:</span> 
+          $<input style='width:50px; margin: 0 10px; font-size: 14px' value="<%=cast[:cost_dollars].to_i%>" type=number min="<%=MIN_VARIABLE_AMOUNT%>" onkeyup='variableAmountSet($(this).val())'/>          
+          <script>
+            window.variableAmount = "<%=cast[:cost_dollars].to_i%>"
+            console.log('variableAmount',window.variableAmount)
+          </script>
+          <% if is_series(cast) %>
+           monthly
+          <% end %>
+        </div>
+      <% else %>
+        <div class='total_amount'>cost: $<%=cast[:cost_dollars]%> <%="per month" if is_billing %></div>
+      <% end %>
+
+      <br/>
+      <% if cu %> 
+        <% if !is_free %>     
+          <div class='payment_info_area'>            
+            <%= erb :'/stripe/credit_card_input' %>
+          </div>
+        <% end %>
+        <button id=register_btn class='submit_stripe_form_btn btn btn-raised btn-primary' type="submit">
+        Submit</button>    
+      <% else %>
+        <% 
+          signup_data = is_free ? {} : {ask_for_cc: true}
+        %>
+        <%= erb :'login/signup_fields', locals: signup_data %>      
+        <button id=register_btn class='submit_stripe_form_btn btn btn-raised btn-primary' type="button">Submit</button>
+      <% end %>
+    </form>      
+  <% else %>
+    <div class='ct'>
+      <!-- <div>
+        <small><a href='/google.com'' class='btn btn-primary zbtn-raised cast_action_btn'> 
+          Contact <%= owner[:handle] %>
+        </a></small>
+      </div> -->
+      <div>
+        <a data-turbolinks="false" href='<%=_req.path+'?pay=1' %>' class='btn btn-primary btn-raised cast_action_btn'> 
+          <%= 'Sign Up' %>
+        </a>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+
+function spinnerizeRegisterBtn() {
+  
+  var oldText = $("#register_btn").text();
+  $("#register_btn").addClass('spinner');
+
+  setTimeout(()=> {
+    $("#register_btn").text(oldText).removeClass('spinner')
+  },5000);
+}
+
+function setupStripeForm() {  
+  var register_btn = document.getElementById('register_btn');
+  
+  
+  <% if cu %>
+    <% if is_free %>
+      register_btn.addEventListener('click', joinFree);
+    <% else %>
+      register_btn.addEventListener('click', payStripe);      
+    <% end %>
+  <% else %>
+    <% if is_free %>
+      register_btn.addEventListener('click', joinFree);
+    <% else %>
+      register_btn.addEventListener('click', signUpThenPayStripe);
+    <% end %>
+  <% end %>
+
+  <% if !is_free %>  
+  window.stripe = Stripe('<%=api_key%>');
+  var elements = stripe.elements();
+
+  var style = {
+    base: {
+      color: '#32325d',
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: 'antialiased',
+      fontSize: '16px',
+      '::placeholder': {color: '#aab7c4', },
+    },
+    invalid: {
+      color: '#fa755a',
+      iconColor: '#fa755a',
+    },
+  };
+
+  window.cardElement = elements.create('card', { style: style });
+  console.log('cardElement', cardElement)
+  cardElement.mount('#card-element');
+  cardElement.addEventListener('change', function(event) {
+    var displayError = document.getElementById('card-errors');
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = '';
+    }    
+  });  
+  <% end %>
+}
+
+window.submitBtnOrigText = $("#submit_btn").text();
+
+function joinFree(event) {
+  var data  = $("#subscription-form").serializeObject();
+  data.ajax = true;
+  data.cast_id = "<%=cast_id%>"
+  data.go_back_to = "<%=_req.fullpath %>"
+  postJSON('/joinFree', data).then(res => {
+    if (res.err) {   
+      if (res.goto && confirm(res.err)) { 
+        return goToPath(res.goto); 
+      } else {
+        alert(res.err);  
+      }      
+    } else {
+      alert('Thank you.')
+      document.location.reload();
+    }
+  }).catch(err => alert('error: '+res.err))
+}
+
+function signUpThenPayStripe(event) {
+
+  if (window.variableAmount === "0") return joinFree(event);
+
+  event.preventDefault(); //stop refresh
+  submitBtnTextLoader('Signing up');
+  if (window.signedUp) {
+    //alert('already signed up')
+    payStripe(event)
+  } else {
+    var data = $("#subscription-form").serializeObject();
+    data.go_back_to = "<%=_req.fullpath %>"
+    var z = postJSON('/signup', data);
+    console.log(z);
+    z.then(res => {
+      console.log('signed up and received ', res)
+      if (res.err) {
+        if (res.goto && confirm(res.err)) { 
+          return goToPath(res.goto); 
+        } else {
+          alert(res.err);    
+        }        
+        clearInterval(window.submitBtnTextTimeout);
+        $("#submit_btn").text(submitBtnOrigText);
+
+      } else {
+        //alert("signup successful, will now pay stripe")
+        window.signedUp = true;
+        payStripe(event);
+      }
+    })
+  }
+}
+
+
+function payStripe(event) {
+  spinnerizeRegisterBtn()
+  if (window.variableAmount === "0") return joinFree(event);
+
+  submitBtnTextLoader('Paying');
+  event.preventDefault(); //stop refresh
+
+  var paymentMethod = {
+    type: 'card',
+    card: window.cardElement,
+    billing_details: {
+      email: "<%= email %>" || window.signupEmail,
+      name: "<%= name%>" || window.signupName
+    }
+  };
+
+  var stripeCall;
+  
+  <% if !is_free  %>  
+    stripeCall = window.stripe.createPaymentMethod(paymentMethod)
+  <% else %>  
+    
+  <% end %>
+  
+  stripeCall.then(stripePaymentMethodHandler).catch(stripePaymentMethodHandler);;
+}
+
+console.log('is_trial is ',"<%=is_trial%>");
+
+function stripePaymentMethodHandler(result) {
+  if (result.error) {
+    console.log('error',result)
+    alert(result.error.message);
+    clearInterval(window.submitBtnTextTimeout);
+    $("#submit_btn").text(submitBtnOrigText);
+    // Show error in payment form
+  } else {
+    console.log('stripePaymentResult',result);
+    // Otherwise send paymentMethod.id to your server
+    paymentMethod = result.paymentMethod;
+
+    var res;
+    <% if is_billing && !is_trial %>
+    //console.log('endpoint is /subscribe')
+    //return;
+    res = postJSON('/stripe/subscribe', {
+      email: '<%=email%>' || window.signupEmail,
+      payment_method: result.paymentMethod.id,
+      cast_id: '<%=cast_id%>',
+      variable_amount: window.variableAmount
+    });
+    <% else %>
+    //console.log('endpoint is /pay')
+    //return;
+    res = fetch('/stripe/pay', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({payment_method_id: result.paymentMethod.id, cast_id: '<%=cast_id%>', variable_amount: window.variableAmount})
+    });
+    <% end %>
+    res.then(customer => { // The customer has been created 
+      alert('Thanks! It\'s great to have you with us. You will receive a confirmation email.')
+      document.location.reload();      
+    });
+  }
+}
+
+window.submitBtnText    = '';
+function submitBtnTextLoader(srcText) {
+  clearInterval(window.submitBtnTextTimeout);
+  window.submitBtnText = srcText;
+  window.submitBtnNumDots = 0;
+
+  window.submitBtnTextTimeout = setInterval(() => {
+    var text = srcText;
+    window.submitBtnNumDots+=1;
+    if (submitBtnNumDots % 4 == 0) text += ''
+    if (submitBtnNumDots % 4 == 1) text += '.';
+    if (submitBtnNumDots % 4 == 2) text += '..';
+    if (submitBtnNumDots % 4 == 3) text += '...';  
+
+    $("#submit_btn").text(text);
+  },500);
+}
+
+function variableAmountSet(amount) {
+  window.variableAmount = amount;
+  //console.log('setting amount ',amount)
+  $('.payment_info_area').toggle(amount > 0);
+}
+
+<% if offer_pay %>
+$(document).ready(setupStripeForm);
+<% end %>
+</script>

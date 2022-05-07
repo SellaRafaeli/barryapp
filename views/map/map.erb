@@ -1,0 +1,226 @@
+<%
+  user_ids = casts.mapo(:user_id).uniq
+  locations = $locations.get_many(user_id: {'$in': user_ids}).select {|loc| loc[:lat].present? && loc[:lng].present?  }
+  locations = $locations.all.select {|loc| loc[:lat].present? && loc[:lng].present?  }
+  x=1
+%>
+<style>
+#map {
+  zborder: 1px solid red;
+  height: 400px;
+  zmargin-right: 50px;
+}
+@media screen and (min-width: 1000px) {
+  #map {
+    margin-right: 50px;
+  }
+}
+
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+
+.single_loc_on_map {
+  zborder:1px solid red;
+}
+.single_loc_on_map:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.map_loc_img img {
+  height: 20px; width: 20px; border-radius: 50%;
+}
+.map_loc_title {
+  font-size: 16px;
+  font-weight: bold;
+  zborder:1px solid blue;
+}
+.map_loc_name {
+  font-weight: bold;
+}
+.map_loc_subtitle {
+  font-size:14px;
+}
+.map_loc_details {
+  zborder:1px solid blue;
+}
+</style>
+
+<!-- <input id="pac-input"class="controls"type="text"placeholder="Search Box"/> -->
+<div class='map_container noDisplay'>
+  <div id='map'></div>
+</div>
+
+
+  <!-- <iframe
+  width="300"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  src="https://www.google.com/maps/embed/v1/view?key=<%=ENV['GOOGLE_MAPS_API_KEY']%>&center=32.0853,34.7818&zoom=13"
+  >
+  </iframe> 
+-->
+
+<script>
+
+function initMap() {
+  console.log('in initmap')
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 13,
+    //center: {lat: 32.0853, lng: 34.7818},
+  });
+
+  console.log('built map initmap')  
+  console.log('added locations')
+}
+
+var markers = [];
+function initAutocomplete() {
+  var center= {lat: 32.0853, lng: 34.7818};
+  console.log('center',center)
+  var map = new google.maps.Map(document.getElementById("map"), {
+    center: center,
+    //center: { lat: -33.8688, lng: 151.2195 },
+    zoom: 13,
+    mapTypeId: "roadmap",
+  });
+
+  var geocoder = new google.maps.Geocoder();
+
+  geocoder.geocode({'address': "<%=pr[:city] || 'Tel Aviv'%>"}, function(results, status) {
+    if (status === 'OK') {
+      map.setCenter(results[0].geometry.location);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+
+  <% locations.each do |loc| %>
+    <% loc[:user] = user = $users.get(loc[:user_id]) %>
+     var contentString = `<div class='single_loc_on_map' onclick="onLocationClick('${"<%=user[:handle]%>"}')">
+        <div class='map_loc_title'>
+          <span class=map_loc_img><img src='${"<%= user[:img_url]%>"}'/></span>
+          <span class=map_loc_name>${"<%=user[:handle]%>"}</span>
+        </div>
+        <div class='map_loc_subtitle>
+          ${"<%=loc[:name]%>"}
+        </div>
+        <div class='map_loc_details>${'<%=loc[:address]%>'}, ${'<%=loc[:phone]%>'}, ${'<%=loc[:hours]%>'}</div>
+        <div class='map_loc_items></div>
+     </div>
+     `;
+   <% end %>
+    var locations = window.locations = <%=locations.to_json%>
+
+    locations.forEach(loc => {
+      console.log('adding loc',loc)
+      //var user = {name: 'temp'};
+      var contentString = `<div class='single_loc_on_map' onclick="onLocationClick('${loc.user['handle']}')">
+        <div class='map_loc_title'>
+          <span class=map_loc_img><img src='${loc.user['img_url']}'/></span>
+          <span class=map_loc_name>${loc.user['handle']}</span>
+        </div>
+        <div class='map_loc_subtitle>
+          ${loc['name']}
+        </div>
+        <div class='map_loc_details>${loc['address']}, ${loc['phone']}, ${loc['hours']}</div>
+        <div class='map_loc_items></div>
+     </div>`
+      var myLatLng = { lat: parseFloat(loc['lat']) || 0, lng: parseFloat(loc['lng'])||0 };
+      console.log('myLatLng',myLatLng)
+      var marker = new google.maps.Marker({position: myLatLng,map,});
+      
+      markers.push(marker);
+      marker.setMap(map);
+
+      marker.infoWindow = new google.maps.InfoWindow({content: contentString, });
+      
+      marker.addListener("click", () => {
+        marker.infoWindow.open({anchor: marker, map, shouldFocus: false,});
+        google.maps.event.addListener(map, "click", function(event) {
+            marker.infoWindow.close();
+        });
+      });
+
+      console.log('adding marker',marker,marker.position.lat(),marker.position.lng())
+    })
+}
+
+//https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
+initAutocomplete();
+//initMap();
+function onLocationClick(user_handle) {
+  window.open('/@'+user_handle,'_blank');
+}
+</script>

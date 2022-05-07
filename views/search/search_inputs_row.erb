@@ -1,0 +1,226 @@
+<style>
+.search_inputs_row {
+  padding: 20px 0 0 0;
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  /*background-color: #63d634bd;*/
+}
+.search_input_expand_gear {
+  margin-right: 10px; 
+  position: relative; 
+  top:3px; 
+  color: grey;
+  cursor: pointer;
+}
+.search_input_expand_gear:hover {
+  color: goldenrod;
+  
+}
+.search_input_expand_gear.clicked {
+  color: darkred;
+}
+#extra_search_inputs {
+  justify-content: center;
+}
+#extra_search_inputs select {
+  /*margin: 20px;*/
+  max-width: 300px;
+}
+@media screen and (max-width: 801px) {
+  .search_inputs_row .flex1 a {
+    display: block;
+  }
+  .search_inputs_container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+
+/*easy autocomplete code*/
+.easy-autocomplete-container {
+  position: absolute;
+  border: 1px solid whitesmoke;
+}
+.easy-autocomplete-container ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+}
+.easy-autocomplete-container li {
+  background-color: white;
+  padding: 20px;
+}
+.easy-autocomplete-container li.selected {
+  background-color: #bbf1bb;  
+}
+.easy-autocomplete{
+  width: 230px !important;
+  display: inline-block; 
+  position: relative;
+  z-index: 99999999; 
+}
+
+.easy-autocomplete input{
+  width: auto;
+  outline: none;
+}
+.easy-autocomplete input::-webkit-input-placeholder {
+  zcolor: orange;
+  font-size: 14px;
+}
+.eac-search-res-img img {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+</style>
+<div class='search_inputs_row'>
+  <form class='search_input_form' method=get action='/search' <% if locals[:searchOnChange] %> onsubmit='rerunSearch(); return false' <% end %>>
+    <div class='first_row display_flex'>
+      
+      <div class='flex1 search_inputs_container' style='display: flex; zalign-items: baseline'>
+        <!-- <a class='search_input_expand_gear' onclick='$(this).toggleClass("clicked"); $("#extra_search_inputs").toggleClass("noDisplayImportant")'>
+          <i class='fa fa-gear'></i>
+        </a> -->
+
+        <div class='flex1 noDisplay'>          
+          <select class="flex1 ct <%= %>" name=lang>
+              <!-- <option value="" <%="selected" if !pr[:state].present? %>>State</option> -->
+            
+            <% US_STATES.each do |state| %>
+              <option value="<%=state[:val]%>" <%="selected" if state[:val] == pr[:state] %>>
+                <%=state[:label]%>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        
+
+        <div class='flex1 noDisplay'>
+          <select class="flex1 <%= %>" name=lang>
+              <!-- <option value="" <%="selected" if !pr[:state].present? %>>State</option> -->
+            <% search_modes = [
+              {val: 'top_rated', label: 'Top-Rated'},
+              {val: 'new', label: 'New'},
+              # {val: 'near_you', label: 'Near You'}
+              ] %>
+              
+            <% search_modes.each do |mode| %>
+              <option value="<%=mode[:val]%>" <%="selected" if mode[:val] == pr[:mode] %>>
+                <%=mode[:label]%>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        
+        <div class='flex6'>
+          <input class='search_input' name=q zautofocus placeholder='Search Products and Brands...' value="<%=pr[:q]%>" <%="zautofocus" if !search_input_on_top %> />
+          <button class='search_go_btn btn2' type=submit style='margin-left:20px'><i class='fal fa-search' style='margin-right:5px'></i> Go </button>
+        </div>
+            
+        <div class='flex3'>
+          <div class=''>
+            <!-- <div style='font-size: 12px;padding-left: 12px;'> City </div> -->
+            <%= erb :'/partials/select_state_city', locals: {searchOnChange: true} %>      
+          </div>
+
+        </div>
+        <div class='flex3'>
+          <button type=button class='noDisplay btn btn-sm btn-primary' onclick='$(this).toggleClass("btn-raised"); $(".map_container").toggleClass("noDisplay")' style='margin-top:5px'>
+            <i class='fal fa-globe-americas'></i> 
+            map
+          </button>
+          <!-- <div class=''>
+            <div style='font-size: 12px;padding-left: 12px;'> Pickup/Delivery </div>
+            <select class='input1' style='margin:0; margin-left:10px'>
+              <option> Any </option>
+              <option> Delivery </option>
+              <option> Pickup </option>
+            </select>
+          </div> -->
+
+        </div>    
+        <div class='flex1'>
+          <!-- filler -->
+        </div>
+      </div>      
+
+    <br/>    
+    </div>
+    
+    <div class='second_row' style='max-width: 600px; zdisplay: flex'>
+
+        
+        
+
+      <% ([] || SEARCH_OPTS).each do |opt| %>
+        <span class='single_search_opt'><a class='simple_link' style='font-size: 12px' href='/search?q=<%=opt%>'>#<%= opt %></a></span>
+      <% end %>
+        <% if false  %>
+      <span id=extra_search_inputs style='flex: 3' class='<%="znoDisplayImportant " unless (pr[:lang] || pr[:geographic_area]) %>second_row display_flex'> 
+        <% lang = pr[:lang] || cu && cu[:lang] %>
+        <select class="flex1 <%= %>" name=lang>
+            <option value="" <%="selected" if !lang.present? %>>Any Strain</option>
+          <% STRAINS.each do |strain| %>
+            <option class="<%=%>" value="<%=strain[:val]%>" <%="selected" if strain[:val] == pr[:strain] %>>
+              <%=strain[:label]%>
+            </option>
+          <% end %>
+        </select>
+
+        <select class='flex1 ct' name=geographic_area>
+          <option value='' <%="selected" if cu && cu[:lang]==""%>> Any Item Type </option>
+          <% item_type = pr[:item_type]  %>
+          <% ITEM_TYPES.each do |item_type| %>
+            <option value="<%=item_type[:val]%>" <%="selected" if item_type[:val]==item_type%> >
+              <%=item_type[:label]%>                
+            </option>
+          <% end %>
+        </select>
+      </span>
+      <% end %>
+    </div>
+  </form>
+</div>
+
+<script> 
+//http://easyautocomplete.com/
+//setTimeout(()=>{
+  var options = {
+    url: q => '/search/autocomplete?q='+q,
+    zdata: {res: [
+    {"name": "AFGHANISTAN"}, {"name": "ALBANIA"}, {"name": "ALGERIA"}, {"name": "AMERICAN SAMOA"}, {"name": "ANDORRA"}
+  ]},
+    listLocation: 'res',
+    getValue: "name",
+    theme: 'dark',
+    list: {
+      match: {enabled: true},
+      maxNumberOfElements: 10,
+      onChooseEvent: function(z) {
+        event.stopPropagation();
+        console.log("Click !",z);
+      },
+    },
+    
+    template: {
+      type: "custom",
+      method: function(value, item) {
+        return `<span class='eac-search-res-img'><img src=${item.img_url} /></span><span class='search-res-text'>${value}</span>`;
+      },
+      fields: {link: "url"}
+    },
+
+    theme: "round"
+  };
+
+  $("input.search_input").easyAutocomplete(options);
+  console.log('set up autocomplete')
+//},0)
+</script>

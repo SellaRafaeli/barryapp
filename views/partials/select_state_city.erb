@@ -1,0 +1,22 @@
+<%
+  locals[:city] ||= pr[:city]
+%>
+
+<select class='input1' style='margin:0; margin-left:10px' id=city_selector name=city <% if locals[:searchOnChange] %> onchange='rerunSearch()' <% end %>>
+<!--   <option value="">Any City</option> -->
+  <% US_STATES_CITIES.each_with_index do |state_cities, state_idx| %>
+  <%
+    state = state_cities[0]
+    cities = state_cities[1]
+  %>
+    <optgroup label="<%=state%>">
+      <% cities.each_with_index do |city,city_idx| %>
+        <% should_select = false %>
+        <% should_select = true if (locals[:city] == city) %>
+        <% should_select = true if (locals[:choose_first] && city_idx==0)  %>
+        <option value="<%=city%>" <%="selected" if should_select %>><%=city%></option>
+      <% end %>
+    </optgroup>
+  <% end %>
+  </select>
+</select>

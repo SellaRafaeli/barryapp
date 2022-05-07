@@ -1,0 +1,45 @@
+<%
+  sec = pr[:sec] || 'ads'
+%>
+
+<style>
+.community_index {
+  position: relative;
+}
+.community_index i {
+  margin-right: 10px;
+}
+.community_index .btn:hover {
+  color: #00b140;
+}
+.community_index .btn.selected {
+  font-weight: bold;
+}
+
+</style>
+
+<div class='community_index container700'>
+<% if false %>
+<h1 class=nowcast_color> Nowcast Community </h1>
+
+<!-- <div style='position: absolute; right: 0'><%= erb :'/partials/fb_groups' %></div> -->
+
+<div class='btns'>
+  <!-- <a class='btn <%="selected" if sec=="articles"%>' href='/community?sec=articles'><i class='fal fa-user'></i> Articles</a> -->
+  <!-- <a class='btn <%="selected" if sec=="forum"%>' href='/community?sec=forum'><i class='fal fa-user'></i> Forum</a> -->
+  <!-- <a class='btn <%="selected" if sec=="help"%>' href='/community?sec=help_center'><i class='fal fa-smile'></i> Help </a> -->
+  <!-- <a class='btn <%="selected" if sec=="ads"%>' href='/community?sec=ads'><i class='fal fa-user'></i> Teachers Wanted </a> -->
+</div>
+<% end %>
+
+<br/>
+<% if sec == "ads" %>
+<%= erb :'/community/ads' %>
+<% elsif pr[:sec] == "help_center" %>
+<%= erb :'/community/help_center' %>
+<% elsif pr[:sec] == "articles" %>
+<%= erb :'/community/articles' %>
+<% elsif pr[:sec] == "forum" %>
+<%= erb :'/community/forum' %>
+<% end %>
+</div>

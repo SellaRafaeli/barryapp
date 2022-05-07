@@ -1,0 +1,16 @@
+<%
+  num_mins  = get_post_mins(post)
+  num_views = get_post_num_views(post)
+  created_at = nice_date(post['created_at']) rescue ''  
+  updated_at = nice_date(post['updatd_at'] || post['created_at']) rescue ''  
+  is_owner   = locals[:is_owner] ||= false
+%>
+<div class='user_data rtl'>
+    <span class='user_data_img'><a href='<%=$root_url%>/@<%=owner['handle']%>'><img class=user_img src="<%=owner[:img_url] || DEFAULT_PIC %>" /></a></span>
+
+    <span class='user_data_data'>
+      <a href='<%=$root_url%>/@<%=owner['handle']%>'><%= owner['name'] %></a>
+      <br/>
+      <a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %><% if !is_owner %>· כ-<%=num_mins %> דק׳ קריאה<% end %></a>
+    </span>
+</div>

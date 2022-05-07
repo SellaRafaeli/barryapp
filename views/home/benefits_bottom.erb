@@ -1,0 +1,16 @@
+<%
+  if pr[:type] == 'seller'
+    benefits = [
+      {icon: 'user-headset', text: 'Superb Customer Support.', subtext: 'Talk to us on Whatsapp.'},
+      {icon: 'cogs', text: 'Top-notch tech.', subtext: 'You\'ll love our system.'},
+      {icon: 'hand-holding-usd', text: 'Best value anywhere.', subtext: 'No cost unless you make money.'}
+    ]
+  else 
+    benefits = [
+      {icon: 'user-headset', text: 'Superb Customer Support.', subtext: 'Talk to us on Whatsapp.'},
+      {icon: 'cogs', text: 'Top-notch tech.', subtext: 'You\'ll love our system.'},
+      {icon: 'hand-holding-usd', text: 'Best value anywhere.', subtext: 'The best-priced cannabis anywhere.'}
+    ]
+  end
+      %>
+<%= erb :'home/benefits', locals: {benefits: benefits} %>        

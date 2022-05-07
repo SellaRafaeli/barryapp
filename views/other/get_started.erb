@@ -1,0 +1,50 @@
+<%
+  data = {
+    title: 'nowcast: getting started',
+    subtitle: 'Let them find you',
+
+    top_buttons: [
+      {link: '/signup', text: 'Start'},
+    ],
+    rows: [
+      {title: '1. Hear about us.', 
+       content: "Good job! You're doing great.", zfa_icon: 'fa-video-camera'
+      },
+      {title: '2. Sign up.', 
+       content: 'This one should be easy. When you\'re ready to commit to a video program, you\'re ready to start selling.', zfa_icon: 'fa-user'
+      },
+      {title: '3. Create your first cast.', 
+       content: 'This won\'t go live yet, it\'s just the way for us to know what we\'ll be working on together. We recommend casting what you genuinely love doing.', zfa_icon: 'fa-user'
+      },
+      {title: '4. We\'ll contact you.', 
+       content: "We will review your cast and if it\'s a good fit for nowcast we will contact you and help you prepare. You will be able to ask us any question and we'll make sure you feel comfortable.", zfa_icon: 'fa-user'
+      },
+      {title: '5. Greenlight.', 
+       content: "When you're ready, we'll greenlight your cast and it will appear under the channels you approve.", zfa_icon: 'fa-user'
+      },
+      {title: '6. Live.', 
+       content: "People will now be able to sign up for your cast. If it requires a payment, only paying users will be able to access it. Every month, we will send you your last month's earnings, minus our commission for running the site. Contact us for payment details, but at this point we expect to be in an ongoing communication with you. We do our best to help the talent creators that work with us, because your success is tied with our success.", zfa_icon: 'fa-user'
+      },
+      {title: '7. Prepare', 
+       content: "You will be notified every time somebody new signs up to your cast, and you’ll be able manage user subscriptions to your casts from your profile. An hour before your cast begins, you will receive a notification reminding you about it. Every user subscribed to a cast will receive the same notification. We'll be there to hold your hand the first few times.", zfa_icon: 'fa-user'
+      },
+      {title: '8. Showtime', 
+       content: "Lights - camera - action. You pass your cast. That’s all you. 🙂 Make everyone happy they came to your cast.", fa_icon: 'fa-heart'
+      },
+      {
+        title: "9. See you next week!.",
+        content: 'Your show will repeat each week, and your audience will gradually grow as more people see you on nowcast.co and sign up. Engage with your fans, followers, and clients and gradually grow your business.',
+        fa_icon: 'fa-smile-o'
+        
+      },
+      {
+        title: "10. Upsell additional items.",
+        content: 'Once you have a running show, start upselling additional premium casts and digital items like prerecorded videos. Contact us to help you out.',
+        fa_icon: 'fa-dollar'
+      }
+    ],
+    bottom_msg: 'nowcast creators create value and make money'
+  }
+%>
+
+<%= erb :'/other/template_page', locals: data %>

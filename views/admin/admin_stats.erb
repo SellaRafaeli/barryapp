@@ -1,0 +1,62 @@
+<%
+  now       = Time.now
+  days      = (pr[:days] || 1).to_i
+  hours     = days.to_i * 24
+  requests  = $requests.get_many({created_at: {'$gt': now - hours.hours}})
+  new_users = $users.get_many({created_at: {'$gt': now - hours.hours}})
+  new_products = $casts.get_many({created_at: {'$gt': now - hours.hours}})
+  orders    = $enrolls.get_many({created_at: {'$gt': now - hours.hours}})
+%>
+
+<style>
+.admin_stats {
+  background-color: whitesmoke;
+  padding: 20px;
+}
+</style>
+
+<div class='admin_stats'>
+  <h1>Stats: Last <%=hours %> Hours</h1>
+  <a class='btn btn-raised <%="selected"%>' href='/admin/admin_stats?days=1'>Last 24 hours </a>
+  <a class='btn btn-raised' href='/admin/admin_stats?days=30'>Last 30 days </a>
+  <h5> <%= now %> </h5>
+
+  <%
+    sections = [
+      {items: requests, title: 'Requests', 
+        data: {ips: requests.mapo(:ip).hash_of_num_occurrences, 
+          paths: requests.mapo(:path).hash_of_num_occurrences}},
+      # {items: new_products, title: 'New Products'},      
+      # {items: orders, title: 'New Orders'},
+      # {items: new_users, title: 'New Users'},
+    ]
+  %>
+
+  <% sections.each do |section| %>
+  
+  <% items = section[:items] %>
+
+    <div> 
+      <%= section[:title] %>: <%= items.count %>       
+    </div>
+
+    <% if data = section[:data] %>
+      <h5> Data </h5>
+      <div class='single_list_item' style='display: zinline-block;'>
+        <% data.keys.each do |topic| %>
+          <h4> <%= topic %></h4>
+          <% subdata = data[topic] %>
+            <% subdata.keys.each do |k| %>
+              <div class=display_flex>
+                <span class=flex1><%= k %> </span><span class=flex1><%= subdata[k] %></span>
+              </div>
+            <% end %>
+          <% end %>
+      </div>
+    <% end %>
+    <hr/>
+  <% end %>
+  
+  <!-- http://ip-api.com/json/82.81.6.162 -->
+  
+</div>

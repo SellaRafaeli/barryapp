@@ -1,0 +1,29 @@
+<%
+  selected_type = pr[:type]
+%>
+<select class=input1 name=type required>        
+        <option value="" selected disabled hidden> (please choose) </option>
+        <option value='buyer' <%="selected" if pr[:type]=="buyer" %>> Person over 21  </option>
+        <!-- <option value='seller'> Dispensary (Seller) </option> -->
+        <!-- <option value='seller'> Cultivator </option>-->
+        <option value='seller' <%="selected" if pr[:type]=="seller" %>> Dispensary  </option> 
+        <option value='cultivator' <%="zselected" %>> Cultivator  </option> 
+        <option value='seller' <%="selected" if pr[:type]=="seller" %>> Cultivator  </option>
+        <option value='seller' <%="selected" if pr[:type]=="seller" %>> Dispensary  </option> 
+        <option value='seller' <%="selected" if pr[:type]=="seller" %>> Dispensary  </option> 
+        
+        
+        
+        <!-- <option value='other' <%="selected" if pr[:type]=="buyer" %>> Lawyer </option>
+        <option value='other' <%="selected" if pr[:type]=="buyer" %>> Consultant </option> -->
+
+
+        <!-- <option value='seller'> Delivery Service </option>
+        <option value='seller'> Brand </option>
+        
+        <option value='seller'> Distributor </option>
+        <option value='seller'> Grower </option>
+        <option value='seller'> Manufacturer </option>
+        
+        <option value='seller'> Other </option> -->
+      </select>

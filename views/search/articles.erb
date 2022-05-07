@@ -1,0 +1,49 @@
+<style>
+.articles_links_list {
+  margin-bottom: 10px;
+  zmax-width: 700px;
+  line-height: 2;
+  text-align: center;
+}
+.single_article_link {
+  background-color: white;
+  border:1px solid whitesmoke;
+  padding: 5px 10px;
+  font-size: 14px;
+  text-transform: lowercase;
+  border-radius: 5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.single_article_link:hover {
+  background-color: darkgreen;
+  color: white;
+}
+.single_article_link.selected {
+  background-color: #b7efb7;
+}
+.single_article_link.selected:hover {
+  color: #150000;
+}
+.articles_link {
+  font-size: 14px;
+}
+</style>
+<%
+  articles = [
+    {url: '/articles/about-cannabis', title: 'about cannabis'},
+    {url: '/articles/getting-started-with-cannabis', title: 'Getting Started with cannabis'},
+    {url: '/articles/is-cannabis-right-for-you', title: 'Is Cannabis Right For Me?'},
+    #{url: '/articles/resources-while-high', title: 'Resources for enhancing stimuli'},
+    {url: '/articles/why-cannabis', title: 'why use cannabis'},
+    {url: '/articles/why-good-weed', title: 'why good-weed'},
+    {url: '/articles/how-to-choose-cannabis', title: 'what cannabis should I use?'}
+  ]
+%>
+
+<div class='articles_links_list'>
+  <!-- <a class='articles_link' href='/articles'><b> articles</b></a> -->
+  <% articles.each do |article| %>
+    <a href="<%=article[:url]%>" class='simple_link <%="selected" if article[:url].to_s.include?(pr[:article_id].to_s)%> single_article_link'> <%=article[:title] %> </a>
+  <% end %>
+</div>

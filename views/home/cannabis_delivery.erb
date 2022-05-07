@@ -1,0 +1,224 @@
+<style>
+.hcd_left {
+  text-align: left;
+  
+  flex: 1;
+  display: none;
+}
+.hcd_right {
+  flex: 1;
+  zmargin-left: 50px; 
+  background-color: #386256;
+  color: white;    
+  zpadding-bottom: 200px;
+}
+.home_cannabis_delivery {
+  display: flex;
+  zmax-width: 800px;
+  margin: auto;
+}
+
+.lp_h1 {
+  font-size: 18px;
+  font-weight: normal;
+  text-align: center;
+}
+.lp_h2 {
+  font-size: 32px;
+  
+  font-weight: bold;
+  width: 100%;
+}
+
+.main_img_wrapper {
+  background-color: #386256;
+  zdisplay: inline-block;
+  
+  text-align: center;
+}
+.hero_texts {
+  /*text-align: left;
+  display: flex;
+  padding-left: 150px;*/
+  text-align: center;
+  margin-top: 50px;
+  padding-bottom: 150px;
+}
+.main_delivery_img {
+  flex: 1;
+  width: 220px;
+  /* margin-right: 20px; */
+  zmax-height: 500px;
+  position: relative;
+  top: 10px;
+  right: 40px;
+}
+
+.main_search_wrapper {
+  background-color: white;
+  border-radius: 70px;
+  padding: 5px 30px;
+}
+.main_search_wrapper input {
+  outline: none;
+  border: none;
+}
+.main_search_wrapper form {
+  display: inline-block;
+}
+.search_icon {
+  height: 40px;
+}
+
+.homepage_clip {
+  display: inline-block;
+  margin-left: 100px;
+  margin-top: 50px;
+}
+
+@media (max-width: 800px) {
+  .home_cannabis_delivery {
+    flex-direction: column-reverse;
+  }
+  .hcd_right {
+    display: block;
+    text-align: center;
+    margin-left: 0px;    
+  }
+  .hero_texts {
+    padding: 0 15px;
+    display: block;
+  }
+  .main_img_wrapper {
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .main_search_wrapper {
+    margin-top: 20px;
+  }
+  .search_icon {
+    display: none;
+  }
+  form {
+    text-align: center;
+  }
+  .homepage_clip {
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
+}
+</style>
+
+<%
+  seller_mode = pr[:type] == 'seller'
+%>
+
+<div class='home_cannabis_delivery'>
+
+  <div class='hcd_left'>
+    <!-- <h1> Cannabis Delivery </h1> -->    
+  </div>
+  
+  <div class='hcd_right'>    
+    <div class='hero_texts'>
+      <%
+        text1 = "A cannabis and business network."                
+        text2 = "Buy, sell, collaborate."
+
+        # text1 = "Top Cannabis Brands."
+        # text2 = "The best in your area."
+        
+        if seller_mode
+          text1 = 'Your online cannabis shop.'
+          text2 = 'Sell cannabis on good-weed.com. Get orders via email and SMS.'
+        end
+
+        msgs = OUR_TAGLINES        
+        text1 = msgs.sample
+        text2 = msgs.sample
+        text2 = msgs.sample if text2 == text1
+        text2 = msgs.sample if text2 == text1
+        text2 = msgs.sample if text2 == text1
+        # text1 = msgs[0] if true
+        text2 = 'Social equity cannabis: the online marketplace.'
+        old = '.<div><span style="display: none; font-size: 75%"">(from awesome humans.)</span></div>'
+      %>
+
+      <div class='texts_and_search'>
+        
+          <h2 class='lp_h2' style='letter-spacing: 1.1px'><%= 'good-weed.com' %></h2> 
+        <% if show_texts = true %>
+          <h3 style='font-size: 24px'><%= text2 %> </h3> 
+        <% end %>
+
+        <%= erb :'home/rooms' %>     
+            
+        <% if false %>  
+        <div class='links_city_selector_container main_search_wrapper'>
+          <%#= erb :'/partials/select_state_city', locals: {searchOnChange: true} %>      
+          <img src='/img/icons/icon.png' class='search_icon'>
+          <form method=get action='/zip' onsubmit="trySubmitZipCode()">
+            <%#= erb :'/partials/select_area2', locals: {searchOnChange: true, zip_search: true, no_state: true, no_city: true, no_title: true} %>    
+
+            <% if seller_mode %>
+            <a href='/signup?type=seller' class='btn btn-primary btn-raised'> Open Your Shop </a>
+            <% else %>
+            <%= erb :'/home/address_selector', locals: {cb: 'gotozip'} %>
+            <button class='btn btn-primary btn-raised'> Let's Go </button>
+            <% end %>
+            
+
+          </form>
+        </div>
+        <% end %>
+
+        <div class='main_img_wrapper' style='zwidth:100%;'>
+          <img src='/img/cannabis_delivery.jpg' class='main_delivery_img'>
+        </div>    
+
+        
+
+      </div>
+      <% if false && pr[:type]=='seller' %>
+      <div class='homepage_clip'>
+        <video width="320" height="240" controls>
+          <source src="https://i.imgur.com/RVGUIFI.mp4" type="video/mp4">
+        </video>
+      </div>
+      <% end %>
+    </div>
+    <h3 style='font-size:16px; display: block; margin-top: 0'></h3>
+
+    <% if false %>
+      <%= erb :'home/benefits_top' %>
+      <%= erb :'home/rooms' %>        
+      <%= erb :'home/benefits_bottom' %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+function trySubmitZipCode(el) {
+  var val = parseInt($(el).find('input').val());
+  if (val.length == 5) {
+    document.location = '/chat/'+val;
+  }
+}
+
+function gotozip(place) {
+  console.log('going to zip', place);
+  
+  //var place.address_components.map(c=>c.types||[]).filter(c=>c[0]);
+  var zip;
+  try {
+    zip = place.address_components.filter(a => (a.types||[])[0]=='postal_code')[0].short_name;
+    window.location = '/zip/'+zip;
+  } catch (e) {
+    console.log(e);
+    window.location = '/zip/'+place.name;
+    //alert('Choose an address with a postal code.')
+  }
+}
+</script>

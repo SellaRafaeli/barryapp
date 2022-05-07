@@ -1,0 +1,20 @@
+<%
+  data = {
+    title: 'Our Team',
+    subtitle: '',
+    top_buttons: [
+    ],
+    rows: [
+      {title: 'Ofek Rafaeli, Senior Developer', zcontent: "Ohad joined Nowcast in early June, 2020."},
+      {title: 'Alon Matskin, Senior Developer', zcontent: "Yael joined Nowcast in late May of 2020."},
+      #{title: 'Tzlil Berlin, host of The Nowcast Show', content: "Tzlil joined Nowcast in early May of 2020. She hosts the daily Nowcast show (9am PST / 12noon EST / 19:00 in Israel)." 
+      #},
+      #{title: 'Gal Weinstock, Fullstack Developer', content: "Gal joined Nowcast as a first developer in early May of 2020."},
+      {title: 'Sella Rafaeli, CEO', zcontent: "Sella founded Nowcast in late April of 2020. He is especially passionate about God, the Universe, and Everything. Sella teaches development, meditation, and spirituality." 
+      },
+    ],
+    bottom_msg: 'Come hang out with us!'
+  }
+%>
+
+<%= erb :'/other/template_page', locals: data %>

@@ -1,0 +1,135 @@
+<%
+
+  add_user_to_casts(casts)
+  dows  = DOWS
+  
+
+  if pr[:dow]
+    dows  = dows.select {|dow| dow[:val] == pr[:dow] } 
+  end
+
+  casts.each do |cast|
+    cast[:schedule_hour] = get_cast_hour(cast)
+    cast[:schedule_dow]  = get_cast_dow(cast)
+    #puts "#{cast['title']}, #{cast['schedule_hour']}, #{cast['schedule_dow']}".yellow
+  end
+
+  if pr[:hour]
+    casts.select! {|cast| (cast[:schedule_hour] == pr[:hour].to_i) }
+  end
+
+  if pr[:dow]
+    casts.select! {|cast| (cast[:schedule_dow] == pr[:dow]) }
+  end
+
+  strf_format   = "%d/%m"
+  casts_by_date = {}
+
+  casts.each do |cast|
+    date = cast_next_date_utc(cast).strftime(strf_format)
+    casts_by_date[date] ||= []
+    casts_by_date[date].push(cast)
+  end
+%>
+
+<style>
+.calendar {
+  width: 100%;
+  overflow: scroll;
+}
+.calendar table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.calendar td {
+  max-width: 300px;
+  border: 1px solid lightgrey;
+}
+.calendar .single_date_box {
+  /*background-color: #fbe1e1;*/
+  height:100px; 
+  position: relative;
+  padding: 10px;
+  overflow: scroll;  
+}
+.calendar .is_past {
+  background-color: whitesmoke;
+}
+.calendar .single_date_date {
+  text-align: right;
+  font-size: 12px;
+  top: 10px;
+  right: 10px;  
+}
+.calendar .is_today {
+  background-color: #ccf1f7;
+  background-color: #b7ff92c7;
+  background-color: lightgreen;
+  font-weight: bold;  
+  /*border:2px solid maroon;*/
+  /*border-radius: 4px;*/
+}
+.calendar .is_soon {
+  background-color: beige;
+}
+.calendar .single_date_casts {  
+  text-align: left;
+  font-size: 70%;
+}
+
+.calendar_single_cast_img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+</style>
+<div class='calendar'>
+  <!-- <h3 style='text-align: left; margin-left: 20px'> June 2020 </h3> -->
+  <h3 style='font-size: 14px'> TOP UPCOMING: JUNE 2020 </h3>
+  <table cellspacing=0 cellpadding=0>
+    <thead>
+      <tr>
+        <th> </th>
+      <% dows.each do |dow| %>
+        <th><a style='font-size:12px' class=link href='<%=_req.path%>?dow=<%=dow[:val]%>'><%=dow[:label].to_s[0..2].upcase %></a></th>
+      <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <% (0..2).to_a.each_with_index do |week_num, week_idx| %>
+        <tr>
+          <td></td>
+          <% (0..6).to_a.each_with_index do |i,day_idx| %>
+          <td>
+            <% date = Date.parse('2020-06-22')+(((week_num)*7).days)+day_idx.days %>
+            <% is_soon = false %>
+            <% is_today = date == Date.today %>
+            <% is_soon = true if date-1.day == Date.today %>
+            <% is_soon = true if date-2.day == Date.today %>
+
+            <% is_past = date < Date.today %>
+            <% date_pretty = date.strftime(strf_format) %>
+            <div class='single_date_box <%="is_past" if is_past%> <%="is_today" if is_today%> <%="is_soon" if is_soon%>'>
+              <div class='single_date_date'><%= date_pretty %></div>
+              <div class='single_date_casts'>
+                <% casts_by_date[date_pretty].to_a.each do |cast| %>
+                  <% next unless cast['title'].present? && cast[:img_url].present? %> 
+                  <div>
+                    <a target=_blank href='<%=cast_link(cast)%>'>
+                      <img src='<%=cast[:img_url]%>' class='calendar_single_cast_img' /> <%= cast['title'] %>
+                    </a>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>    
+    </tbody>
+  </table>
+</div>

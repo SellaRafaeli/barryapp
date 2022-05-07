@@ -1,0 +1,520 @@
+<%
+  placeholder = 'Advertise yourself or write a message...'
+  cast_id     = cast[:_id]  
+%>
+
+<style>
+.cast_chat_wrapper {
+  font-size: 18px;
+  font-weight: lighter;
+  max-width: 600px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: whitesmoke;
+  padding:20px;
+  max-height: 650px;
+  overflow: scroll;
+}
+.cast_chat {
+  /*border: 1px solid whitesmoke;*/
+  text-align: left;
+  /*padding: 10px;*/
+  zmax-height: 550px;
+  /*margin-bottom: 20px;*/
+  overflow: scroll;
+  zbackground-color: whitesmoke;
+  padding: 20px;
+  zmax-height: 700px;
+}
+.chat_date {
+  float: right;
+  position: relative;  
+  color: grey;
+  font-size: 80%;  
+  margin-left: 10px;
+}
+.chat_name {
+  color: black;
+  display: block;
+  zfont-size: 70%;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  display: inline-block;
+  background-color: whitesmoke;
+  padding-right: 10px;
+  font-weight: bold;
+}
+.chat_msg {
+  margin-bottom: 0px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: whitesmoke;
+  position: relative;
+  zwidth: 45%;
+  margin: 10px 0;
+}
+
+.chat_msg.buyer {
+  border:2px solid lightblue;
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+}
+.chat_msg.seller {
+  border:2px solid #386256;
+  ztext-align: right;
+  margin-left: auto;
+}
+
+.chat_msg.seller .chat_msg_actions {
+  zleft: 0;
+  zright: auto;
+}
+
+.chat_user_img img {
+  height: 40px;
+  width: 40px;
+  border-radius: 30%;
+  margin-right: 2px;
+  border: 1px solid #cabfbf;
+  object-fit: cover;
+}
+.lastLink {
+  margin-bottom: 20px;
+  display: block;
+  /* min-height: 50px; */
+  width: 100%;
+  font-weight: bold;
+  /* color: brown; */
+  background-color: lightgreen;
+  border-radius: 3px;
+  padding: 27px 10px;
+}
+.lastLink:hover {
+  background-color: #5adc5a;
+}
+
+.all_channels {
+  zposition: absolute;
+  bottom: 0;
+  left: 0;
+}
+.single_channel_data {
+  display: inline-block;
+  color: black;
+  background-color: whitesmoke;
+  font-size: 14px;
+  padding: 10px;
+  margin-right:10px;
+}
+.chat_msg_actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+#chat_pic_uploader_img {
+  zheight: 100px;
+}
+.msg_body_img {
+  overflow: hidden;
+}
+</style>
+
+<script>
+<% if false %> Pusher.logToConsole = true; <% end %>
+
+var pusher    = new Pusher('025a366113a735eb75ca', {cluster: 'us2', authEndpoint: '/pusher/auth/<%=cast_id%>'});
+var channelId = "<%=cast_chat_channel(cast)%>"
+var channel   = pusher.subscribe(channelId);
+var presenceChannel = pusher.subscribe('presence-'+channelId);
+
+channel.bind_global(castPusherCallback);
+
+// window.pc2 = new RTCPeerConnection();
+// pc2.onaddstream    = e => {
+//       console.log('adding stream for pc2', e);
+//       v2.srcObject = e.stream;
+//     }
+// pc2.ontrack = e => {
+//   console.log('ontrack called',e)
+// }
+
+// pc2.onicecandidate = e => {
+//       console.log('pc2, onicecandidate', e)
+//       if (e.candidate===null) {
+//         return console.log('signaling done, return')
+//       }
+//       sendChatData({type: 'rtc-ice-candidate', candidate: e.candidate});      
+//     }
+
+// console.log('my id, ',"<%=cuid%>")
+function castPusherCallback(event, data) {
+  console.log('pusher got', event, data);
+  if (event == 'webrtc') {
+    return handleWebRTCMessage(data)
+  }
+  if (event == 'new-msg') {
+    refreshChat();
+    //addChatMsg(data);
+    updateChannelsData(data);
+  } 
+  else if (event == 'newHTML') {
+    if (data.user_id=="<%=cuid%>") { return console.log('my own code update, skipping'); }
+    updateCode({html: data.html, prettyPrint: true});
+  }
+  else if (event == 'delete-msg') {
+    //$('.chat_msg[data-msg_id="i2IInnyVS"]').fadeOut()
+    $(`.chat_msg[data-msg_id=${data.msg_id}]`).fadeOut('slow');
+  }
+  else if (event == 'rtc-start') {
+    // if (data.user_id=="<%=cuid%>") { return console.log('my own rtc-start, skipping'); }
+    // rtcStart();
+  }
+  else if (event == 'rtc-ice-candidate') {
+    // if (data.user_id=="<%=cuid%>") { return console.log('my own rtc-offer, skipping'); }
+    
+    // console.log('rtc-ice-candidate event', data.candidate)
+    // add(window.pc1, data.candidate);
+    //add(window.pc2, data.candidate);
+  }
+  else if (event == 'rtc-offer') {
+    // if (data.user_id=="<%=cuid%>") { return console.log('my own rtc-offer, skipping'); }
+    // console.log('got offer', data);
+    // var desc = data.desc;
+    // var answerDesc = '';
+      
+    // // pc2.onicecandidate = e => {
+    // //   console.log('pc2, onicecandidate', e)
+    // //   sendChatData({type: 'rtc-ice-candidate', candidate: e.candidate});      
+    // // }
+    
+    // pc2.setRemoteDescription(desc).then(() => pc2.createAnswer()).then(d => {
+    //   answerDesc = d;
+    //   pc2.setLocalDescription(d);
+    // }).then(() => {
+    //   sendChatData({type: 'rtc-answer', desc: answerDesc});
+    //   //pc1.setRemoteDescription(pc2.localDescription)
+    // }).then(() => {
+    //   console.log('done acknowledging offer');
+    // }).catch(failed)
+    // console.log('sent answer');
+  } 
+  else if (event == 'rtc-answer') {
+    
+    // if (data.user_id=="<%=cuid%>") { return console.log('my own rtc-answer, skipping'); }
+    // console.log('got answer', data);
+    // window.pc1.setRemoteDescription(data.desc);  
+  }
+  else if (event == 'refresh_tv') {
+    // $.get('/casts/<%=cast_id%>/screen').then(res => {
+    //   $('.cast_pending').html(res);
+    // })
+  } 
+
+  linkifyChat();
+}
+
+function sendChat(data) {
+  data.type = data.type || 'webrtc';
+  data.cast_id = "<%=cast_id%>";
+  postJSON('/chat/send',data);
+}
+
+function updateLastLink() {
+  //debugger
+  var lastLink = $('.chat_msg_content .linkified').last().html();
+  if (!lastLink) {
+    $('.lastLink').addClass('noDisplayImportant');
+  } else {
+    var href = lastLink;
+    if (lastLink.indexOf('http')!=0) href = '//'+href;
+    $('.lastLink').attr('href',`${href}`).text(`Click to open (${lastLink})`).removeClass('noDisplay');  
+  }  
+}
+
+function linkifyChat() {
+  $('.chat_msg_content').linkify({target: "_blank"});
+  updateLastLink();
+}
+
+window.cast_id = "<%=cast_id%>";
+function sendChatData(data) {
+  data.cast_id = "<%=cast_id%>";
+  postJSON('/chat/send', data).then(res => { 
+    if (res.err) { 
+      alert(res.err) 
+    } else {
+      refreshChat();  
+    }
+    
+  });
+}
+
+function refreshChat() {
+  console.log('refreshing Entire chat')
+  $.get('/chat/<%=cast_id%>/all').then(res => {
+    $('.cast_chat').html(res);
+    scrollDown($('.cast_chat'));
+    linkifyChat();
+  });  
+}
+
+// function receiveChatData(data) {
+//   addChatMsg(`${data.name}: <span class='chat_msg_text'>${data.message}</span> <span class="chat_date" data-date="${new Date}">just now</span>`);
+// }
+
+// function addChatMsg(text) {
+//   var html = `<div class='chat_msg'></div>`;
+//   $('.cast_chat').append(html);
+//   $('.chat_msg_text').last().text('bla')
+//   setChatDates()
+//   scrollDown($('.cast_chat'));
+// }
+
+function submitChatText() {
+  <% if cu %>
+  var inp  = $("#chat_input");
+  var msg_img = $("#msg_body_img");
+  var text = inp.val();
+  var type = $("#chat_type").val();
+  sendChatData({msg: text, type, msg_body_img: msg_img.val()});
+  inp.val('');
+  msg_img.val('');
+  $("#chat_pic_uploader_img").attr('src','')
+  <% else %>
+  alert('Please sign up or log in first.')
+  //var email = prompt("What is your email? By submitting your email, you accept our terms of /service, to be found at good-weed.com/tos");
+  //sendChatData({msg: text, email});
+  <% end %>
+}
+
+function setChatDates() {
+  $('.chat_date').each((idx,el) => {
+    var uglyDate = ($(el).attr('data-date'));
+    var dateObj  = new Date(uglyDate);
+    
+    $(el).text(timeAgo(dateObj));
+    scrollDown($('.cast_chat'));    
+  })
+}
+
+function showMembers() {
+  var all_html = '';
+  presenceChannel.members.each(user => {
+    var id = user.id;
+    var info = user.info;
+
+    var html = `<div class="single_present_user ${id}" data-id=${id} data-name=${info.name} onclick=offerSilenceUser(this)>
+                  <img src='${info.img_url}''
+                  <span>${info.name}</span>
+                </div>`;
+
+    all_html += html;
+  });
+
+  $('#present_members').html(all_html);
+}
+presenceChannel.bind_global(showMembers);
+</script>
+
+
+<div class='chat_rooms_list_container'>
+  <%= erb :'/chat/mini_rooms_list' %>
+</div>
+
+<div class='videos noDisplay'>
+  <video controls id=my_video    style='width:400px' muted="muted"></video>
+  <video controls id=other_video style='width:400px'></video>
+</div>
+  
+<div class='chatroom_container' style='position: relative;'>    
+  <%
+    chatroom_name = pr[:code] ? "#{pr[:code]}" : ''
+    title = locals[:title] || chatroom_name
+    title = title.titleize
+  %>
+  <% if true %>
+  <style>
+    .chat_title {
+      text-align: center;
+    }
+  </style>
+    <h4 class='chat_title'> good-weed.com: <%= title %> </h4>
+  <% elsif locals[:title] %>
+    <h4> <%= locals[:title].titleize %> <%=pr[:stateroom].to_s.titleize %></h4>
+  <% elsif chatroom_name.present? %>
+    <h4> <%= chatroom_name.titleize %> <%=pr[:stateroom].to_s.titleize %></h4>
+  <% end %>  
+  <% if locals[:promote_last_link] %>
+    <a target=_blank class='lastLink'></a>
+  <% end %>
+
+  <style>
+  .toggle-post-form-btn {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 12px;
+    zdisplay: none;
+  }
+  </style>
+  <button class='toggle-post-form-btn btn btn-primary btn-raised' onclick='$(".submit_post_form").toggleClass("noDisplay")'><i class='fas fa-plus'></i></button> 
+
+  <% chat_videos = is_chat_cast(cast) && pr[:show_videos].to_s=='true' %>
+  <% if chat_videos %>
+    <video id="v1" height="120" width="160" autoplay muted="muted" style='border:10px solid blue'></video>
+    <video id="v2" height="120" width="160" autoplay muted=muted style='border:10px solid green'></video><br>
+    <button onclick="sendChatData({type: 'rtc-start'})">Join!</button>
+    <div id="rtc_errors"></div>
+  <% end %>
+
+  <div>
+    <% if true || cu  %>
+    <style>
+      .submit_post_form {
+        background-color: whitesmoke;
+        padding: 5px 10px;
+        margin: auto 20px;
+        ztext-align: center;        
+      }
+    </style>
+
+    <form class='submit_post_form noDisplay' onsubmit="submitChatText(); return false">          
+      <style>
+        .poster_name { font-weight: bold; zdisplay: block; font-size: 14px; margin-bottom: 10px; text-align: left }
+      </style>
+        <% if cu %><span class='poster_name'><%= (cu||{name: 'Post'})[:name] %>:</span><% end %>
+        
+        <input class='' style='width: 50%; zfont-size: 20px; padding: 10px' id=chat_input zautofocus placeholder='<%=placeholder%>' />
+
+        <!-- <select id=chat_type name=type>
+          <option value=buyer>buying</option>
+          <option value=seller>selling</option>
+        </select> -->
+        <img id=chat_pic_uploader_img />      
+        <input name=msg_body_img id=msg_body_img style='display: none' />
+        <script>
+          function uploadChatPic() {
+            filestackUpload(res => {
+              $("#chat_pic_uploader_img").attr('src',res.url).css('height','100px');      
+              $("input#msg_body_img").val(res.url);
+            });
+          }
+        </script>
+
+        <button class='btn btn-primary btn-raised'> <i class='fal fa-paper-plane'></i></button>
+        <span><button type=button id=chat_pic_uploader onclick=uploadChatPic()> + <i class='fas fa-image'></i> </button></span>
+  <!--       <span><small style='font-size: 70%'>(posts cleared every 24 hours.)</small></span> -->
+
+        <% if is_admin %>
+        <%
+        
+        x=1
+        %>
+        <span>
+          <a class='nowcast_color' style='margin:10px; display: inline-block;' href='<%=_req.path%>?clear_until=<%=Time.now%>' onclick='if (!(confirm("Are you sure?"))) return false'>x all </a>
+        </span>
+        <% end %>  
+      </form>
+    <% else %>
+    <!-- <a href='/login' class='btn btn-primary btn-raised'>Login to Chat</a> -->
+    <% end %>
+  </div> 
+
+  <div class='cast_chat'  style='zmax-height: 500px; overflow: scroll'>    
+    <%
+      locals = {cast_id: cast_id, cast: cast, chat_videos: chat_videos}
+      # locals[:msgs_since] = 3.hours.ago if !is_chat_cast(cast)
+    %>
+
+    <%= erb :'chat/chat_msgs', locals: locals %>
+  </div>
+
+
+  <div style='margin-bottom: 100px; display: none'>
+    <div style='font-size: 80%;margin-bottom: 10px'>
+      <b>other rooms:</b>
+      <form style='display:inline-block;' method=get onsubmit='document.location="/chat/"+$("#room_name").val(); return false'>
+        <input id=room_name style='margin-top: 10px' placeholder="enter room name" />
+        <button> go </button>
+      </form>
+    </div>
+    <div class='all_channels'></div>
+  </div>  
+</div>
+
+<script>
+
+function updateChannelsData() {
+  //console.log('updateChannelsData',data);
+  var vals = [];
+  $.get('/chat_channels_data').then(res => {
+    var data = res;
+    $(".all_channels").html('');
+    for (channel in data) {
+      var val  = data[channel];
+      console.log(channel,val)
+      var html = `<a class='single_channel_data' href='/chat/${channel}'>${channel}: ${val}</div>`;
+      //console.log('appending html',html)      
+      if (channel && val && channel!='time') vals.push({val, html});
+    }
+    //window.vals = vals;
+    vals = vals.sort((a,b) => b.val - a.val);
+    //console.log('vals',vals)
+    vals.forEach(z => $(".all_channels").append(z.html));
+  });  
+
+}
+updateChannelsData();
+
+<% if is_admin %>
+function offerSilenceUser(el) {
+  var name    = $(el).attr('data-name');
+  var user_id = $(el).attr('data-id');
+  // if (confirm(`Do you want to silence ${name}? They can still watch but won't be able to participate. This is irreversible.`)) {
+  //   postJSON(`/chat/silence`,{cast_id: "<%=cast_id%>", user_id: user_id}).then(res => {
+  //     $(`.chat_msg.${user_id}`).remove();
+  //     alert('success');
+  //   })
+  // }
+}
+<% end %>
+
+<% if chat_videos %>
+// https://medium.com/@robgray907/webrtc-mesh-architecture-2fe58874d23a
+var add = (pc, can) => {
+  can && pc.addIceCandidate(can).catch(failed);
+}
+
+window.pc1 = new RTCPeerConnection();
+
+navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => window.pc1.addStream(v1.srcObject = stream))
+
+pc1.oniceconnectionstatechange = e => log(pc1.iceConnectionState);
+pc1.onicecandidate = e => {
+  console.log('pc1, onicecandidate', e)
+  if (e.candidate===null) { return console.log('signaling done, return') }
+  sendChatData({type: 'rtc-ice-candidate', candidate: e.candidate});      
+}
+
+var rtcStart = () => {   //set my video 
+  pc1.createOffer().then(desc => { 
+    pc1.setLocalDescription(desc);         
+    sendChatData({type: 'rtc-offer', desc}); //update server I'm here
+  }).catch(failed);  
+}
+<% end %>
+var log = msg => rtc_errors.innerHTML += "<p>" + msg + "</p>";
+var failed = e => log(e +", line "+ e.lineNumber);
+
+function onLoad() {
+  linkifyChat();
+  scrollDown($('.cast_chat'));
+  //refreshVideos();
+}
+
+$(document).ready(onLoad);
+
+</script>

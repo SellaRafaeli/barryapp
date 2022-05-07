@@ -1,0 +1,1 @@
+$payouts = $mongo.collection('payouts')

@@ -1,0 +1,40 @@
+<%
+  is_owner = false #||= locals[:is_owner] ||= false
+  seller = locals[:user] #|| $users.get(cast[:user_id])  
+  title = 'Reviews '
+  title += 'of me' if is_seller(user)
+  title += 'by me' if is_buyer(user)
+  is_self_post = seller == cu 
+  is_self_post = false
+%>
+
+<% if reviews.any? %>
+
+<% end %>
+
+<% if is_self_post %>
+  <div class='submit_review_form_wrapper znoDisplay'>
+    <%= erb :'reviews/submit_self_post', locals: {} %>
+  </div>  
+<% elsif is_seller(seller) && can_leave_review(cu) %>
+  <% unless locals[:skip_submit] %>
+  <!-- <button class='btn btn-raised btn-sm' onclick='$(".submit_review_form_wrapper").removeClass("noDisplay")'> + Add Review </button> -->
+  <div class='submit_review_form_wrapper znoDisplay'>
+    <%= erb :'reviews/submit_review_form', locals: {seller: seller, user: user} %>
+  </div>
+<% end %>
+<% end %>
+
+<ul style='padding-left: 0;'>
+
+<% reviews.to_a.sort_by{|r| r[:created_at] }.reverse.each do |review| %>
+  <% if review[:is_self_post] %>
+    <%= erb :'/reviews/single_self_post', locals: {review: review} %>  
+  <% else %>
+    <%= erb :'/reviews/single_review', locals: {review: review} %>  
+  <% end %>
+  <br/>
+  <hr/>
+  <br/>
+<% end %>
+</ul>

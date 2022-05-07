@@ -1,0 +1,31 @@
+<%
+  data = {
+    title: 'Your first nowcast',
+    subtitle: 'Bring your passion to the world',
+
+    rows: [
+      {title: 'A nowcast is a live video program.', 
+       content: 'Each nowcast is a scheduled live video program, usually weekly, to which anybody can subscribe and pay. On your nowcast you can teach, entertain, and/or promote your services. Your nowcast can be free or paid, billed either once or monthly. You may ', fa_icon: 'fa-video-camera'
+      },
+      {
+        title: 'Create value',
+        content: 'When creating you nowcast, we encourage you to consider what would give the best value to your audience and followers. Think of their needs and preferences in all aspects, and aim to deliver ',
+      },
+      {
+        title: 'Present yourself',
+        content: 'In order to let potential followers find you, make sure you have all the right keywords in your description. This helps both Google searches find your profile as well as searches within nowcast itself.',
+      },
+      {
+        title: 'Work with the nowcast team',
+        content: 'Our job is to make sure the right followers find you. Be in touch with us via your support channel to make sure we are doing what we can to promote your business.',
+      },
+      {
+        title: 'Consider nowcast.pro',
+        content: 'Nowcast.pro is an advanced, paid suite of services intended to promote nowcasters who want to invest in growing their online business. Contact us at pro@nowcast.co for further details.',
+      }
+    ],
+    bottom_msg: 'Go Live, Get Paid'
+  }
+%>
+
+<%= erb :'/other/template_page', locals: data %>

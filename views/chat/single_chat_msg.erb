@@ -1,0 +1,64 @@
+<% if !@single_chat_msg_styles_defined %>
+<% @single_chat_msg_styles_defined = true %>
+<style>
+.name_and_details {
+  display: inline-block;
+  margin-left: 10px;
+}
+.chat_user_img {
+  vertical-align: top;
+}
+  .user_details {
+  font-size: 70%;
+  color: grey;
+  margin-top: 2px;
+}
+.single_user_detail {
+
+}
+img.msg_body_img_img {
+    height: 100px;
+    margin-top: 10px;
+
+}
+</style>
+<% end %>
+
+<div class='chat_msg <%=msg[:type]%>' data-msg_id="<%=msg[:_id]%>" data-date="<%=msg[:created_at]%>">    
+    <a target=blank href='/users/<%=msg[:user_id]%>' class='chat_name'>
+      <span class='chat_user_img'><img src="<%=msg[:img_url]%>" /> </span>
+      
+      <div class='name_and_details'>
+        <span class='user_name'> 
+          <%=msg[:name]%> 
+          <% if false %><span class='user_type'> <%=user_type_logo(msg[:type]) %>  </span> <% end %>
+        </span>
+        <div class='user_details'>
+          <div class='single_user_detail'> <%=msg[:address]%> </div>
+          <div class='single_user_detail'> <%=msg[:contact]%> <%=msg[:website]%> </div>
+        </div>
+      </div>
+
+    </a> 
+    <span class='chat_msg_content'>
+      <%= escape_html msg[:message] %> 
+      <% if msg[:msg_body_img] %>
+      <div class='msg_body_img'>
+        <img class='msg_body_img_img' src="<%=msg[:msg_body_img]%>" />
+      </div>
+      <% end %>
+    </span>
+
+    <span class='chat_msg_actions'>
+      <span class="chat_date" data-date="<%=msg[:created_at]%>"><%=time_ago msg[:created_at]%></span>
+      <% if (msg[:user_id] == cuid) %>
+      <button class=delete_msg_btn onclick='$.post("/chat/delete_msg",{msg_id: "<%=msg[:_id]%>"}).then(res=>$(this).closest(".chat_msg").remove())'>
+        <i class='fal fa-trash'></i>
+      </button>
+      <% end %>
+
+      <% if (is_admin) %>
+      <button class=delete_msg_btn style='border: 1px solid goldenrod' onclick='$.post("/chat/delete_msg",{msg_id: "<%=msg[:_id]%>"}).then(res=>$(this).closest(".chat_msg").remove())'><i class='fal fa-trash'></i></button>
+      <% end %>
+    </span>
+  </div>

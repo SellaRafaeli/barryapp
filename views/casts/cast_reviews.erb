@@ -1,0 +1,6 @@
+<%
+  reviews = $reviews.get_many(cast_id: cast[:_id])
+%>
+<div id=cast_reviews>
+<%= erb :'reviews/reviews_list', locals: {reviews: reviews, cast: cast, skip_submit: locals[:skip_submit]} %>
+</div>

@@ -1,0 +1,46 @@
+<%
+  #facets = brands.map{|b| b.keys.select {|k| b[k] == 'on'}}.flatten
+
+  facets = FACETS.select{|f| brands.any?{|b| b[f[:key]]=='on' }}.mapo(:label)
+  tags   = brands.map {|b| b[:tags].to_s.split(',')}.flatten
+
+  tags   = facets + tags
+%>
+
+<style>
+.clickable_tag {
+
+}
+.clickable_tag.selected, .clickable_tag:hover {
+  cursor: pointer;
+  background-color: lightgreen;
+}
+.facets_filter {
+  display: block;
+}
+</style>
+
+<div class='facets_filter'>
+<% tags.each do |tag| %>
+  <span class='single_brand_tag clickable_tag' onclick='filterBrands(this, "<%=tag%>")'><%= tag %></span>
+<% end %>
+</div>
+
+<script>
+function filterBrands(el, tag) {
+  if ($(el).hasClass('selected')) {
+    $(el).removeClass('selected');
+    $('.single_brand_container').show();
+    $('.single_brand_tag').removeClass('highlight-tag')
+  } else {    
+    $('.clickable_tag').removeClass('selected');
+    $(el).addClass('selected');    
+    $('.single_brand_container').hide();
+    $('.single_brand_container.'+tag).show();    
+    $('.single_brand_tag').removeClass('highlight-tag');    
+    $('.single_brand_tag.'+tag).addClass('highlight-tag');    
+  }
+  
+}
+</script>
+

@@ -1,0 +1,75 @@
+<%
+  ads = $ads.all
+%>
+
+<style>
+.ads {
+  position: relative;
+}
+.single_wanted_ad {
+    margin-top: 20px;
+}
+.wanted_ad_img_wrapper {
+  height: 50px;
+  width: 50px;
+  background: linear-gradient(#e66465, #9198e5);
+  padding: 3px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.wanted_ad_user img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;  
+  display: inline-block;
+}
+
+.wanted_ad_text {
+  margin-left: 20px;
+  background-color: whitesmoke;
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+.wanted_ad_created_at {
+  /*margin-left: 20px;*/
+}
+</style>
+<div class='ads'>
+  <h3> Ads Looking For Teachers </h3>
+  <div class='created_wanted_form'>    
+    <% if cu %>
+    <form method=post action='/community/ads/create'>    
+      <div>
+        <label class='w200'> I'm Looking for... </label>
+        <input required zautofocus class='input1' placeholder='...' name='text' value="<%=pr[:text]%>" style='margin-right: 5px;'/>
+        <button class='btn2'> Add </button>
+      </div>
+    </form>
+    <% else %>
+    <a href='/signup'><button class='btn2'>Sign up to post free wanted ad</button></a>
+    <% end %>
+  </div>
+
+  <hr/>
+
+  <% ads.each do |ad| %>
+  <% user = $users.get(ad[:user_id]) %>
+  <% next unless user && ad[:text].present? %>
+  <div class='single_wanted_ad display_flex'>
+    <a href='<%=user_link(user)%>' class='wanted_ad_user display_flex flex1'>      
+      <span class='wanted_ad_img_wrapper'> <img src='<%=user[:img_url]%>' /> </span>
+      <div class='flex1'>
+        <div><span class='flex1'><%=user[:name]%></span></div>
+        <div><span class='wanted_ad_created_at'><%= ad[:created_at].strftime("%b %d") %></span></div>
+      </div>
+    </a>
+    <span class='wanted_ad_text flex2'><%= ad[:text] %></span>
+    
+  </div>
+
+  <% end %>
+</div>

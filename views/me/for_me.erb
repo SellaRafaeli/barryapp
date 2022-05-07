@@ -1,0 +1,26 @@
+<% 
+  buys = my_buys(user_id)   
+  if is_buyer 
+%>
+  <div class='my_tickets'>
+    <h5> My purchases </h5>
+    <%= erb :'orders/orders_list', locals: {orders: buys} %>    
+  </div>
+  <% end %>
+
+<% 
+  orders = my_sales(user_id) 
+  if is_seller
+%>
+  <div class='my_tickets'>
+    <h5> My sales </h5>
+    <%= erb :'orders/orders_list', locals: {orders: orders, is_seller: true} %>
+  </div>
+<% end %>
+
+<% if false && !buys.any? && !orders.any? %>
+<br/>
+<div class='no_data_yet'> You have no orders yet. </div>
+<% end %>
+
+

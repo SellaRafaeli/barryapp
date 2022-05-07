@@ -1,0 +1,23 @@
+<style>
+.subtypes_filter .btn {
+  font-size: 14px;
+  display: inline-block;
+  width: 200px;
+}
+.subtypes_filter .btn.selected {
+  border:2px solid lightgreen;
+}
+</style>
+
+<!-- <div class='subtypes_filter'>
+  <div class='btn btn-raised btn-info' onclick="selectSubtype('brand', this)"> brands </div>
+  <div class='btn btn-raised btn-primary' onclick="selectSubtype('dispensary', this)"> delivery services </div>
+</div>
+ -->
+<script>
+function selectSubtype(subtype, btn) {
+  $('.subtypes_filter .btn').removeClass('selected');
+  $(btn).addClass('selected');
+}
+selectSubtype($('.subtypes_filter .btn').first())
+</script>

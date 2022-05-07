@@ -1,0 +1,49 @@
+<style> 
+.new_note {
+  padding: 10px;
+  color: #150000;
+}
+.add_note_btn {
+  position: relative;
+  bottom: 7px;
+  display: inline-block;
+}
+</style>
+
+<%
+  notes = $notes.get_many(item_id: item_id)
+  puts "notes_box: item_id #{item_id}"
+  # puts "notes #{notes}"
+%>
+<div class='notes_box'>
+  <div class='notes_list <%=item_id%>'>
+    <% notes.each do |note| %>
+      <div class='single_note single_list_item'>
+        <%#= note.to_json %>
+        <a href='/users/<%=note[:user_id]%>' class=simple_link><%= note[:handle] %></a>: <%= nice_datetime(note[:created_at]) %>: <%= note[:text] %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <form method=post action=/notes onsubmit="return submitNote(this); return false">
+      <input class='new_note' data-item_id='<%=item_id%>' placeholder='add...' />
+      <button class='add_note_btn'> send </button>
+    </form>
+  </div>
+</div>
+
+<script>
+function submitNote(elem) {
+
+  var input = $(elem).find('.new_note');
+  var item_id = input.attr('data-item_id');
+  var text  = input.val();
+  var data  = {text};
+  $.post('/notes',{item_id: item_id, text}).then(res => {
+    var html = `<div class='single_note single_list_item'>(you just now): ${text}</div>`;
+    $('.notes_list.'+item_id).append(html);
+    input.val('');
+  });
+  return false;
+}
+</script>

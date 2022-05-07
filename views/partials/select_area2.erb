@@ -1,0 +1,94 @@
+<%
+  cities      = @cities || []
+  cities = ['N/A'] unless cities.any?
+  chosen_city = @chosen_city
+  chosen_state_short = @chosen_state_short 
+%>
+
+<style>
+@media (min-width: 1000px) {
+  .selector_container {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
+@media (max-width: 1000px) {
+  .selector_container {
+    display: inline-block;
+    width: 45%;
+  }
+
+  .zipcode_container {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+#me_form .selector_container .input1 {
+  width: 100%;
+}
+.selector_label {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+
+</style>
+
+
+<% unless locals[:no_state] %>
+<div class='selector_container'>
+  <div class='selector_label'> State </div>
+  <select class='input1' style='margin:0;' id=state_selector name=state <% if locals[:searchOnChange] %> onchange='document.location="/dispensaries/"+$(this).val()' <% end %> >
+    <% ALL_STATES.sort.each_with_index do |state| %>
+      <% state_short = AREAS[state][:short] %>
+      <% state_value = state
+         state_value = state_short if locals[:state_value] == 'short'  
+         %> 
+      <option value="<%=state_value%>" <%="selected" if chosen_state_short.to_s.downcase==state_short.downcase %>><%=state%></option>
+    <% end %>
+  </select>
+</div>
+<% end %>
+
+<% unless locals[:no_city] %>
+<div class='selector_container'>
+  <div class='selector_label'> City </div>  
+  <select class='input1' style='margin:0;' id=city_selector name=city <% if locals[:searchOnChange] %> onchange='var loc="/dispensaries/"+$("#state_selector").val()+"/"+$(this).val(); document.location=loc' <% end %> >    
+    <% cities.each_with_index do |city| %>
+      <option value="<%=city%>" <%="selected" if chosen_city.to_s.downcase == city.to_s.downcase %>><%=city%></option>
+    <% end %>
+  </select>
+</div>
+<% end %>
+
+<% if locals[:zip_search] %>
+<div class='selector_container zipcode_container'>
+  <% unless locals[:no_title] %> <div class='selector_label'> Zip Code </div> <% end %>
+  <input name=zip style='margin-left: 0; border: 1px solid #386256; color: #386256;' id=zipcode_input class='input1' placeholder='Enter Zip Code...' onkeyup=searchZip() value="<%=pr[:zipcode]%>" />
+  <span id=zip_loading style='font-size: 80%; margin-left: 10px'></span>
+</div>
+<% end %>
+
+<% if false && pr[:type] == 'seller' %>
+<div class='selector_container'>
+  <div class='selector_label'> Delivery/Pickup </div>
+  <select class='input1' style='margin:0;' id=shipping_selector name=shipping <% if locals[:searchOnChange] %> onchange='rerunSearch()' <% end %> >
+    <% ['Delivery', 'Pickup', 'Delivery & Pickup'].each_with_index do |shipping| %>
+      <option value="<%=shipping%>" <%="selected" if pr[:shipping]==shipping %>><%=shipping%></option>
+    <% end %>
+  </select>
+</div>
+<% end %>
+
+<script>
+function searchZip() {
+  var code = $("#zipcode_input").val();
+  if (code.length==5) {    
+    document.location='/zip/'+code;
+    $("#zip_loading").text('Loading...');
+    //alert('Searching! Click to view results.');
+  }
+}
+</script>

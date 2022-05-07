@@ -1,0 +1,5 @@
+<%
+  views = $cast_clicks.get_many(profile_user_id: cuid)
+%> 
+
+<%= erb :'/casts/analytics', locals: {views: views, title: cu[:name]} %>

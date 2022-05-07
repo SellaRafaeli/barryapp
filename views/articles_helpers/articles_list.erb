@@ -1,0 +1,36 @@
+<style>
+.article_link {
+  font-size: 15px;
+  background-color: whitesmoke;
+  padding: 10px;
+  display: inline-block;
+}
+.articles_list {
+}
+</style>
+
+<div class='articles_list container800'>
+<%
+  all_articles = get_articles_list.shuffle #sort_by {|a| a[:topic] }
+
+  all_articles.mapo(:topic).uniq.each do |topic| 
+%> 
+  <h4> <%= topic %> </h4>
+  <% 
+    articles = all_articles.select {|a| a[:topic] == topic }
+    articles.each do |a|    
+    name = a[:name].gsub('-',' ').titleize
+    if pr[:city]
+      name+=' in '+pr[:city]
+    end
+  %>
+
+    <div style='margin-bottom: 10px'>
+      <a class='simple_link article_link' style='text-decoration: none' href='<%=a[:link]%>'>
+      <!--   <i class='fas fa-blog'></i>  -->
+        <%= name %> 
+      </a>    
+    </div>
+  <% end %>
+<% end %>
+</div>

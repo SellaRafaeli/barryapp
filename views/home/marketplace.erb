@@ -1,0 +1,44 @@
+<style>
+.marketplace_half { 
+  flex: 1; 
+  zborder:1px solid black;
+  padding: 10px;
+}
+.marketplace_halves {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 800px) {
+  .marketplace_half { flex: 1;}
+}
+
+.main_delivery_img {
+  flex:1;
+  max-width: 100%;
+  max-height: 500px;
+  zborder-radius: 0 100px 0 100px;
+}
+.main_img_wrapper {
+  width: 100%;
+  background-color: #386256;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+</style>
+<div class='marketplace_wrapper'>
+  <div class='marketplace_halves'>
+    <div class='marketplace_half'>
+      <%= erb :'home/marketplace_buy' %>  
+    </div>
+    <div class='marketplace_half'>
+      <%= erb :'home/marketplace_sell' %>  
+    </div>
+  </div>
+
+ <span class='main_img_wrapper' style='width:100%;'>
+    <img src='/img/cannabis_delivery.jpg' class='main_delivery_img'>
+  </span>
+</div>
+
+

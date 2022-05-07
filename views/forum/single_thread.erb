@@ -1,0 +1,54 @@
+<%
+  thread_id =pr[:thread_id]
+  thread = $threads.get(thread_id)
+  msgs   = $forum_msgs.get_many(thread_id: thread_id).reverse
+%>
+
+
+
+<style>
+.threads_list {
+  max-width: 1000px;
+  margin: auto;
+}
+.single_msg img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.single_msg {
+  font-size: 15px;
+  background-color: whitesmoke;
+  padding: 20px;
+  margin-top: 20px;
+}
+.single_msg_text {
+  margin-top: 20px;
+}
+</style>
+
+
+<div class='threads_list'>
+  <h1> Single Thread: <%= thread[:title] %> </h1>
+  <% msgs.each do |msg| %>
+    <% sender_user = $users.get(msg[:user_id]) %>
+    <div class='single_msg'>      
+      <img src="<%=sender_user[:img_url]%>" />
+      <span><%= sender_user[:handle] %></span>
+      <span class='forum_msg_created_at'>/ <%= nice_datetime msg[:created_at] %></span>
+      <div class='single_msg_text'>
+        <%= msg[:text] %>
+      </div>
+      
+    </div>
+  <% end %>
+
+  <form method=post action='/forum/<%=thread[:_id]%>/msgs'>
+    <h3> Add Message </h3>
+    <input name=text class=input1 placeholder='Your msg' />    
+    <button class='btn btn-primary btn-raised'> Post Message </button>
+  </form>
+
+</div>
+

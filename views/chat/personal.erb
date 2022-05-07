@@ -1,0 +1,5 @@
+<!-- <h1> Personal chat with <%= other_user[:handle] %></h1> -->
+<%
+  $casts.update_id(cast[:_id], "#{cuid}_viewed_at" => Time.now)
+%>
+<%= erb :'casts/chat', locals: {cast: cast, is_owner: false} %>

@@ -1,0 +1,11 @@
+
+<a href='<%=link%>'><h1><%= post[:title] %></h1></a>
+<h5>
+  <a href='<%=link%>'><%=post[:date]%></a>, 
+  <a href='/<%=post[:author]%>'><%=post[:author]%><% if post[:num_views].to_i > 0 %>, <%= post[:num_views] %> views
+  <% end %>
+  </a>
+</h5>
+
+
+<%= erb :"/blog/posts/#{post[:file]}", locals: {post: post} %>

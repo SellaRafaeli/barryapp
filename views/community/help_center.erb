@@ -1,0 +1,71 @@
+<%
+  faq = {
+    intro: {
+      'What is Nowcast?': 'Nowcast helps you find and connect with interesting people over live video. Find and meet the people you wish to hang out with, or make money by interacting with your fans.',      
+    },
+    casts: {
+      
+      'Where do I conduct my online interactions?': 'You may teach use Nowcast\'s virtual meeting tools, or your preferred tool.',      
+      # 'How is my schedule determined?': 'You determine your casts. You can either decide your hours ahead of time, or.',
+      # 'How do I choose what to teach or sell?': 'You may determine the content, syllabus and curriculum of your own classes, or contact us for suggestions and materials.',
+      'Can I construct my own casts?': 'Yes, you have complete control over everything you do on Nowcast.',
+      # 'How can I track my page analytics?': 'We will send you a recurring email with analytics about your profile, who viewed it, and when, as well as suggestions on how to improve it.',
+      'Is there a minimal commitment of weekly hours?': 'You do not need to commit to anything. Work as much as you want.',
+    },
+    payments: {
+      'Do I need to pay to use Nowcast?': 'Using Nowcast is free. Casts may cost money.',
+      'How do payments work?': 'Fans pay us, and we pay the performer. We currently support student payemnts by credit card, through Stripe. By February of 2021 we plan to add support for additional methods of payment such as PayPal as well.',
+      'How do I get paid?': 'Once a month we pass you your earnings to the account stated on your profile. We support bank transfers within the United States, Venmo, and Paypal.',
+      'What commission of earnings does Nowcast take?': 'We take a 20% commission to cover our operating costs.',
+    },
+    issues: {
+      'How do I ask for a refund?': 'If you believe you deserve a refund, please email us the details of your case at <a class=simple_link mailto=refunds@nowcast.co>refunds@nowcast.co.</a>',
+      'How do I report a problematic client?': 'Please report any issues to <a class=simple_link mailto=community@nowcast.co>community@nowcast.co.</a>',
+      'How can I receive support for other issues?': 'For general support and any questions, please email <a class=simple_link mailto=support@nowcast.co>support@nowcast.co.</a>',
+      'How do I get help starting to sell?': 'Email us at talent@nowcast.co.'
+    },
+    # 'getting started': {
+      # 'Sign Up': 'Sign up and create a cast for any lesson or program that students can purchase.',
+      # 'Create Casts': 'Each Cast represents a unit of teaching a student can purchase. Create casts according to # whatever you wish to sell. You may change this at any time.',
+      # 'Add images': 'Casts with images convert much better. Add images of what yourself and what you teach.',
+      # 'Add VIDEOS': 'Casts with videos convert MUCH better. Start with a 30-second video introducing yourself and describing what you teach, why students should hire you, and any other important information.',
+      # 'Get recommendations and ratings': 'Ask students you have taught to add ratings and recommendations, so people know what to expect.'
+
+    # }
+  }
+%>
+<!-- 
+<h3> FAQ </h3> -->
+
+<style>
+.help_center {
+  max-width: 700px;
+  font-size: 18px;
+}
+.help_center .section {  
+  padding: 10px;
+  display: inline-block;
+  color: white;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+
+.help_center .section:not(:first-of-type) {
+  margin-top: 50px;
+}
+.single_help_title {
+  margin-top: 20px;
+}
+</style>
+<div class='help_center'>
+<% faq.each do |section, body| %>
+  <div class='single_help_section'>
+  <h5 class='section nowcast_color_bg'> <%= section %> </h5>
+  <% body.each do |title, text| %>
+  <div class='single_help_title'>
+    <h3 class=nowcast_color> <i class='fal fa-question-circle'></i> <%= title %> </h3>
+    <div><%= text %></div>
+  </div>
+  <% end %>
+<% end %>
+</div>

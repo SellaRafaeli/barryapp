@@ -1,0 +1,156 @@
+<style>
+.cast_box.single_type_box:hover {
+  zborder:1px solid grey;
+  box-shadow: 1px 1px #cccccc;
+}
+.single_type_box {
+  display: inline-block;
+  text-decoration: none !important;
+  zflex:1; 
+  zflex:0 0 23%;
+  margin: 0px 10px 10px 0;
+  width: 280px;
+  zheight: 160px;
+  zmargin-left: auto;
+  zmargin-right: auto;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  margin: 10px auto;
+  zdisplay: flex;  
+  cursor: pointer;
+}
+.single_type_box_image_link_container {
+  width: 100px;
+  height: 100px;  
+  /*border-radius: 4px;*/
+  zbackground: linear-gradient(#e66465, #9198e5);
+  zbackground: linear-gradient( #00b140, lightgreen, #e66465);
+  zbackground: linear-gradient(#B10071, #00b140);
+  padding: 5px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.single_type_box_image_link_container:hover {
+  /*background: linear-gradient(#64e675, #2d6d0b);*/
+}
+.single_type_box_image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  background: white;
+  margin: 10px;
+}
+
+@media(max-width: 700px) {
+  .single_type_box_image {
+/*    width: 150px !important; */
+  }
+}
+
+.cast_box_user_img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  left: 4px;
+  border:1px solid #cabfbf;
+}
+.cast_box_text {
+  flex: 7;
+  text-align: left;
+  margin-left: 13px;
+  font-size: 13px;
+  position: relative;
+}
+.cast_box_title:hover, .cast_box_user:hover {
+  text-decoration: underline;
+}
+.cast_box_text_title {
+  display: block;
+  overflow: hidden;
+  max-height: 85px;
+}
+.cast_box_title {
+  position: relative;
+  top: 2px;
+  /*padding: 0 6px 0 6px;*/
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 1px;
+  height: 45px;
+}
+.cast_box_desc {
+  /*display: none;*/
+  max-height: 120px;
+  overflow: scroll;
+  position: relative;
+  top: 2px;
+  color: black;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+}
+.cast_box_text_and_img a:hover {
+  text-decoration: none !important;
+}
+.cast_box_user a {
+  position: relative;
+  top: 2px;
+}
+.cast_box_user a:hover {
+  color: black;
+}
+.cast_box_user.check {
+  position: relative;
+  top: 1px;
+  left: 2px;
+  font-size: 75%;
+}
+.cast_img_and_logistics {
+  position: relative;
+  text-align: center;
+}
+.cast_logistics_overlay {
+  background-color: black;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  left: 0;  
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
+  z-index: 99;
+  zwidth: 100%;
+  padding: 5px 10px;
+}
+.cast_box .your_time, .cast_box .origTime {
+  display: none;
+}
+.cast_box .cast_time_recurring {
+  display: inline-block;
+}
+
+.cast_box .overlay_donation_target {
+  font-size: 80%;
+}
+
+.cast_tags {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.single_cast_tag {
+  padding:5px 10px;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  margin: 5px;
+  display: inline-block;
+}
+</style>

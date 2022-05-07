@@ -1,0 +1,20 @@
+PR plan.txt
+===========
+
+Media
+-----
+Haaretz: via Shlomit
+NYT: via Shlomit
+Wired: ?
+ynet: Shai Zamir
+
+
+Blog Posts
+----------
+* The International World Actually Only Works 3 Days a Week 
+* Running a Remote-First Company: Plans, Plans, Plans, and NowCast
+* Live Video is All The Rage
+* Why We Use Ruby at NowCast
+* Why We Use Vanilla JavaScript at NowCast 
+* Social Media should not be about ads
+	- https://www.reddit.com/r/dataisbeautiful/comments/gm4xuf/oc_what_percent_of_social_media_content_are_ads/

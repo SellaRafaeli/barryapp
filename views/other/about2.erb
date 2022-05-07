@@ -1,0 +1,36 @@
+<%
+  data = {
+    title: 'About Nowcast',
+    subtitle: 'Go Live, Sell Tickets',
+
+    top_buttons: [
+      {link: '/signup', text: 'Start'},
+      {link: '/how_it_works', text: 'How It Works'}
+    ],
+    rows: [
+      {title: 'Online live courses.', 
+       content: 'Learn from experts all over the world - coding, cybersecurity, data science, graph design, UI/UX, product management, and more.', fa_icon: 'fa-video-camera'
+      },      
+      {title: 'Run courses from anywhere - to students everywhere', 
+       content: 'Market and manage your course on Nowcast, using any supported video platform.', fa_icon: 'fa-user'
+      },
+      {title: 'Get more exposure - pay only when you start to earn.', 
+       content: 'Selling a course on Nowcast is free. Pay only for advanced features or a percentage of your income.', fa_icon: 'fa-user'
+      },
+      {
+        title: 'Promote and Sell Even More: Pre-recorded, Private or Premium Content',
+        content: 'Use Nowcast to deliver both live services and sell pre-recorded content. Set the price yourself. We recommend using pre-recorded content as free previews for your live classes.',
+        fa_icon: 'fa-dollar'
+      },
+      {
+        title: 'Get More Clients, Get Expert Advice.',
+        content: 'NowCast.co will recommend your NowCasts and channel to relevant potential clients and drive related online traffic your way, both within NowCast.co (this site) and from Google and Facebook. In addition, NowCasters receive access to premium content on how to produce great live videos and how to sell them well, led by NowCast staff.',
+        fa_icon: 'fa-line-chart',
+
+      }
+    ],
+    bottom_msg: 'Go Live, Get Paid'
+  }
+%>
+
+<%= erb :'/other/template_page', locals: data %>

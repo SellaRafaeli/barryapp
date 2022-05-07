@@ -1,0 +1,108 @@
+<%
+  if target    = pr[:user_id]
+    user_id     = target
+    target_user = $users.get(target)
+    user_ids  = [target,cuid].sort
+    msgs      = $convo_msgs.get_many(user_ids: user_ids)
+  else 
+
+  end
+
+  my_convos_user_ids = $convo_msgs.all(user_ids: cuid).mapo(:user_ids).flatten.uniq - [cuid]
+%>
+
+<style>
+.convo_container {
+  max-width: 800px;
+  margin:auto;
+}
+.single_convo_msg {
+  border:2px solid lightgrey;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  display: block;
+}
+.single_convo_msg {
+  background-color: lightgreen;
+}
+.single_convo_msg.my_msg {
+  background-color: lightblue;
+}
+.convo_sender img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.convo_sender {
+  font-size: 15px;
+}
+.convo_text {
+  font-size: 16px;
+  padding:20px 10px;
+  display: inline-block;
+}
+.convo_time {
+  font-size: 10px;
+  color: grey;
+}
+
+.single_convo_user {
+  display: block;
+}
+</style>
+
+<div class='convo_container display_flex'>
+
+  <div class='flex1' style='margin-right: 20px'>
+    <h4> conversations </h4>
+    <div class='convos_users_list'>
+      <% my_convos_user_ids.each do |cur_user_id| %>
+      <% user = $users.get(cur_user_id) %>
+        <a class='simple_link single_convo_user single_list_item <%="selected" if target==cur_user_id%>' href='/me?sec=convos&user_id=<%=cur_user_id%>' >          
+          <%= user[:handle] %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='flex5' style='background-color: whitesmoke; margin: 10px;'>
+    <% if target %>
+    <h4 style='margin:10px'> Convo with <%= target_user[:handle] %> </h4>
+    <br/>
+      <div class='msgs_list' style='zmax-height: 500px; margin: 10px; zborder:1px solid darkgreen; overflow: scroll'>  
+
+      <form method=post action=/convo/msgs>
+        <input hidden name=target value="<%=target%>" />
+        <input class=input1 placeholder='Say something...' name=text />
+        <button class='btn btn-primary btn-raised'> Submit </button>
+      </form>
+
+      <% msgs.reverse.each do |msg| %>
+        <% sender_user = $users.get(msg[:sender]) %>
+        <div class='single_convo_msg <%="my_msg" if msg[:sender]==cuid %>'>
+          <a target=_blank class='simple_link' style='padding:10px; text-align: left' href='/@<%=sender_user[:handle]%>'>
+            <span class='convo_sender'>
+              <img src="<%=sender_user[:img_url]%>" style='margin: 0'/>
+              <%= sender_user[:handle] %>
+            </span> 
+          </a>
+          <span class='convo_text'><%= msg[:text] %></span>
+          <span class='convo_time'> <%=msg[:created_at]%></span>
+
+        </div>
+        <% end %>
+      </div>    
+      <script>
+        //setTimeout(()=>{$('.msgs_list').get(0).scroll(10000000,10000000); console.log('done scrolling msgs')},100);
+      </script>
+
+    <% else %>
+      <h5 style='margin-left: 10px'> Please choose a convo. </h5>
+    <% end %>
+  </div>
+
+</div>
+
+

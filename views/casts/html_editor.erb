@@ -1,0 +1,139 @@
+<%
+  view_only_html ||=false
+%>
+
+<style>
+.html_editor_container {
+  height: 550px;
+}
+.html_editor {
+  border: 1px solid red;
+  text-align: left;
+}
+.html_text {
+  background-color: whitesmoke;
+  min-height: 400px;
+  text-align: left;
+  padding: 10px;
+}
+.html_results {
+  <% if !view_only_html %>
+  border:1px solid black;
+  <% end %>
+  text-align: left;
+  padding: 10px;
+}
+.html_editor_section_title {
+  margin:10px;
+}
+.height100 {
+  height: 100%;
+}
+#code {
+  margin:0; 
+  padding:10px;
+  white-space: pre-wrap;
+  max-width: 800px;
+}
+</style>
+
+
+<!-- todo: prettify code: https://github.com/googlearchive/code-prettify -->
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+<div class='html_editor_container zfullscreen'>
+  <% if !view_only_html %>
+  <!-- <h1> html editor </h1> -->
+  <% end %>
+  <div class='display_flex_wrap' style='zheight: 100%'>
+    
+    <% if !view_only_html %>
+    <div class='flex1'>
+      <!-- <div class='html_editor_section_title'> Code </div> -->
+      <pre id=code class='html_text prettyprint height100' onkeyup='updateCode({announce: true})' contenteditable=""><%=cast[:website_html]%></pre>
+    </div>
+    <% end %>
+    <div class='flex1'>
+      <!-- <div class='html_editor_section_title'> Results </div> -->
+      <div class='flex1 html_results height100'>
+        <%=CGI.unescapeHTML(cast[:website_html].to_s)%>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-html.js"></script>
+
+<script>
+beautifyOpts = {
+  "indent_size": "2",
+  "indent_char": " ",
+  "max_preserve_newlines": "5",
+  "preserve_newlines": true,
+  "keep_array_indentation": false,
+  "break_chained_methods": false,
+  "indent_scripts": "normal",
+  "brace_style": "collapse",
+  "space_before_conditional": true,
+  "unescape_strings": false,
+  "jslint_happy": false,
+  "end_with_newline": false,
+  "wrap_line_length": "80",
+  "indent_inner_html": false,
+  "comma_first": false,
+  "e4x": false,
+  "indent_empty_lines": false
+};
+
+
+// var lastHtml = '';
+// function setCodeUpdateTimer() {
+//   var html = $.trim($('.html_text').text());
+  
+//     lastHtml = html;
+    
+    
+//     updateCastHTML(html);
+        
+//   }
+// }
+
+// function updateCastHTML(html) {
+//   html = 
+//   $('.html_text').text(html);
+//   updateCode();
+  
+// }
+
+function prettyPrintCode() {
+  $('.html_text').removeClass('prettyprinted');
+  PR.prettyPrint();
+}
+
+var lastHtml = '';
+function updateCode(opts = {}) {
+  if (opts.html) $('.html_text').text(opts.html); 
+  html = $.trim($('.html_text').text());
+  
+  if (html!=lastHtml) {
+    html     = html_beautify(html, beautifyOpts);
+    $('.html_results').html(html)
+    lastHtml = html;
+
+    if (opts.announce) {
+      if (window.sendChat) sendChat({type: 'newHTML', html:html, user_id: "<%=cuid%>"});
+      $.post('/casts/edit/<%=cast_id%>', {website_html: html});  
+      clearTimeout(window.codeUpdater);
+      window.codeUpdater = setTimeout(()=> {prettyPrintCode()}, 3000);
+    }    
+
+    if (opts.prettyPrint) {
+      PR.prettyPrint();   
+    }
+  }
+}
+
+</script>

@@ -1,0 +1,12 @@
+<% 
+%>
+<h3 id=signup> 
+<% if pr[:type] == 'seller' %>
+<%= is_heb ? 'ברוכים הבאים.' : "Sign Up:" %>
+<% elsif pr[:type] == 'buyer' %>
+<%= is_heb ? 'ברוכים הבאים.' : "Sign Up To Order:" %>
+<% end %>
+</h3>
+<form action='/signup' method='post'>
+  <%= erb :'login/signup_fields', locals: {only_signup: true} %>
+</form>

@@ -1,0 +1,50 @@
+<%
+  rooms = ROOMS_LIST
+  states = ['california','washington','new york']
+  states = []
+%>
+
+<style>
+.single_mini_room {
+  display: inline-block;
+  zbackground-color: #386256;
+  padding: 5px 10px;
+  zcolor: white;
+  border-radius: 5px;
+  font-size: 16px;
+  
+}
+.single_mini_room:hover {
+  cursor: pointer;    
+}
+.single_mini_room_link:hover, .single_mini_room_link.selected  {
+  color: black !important;
+  text-decoration: underline !important;
+}
+.single_mini_room:hover .single_mini_room_link {  
+}
+.single_mini_room:hover {
+  
+}
+.rooms_list_mini {
+  text-align: center;
+  font-weight: bold;
+}
+</style>
+<div class='rooms_list_mini'>
+  <% rooms.each do |room| %>
+    <div class='single_mini_room zbtn zbtn-raised zbtn-primary'>
+      <a class='single_mini_room_link <%="selected" if pr[:code]==room[:label]%>' href='/chat/<%=room[:label]%>' ><%= room[:label] %></a>
+    </div>
+  <% end %>
+
+  <div>
+  <% states.each do |state| %>
+  <%
+  %>
+    <div class='single_mini_room'>
+      <a class='single_mini_room_link <%="selected" if pr[:stateroom]==state%>' href='/chat/<%=pr[:code]%>?stateroom=<%=state%>' style='font-size: 80%' ><%= state %></a>
+    </div>
+  <% end %>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<%
+  already_bought = user_enrolled(cuid, cast)
+%>
+<div class='cast_body_component flex1'>      
+      <h4> Order Now </h4>
+
+      <%# owner view of enrolled %>
+      <% if is_owner %>
+      <div class='cast_enrolled_users'>
+      <% users = [] #users_enrolled_in_cast(cast) %>
+        <% if users.any? %>
+          <% users.each do |user| %>
+            <% next unless user && user[:name] %>
+            <div class='single_member'>
+              <a href='/@<%=user[:handle]%>'>
+                <div>
+                <img src='<%=user[:img_url]%>' style='height: 20px'>              
+                <small><%=user[:name]%>, <%=user[:enroll][:created_at]%>, $<%=user[:enroll][:amount].to_f/100%></small>
+
+                </div>
+              </a>
+            </div>
+          <% end %>
+        <% else %>
+          <!-- <small> Nobody signed up yet.</small> -->
+        <% end %>
+      </div>
+
+      <%# end owner view of enrolled %>
+
+      <% else %>      
+      <% if already_bought %>
+      <div class='already_bought'>
+        You bought this at <%= already_bought[:created_at] %> for $<%= (already_bought[:amount].to_f/100) %>.
+        <small>
+          <button class='btn noDisplay' style='float: right; position: relative; bottom: 12px;' 
+          type=button onclick=cancelEnrollment("<%=cast[:_id]%>")> <i class='fal fa-times'></i> 
+          </button>
+        </small>
+      </div>
+      <% end %>      
+      <% end %>
+
+      <% if true %>      
+      <div class='cast_buy_form'>        
+        <!-- <h3> stripe checkout form placeholder </h3> -->
+        <%= erb :'stripe/stripe_checkout_form', locals: local_data %>
+      </div>      
+      <% end %>
+      
+    </div>
+
+<script>
+function cancelEnrollment(cast_id) {
+  if (confirm("Do you want to cancel your enrollment? This is irreversible.")) {
+    var data = {cast_id};
+    postJSON('/enrollment/cancel', data).then(() => {
+      document.location.reload();
+    })  
+  }
+}
+
+</script>

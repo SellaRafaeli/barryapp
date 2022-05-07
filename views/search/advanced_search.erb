@@ -1,0 +1,71 @@
+<style>
+.advanced_search_inputs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.advanced_search_input {
+  width: 220px;
+  display: inline-block;
+  flex:1;  
+/*  overflow: auto;*/
+}
+
+#amenities_search {
+  /*position: absolute;*/
+  background-color: white;
+  opacity: 1;
+  left: 0;
+  max-width: 700px;
+  top: -70px;
+  z-index: 12;
+}
+
+#amenities_search .single_amenity_control {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+@media (min-width: 800px) {
+  .language_picker {
+    /*text-align: left;*/
+    margin-left: 20px;
+  }
+}
+</style>
+
+
+<div class='advanced_search'>
+  <div class='advanced_search_inputs'>
+    <div class='advanced_search_input'>
+      <div class='mb10'> Price Below: $<span id='price_output'></span></div>
+      <%= erb :'search/price_slider' %>
+    </div>
+
+    <!-- <div class='advanced_search_input' style='margin:10px; padding: 10px'>
+      <button onclick=openAmenities() type=button class='btn2 mb10'> Amenities </button>    
+    </div> -->
+
+    <div class='advanced_search_input language_picker'>
+      <div class='mb10'> Language Spoken: </div>
+      <select style='width: 90%; margin: 0' onchange=updateSearch()>
+        <option> English </option>
+        <option> Spanish </option>
+        <option> Russian </option>
+        <option> Hebrew </option>
+      </select>
+    </div>
+  </div>
+
+  <div id=amenities_search class="noDisplayImportant">
+    <%= erb :'/casts/cast_amenities', locals: {cast: {}, can_edit: true, hide_details: true} %>
+  </div>
+</div>
+
+
+
+<script>
+function openAmenities() {
+  $("#amenities_search").toggleClass('noDisplayImportant');
+}
+</script>

@@ -1,0 +1,26 @@
+<%
+path     = _req.path
+NC_TYPES = [ #nowcast types
+  {v: 'course', l: 'Course'},
+  {v: 'event',  l: 'Event', disabled: true},
+  {v: 'show',  l: 'Entertainment', disabled: true},
+]
+
+nc_type  = pr[:nc_type]
+nc_label = pr[:nc_label]
+%>
+
+
+<% if !nc_type %>
+<h1> Create </h1>
+<div class='nowcast_type'>
+  <% NC_TYPES.each do |nc_type| %>
+    <a href='<%=$root_url%><%=_req.path%>?nc_type=<%=nc_type[:v]%>&nc_label=<%=nc_type[:l]%>' <%= "data-placement=top data-toggle=tooltip data-title='Coming in June 2020'" if nc_type[:disabled] %> class='btn btn-raised btn-primary <%='disabled' if nc_type[:disabled]%>'><%= nc_type[:l] %></a>
+  <% end %>
+</div>
+<% end %>
+
+<% if nc_type %>
+<h1> Create <%= nc_type %> </h1>
+
+<% end %>

@@ -1,0 +1,427 @@
+<%
+  user_id  = user[:_id]
+  is_owner = user && (user[:_id] == cuid)
+  vimeo_id = user[:vimeo_id]
+  allow_reviews = false
+  show_create_btn = !is_owner && false
+  show_contact    = !is_owner || true
+  location        = user_location_for_header(user)
+
+  if user[:seed] && !$casts.exists?(user_id: user[:_id])  
+    [3,4].sample.times { generate_products_for_seed_user(user) }    
+  end
+
+  user_casts = $casts.all(user_id: user_id).select {|cast| !cast_is_hidden(cast) }
+
+
+
+
+  any_reviews = false 
+  # user_casts.each { |cast| cast[:reviews] = cast_reviews(cast[:_id]); any_reviews = true if cast[:reviews].any?  }
+
+  title = user[:title]
+  title = "#{user[:name]}" unless title.present?
+  title = "#{user[:handle]}" unless title.present?
+
+  subtitle = user[:subtitle]
+  subtitle = "" #"You can find me here on nowcast." unless subtitle.present?
+
+  user_locations = $locations.get_many(user_id: user_id)
+
+  allow_admin_login = !$prod || (ENV['ALLOW_ADMIN_LOGIN'] == 'yes')
+
+   num_views = $stats.count(type: 'store_view', seller_id: user_id)
+%>
+
+<!-- https://github.com/muaz-khan/WebRTC-Experiment/tree/master/one-to-many-video-broadcasting -->
+<!-- <script src="https://cdn.firebase.com/v0/firebase.js"></script> -->
+<!-- <script src="https://www.webrtc-experiment.com/one-to-many-video-broadcasting/meeting.js"></script> -->
+
+<style>
+.num_views {
+  font-size: 14px; color: grey; text-align: center;
+  display: block;
+  display: none;
+}
+
+.user_desc {
+  font-size: 19px;
+  margin: 10px auto;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #028b25;
+  border-radius: 5px;
+  color: #150000;
+}
+.analytics_btn {
+  margin-right: 10px;
+}
+.analytics_btn button {
+  cursor: pointer;
+}
+.analytics_btn img {
+  height: 30px;
+}
+#setup-new-btn {
+  border:2px solid gold;
+  height: 100px;
+  width: 100px;
+}
+.live_indicator {
+  cursor: auto;
+}
+
+.user_page {
+  padding-bottom: 300px;
+  background-color: white;
+}
+.user_page .contact_form label {
+  display: inline-block;
+  margin-bottom: 10px;
+  min-width: 300px;
+}
+.user_page textarea, .user_page input {
+  height: 50px;
+  font-size: 18px;
+  padding: 8px;
+  margin-bottom: 20px;
+  font-family: inherit;
+  max-width: 90%;
+}
+
+.user_location {
+  font-size: 16px;
+  margin-top: 20px;
+  font-weight: normal;
+  color: grey;
+}
+
+.user_top_half {
+  margin-bottom: 20px;
+  padding:0 50px;
+}
+
+.user_top_left {      
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    /*height: 100%;*/
+    align-items: center;
+}
+
+.user_profile_btn {
+  display: inline-block; 
+  text-align: right;
+}
+
+.user_top_right {
+  margin-top: 20px;
+}
+.user_main_img {
+  padding-right: 20px;
+  text-align: center;
+  padding: 5px;
+  /*background: linear-gradient(#e66465, #9198e5);*/
+}
+
+.user_page .title {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+  display: inline-block;
+}
+
+.user_page .subtitle {
+  font-size: 30px;
+}
+
+.user_main_img img {
+  height: 100px;
+  border:3px solid white;
+  width: 100px;
+  object-fit: contain;
+}
+
+.user_img_white_wrapper {
+  background-color: white;
+}
+
+@media (max-width: 1200px) {
+  .user_main_img img {
+    max-height: 500px;  
+    max-width: 330px;
+  }  
+}
+
+@media (min-width: 1200px) {
+  .user_main_img img {
+    max-height: 500px;  
+    max-width: 600px;
+  }  
+  .user_top_left {
+    margin-right: 30px;
+  }
+}
+
+.user_page .buttons i {
+  margin-right: 10px;
+}
+.user_profile_btn:hover {
+  color: #00b140;
+}
+.linkified {
+  text-decoration: underline;
+}
+
+.single_user_loc_name {
+  font-weight: bold;
+}
+.single_user_loc_address {
+  font-size: 90%;
+}
+.single_user_loc_details {
+  background-color: #c2d3d1;
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 10px;
+  display: inline-block;
+  color: #150000;
+}
+</style>
+
+<%= erb :"users/themes/#{user[:my_theme].to_s.downcase}.css" if user[:my_theme].present? %>
+
+<div class='user_page container1300'>
+
+  <div class='user_top_half display_flex_wrap'>
+    <% if allow_admin_login %>
+    <a style='position: absolute; left: 10px' class='btn btn-raised btn-danger' href='/protected/login_as?email=<%=user[:email]%>'>admin login</a>
+    <% end %>
+
+    <% if user[:img_url].present? %>
+
+    <div class='user_top_left flex1'>
+      <div class='user_main_img'>
+        <div class='user_img_white_wrapper'>
+          <img src="<%=user[:img_url]%>" />
+        </div>
+      </div>      
+    </div>
+    <% end %>
+    
+    <div class='user_top_right flex1'>
+      <h1 id=about class='title'><%= title %></h1>
+      <!-- <div class=''>Delivery Area: <%= user[:delivery_area] || 'n/a' %></div> -->
+      <% if user[:license_numbers] %>
+        <div class='license_numbers'>
+          <a class='simple_link' href='<%=user[:license_url]%>'><small> License: <%= user[:license_text] %></small></a>
+        </div>
+      <% end %>
+
+        <% if false %>
+        <div style='margin:10px 0'>
+          <% if cu %>      
+          <a class='btn btn-primary btn-raised' href='/me?sec=convos&user_id=<%=user[:_id]%>'>send message</a>
+          <% else %>
+          <a class='simple_link zbtn zbtn-primary zbtn-raised' href='/signup?type=buyer'>sign up to message <%=user[:handle]%></a>
+          <% end %>
+        </div>
+        <% end %>
+      
+
+      
+      <% if is_seller %>
+      <%# recommendations_box %>
+      <%#= erb :'vouches/vouches_box', locals: {user_id: user[:_id]} %>  
+      <% end %>
+      <% if false %>
+        <span class='num_views'><i class='fal fa-eye'></i> <%= num_views %> views </span>      
+      <% end %>
+
+      <div class='zct' style='width: 100%'>
+
+        <div>
+          <small style='color: black; font-style: italic'> <%= user[:address] %> </small>
+        </div>
+        <div>
+          <small style='color: black; font-style: italic'> <%= [user[:city],user[:state]].compact.join(', ') %></small>
+        </div>
+        <div>
+          <small style='color: black; font-style: italic'> <%= [user[:email], user[:contact]].compact.join('<br> ') %></small>
+        </div>
+
+        <% if false && user[:ambassador] %>
+        <div>
+          ambassador: <small style='color: black; font-style: italic'> <%= user[:ambassador] %></small>
+        </div>
+        <% end %>
+
+        <div class='zflex1 center_contents'>
+          <% if location.present? %><div class='user_location'><i class='fa fa-globe'></i> <%= location %></div><% end %>
+        </div>
+        <% if false %>
+        <div class='flex1' style='text-align: right; margin-top: 8px'>
+          <%= erb :'users/social_media', locals: {user: user} %>
+        </div>
+        <% end %>
+      </div>      
+
+      <div class='subtitle'><%= subtitle %></div>
+
+      <% if user[:media].to_a.any? %>
+      <div class='user_sub_imgs'>
+        <br/>
+        <%= erb :'casts/show_media', locals: {item: user} %>
+        <br/>
+      </div>
+      <br/>    
+      <% end %>
+
+      
+        
+      
+    </div>
+  </div>
+
+  <div class='user_bottom_half container1000'>
+    <% if user[:desc].present? %>
+      <div class='subsubtitle user_desc'><%= user[:desc] %></div>      
+    <% end %>
+    <br/>
+    
+    <div class='buttons ct'>
+      <!-- <a href='#about' class='btn user_profile_btn'>
+        <i class='fal fa-user-circle'></i> <label>About </label>
+      </a>   -->
+      
+      <!-- <a href='#faq' class='btn user_profile_btn'>
+        <i class='fal fa-question-circle'></i> <label> FAQ </label>
+      </a>   -->
+
+      <% if false %>
+      <a href='#contact' class='btn user_profile_btn' onclick=$('.contact_input_form').toggleClass("noDisplay")>
+        <i class='fal fa-envelope-open-text'></i> <label> Contact </label>
+      </a>  
+      <% end %>
+    </div>
+    
+  <% if user_casts.any? %>    
+    <div class=user_section>      
+      <h4> Products </h4>      
+      <%= erb :'casts/casts_list', locals: {casts: user_casts, show_product_categories: false} %>
+    </div>
+  <% end %>
+
+  <% if user_locations.any? %>
+      <h3> Locations </h3>
+      <% user_locations.to_a.each do |loc| %>
+      <div class='single_user_loc single_list_item'>
+        <div class='single_user_loc_name'><%= loc[:name] %></div>
+        <div class='single_user_loc_address'><%= [loc[:address],loc[:phone],loc[:hours]].compact.join(',') %></div>
+        <% if loc[:details].present? %>
+          <div class='single_user_loc_details'><%= loc[:details] %></div>
+        <% end %>
+
+        <% items_in_stock = loc[:items].to_a.select {|item| item[:quantity].to_i > 0} %>
+        <% if items_in_stock.any? %>
+        <!--   <h5> Items in Stock </h5> -->
+          <div style='display: flex; flex-wrap: wrap'>
+            <% items_in_stock.each do |item|  %>
+            <%
+              cast = $casts.get(item[:product_id]) || {}
+            %>
+              <%= erb :'casts/single_cast_box', locals: {cast: cast} %>                        
+            <% end %>
+          </div>
+        <% else %>
+        <% end %>
+        
+        <!-- <%#= loc.to_json %> -->
+      </div>
+  <% end %>
+  <% end %>
+
+  <div class='user_section noDisplay'>
+  <h3 id=contact> Contact </h3>
+  <div>
+    <form class=contact_form method=post action='/chat/send'>
+      <input hidden name=target_id value="<%=user_id%>" />
+      <input hidden name=user_chat value="true" />
+      <input hidden name=redirect_back value="true" />
+      <% if !cu %>
+      <label> Email </label><input name=email placeholder='you@gmail.com' />
+      <% end %>
+      <br/>
+      <!-- <textarea placeholder='Your message...' name=msg></textarea>   -->
+      <label> Message </label><textarea placeholder='...' name=msg ></textarea>
+      <br/>
+      <% if !cu %>
+      <label><input type=checkbox required style='vertical-align: -webkit-baseline-middle;'> I accept Nowcast's terms of service</label>
+      <% end %>
+      <br/>
+      <div style='text-align: center'>
+        <button class='btn btn-raised btn-primary'> Send </button>
+      </div>
+    </form>    
+  </div>
+  </div>
+
+
+  <% if true %>
+  <div class='user_section' id=reviews>
+    <h1> reviews </h1>
+    <%
+      if is_seller(user) || user[:seed]
+        reviews = seller_reviews(user_id)
+        if !reviews.any? 
+          [1,2,3,4,5].sample.times { add_generated_review(user_id) }
+          reviews = seller_reviews(user_id)
+        end
+      elsif is_buyer(user)
+
+        reviews = buyer_reviews(user_id)
+      else 
+        reviews = []
+      end
+    %>
+    <!-- <h3> <%= is_heb ? 'ביקורות' : 'Reviews' %></h3> -->
+    <% if is_seller(user) && reviews.any? %>
+    <h4> Reviews </h4>
+    <% end %>
+    <%= erb :'reviews/reviews_list', locals: {reviews: reviews, user: user} %>
+  </div>
+  <% end %>
+</div>
+
+</div>
+<script>
+function onUserLoad() {
+  $('.user_desc').linkify({target: "_blank"});
+}
+function sendContactSeller() {
+  var newEmail;
+
+  <% if !cu %>
+  if (!(newEmail = prompt("What is your email for a response?"))) return false;
+  var signupMsg = `Do you accept our terms of service?`;
+  if (!(confirm(signupMsg))) return false;
+  <% end %>
+  
+  postJSON('/chat/send', {email: newEmail, msg: $("#write_seller_input").val(), user_chat: true, target_id: "<%=user_id%>", go_back_to: "<%=_req.fullpath%>"}).then(res => {
+    if (res.err) {   
+      if (res.goto && confirm(res.err)) { 
+        return goToPath(res.goto); 
+      } else {
+        alert(res.err);  
+      }      
+    } else {
+      alert('Message sent, thank you.')
+      document.location.reload();
+    }
+  });
+}
+
+$(document).ready(onUserLoad);
+
+</script>

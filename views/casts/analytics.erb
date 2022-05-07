@@ -1,0 +1,56 @@
+<%
+  views = all_views[0..9] if !is_pro(cu)
+    
+  views = views.reverse #show newest on top
+%>
+
+<style>
+.cast_views table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cast_views table th, .cast_views table td {
+  text-align: left;
+  padding: 8px;
+}
+
+.cast_views table tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+<div class='cast_views mw1000'>
+<h1> Analytics for "<%= title %>"</h1>
+
+  <h3> Views </h3>
+  <table>
+        <tr><th>Time</th><th>Who</th>
+          <!-- <th>PPC</th> -->
+          <th>External Referer</th></tr>
+        <% views.each do |click| %>
+
+        <%
+          time    = click[:created_at].to_s[0..15] + ' UTC'
+          user    = click[:user_id] && $users.get(click[:user_id])
+          link    = user_link(user) if user
+        %>
+        <tr>
+          <td><%=time%></td>          
+          <td>
+            <% if user %>
+            <a href="<%=link%>"><%=user[:name]%></a>
+            <% else %>
+            anonymous
+            <% end %>
+          </td>          
+          <!-- <td>$ <%=click[:ppc].to_i %></td> -->
+          <td><%=click[EXTERNAL_REFERER] %></td>
+        </tr>    
+    <% end %>
+  </table>
+
+  <% if !is_pro(cu) && all_views.size > 10 %>
+  <br/>
+  <div>
+    To see the rest of your analytics, you'll need to buy Nowcast Pro. See <a class=underline href='/@pricing'>pricing</a> for details.
+  </div>
+  <% end %>
+</div>

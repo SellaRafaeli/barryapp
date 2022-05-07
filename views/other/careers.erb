@@ -1,0 +1,50 @@
+<%
+  roles = [
+    {location: 'Anywhere', title: 'JavaScript FE developer (webRTC)', desc: 'good-weed is looking for a senior freelance JavaScript developer to build a "geo-chat" feature where users can move an avatar and have a dynamic webRTC audio/video connection with those "near" them.'},
+    {location: 'Anywhere', title: 'CSS designer & developer', desc: 'good-weed is looking for a senior experienced CSS designer and developer that can make our site look more attractive.'},
+    {location: 'North America', title: 'COO', desc: 'good-weed is looking for a Chief Operations Officer to manage running daily operations. Responsibilities include overseeing all aspects of software, platform, company and team, including site health, employee satisfaction, talent satisfaction, payout flow, sales and marketing ongoing operations, company financials, and legal and accounting. All of the above will be centered in the US.'},
+    {location: 'North America', title: 'good-weed originals - executive producer', desc: 'good-weed originals is good-weed\'s home brand of content, leading a variety of premium content created by good-weed and shared with the public. The right candidate will lead the end-to-end production of globally-sourced live video content with remote creators. Responsibilities will include everything in creating top live video content around the world.'},
+    {location: 'North America', title: 'Senior Web UI/UX Designer', desc: 'good-weed is looking for a web designer to design our web application screens as well as conversational interface with users. Requires substantial experience (5+ years) in designing web GUIs. The candidate will be expected to be hands-on and write their own CSS.'},
+    {location: 'North America', title: 'Senior Lead Mobile Developer (React Native)', desc: 'good-weed is looking for a senior lead mobile developer to manage development of good-weeds\'s mobile application, written in React Native.'},
+    {location: 'North America', title: 'VP Marketing', desc: 'good-weed is looking for a B2SMB2C expert to lead its online marketing and brand management efforts. Experience necessary in online brand management.'},
+    {location: 'Israel', title: 'VP HR', desc: 'good-weed is looking for an empathetic, responsible HR person to help us develop our team. Requirements: 10 years in startups.'},
+    {location: 'North America', title: 'VP Sales', desc: 'good-weed is looking for a driven person with experience in both online video creation and working with video creators and stars in order to help us source and onboard leading global video creator stars and help turn them into worldwide brands.'},
+    {location: 'Europe', title: 'QA Specialist', desc: 'good-weed is looking for a quality assurance expert to help us verify the platform is stable at all times. Experience necessary in testing websites.'},
+    {location: 'Anywhere', title: 'Product Marketer', desc: 'good-weed is looking for a product owner to own the ins and outs of the product, interface with users, and ensure the overall success of the product. Responsibilities may include managing the company\'s QA team.'},
+    {location: 'North America', title: 'Professional Video Reviewer', desc: 'good-weed is looking for an eloquent, camera-friendly native English speaker assurance expert to help us review video events and write reviews.'},
+    {location: 'North America', title: 'Community Manager', desc: 'good-weed is looking for a community manager to manage our online international diverse community of creators.'}
+  ]
+%>
+
+<style>
+.careers {
+  margin-top: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<h3 class=ct> good-weed - careers </h3>
+<div class='careers'>
+  <p> To apply please email <a href=mailto:careers@good-weed.com>careers@devshops.com</a>.</p>
+
+  <% ([] || roles).each do |role| %>
+
+  <div class='single_role'>
+    <h3><%= role[:title] %></h3>
+  </div>
+  <% end %>
+
+  <h3> NYC - CMO </h3>
+  <h5> Description </h5>
+  <p> good-weed is a marketplace for cannabis. Our mission is to connect people who enjoy cannabis with local delivery services. </p>
+  <p> VP Marketing manages good-weed.com's online presence, connecting with buyers and sellers.</p>
+  <p> This role reports to the CEO. </p>
+
+  <h3> NYC - VP Customer Success </h3>
+  <h5> Description </h5>
+  <p> Good-Weed is a marketplace for cannabis. Our mission is to help companies and individuals around the world find the best cannabis and connect buyers and sellers. </p>
+
+  <p> VP Customer Success works with our customers - cannabis companies of various sizes - to help them list their products, stores, and promote their business on good-weed. This includes sourcing and interfacing with customers as well as managing their data hands-on on the site and advocating for their success.</p>
+  <p> This role reports to the CEO. </p>
+</div>

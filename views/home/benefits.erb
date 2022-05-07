@@ -1,0 +1,35 @@
+<style>
+.benefits {
+  display: flex;
+  justify-content: space-around;
+  margin: 50px auto;  
+  font-size: 20px;
+}
+.benefit-icon {
+  text-align: center;
+  margin: 25px;
+  font-size: 40px;
+}
+.single_benefit {
+  max-width: 220px;
+}
+.text {
+  font-weight: bold;
+}
+.subtext {
+  font-size: 16px;
+  margin-top: 12px;
+}
+</style>
+
+<div style='background-color: white; color:#386256; padding-bottom: 5px'>
+  <div class='benefits'>
+    <% benefits.each do |benefit| %>  
+    <div class='single_benefit'>
+      <div class='benefit-icon'><i class='fal fa-<%=benefit[:icon]%>'></i></div>
+      <span class='text'> <%= benefit[:text] %></span>
+      <div class='subtext'><%=benefit[:subtext]%></div>
+    </div>
+    <% end %>
+  </div>      
+</div>

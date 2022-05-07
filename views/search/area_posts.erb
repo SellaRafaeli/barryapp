@@ -1,0 +1,73 @@
+<%
+
+  posts = $area_posts.all(city: city, state: state).reverse
+%>
+
+<style>
+.area_posts_container {
+  
+  padding: 10px;
+}
+.area_posts_list {
+  border:1px solid whitesmoke;
+  padding: 10px;
+  font-size: 14px;
+}
+.single_area_post {
+  background-color: whitesmoke;
+  padding: 10px;
+  padding-bottom: 30px;
+  margin-bottom: 10px;
+}
+.area_posts_form {
+  padding-top: 10px;
+}
+.delete_post_btn {
+  float: right;
+}
+</style>
+
+
+<div class='area_posts_container'>
+<h4>Posts: <%= Date::MONTHNAMES[Date.today.month] %> '21 </h4>
+
+<div class='area_posts_list'>
+  <% posts.each do |post| %>
+  <div class='single_area_post'>
+
+    <span style='font-size: 80%'><%=nice_date(post[:created_at])%></span> 
+    <a class='simple_link single_area_handle' href='/@<%=post[:handle]%>'><%=post[:handle]%></a>: <%= post[:text] %>
+    <div>
+      <% if post[:user_id]==cuid || true%>
+        <form class='delete_post_btn' method=post action="/area_posts/delete/<%=post[:_id]%>">
+          <button>x</button>
+        </form>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+  <div class='area_posts_form'>
+    <% if cu %>
+    <form method=post action=/area_posts/submit>
+    <% else %>
+    <form onsubmit='saySignupFirst(); return false'>
+    <% end %>
+      <input name=text style='width: 300px' placeholder='post something...' />
+      <input hidden value="<%=city%>" name=city>
+      <input hidden value="<%=state%>" name=state>
+      <% if cu %>
+      <button> submit </button>
+      <% else %>
+      <button type=button onclick='saySignupFirst()'> submit </button>
+      <button style='display: none'> submit-hidden </button>
+      <% end %>
+    </form>
+  </div>
+
+</div>
+
+<script>
+function saySignupFirst(){ alert("Sign up first.") }
+</script>

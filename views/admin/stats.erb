@@ -1,0 +1,81 @@
+<style>
+.key {
+  width: 300px;
+  display: inline-block;
+}
+.val {
+  width: 200px;
+  display: inline-block;
+}
+h3 {
+  background-color: darkblue;
+  color: white;
+  padding: 10px;
+}
+.box {
+  border:1px solid darkblue;
+  padding: 10px;
+  margin-right: 20px;
+}
+</style>
+
+
+<%
+  anals_last_day = $anals.get_many({type: :pageview, created_at: {'$gt': 1.day.ago}})
+%>
+<div class='zdisplay_flex' style='zheight: 200px; overflow: scroll; border:1px solid grey; padding:10px'>
+  <div class='flex1'>
+  <%  last_day_crit = {created_at: {'$gt': Time.now-24.hours}} %>
+    <h3> Biz Metrics in last 24 hours: </h3>
+    <span class='box'> <%= $users.count(last_day_crit) %> users joined (<%= $users.count %> total)</span> 
+    <span class='box'> <%= $casts.count(last_day_crit) %> new casts (<%= $casts.count %> total)</span> 
+    <span class='box'> <%= $enrolls.count(last_day_crit) %> new enrolls (<%= $enrolls.count %> total)</span> 
+    <a class='btn btn-raised' href='/admin/earnings'>$ All Earnings</a>
+  </div>
+        
+  <div class='flex1'>
+    <h3> External Referrals </h3>
+    <% referrals = anals_last_day.mapo(EXTERNAL_REFERER).hash_of_num_occurrences %> <% referrals.each do |k,v| %>
+    <% next unless k.present? %>
+    <% total = $anals.count({type: :pageview, EXTERNAL_REFERER => k}) %>
+    <div style='margin:10px; background-color: whitesmoke'>
+      <span class='key'><%= k%></span> <span class='val'><%=v %> in last 24h, </span><span class='total'>(<%= total %> total)</span>
+    </div>
+    <% end %>
+    <!-- <form method=get action='/admin/user_page'> 
+      <label> See user page by email <input name=email /> </label>
+      <button class='btn btn-primary btn-raised'> See User </button>
+    </form> -->
+  </div>
+
+  <div class='flex1'>
+    <h3> UTMs for PageViews </h3>
+    <% utms = anals_last_day.mapo(:utm).hash_of_num_occurrences %> <% utms.each do |k,v| %>
+    <% next unless k.present? %>
+    <% total = $anals.count({type: :pageview, :utm => k}) %>
+    <div style='margin:10px; background-color: whitesmoke'>
+      <span class='key'><%= k%></span> <span class='val'><%=v %> in last 24h, </span><span class='total'>(<%= total %> total)</span>
+    </div>
+    <% end %>
+    <!-- <form method=get action='/admin/user_page'> 
+      <label> See user page by email <input name=email /> </label>
+      <button class='btn btn-primary btn-raised'> See User </button>
+    </form> -->
+  </div>
+
+  <div class='flex1'>
+    <h3> Page views </h3>
+    <% page_views = anals_last_day.mapo(:path).hash_of_num_occurrences %> <% page_views.each do |k,v| %>
+
+      <% total = $anals.count({type: :pageview, path: k}) %>
+    <div style='margin:10px; background-color: whitesmoke'>
+      <span class='key'><%= k%></span>: <span class='val'><%=v %> in last 24h, </span><span class='total'>(<%= total %> total)</span>
+    </div>
+    <% end %>
+    <!-- <form method=get action='/admin/user_page'> 
+      <label> See user page by email <input name=email /> </label>
+      <button class='btn btn-primary btn-raised'> See User </button>
+    </form> -->
+    
+  </div>  
+</div>

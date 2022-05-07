@@ -1,0 +1,83 @@
+<%
+  threads = $forum_threads.all
+  msgs    = []
+  msgs    = $forum_msgs.get_many(thread_id: pr[:thread_id]) if pr[:thread_id]
+%>
+
+<style>
+.single_msg {
+  background-color: whitesmoke;
+  margin-left: 35px;
+  margin-top: 10px;
+  max-width: 500px;
+  padding: 20px;
+}
+.single_msg_header {
+  margin-bottom: 10px;
+}
+.single_msg_body {
+  white-space: pre;
+}
+.single_msg_footer {
+  text-align: right;
+}
+</style>
+
+<div>
+<h2> Teaching Online Forum </h2>
+
+  <% threads.each do |thread| %>
+  <% num_msgs = $forum_msgs.count(thread_id: thread[:_id]) %>
+  <div class='single_thread'>
+    <i class='fal fa-list'></i>
+    <a href='/community?sec=forum&thread_id=<%=thread[:_id]%>'>
+      
+      <% if pr[:thread_id] == thread[:_id] %> <b> <% end %>
+      <%=thread[:title]%>
+      <% if pr[:thread_id] == thread[:_id] %> </b> <% end %>
+      <% if num_msgs > 0 %>
+      <small>(<%= num_msgs %> posts)</small>
+      <% end %>          
+    </a>
+
+    <% if pr[:thread_id] == thread[:_id] %>
+        <% msgs.each do |msg| %>
+          <% user = clean_user($users.get(msg[:user_id])) %>
+          <div class='single_msg'>
+            <div class='single_msg_header'>
+              <b><span><%= user[:handle] %></span></b>
+            </div>
+            <div class='single_msg_body'><span><%= msg[:msg] %></span></div>
+            <div class='single_msg_footer'>
+              <hr/>
+              <small><%= msg[:created_at]%></small>
+            </div>
+          </div>
+        <% end %>
+
+        <form method=post action='/forums/new_msg' style='margin: 30px'>
+          <div> Post New Response: </div>
+          <input name=thread_id value="<%=thread[:_id]%>" hidden />
+          <textarea name=text placeholder='...'></textarea>
+          <div></div>
+          <button class='btn2' style='margin-top:10px'>Post</button>
+        </form>
+
+      <% end %>
+  </div>
+  <% end %>  
+
+  <br/>
+  <hr/>
+  <% if cu %>
+  <div>
+    <form method=post action='/forums/new_thread'>
+      <span> Post New Thread: </span>
+      <input class=input1 placeholder=Title name=title />
+      <button class='btn2'>Post</button>
+    </form>
+  </div>
+  <% else %>
+  <a class=btn2 href='/signup'>Signup to post</a>
+  <% end %>
+</div>

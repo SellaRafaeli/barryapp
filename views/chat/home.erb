@@ -1,0 +1,84 @@
+<%
+  @no_container = true
+  @custom_container_class = 'height100'  
+  my_chat_casts = get_my_chats(cuid)
+%>
+
+<style>
+.chat_home {
+  height: 100%;
+}
+
+@media (min-width: 1200px) {
+  .chat_home {
+    margin-left: 20px;
+  }
+}
+
+.chat_body {
+  display: flex;
+  height: 100%;
+  margin-top: 50px;
+  max-width: 800px;
+}
+.my_chats {
+  flex: 3;
+  height: 100%;
+  border:1px solid whitesmoke;
+  background-color: #e0bebe14;
+}
+.chat_list_user {
+  padding: 5px;
+  background-color: whitesmoke;
+  margin-bottom: 10px;
+  padding-right: 20px;
+}
+.chat_list_user a {
+  position: relative;
+  top: -2px;
+  left: 7px;
+}
+.chat_list_user.unread {
+  font-weight: bold;
+}
+.my_chats .user_img {
+  height: 20px;
+  width: 20px;
+}
+.chat_thread {
+  flex: 9;
+  overflow: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
+<div class='chat_home'>
+  <h1> Messages </h1>
+  <div class='chat_body'>
+    <div class='my_chats'>
+      <% my_chat_casts.to_a.each do |cast| %>
+        <% 
+          
+          other_user_id = (cast[:allowed_ids] - [cuid])[0] 
+          next unless other_user    = $users.get(other_user_id) 
+          
+        %>
+        <div class='chat_list_user user_id_<%=other_user[:_id]%>'>
+          <img class='user_img' src="<%=other_user[:img_url]%>" />
+          <a href='/chat?ouid=<%=other_user_id%>'><%=other_user['name']%></a>
+        </div>
+      <% end %>
+    </div>
+
+    <div class='chat_thread'>
+      <%
+        if pr[:ouid]
+          other_user    = $users.get(pr[:ouid])          
+          cast          = ensure_chat_exists(cuid, other_user[:_id])          
+          other_user_id = (cast[:allowed_ids] - [cuid])[0]          
+      %>
+        <%= erb :'/chat/personal', locals: {cast: cast, other_user: other_user} %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<%
+  noun = cast[:title] ? cast[:title] : cast[:type].to_s.capitalize
+%>
+
+<% if cast[:done] %> 
+  <div>Broadcast is over. Thank you for watching NowCast.</div>
+<% elsif cast[:live] && cast[:link] %>
+  <%= screen_html_by_link(cast) %>
+<% else %>
+  <div><%= noun %> Starts on <%= cast_time1(cast) %></div>
+<% end %>
+

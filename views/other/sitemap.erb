@@ -1,0 +1,18 @@
+<% if true %>
+<% AREAS.each_with_index do |key_and_val, idx| %>
+<% puts "key an val: "; puts key_and_val %>
+<% short = key_and_val[1][:short]; state = key_and_val[0]; cities = areas_get_existing_cities(short) %>
+<% cities.each do |city| %>
+<%=$root_url%>/dispensaries/<%=state%>/<%=city%>
+
+<% end %>
+<% end %>
+<% end %>
+<% if true %>
+<% $users.all.each_with_index do |user, idx| %>
+<%# next unless idx == 0 %>
+<%=$root_url%><%=user_link(user)%>
+
+<% end %>
+<% end %>
+update at <%= Time.now %>

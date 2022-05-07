@@ -1,0 +1,96 @@
+<%
+
+%>
+<style>
+.cast_settings {
+  background-color: whitesmoke;
+  padding: 20px;
+}
+.cast_settings_controls {
+  display: flex;
+}
+.cast_settings_controls_col {
+  flex: 1;
+}
+.cast_settings_row {
+  margin-bottom: 10px;
+}
+.cast_type {
+  display: none;
+}
+</style>
+<form method='post' action='/update_me'>
+  <div class='cast_settings'>    
+    <h3> 
+      <span>Cast Settings </span>
+      <small style='margin-left:10px'> Only you can see this. (@<%=user[:handle]%>) </small>
+    </h3>
+
+    <div class='cast_settings_row display_flex'>
+      <div class='flex1 align_items_center display_flex'> 
+        <label class='flex1'> Type </label> 
+      </div>
+      
+      <div class='flex1 align_items_center display_flex'>
+        <select class='flex1' name='cast_type' onchange=updateCastSettingsBox()>
+          <option value=vimeo > Vimeo </option>
+          <option value=zoom  > Zoom </option>
+          <option value=fb  >   Facebook Live </option>
+          <option value=yt  >   YouTube Live </option>
+        </select>
+      </div>
+      
+      <div class='flex1'>        
+      </div>
+    </div>
+
+    <div class='cast_settings_row display_flex'>
+      <div class='flex1 align_items_center display_flex'>
+          <label class='flex1 cast_type vimeo'> Vimeo Event ID: </label>
+          <label class='flex1 cast_type zoom'> Zoom Link: </label>
+          <label class='flex1 cast_type fb'> Facebook Live Link: </label>
+          <label class='flex1 cast_type yt'> YouTube Live Link: </label>
+      </div>
+      
+      <div class='flex1 align_items_center display_flex'>
+        <input class='cast_type vimeo' name=vimeo_event_id />      
+        <input class='cast_type zoom' name=zoom_link />      
+        <input class='cast_type fb' name=fb_link />      
+        <input class='cast_type yt' name=yt_link />      
+      </div>
+
+      <div class='flex1'>
+      </div>
+    </div>
+
+    <br/>
+    <div class='zdisplay_flex noDisplay'>
+      <div class='flex1 align_items_center display_flex'>
+        <label class='flex1'> Next event time </label> 
+      </div>
+      <div class='flex1 align_items_center display_flex'>
+        <select class='flex1' name='next_cast_time'>
+          <option value=tbd > Nothing Planned </option>
+          <option value=datetime > Next Date & Time: </option>
+          <!-- <option value=recurring > Next Date & Time: </option> -->
+        </select>
+      </div>
+
+      <div class='flex1'>
+        <input name=next_datetime type=datetime-local />
+      </div>
+    </div>
+    <button class='btn btn-info btn-raised'> Update </button>
+  </div>
+
+</form>
+
+<script>
+function updateCastSettingsBox() {
+  $('.cast_type').hide();
+  var type = $('select[name=cast_type]').val();
+  $(`.cast_type.`+type).show();
+}
+
+updateCastSettingsBox();
+</script>

@@ -1,0 +1,85 @@
+/*hello*/
+
+/*post*/
+body {
+	font-family: Oxygen, Rubik, 'Poppins', 'Assistant', sans-serif !important;
+}
+#editor {
+  font-size: 16px;
+  font-family: Lora;
+  zdirection: rtl;
+  text-align: right;
+  position: relative;
+  max-width: 600px;    
+  /*font-family: 'Poppins', 'Assistant', sans-serif !important;*/
+}
+
+h1 { 
+/*	font-family: 'Poppins', 'Assistant', sans-serif !important;*/
+}
+
+.title .body {
+  zdirection: rtl;
+  white-space: pre;
+}
+
+.is_owner .title {
+  border-bottom:5px solid whitesmoke;
+}
+
+
+.post_buttons_container {
+  /* fixed position a zero-height full width container */
+  position: fixed;
+bottom: 0;
+    left: 10%;
+    /* right: 0; */
+    min-height: 30px;
+    text-align: center;
+    /* border: 1px solid green; */
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    text-align: left;
+}
+
+.post_buttons_container > post_buttons {
+  /* make the block inline */
+  display: inline-block;
+  /* reset container's center alignment */
+  text-align: left;
+  background-color: red;
+  border:1px solid blue;
+  z-index: 140;
+} 
+.saved-btn {
+  color: grey;
+}
+
+.editable_textarea {
+  width: 100%;
+  height: auto;
+  border: none;
+  /*text-align: justify;*/
+}
+
+.nice_list_item {
+  background-color: whitesmoke;
+  padding: 20px;
+  margin-bottom: 10px;
+  border: 1px solid white;
+}
+.nice_list_item:hover {
+  border:1px solid grey;
+}
+.body_textarea {
+	font-size: 18px;
+	line-height: 30px;
+}
+
+.title_textarea {
+	font-weight: 500;
+}
+
+.reading_textarea {
+  white-space: pre-wrap;
+}

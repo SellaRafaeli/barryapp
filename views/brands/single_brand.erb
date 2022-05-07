@@ -1,0 +1,185 @@
+<%
+all_tags = ['women-owned', 'lgbt-owned', 'sativa', 'edibles', '60-min-delivery', '90-min-delivery', 'money-back-guarantee', '$', '$$', '$$$', '$$$$']
+
+
+facets = FACETS.select{|f| user[f[:key]]=='on' }.mapo(:label)
+# facets = all_tags.sample(rand(5)) if !facets.any?
+tags   = user[:tags].to_s.split(',')
+brand_tags = facets + tags
+x=1
+user[:img_url] ||= get_random_cannabis_img 
+
+rating = reviews.map {|r| r[:rating].to_i }.avg rescue 0
+%>
+
+<% if !@brand_styles %>
+<% @brand_styles = 'done' %>
+<style>
+.single_brand {  
+  zflex: 25%;
+  margin: 0 10px 10px 0px;
+  ztext-align: center;
+  border:1px solid lightgrey;
+  background-color: whitesmoke;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  border-radius: 0;
+  border: none;
+  zborder-bottom: 2px solid black;
+  zwidth: 50%;
+  zdisplay: flex;
+}
+.single_brand:hover {
+  border-color: grey;
+  zfont-weight: bold;
+  color: black;
+}
+.single_brand .brand_img { 
+  width: auto;
+  height: 60px;
+  margin: auto;
+  object-fit: contain;
+  display: inline-block;
+  margin: 20px;
+  zborder-radius: 50%;
+}
+.single_brand_container {
+  /*background: linear-gradient(184deg, rgba(255,255,255,1) 0%, rgb(80 173 83) 35%);*/
+  zborder-bottom:1px solid darkgrey;
+  padding: 0px 16px 10px;
+  border-radius: 0px;
+  
+}
+.brand_contact {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 20px;
+  display: block;
+}
+.idx_num {
+  font-size: 20px;
+}
+.single_brand_column_a {
+  flex: 1;
+  text-align: left;
+  display: none;
+  /*border:1px solid green;*/
+}
+.single_brand_column_b {
+  flex: 4;
+  /*border:1px solid red;*/
+}
+.single_brand_column_c {
+  flex: 4;
+  flex-grow: 4:;
+  /*border:1px solid blue;*/
+}
+.single_brand_tag {
+  background-color: #1e5353;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  display: inline-block;
+  margin: 5px;
+}
+.brand_tags {
+  margin: 5px 0;
+}
+.highlight-tag {
+  background-color: lightgreen;
+}
+.single_brand_flex_wrapper {
+  display: flex;  
+}
+@media (max-width: 800px) {
+  .single_brand_flex_wrapper {
+    flex-wrap: wrap;
+  }
+}
+
+.place_ribbon {
+  height: auto;
+  width: 40px;
+  display: inline-block;
+}
+</style>
+<% end %>
+
+<div class='single_brand_container <%= brand_tags.join(' ')%>'>
+
+
+  <div class='single_brand' style='zdisplay: flex'>
+    <div class='single_brand_flex_wrapper'>
+      <div class='single_brand_column_a'>
+        
+      </div>
+
+      
+      <%#= user.to_json %>
+      <!-- <span class='idx_num'><%= idx+1 %>) </span> -->
+      
+
+      <div class='single_brand_column_b'>
+        <% if user[:img_url].present? %><img class='brand_img' src='<%=user[:img_url]%>' /><% end %>
+
+        <% if false && locals[:idx] && locals[:idx] < 3 %>
+          <img class='place_ribbon' src='/img/search/num<%=idx+1%>.png' />
+        <% end %>
+        <a href='<%=user_link(user)%>' class='simple_link brand_handle'><%=user[:name]%> <%= "<b class='nowcast_color'><i class='fas fa-badge-check'></i> (pro)</b>" if is_pro(user) %></a>          
+        
+        <div>
+          <% rating.to_i.times do |i|  %>
+          <span><i style='color: gold' class='fas fa-star'></i></span>           
+          <% end %>
+          <span style='color: grey; font-size: 12px'><%= rating %>;</span>
+
+          <% num_reviews = reviews.size %>
+          <span style='color: grey; font-size: 12px'><%= num_reviews %> reviews </span>
+
+          <div style='color: black; font-size: 12px; font-weight: bold'><%= user[:contact] %> </div>
+        </div>
+        <div class='brand_tags'>        
+          <% brand_tags.each do |tag| %>
+            <span class='single_brand_tag <%=tag%>'><%= tag %></span>
+          <% end %>
+        </div>
+                    
+        <div>
+          <small style='color: black; font-style: italic'> 
+          <%= user[:address] %>
+          <%= user[:city] %>
+          <%= user[:state] %>            
+          </small>
+        </div>
+        
+
+        <% contact = user[:contact] %>
+        <% if false && contact.present? %>
+        <span class='brand_contact btn btn-raised btn-primary'>
+        <i class='fal fa-link' style='margin-right: 10px; color: black'></i>
+            <% if !contact.to_s.starts_with?('http') %>
+              <a style='color: white' href="sms://+<%=contact%>?body=I%27m%20interested%20in%20your%20product.%20Please%20contact%20me."><%=user[:contact]%></a>
+            <% else %>
+              <a style='color: white' target=_blank href='<%=user[:contact]%>'> <%=user[:contact]%></a>            
+          <% end %>
+        <% end %>
+        </span>
+        <div style='margin-top: 20px; font-size: 14px;'>
+          <%= user[:desc] %>
+        </div>
+      </div>  
+
+      <div class='single_brand_column_c'>      
+        <%= erb :'/reviews/user_top_review', locals: {user: user} %>
+      </div>
+    </div>
+
+    
+    
+  </div>
+
+  <% casts = $casts.get_many(user_id: user[:_id]) %>
+  <%= erb :'casts/casts_list', locals: {casts: casts, show_product_categories: false} %>
+</div>

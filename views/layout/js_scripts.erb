@@ -1,0 +1,48 @@
+<%
+
+js_scripts = [
+  '/js/lib/jquery-2.2.1.min.js',
+  '/js/lib/bootstrap3.js',
+  '/js/lib/material.min.js',
+  '/js/lib/ripples.min.js',
+  '/js/lib.js',
+  '/js/main.js',
+  '/js/lib/sortable.js', # to make tables sortable
+  '/js/lib/bootstrap_select.min.js',
+  '/js/lib/turbolinks.js',
+  # '/js/lib/vue.js',
+  '/js/lib/bootstrap_material_design.min.js',
+  '/js/lib/linkify.min.js',
+  '/js/lib/linkifyquery.js',
+  '/js/lib/jquery.easy-autocomplete.min.js',
+  'https://js.pusher.com/6.0/pusher.min.js',
+  "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=#{ENV["GOOGLE_MAPS_API_KEY"]}"
+  #'/js/fb.js',
+]
+
+
+bottom_css_tags = [
+  '/css/lib/sweet_alert.min.css'
+]
+%>
+
+<% js_scripts.each do |path| %>
+  <script src='<%=path%>'></script>
+<% end %>
+
+<% bottom_css_tags.each do |path| %>
+  <link rel="stylesheet" href="<%=path%>"/>
+<% end %>
+
+<% if cu && (cu[:email]=='bob@nowcast.co' || cu[:email]=='alice@nowcast.co') && pr[:js] %>
+  <script src='<%=pr[:js]%>'></script>
+<% end %>
+
+<script>
+  // Vue.use(VueMaterial)
+  // Vue.use(VueMaterial.MdTable)
+</script>
+<% if true || $prod %>
+<script src="https://js.stripe.com/v3"></script>
+<% end %>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>

@@ -1,0 +1,53 @@
+<style>
+.cast_media_container {
+  text-align: center;
+}
+.cast_media {
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 10px;
+  position: relative;
+  border-radius: 50%;
+  padding: 5px;  
+  vertical-align: middle;
+}
+.cast_media_linear_circle {
+  /*background: linear-gradient(#e66465, #9198e5, #47f53b);  */
+}
+.media_img_wrapper {
+  height: 150px;
+  width: 150px;
+  background-color: white;
+  border-radius: 50%;
+}
+.cast_media img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: <%= item[:media_object_fit] || 'cover' %> ;
+  padding: 3px solid white;
+}
+
+</style>
+
+<% if item[:media].to_a.any? %>
+
+<div class='cast_media_container cast_body_component'>
+  <% item[:media].to_a.each do |item| %>
+    <% is_video = item[:type].to_s.include?('video') %>
+    
+      <div class='cast_media <%="cast_media_linear_circle" unless is_video %>'>      
+        <% if is_video %>
+        <video width="" height="" style='max-width: 100%' controls>
+            <source src="<%=item[:url]%>" type="video/mp4">
+          </video>
+        <% else %>
+        <div class='media_img_wrapper'>
+          <img src='<%=item[:url]%>' />
+        </div>
+        <% end %>
+      </div>
+    
+  <% end %>
+</div>
+<% end %>

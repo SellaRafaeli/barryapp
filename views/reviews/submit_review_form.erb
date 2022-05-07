@@ -1,0 +1,84 @@
+<%
+  title1 = is_heb ? 'השאיר/י ביקורת' : 'Add Cannabis Recommendation/Review'
+  title2 = is_heb ? 'ממי קנית?' : 'Who did you buy from?'
+  title3 = is_heb ? 'מה קנית, ואיך היה?' : '' || 'What did you buy and how was it?'
+  placeholder = is_heb ? 'התייחס/י למחיר, איכות, שירות, וכל דבר אחר.' : 'Review price, quality, service, and anything else.'
+  self_post = false # seller == cu 
+
+  title1 = 'Add Review'
+%>
+
+<style>
+.submit_review_form {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+</style>
+<div class='submit_review_form_container'>
+  <div class='submit_review_form'>    
+
+    <form method=post action='/reviews/new' class="<%= rtl_if_heb %> <%= text_align_right_if_heb %> ">
+      <h6 style='margin:0'> <%= title1 %></h6>
+      <input name=seller_id value="<%=user[:_id]%>" hidden />
+      <% if locals[:seller] %>
+      <input name=user_id value="<%=user[:_id]%>" hidden />
+      <% text = "What was your experience buying from #{seller[:name]}?" %>
+      <% else %>
+      <br/>
+      <label> <%= title2 %> </label>
+      <br/>
+      <input name=seller_name placeholder='@bob_marley2' />
+      <br/>
+      <br/>
+ 
+      <% end %>
+      <label> <%= title3 %> </label>
+      <br/>
+      <!-- <textarea placeholder='Your review...' name=msg></textarea>   -->
+      <textarea class="<%= rtl_if_heb %> <%=text_align_right_if_heb%>" style='height:50px; font-size: 14px;' placeholder='<%=placeholder%>' name=text required ></textarea>
+
+      <br/>
+      <br/>
+      <% if true %>
+      <select name=rating required>
+        <option value=""> Rating</option>
+        <option value=5>5 stars (amazing)</option>
+        <option value=4>4 stars (great)</option>
+        <option value=3>3 stars (decent)</option>
+        <option value=2>2 stars (bad)</option>
+        <option value=1>1 star  (terrible)</option>
+        
+      </select>
+      <button type=button id=profile_pic_uploader onclick=uploadReviewVideo() > Attach video review </button>
+      <% end %>
+      
+      
+      
+      <input name=video_url id=review_video_url style='display: none' value="" />
+      <video id=review_upload_img_container width="320" height="240" controls class=noDisplay >
+        <source id=review_upload_video src="" type="video/mp4">
+      </video>
+      
+      <script>
+        function uploadReviewVideo() {
+          filestackUpload(res => {
+            $("#review_upload_video").attr('src',res.url);      
+            
+            var vidPlayer = $("#review_upload_img_container")
+            vidPlayer.removeClass('noDisplay');
+            vidPlayer.get(0).load(); //necessary to refresh the video
+
+            $("input#review_video_url").val(res.url);            
+            console.log('upload video res',res)
+          });
+        }
+      </script>
+
+      <br/>
+      <button class='btn btn-raised btn-primary btn-sm'> submit </button>
+    </form>
+  </div>
+</div>

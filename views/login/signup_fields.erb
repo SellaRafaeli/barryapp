@@ -1,0 +1,226 @@
+<%
+  is_fullpage = _req.path=='/signup'
+%>
+<style>
+.tos_prompt {
+  margin-left: 10px;
+  width: 420px;
+  display: inline-block;
+  vertical-align: text-top;
+}
+</style>
+
+<style>
+.concierge_msg {
+  max-width: 450px;
+  margin-left: 40px;
+  line-height: 30px;
+  font-size: 15px;
+}
+</style>
+    <% if true %>
+        <!-- <div class='concierge_msg'>For concierge support, please email hi@good-weed.com. </div>
+        <br/> -->
+
+    <div>
+      <label class='w200'> 
+      <%= is_heb ? 'שם' : 'Name' %> 
+    </label>
+      <input required zautofocus id=signup_name_input class='input1' placeholder='<%= is_heb ? "יעל ההייטקיסטית" : 'Jane Doe' %>' name='name' value="<%=pr[:name] || (!$prod ? "test" : '') %>" style='margin-right: 5px;'/>
+    </div>
+    <% end %>
+
+    <input id=tz_input name=timezone placeholder='timezone' hidden >
+    <input id=user_type name=type placeholder='type' value="<%= pr[:type] %>" hidden >
+
+    <!-- <div><small>We won't show this to anybody.</small></div> -->
+
+    <div>
+      <label class='w200'> 
+      <%= is_heb ? 'אימייל' : 'Email' %>
+    </label>
+      <input id=signup_email_input class='input1 ltr' value="<%=pr[:email] || (!$prod ? 'test' : '') %>" placeholder='jane@awesomecorp.com' name='email' <%="zautofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
+    </div>
+    <!-- <div><small>We won't show this to anybody.</small></div> -->
+
+    <% if locals[:only_signup] && pr[:referrer_id] && referrer = $users.get(pr[:referrer_id]) %>
+    
+    <div class='referring_user'> 
+    <input hidden name=referrer_id value="<%=pr[:referrer_id]%>" />
+    <br/>
+    <small>You have been referred by: <a class=underline href='/<%=user_link(referrer)%>'><%= referrer[:name] %></a>. 
+      <br/>
+      <!-- If you sign up they'll get an extra <%= REFERRAL_PCT %>% of what you earn in your first <%= REFERRAL_MONTHS %> months. -->
+    </small>
+    </div>
+    <% end %>
+    <% if true %>
+    <div>
+      <label class='w200'> New Password </label>
+      <input class='input1' value="<%=pr[:password]%>" placeholder='Secret Password' name='password' type=password style='margin-right: 5px'/>
+    </div>
+
+    <!-- <div>
+      <label class='w200'> Your Zip Code </label>
+      <input class='input1' value="<%=pr[:zipcode]%>" placeholder='Zip Code' name='zipcode' type=zipcode style='margin-right: 5px'/>
+    </div> -->
+
+    <% end %>
+
+    <% if pr[:room] %>
+      <input hidden name=room value="<%=pr[:room]%>" />
+    <% end %>
+
+    <% if pr[:backto] %>
+    <input name=backto value="<%=pr[:backto]%>" />
+    <% end %>
+
+    <% if false && pr[:type]=='seller' && false %>
+    <div>
+      <label class='w200'> Title </label>      
+      <input class=input1 name=title required value="<%=pr[:title]%>" />
+
+      <%= erb :'/login/type_chooser' %>      
+      <!-- <input class=input1 required list="browsers" name="type" id="user_types">
+
+      <datalist id="browsers">
+        <option value="Dispensary">
+        <option value="Distributor">
+        <option value="Cultivator">
+        <option value="Other">
+      </datalist> -->
+    </div>
+    <% else %>
+    <% end %>
+    
+    <% if false && pr[:type] == 'seller' %>
+    <div>
+      <label class=w200>Zip codes you deliver </label> 
+      <input class=input1 name=zipcodes placeholder='90210,94103' required value="<%=90210 if !$prod%>">
+    </div>
+    <% end %>
+
+    <% if pr[:enable_token] %>
+    <br/>
+    <label class='w200'> Your token </label>
+    <input name='token' class='input1' <%="autofocus" if pr[:email]%> placeholder='e02ca21e-5ead-4753-914a-246f8dc85931' style='margin-right: 5px'/>
+    <br/>
+    <% end %>
+    
+    <% if locals[:ask_for_cc] %>
+    <div class='payment_info_area'>
+      <label style='display: block; margin: 5px 0 15px 0;' class='w200'> Payment Info <i style='color: #0cdd31; margin-left:10px' data-placement=right data-toggle=tooltip data-title='Secured with 128-bit SSL. Powered by Stripe.' class='fa fa-lock'></i></label>
+      <%= erb :'/stripe/credit_card_input' %>      
+    </div>
+    <% end %>
+
+    <% if pr[:type] == "request" %>
+    <hr/>
+    <h3> Get quotes/offers for your online event </h3>
+    <div>
+      <label class='w200'> Tell us about you. </label>
+      <textarea required class='input1' placeholder='Who is the event for? Tell us all we should know about you.' name='requester' style='margin-right: 5px'></textarea>
+    </div>
+
+    <div>
+      <label class='w200'> What kind of event are you looking for? </label>
+      <textarea required class='input1' placeholder='Event details or considerations - what would you like?' name='request_info' style='margin-right: 5px'></textarea>
+    </div>
+
+    <div>
+      <label class='w200'> Do you have an estimated budget? </label>
+      <input class='input1' style='vertical-align: top;' placeholder='Approximate budget' name='request_budget' style='margin-right: 5px' />
+    </div>
+    <% end %>
+
+    
+    <%#= erb :'/partials/select_area2', locals: {no_shipping: true} %> 
+    
+
+    <% if pr[:ztype]=="event" %>
+    <div>
+      <label class='w200'> Event Title </label>
+      <input class='input1' required placeholder='My awesome event' name='event_title' style='margin-right: 5px'/>
+    </div>
+
+    <% end %>
+
+    <br/>
+
+    <label>
+      <input required type=checkbox <%="checked" if !$prod %> /> 
+      <span class='tos_prompt'>
+        <% if is_heb %>
+        אני מקבל/ת את <a style='color: #6b6262' target=_blank href='/terms_of_service'>תנאי השימוש באתר</a>.
+        <% else %>
+        I am over 21 years old and I accept the <a style='color: #6b6262' target=_blank href='/terms_of_service'>Terms of Service</a>.
+        <% end %>
+      </span>
+    </label>
+    <br/>
+
+    <% if false %>
+    <label>
+      <input required type=checkbox <%="checked" if !$prod %> /> 
+      <span class='tos_prompt'>
+        I am over 21 years old<a style='color: #6b6262' target=_blank href='/terms_of_service'></a>.
+      </span>
+    </label>
+
+    
+    <label>
+      <input required type=checkbox <%="checked" if !$prod %> /> 
+      <span class='tos_prompt'>
+        I agree to receive emails with offers. 
+      </span>
+    </label>
+    <% end %>
+
+    <% if locals[:only_signup] && false %>
+    <br/>
+    <label>
+      <input name=contact_me type=checkbox /> 
+      <span style='margin-left:10px'>I would like one of nowcast's humans to contact me to help me start selling. </span>
+    </label>    
+    <% end %>
+     
+    <% if false %>
+    <br/>
+    <label>
+      <input required type=checkbox <%="checked" if !$prod %> /> 
+      <span style='margin-left:10px'>I understand NowCast is still in alpha and I agree to waive any damage, financial or otherwise, that will be caused to me by using this platform.</span>
+    </label>
+    <% end %>
+
+    
+    <br/>
+    <% if locals[:only_signup] %>    
+    
+    <button style='zfloat: right' class='btn btn-raised btn-primary'>
+      <%= to_heb("Let's Go", "קדימה") %>
+    </button>    
+    
+      <% if pr[:type]=="creator" %>
+        <%#= erb :'home/hp_features', locals: locals %>       
+      <% end %>
+      
+    <% end %>
+
+    <% if pr[:fb] %>    
+    <a href="<%=fb_login_route%>" class='btn btn-raised btn-info'> Connect with FB </a>
+    <br/>
+    
+    <% end %>
+
+
+  
+
+<script>
+function onLoad() {
+  $("#signup_name_input").keyup(function() { window.signupName = $(this).val(); console.log(window.signupName); });
+  $("#signup_email_input").keyup(function() { window.signupEmail = $(this).val(); console.log(window.signupEmail); });
+  $("#tz_input").val((new Date).getTimezoneOffset()/-60);
+}
+
+$(document).ready(onLoad);
+</script>

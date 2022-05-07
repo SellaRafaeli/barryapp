@@ -1,0 +1,103 @@
+<% types = [      
+      # {text: 'AMAs', icon: 'laugh-beam'},
+      # {text: 'team-building exercises', icon: 'users-crown'},
+      {text: 'Shows', heb: 'הופעות', icon: 'music'},
+      {text: 'Classes', heb: 'נטוורקינג', icon: 'users-class', zicon: 'user-astronaut'},      
+      {text: 'Coaching', heb: 'קואצ׳ינג', icon: 'unicorn', zicon: 'user-astronaut'},                  
+      {text: 'Lectures', heb: 'הרצאות', icon: 'user-astronaut', zicon: 'computer-classic'},
+      {text: 'Conferences', heb: 'כנסים', icon: 'skating'},
+      ] 
+
+
+heb_satisfaction_msg = 'שביעות רצון מובטחת או החזר כספי מלא.'
+heb_satisfaction_msg = 'החל מ-35 ש״ח לכרטיס. דברו איתנו - <div style="margin-top:10px">sella@nowcast.co, או בוואטסאפ 052-293-4321</div>'
+    %>
+
+<style>
+.quick_contact_form {
+/*text-align: left;*/
+margin-bottom: 120px;
+color: black;
+/*background-color: whitesmoke;*/
+padding: 15px 30px;
+}
+.quick_contact_form_title {
+  margin-bottom: 20px;
+}
+.quick_contact_form input {
+  padding: 20px;
+  width: 240px;
+}
+
+.quick_contact_form input, .quick_contact_form .btn2 {
+  font-size: 20px;
+}
+
+.types {
+  margin-bottom: 30px;
+}
+
+.single_type {
+  color: white;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 21px;
+}
+
+.quick_contact_inner {
+  <% if is_heb %>
+  text-align: center;
+  <% else %>
+  text-align: center;  
+  <% end %>
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 650px;
+  font-size: 25px;
+}
+
+</style>
+
+<% if pr[:quick_contact] %>
+<div class='quick_contact_form <%= rtl_if_heb %>'>
+  <%= is_heb ? "מעולה! נהיה בקשר תוך 48 שעות." : "Great! We'll be in touch ASAP." %>
+</div>
+<% else %>
+<form method='post' action='/quick_contact'>
+  
+  <div class='types mw1000'>    
+    <% types.each_with_index do |type, idx| %>
+      <div class='single_type nowcast_bg_color2'>
+        <i class='fal fa-<%=type[:icon]%>' style='margin: 0 5px'></i>
+        <%= is_heb ? type[:heb] : type[:text] %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='quick_contact_form mw700'>
+
+    <div class='quick_contact_inner <%= rtl_if_heb %>'>
+      <div class='nowcast_color quick_contact_form_title'>
+
+        <span> 
+        <%= is_heb ? heb_satisfaction_msg : 'Satisfaction guaranteed or your money back.' %>  
+        </span>
+        <i class='fal fa-smile-beam' style='padding:0 5px; position: relative; top: 1px'></i>
+      </div>
+    
+      <input name=contact required placeholder='<%= is_heb ? 'מייל או טלפון שלכם' : 'Your email'%>'/>
+      <button class='btn2'> <%= is_heb ? 'דברו איתי' : 'Contact me'%> </button>
+    </div>
+
+    <div>
+      <!-- <input name=org_name  placeholder='Org or team'/> -->
+    </div>
+    
+    <div>
+      
+    </div>
+  </div>
+</form>
+<% end %>

@@ -1,0 +1,75 @@
+<head>
+  <title><%=html_title%> <%=pr[:city]%> Delivery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->  
+  <meta property="og:url"              content="<%=$root_url%>/<%= request_fullpath %>" />
+  <%
+  
+    # og_title = "Guest speakers for remote R&D teams."
+    # og_desc  = "High-end private online talks your team will love. ❤️ (US & Israel)"
+
+    og_title = "Cannabis Marketplace"
+    og_desc  = "The best local brands."
+
+    og_img   = "https://good-weed.com/img/landing_page/good_weed_large.png"
+    # og_img   = "/img/nowcast_logo_pause.png"
+    og_video = ''
+    if @og_cast
+      # og_img   = @og_cast['img_url']
+      og_video = @og_cast['public_video_url']
+      # og_title = @og_cast['title']
+      # og_desc  = "Live #{cast_time1(@og_cast, only_content: true)}: #{@og_cast['desc']}"
+    end
+    
+    if !@og_cast && @channel 
+      # og_title = channel_header_msg(@channel) 
+      # og_desc  = channel_subheader_msg(@channel)
+    end
+  %>
+
+  <meta property="og:title"        content="<%=og_title%>" />
+  <meta property="og:description"  content="<%=og_desc%>" />
+  <meta property="og:image:width"  content=100 />
+  <meta property="og:image:height" content=100 />
+  <meta property="og:image"        content="<%=og_img%>" />
+  <meta property="og:video"        content="<%=og_video%>" />
+  
+  <meta name="google-site-verification" content="1buCwz9xrcfCpxLSZmiqyBG3BGysWPJqV5xJNiM4omE" />
+  <meta name="Description" content="good-weed.com: the best weed delivery in <%=pr[:city]%>">
+  <meta name="keywords" content="weed, cannabis, marijuana, delivery, recreational, dispensaries <%=pr[:city]%>, <%=pr[:state]%>">
+
+  <% favicon_url = $prod ? 'favicon.ico' : 'favicon_dev_large_blue_2.ico' %>
+  <link rel='shortcut icon' type='image/x-icon' href='/<%= favicon_url %>' />
+  <% if false %> <link rel="canonical" href="https://good-weed.com/" /> <% end %>
+
+  <%= erb :"layout/css_files" %>    
+  <%= erb :'layout/js_scripts'%>  
+  
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+  <script>
+  function postJSONAjax(url, data, success, failure) {
+  	$.ajax({
+	    type: "POST",
+	    url: url,
+	    // The key needs to match your method's input parameter (case-sensitive).
+	    data: data, //JSON.stringify({ Markers: markers }),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: success,
+	    failure: failure
+    });
+	}
+
+  function setDevicePushToken(deviceToken, successCB, failCB) {
+    $.post('/my_device_push_token', {deviceToken: deviceToken}, successCB, failCB)
+  }
+
+  // window.addEventListener('beforeunload', e => {
+  //   //window.nowcastMediaStream.getTracks().forEach(t => t.stop());
+  //   // Cancel the event
+  //   e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+  //   // Chrome requires returnValue to be set
+  //   e.returnValue = '';
+  // });
+  </script>
+</head>

@@ -1,0 +1,81 @@
+<%
+  threads = $threads.all
+%>
+
+<style>
+.forum_page {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.single_thread {
+  font-size: 15px;
+  background-color: whitesmoke;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.single_thread img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.forum_msg_created_at {
+  font-size: 12px;
+  color: grey;
+}
+.forum_title {
+  margin-top:10px;
+  font-size: 20px;
+}
+.num_msgs {
+  font-size: 16px;
+  color: grey;
+}
+</style>
+<div class='forum_page'>
+  <h1> good-weed forum <%#= erb :'/partials/select_state_city', locals: {choose_first: true} %></h1>
+
+
+  <div class='threads_list'>
+    <% threads.reverse.each do |thread| %>
+      <% sender_user = $users.get(thread[:user_id]) %>      
+      <% num_msgs    = $forum_msgs.count(thread_id: thread[:_id]) %>      
+      <div class='single_thread <%=thread[:city].gsub(' ','-')%>'>              
+        <img src="<%=sender_user[:img_url]%>" />
+        <span><a class=simple_link href='/@<%=sender_user[:handle]%>'> <%= sender_user[:handle] %></a></span>                
+        <span class='forum_msg_created_at'>/ <%= thread[:city] %> / <%= nice_datetime thread[:created_at] %></span>
+        <div class='forum_title'>
+          <a href='/forum/<%=thread[:_id]%>/<%=thread[:title]%>' class='simple_link'><%= thread[:title] %></a>
+          <% if num_msgs > 0 %> <span class='num_msgs'>
+            (<%= num_msgs %> responses) </span> <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <form method=post action='/forum/threads' onsubmit=getForumCity()>
+    <h3> Create New Thread </h3>
+    <input name=title class=input1 placeholder='Title' required>
+    <input hidden name=city class='forum_city_input input1' />
+    <button class='btn btn-primary btn-raised'> Create New Thread </button>
+  </form>
+</div>
+
+<script>
+function filterThreads(city) {
+  //$('.single_thread').hide();
+  //$('.single_thread.'+city).show();
+}
+
+function updateCityInput() {  
+  var city = ($('#city_selector').val() || '');
+  city = replaceAll(city,' ','-')
+  $('.forum_city_input').val(city);
+  filterThreads(city);
+}
+
+//$('#city_selector').on('change', updateCityInput);
+//setTimeout(updateCityInput,0);
+</script>

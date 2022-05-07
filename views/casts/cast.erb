@@ -1,0 +1,314 @@
+<%
+  id       = pr[:_id]
+  cast_id  = id
+  cast     = $casts.get(id)
+
+  owner    = $users.get(cast[:user_id])
+
+  is_owner = owner[:_id] == cuid
+  
+  snip     = cast_time1(cast) 
+  platform = LIVE_PLATFORMS_HASH[cast[:platform]]
+  #snip    += " using <span style='display: inline-block; margin-top:10px; text-transform: lowercase'>#{platform}</span>"
+
+  snip    += "<br/><br/><span>#{cast[:series_start].to_s[5..9].to_s.gsub('-','/')}</span>" if cast[:series_start]
+  snip    += "<span> until #{cast[:series_end].to_s[5..9].to_s.gsub('-','/')}</span>" if cast[:series_end].present?
+  show_chat = true #cast[:is_live]
+
+  is_trial = pr[:trial].to_s == 'yes'
+
+  local_data = {cast: cast, is_owner: is_owner, owner: owner, snip: snip, is_trial: is_trial}
+  # can_watch = true
+    # verify private passcode if entered
+  passcode_key      = cast_private_passcode_session_key(cast)
+  passcode_required = cast[:private_passcode].present? && session[passcode_key] != cast[:private_passcode]
+  passcode_required = false if is_owner
+
+  show_game = pr[:game].to_s == 'true'
+
+  user_can_watch = can_watch(cast)
+
+  # if pr[:view_signup] 
+  #   is_admin = false
+  #   is_owner = false
+  #   user_can_watch = false
+  # end
+
+  is_website = cast[:type] == 'website'
+
+  view_only_html = false
+  
+  if is_website
+    user_can_watch = true  
+    view_only_html = true 
+  end
+
+  num_views = $stats.count(type: 'product_view', cast_id: cast_id)
+
+  
+  allow_buying = true
+%>
+
+<style>
+.cast_pending_wrapper {
+  height: 400px;
+  width: 560px;
+}
+.cast_pending {
+  text-align: center;
+  background-color: whitesmoke;
+  font-weight: bold;
+  /*padding: 100px;*/
+  font-size: 22px;
+  /*flex:1;*/
+  border-radius: 15%;
+  
+  /*https://stackoverflow.com/questions/41939831/flexbox-center-text-vertically*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  height: 100%;
+}
+.cast_chat_wrapper {
+  /*flex:1;*/
+  margin-left: 10px;
+  
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.single_present_user {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  margin: 10px;
+  vertical-align: bottom;
+  padding-right: 10px;
+}
+.single_present_user img {
+  height: 40px;
+  width: 40px;
+  display: block;
+  border-radius: 50%;
+  border:1px solid #cabfbf;
+  object-fit: contain;   
+}
+
+.owner_edit_html_btn {
+  position: absolute;
+  right: 10px;
+  text-align: left;
+  background-color: whitesmoke;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 9999;
+}
+.cast_desc, .cast_schedule {
+  ztext-align: left;
+  white-space: break-spaces;
+  ztext-align: initial;
+  margin: 20px auto;
+}
+</style>
+
+<!-- * Cast title 
+* Username 
+* Description 
+[* Videos 
+* External Links 
+* Files]
+* Reviews (each with video)
+* Messages  -->
+<style>
+.castpage_v2 {
+  margin-top:20px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 200px;
+  /*padding-left: 20px;*/
+}
+.main_img {
+  height: 168px;
+  width: 168px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+.cast_header3 {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cast_title {
+
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.cast_username {
+
+}
+
+.desc_and_schedule {
+  margin-left: 100px;
+}
+.already_bought {
+  background-color: lightgreen;
+  padding: 20px;
+  font-size: 80%;
+}
+.cast_body_component {
+  max-height: 1000px;
+  /*border: 2px solid whitesmoke;*/
+  padding: 10px;
+  overflow: scroll;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.cast_body_component h5 {
+  margin-top: 0;
+}
+.cast_title_and_username {
+  text-align: center;
+}
+.castpage_v2 .buttons i {
+  margin-right: 10px;
+}
+.castpage_v2 .buttons a:hover {
+  color: #00b140;
+}
+.castpage_v2 h4 {
+  color: purple;
+}
+#order_form2 {
+  padding: 20px;
+  border: 3px solid grey;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999999;
+  background-color: white;
+}
+.submit_order_label {
+  width: 300px;
+  display: inline-block;
+  margin-top: 10px;
+}
+.submit_order_title {
+  font-size: 20px;
+}
+</style>
+<div class='castpage_v2'>
+  
+  <!-- header -->
+  <%= erb :'casts/cast_header3', locals: locals.merge(cast: cast, owner: owner, is_owner: is_owner) %>
+  
+  <br>
+
+  <% if allow_buying %>
+  <div class=ct>
+    <% if cu %>
+    <!-- <button onclick='$("#order_form2").fadeIn();' style='margin-top: 10px' class='btn btn-primary btn-lg btn-raised'> Order Now </button> -->
+    <button onclick='$("#cast_enrollment").fadeIn();' style='margin-top: 10px' class='btn btn-primary btn-lg btn-raised'> Order Now </button>
+    <% else %>
+    <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>Sign Up to Order Now </a>
+    <% end %>
+  </div>
+  <% end %>
+
+  <div id=order_form2 class=noDisplay>
+    <form method=post action='/cashless_enroll'>
+      <div class='submit_order_title'> Submit Order </div>      
+      <div><b> Order details: </b><label><%= cast[:title]%>, <%= cast_price(cast) %></label></div>
+      <h5> Delivery Details </h5>
+      <input hidden name=cast_id value="<%=cast[:_id]%>" />
+      <div>
+        <label class='submit_order_label'> Name </label>  <input required name='name' placeholder='Your name' /></div>
+      <div>
+        <label class='submit_order_label'> Phone </label> <input required name='phone' placeholder='your phone number' type=number /></div>
+      <div>
+        <label class='submit_order_label'> Delivery Address </label> <input required name='address' placeholder='your address' /></div>      
+
+      <div style='text-align:right'>
+        <button class='btn btn-primary btn-raised'> order </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- desc and time  -->
+  <div class='cast_desc_and_time ct' style='text-align: center'>
+    <div class='cast_desc'><%= cast[:desc] %></div>
+    <div class='cast_schedule'><%= cast[:custom_time] %></div>
+    <div class='num_views' style='display: none'><i class='fal fa-eye'></i> <%= num_views %> views </div>
+
+    <div class='product_stats'>      
+      <% if cast[:thc].to_i > 0 %><span class='single_product_stat'> <%= cast[:thc] %>% THC </span> <% end %>
+      <% if cast[:strain] %> <span class='single_product_stat'> <%= cast[:strain] %> </span> <% end %>
+    </div>
+    
+    
+  </div>
+  
+  <br/>
+  
+  <div class='buttons ct' style='margin-bottom: 20px'>
+    <% if false && cast_amenities(cast).any? %>
+    <a class=btn href='#amenities' data-turbolinks=false><i class='fal fa-clipboard-user'></i> Amenities</a>
+    <% end %>    
+    <% if false && cast_faqs(cast).any? %>
+    <a class=btn href='#faqs' data-turbolinks=false><i class='fal fa-question-circle'></i> FAQ </a>
+    <% end %>
+
+    <% if false %>
+    <a class=btn href='#cast_enrollment' data-turbolinks=false><i class='fal fa-envelope-open-text'></i> Book Meeting </a>
+    
+    <a class=btn href='#cast_messages' data-turbolinks=false><i class='fal fa-comment'></i> Messages</a>
+    <a class=btn href='#cast_reviews' data-turbolinks=false><i class='fal fa-comment-alt-check'></i> Reviews</a>
+    <% end %>    
+  </div>
+
+
+  <% if is_pro_cast(cast) %>
+    <%= erb :'casts/pro_cast_business_case' %>
+  <% end %>
+
+  <div id=cast_enrollment class="<%='noDisplay' unless is_pro_cast(cast)%>">
+    <%= erb :'casts/cast_enrollment', locals: {cast: cast, is_owner: is_owner, local_data: local_data} %>
+  </div>
+
+  <%= erb :'casts/show_media', locals: {item: cast} %>  
+
+  <% if false %>
+  <div id=cast_msgs class='cast_msgs cast_body_component flex1' style='padding-right:20px'>
+    <% if is_owner %>    
+    <% end %>
+    <h4> Chat </h4>
+    <%= erb :'casts/chat', locals: {cast: cast, is_owner: is_owner, zpromote_last_link: true} %>
+  </div>
+  <% end %>
+
+  
+  
+  <%#= erb :'/casts/cast_amenities', locals: {cast: cast, can_edit: false} %>  
+
+  <%#= erb :'casts/cast_faqs', locals: {cast: cast} %>
+    
+  <% if false %>
+  <div class='cast_reviews cast_body_component' style='padding-right:20px; flex: 1'>    
+    <%= erb :'casts/cast_reviews', locals: {cast: cast, is_owner: is_owner} %>
+  </div>
+  <% end %>
+
+    
+</div>
+
+<script>
+
+$(document).ready(function() {
+  convertTimesToLocal();
+}); 
+
+</script>

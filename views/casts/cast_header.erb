@@ -1,0 +1,214 @@
+<%
+  cast_id   = cast[:_id]
+  show_cost ||= false
+  cast_sub_cost  = cast[:cost_dollars].to_i
+  custom_img     = get_custom_img(cast)
+  
+  payment_note   = cast[:payment_note]
+  # payment_note   = 'contact for details' if !payment_note.present? && is_on_demand(cast)
+  trial_cost     = cast_trial_cost(cast)
+
+  is_website     = cast[:type] == 'website'
+%>
+
+<style>
+.cast_header {
+  text-align: center;
+  <% unless locals[:no_bg] %>
+  background-color: white;
+  <% end %>
+  padding: 10px;
+}
+.cast_user_title {
+  /*display: block;*/
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.cast_user_title:hover small {
+  color: rgb(51, 51, 51) !important;
+}
+.cast-desc {
+  margin: 20px;
+  text-align: justify;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  font-size: 90%;
+}
+.cast-desc a {
+  color: grey;
+}
+.cast-desc a:hover {
+  color: darkgrey;
+}
+.cast_notes {
+  font-style: italic;
+  font-size: 14px;
+  font-weight: normal;
+  background-color: whitesmoke;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 20px;
+  margin-top: 20px;
+  font-family: monospace;
+}
+.cast_header_img {
+  width: 100px;
+  border-radius: 24px;
+}
+.single_cast_img_and_title {
+  max-width: 500px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.single_cast_title {
+  text-align: left;
+  margin-left: 20px;
+}
+.force_join_btn {
+  position: absolute;
+  top: -25px;
+  right: 0;
+}
+.selected_cost {
+  margin-bottom: 10px;
+}
+.nonselected_cost {
+  font-size: 60%;
+  color: grey;
+}
+.nonselected_cost:hover {
+  font-size: 60%;
+  color: darkgrey;
+}
+.payment_note {
+  margin-top: 20px;
+  position: relative;
+  font-weight: bold;
+  background-color: #a2f98b;
+  padding: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class='cast_header'>
+  
+  
+  <h1 style='position: relative;'>    
+    <a target=_blank href='/@<%=owner[:handle]%>' class='cast_user_title'>
+        <img class='user_img' style='height: 50px' src='<%=owner[:img_url]%>' />
+        <small class=handle style='margin-left: 10px; position: relative; top: -4px'><%=owner[:handle]%></small> 
+    </a>
+
+    <span class='display_flex single_cast_img_and_title'>
+      <% if custom_img %>
+      <span style='flex:1'><img src='<%=custom_img%>' class='cast_header_img' /></span>
+      <% end %>
+       <span style='flex:5'><%= cast[:title] || 'Untitled' %></span>
+    </span>
+  </h1>
+
+    <% if is_admin && !user_enrolled(cuid, cast) %>
+      <a class='force_join_btn btn btn-raised btn-admin' href='/protected/enroll_to?_id=<%=cast[:_id]%>'>admin join</a>
+    <% end %>
+
+    <% if is_owner || is_admin %>
+    <a href='/casts/edit/<%=cast[:_id]%>' class='nowcast_color'>
+      (edit <i class='cast_title_icon fa fa-gear'></i>) 
+    </a>
+
+      <% if false %>
+      <a href='/casts/<%=cast[:_id]%>?view_signup=true' class='nowcast_color'>
+        view sign-up page
+      </a>
+      <% end %>
+    <% end %>
+
+    <% if cast[:private_notes].present? %>
+    <div class='cast_notes'>
+      <p class='cast-desc'>Private notes: <%=(cast[:private_notes])%></p>
+    </div>
+    <% end %>
+    
+    
+    <h3 class='cast-desc'>
+      <%=(cast[:desc])%>      
+    </h3>
+
+    <% if is_owner %>
+    
+    <% end %>  
+  
+  <h5> 
+    <% unless is_special_item(cast) %>
+    <span><%= snip %></span>
+    <% end %>
+
+    <% if show_cost %>
+      <% if payment_note.present? %>
+      <div class='payment_note'><%= payment_note %></div>
+      <% end %>
+
+      <% if cast_allows_variable_amount(cast) %>
+        <div style='margin-top:10px'>
+          <span>Suggested amount:</span> 
+          $<input style='width:50px' value="<%=cast[:cost_dollars].to_i%>" type=number min=0 onkeyup='variableAmountSet($(this).val())'/>          
+          <script>
+            window.variableAmount = "<%=cast_sub_cost%>"
+            console.log('variableAmount',window.variableAmount)
+          </script>
+          <% if is_series(cast) %>
+           <!-- monthly -->
+          <% end %>
+        </div>
+      <% else %>
+        <% if is_series(cast) && !(cast[:cost_dollars].to_i==0) %>
+          <% if is_trial %>
+            <h3> 
+              <div class='selected_cost'>one-week trial: $<%= trial_cost %></div>
+              <a class='nonselected_cost' href='<%=cast_link(cast)%>'>or click to subscribe for just $<%=cast_sub_cost%>/month</a>
+            </h3>    
+          <% else %>
+            <h3> 
+            <div class='selected_cost'>monthly subscription: $<%= cast_sub_cost %>/mo</div>
+            <a class='nonselected_cost' href='<%=cast_link(cast)+"?trial=yes"%>'>or click for a 1-week trial ($<%=trial_cost%>)</a>
+            </h3>
+          <% end %>
+        <% else %>
+          <h3><%= cast_price(cast) %> </h3>
+        <% end %>        
+      <% end %>
+
+      <% if cast[:donation_target].present? %>
+      <div style='font-weight: 80%; margin: 10px'>Proceeds donated to <%= cast[:donation_target] %></div>
+      <% end %>
+    <% end %>
+   </h5>   
+</div>
+
+<script>
+  $('.cast-desc').linkify({target: "_blank"});
+
+<% if is_owner %>
+
+function updateLink() {
+  var link = $("#link").val();
+  console.log('link',link)
+  if (link) {
+    $('.live_buttons').removeClass('noDisplay');
+  } else {
+    //$('.live_buttons').addClass('noDisplay');
+  }
+
+  postJSON('/casts/edit/<%=cast_id%>', {link: link, ajax: true})
+}
+// function castAction(action) {
+//   postJSON(`/casts/<%=cast[:_id]%>/action/${action}`);
+// }
+<% end %>
+</script>

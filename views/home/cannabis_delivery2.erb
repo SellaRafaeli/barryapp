@@ -1,0 +1,18 @@
+<div>
+<div class='zlinks_city_selector_container'>
+    <%#= erb :'/partials/select_state_city', locals: {searchOnChange: true} %>      
+  <div class=ct>
+    <h1> The best cannabis delivery. </h1>    
+    <h2> Order cannabis now. </h2>    
+  </div>
+ 
+  <div class=ct>    
+    <form method=get action='/zip'>
+      <%= erb :'/partials/select_area2', locals: {searchOnChange: true, zip_search: true, no_state: true, no_city: true, no_title: true} %>    
+      <button class='btn btn-primary btn-raised'> Let's Go </button>
+    </form>
+    <br/>
+  </div>
+
+  <%= erb :'/home/home_main' %>  
+</div>

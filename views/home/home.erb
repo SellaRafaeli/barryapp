@@ -1,0 +1,268 @@
+<%
+
+is_submit_recommendation = pr[:submit]
+
+users   = []
+reviews = []
+if !is_submit_recommendation
+  users   = $users.get_many 
+  reviews = $reviews.get_many.reverse
+
+  if pr[:q]
+    users   = users.select {|u| "#{u[:name]} #{u[:desc]} #{u[:location]}".to_s.include?(pr[:q])} 
+    reviews = reviews.select {|r| "#{r[:text]} #{r[:seller_name]}".to_s.include?(pr[:q])} 
+  end
+end
+%>
+
+<%= erb :'/home/css/home_css1.css' %>
+<%= erb :'/home/css/home_css2.css' %>
+
+<style>
+.hp_single_user {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+.single_hp_term {
+  color: white;
+  background-color: #f9647e;
+  background: white;
+  color: #00b140;
+  padding: 10px;
+  font-size: 20px;
+  /*border-radius: 4px;*/
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.single_hp_term:hover {
+  /*background-color: #ab1a34;
+  background-color: lightgreen;*/
+
+  cursor: pointer;
+  color: black;  
+}
+
+.single_mini_term {
+  background-color: #099a6b;
+  background-color: #00b140;
+  color: white;
+  padding: 10px;
+  /*border-radius: 3px;*/
+  font-size: 18px;
+  width: 100%;
+  display: inline-block;
+  padding: 10px;
+}
+.single_mini_term:hover {
+  background-color: #ab1a34;
+  background-color: lightgreen;
+  color: black
+}
+
+.single_hp_term_container:hover .single_hp_term {
+  background-color: #00b140;
+  color: white;
+}
+
+.single_hp_term .fa { display: none; }
+.single_hp_term .fal { display: inline-block; }
+.single_hp_term_container:hover .fa { display: inline-block; }
+.single_hp_term_container:hover .fal { display: none; }
+
+.single_hp_term_container { 
+  display: inline-block; 
+  position: relative;
+}  
+@media(max-width: 1000px) {
+  .single_hp_term_container.selected .mini_terms_list {
+    display: block;
+    position: relative;
+  }
+}
+.single_hp_term_container .mini_terms_list { 
+  /*border: 1px solid red;*/
+  position: absolute;
+  left: 0;
+  top: 100%;
+  text-align: left;
+  z-index: 10;
+  display: none;
+}
+.single_hp_term_container:hover .mini_terms_list { display: inline-block; }
+
+.single_hp_term_container.selected .single_hp_term {
+  background-color: lightgreen;
+  color: black;
+}
+
+.sub_main_title { 
+  font-size: 70%;
+  display: inline-block;
+  font-weight: normal;
+  line-height: 1.5;
+  position: relative;
+}
+.above_terms {
+  background-color: white;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.registration_open {
+  position: absolute;
+  background-color: maroon;
+  color: white;
+  padding: 10px;
+  display: none;
+}
+
+.sub_main_title .focus {
+  font-weight: bold;
+  color: darkred;
+}
+
+.sub_main_title .focus:hover {
+  color: darkblue;
+  cursor: pointer;
+}
+.hp_header {
+  /*text-align: left;*/
+  /*max-width: 1200px;*/
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hp_header h1 {
+  font-size: 35px;
+}
+.hp h1, .hp h2, .hp h3, .hp h4 {
+  font-weight: normal;
+}
+.langs_list {
+  margin-top: 20px;
+  font-size: 70%;
+  color: grey;
+}
+
+.hp_reviews_list {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hp_review {
+  border:1px solid black;
+  margin-bottom: 20px;
+}
+.hp_review_container {
+
+}
+.hp_review_top {
+  padding: 15px;
+    text-align: left;
+    background-color: whitesmoke;
+}
+.hp_review_body {  
+  padding: 15px;
+}
+.beta_sign {
+  margin: 0;
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+  background-color: #00b140;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 17px;
+}
+</style>
+
+<div class='hp zct'>
+
+  <div class='hp_header'>
+    <h1 class='nowcast_color' style='display: none; margin:20px 20px 0px 10px;'>Good-Weed</h1>
+
+    <!-- <div>
+      <br/>
+      <button class='btn btn-primary btn-raised'>Sign Up To Buy</button>
+      <button class='btn btn-info btn-raised'>Sign Up To Sell</button>
+    </div> -->
+    <a href='/' style='position: relative; display: inline-block; display: none'>
+      <img src='/img/gutenweed.png' style='width: 200px;'/>
+      <h3 class='beta_sign'> beta </h3>
+    </a>
+
+        
+    <%= erb :'search/search' %>
+
+    <div style='display: flex'>
+      <div class=flex1>
+      </div>
+
+      <div class=flex1>
+
+      </div>
+    </div>
+
+
+   <% if false %>
+    <div style=''>
+      <% 
+        msg2 = 'recommendations'
+        show_search = true
+        if is_submit_recommendation 
+          msg2 = ''
+          show_search = false
+        end
+
+        placeholder = is_heb ? 'חפש/י...' : 'Search...'
+      %> 
+        <% if show_search %>
+        <form action='/' method='get'>
+          <input name=q value="<%=pr[:q]%>" style='border-radius: 4px; font-size: 18px; padding: 15px; width: 400px; margin: 0 0 0 0; border-radius: 20px; color: green; outline: none' placeholder='<%=placeholder%>' />
+          <input name=type value="<%=pr[:type]%>" hidden />
+          <button class='btn btn-lg'> <i class="fa fa-search"></i> </button>
+        </form>
+        <% end %>
+        <!-- <h3 style='padding:10px; margin: 0'><%=msg2%></h3>     -->
+        <div style='margin: 40px'>
+          <%
+            pr[:type] = pr[:type] || 'sellers'
+          %>
+          <% if !is_submit_recommendation %>
+            <a class="btn btn-primary <%="btn-raised" if pr[:type]=="sellers"%>" href='/?q=<%=pr[:q]%>&type=sellers'>מוכרים (<%=users.count%>)</a>
+            <a class="btn btn-primary <%="btn-raised" if pr[:type]=="reviews"%>" href='/?q=<%=pr[:q]%>&type=reviews'>המלצות (<%=reviews.count%>)</a>
+          <% end %>
+        </div>
+      
+    </div>
+  
+ 
+  <% if is_submit_recommendation %>
+    <%= erb :'reviews/submit_review_form', locals: {seller: nil} %>
+  <% 
+    else
+      if pr[:type] != "reviews"
+    %> 
+      <%= erb :'users/users_list', locals: {users: users} %>
+    <% 
+      else  
+        reviews.each do |review| 
+    %>
+      <div class='hp_reviews_list'>        
+      </div>
+        <% end %>
+      <% end %>
+      
+    <% end %>
+  <% end %>
+
+
+    <%= erb :'layout/footer' %>  
+  </div>   
+</div>
+</div>

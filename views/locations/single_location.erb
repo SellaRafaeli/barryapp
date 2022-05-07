@@ -1,0 +1,145 @@
+<%
+  products = $casts.all(user_id: cuid) || 
+  first_product_id = (products[0] || {})[:_id]
+  default_empty_item = [{product_id: first_product_id, quantity: 0}]
+  items    = loc[:items] || default_empty_item
+
+  items = default_empty_item unless items.is_a?(Array)
+%>
+
+<%#= loc.to_json %>
+<style>
+.center_form {
+  width: 800px;  
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.edit_location_form label {
+  width: 100px;  
+  
+}
+.location_input {
+  margin-bottom:5px;
+}
+.single_location_item_list {
+
+}
+.edit_location_form input {
+  width: 300px;
+}
+</style>
+<br/>
+<%= erb :'me/profile_tabs', locals: {is_seller: true, sec: 'locations'} %> 
+<div class='center_form'>
+  <div class='edit_location_form'>
+    <h1> Location: <%= loc[:name] %> </h1>
+    <form method=post action="/locations/<%=loc[:_id]%>" autocomplete='off'>
+      <div class='location_input'><label> Name </label> <input name=name value="<%=loc[:name]%>"> </div>
+            
+      <div class='location_input noDisplay'>
+        <label> State </label> 
+        <select name=state>
+          <% US_STATES.each do |state| %>
+            <option <%='selected' if loc[:state] == state[:val]%> value="<%=state[:val]%>"><%=state[:label]%></option>
+          <% end %>
+        </select>        
+      </div>
+      
+      <% if false %>
+      <div class='location_input'>
+        <label> City </label>
+        <%= erb :'/partials/select_state_city', locals: {city: loc[:city]} %>      
+      </div>
+      <% end %>
+
+      <div class='location_input'><label> Address </label> <input autocomplete="new-password" id=address_input name=address value="<%=loc[:address]%>"> </div>
+
+
+      <input hidden name=lat id=address_lat value="<%=loc[:lat]%>" type=string step=0.00000000000000000000000000000001 />
+      <input hidden name=lng id=address_lng value="<%=loc[:lng]%>" type=string step=0.00000000000000000000000000000001 />
+      <div class='location_input noDisplay'><label> Type </label> <input name=type value="<%=loc[:type]%>"> </div>
+
+      <div class='location_input'><label> Phone </label> <input name=phone value="<%=loc[:phone]%>"> </div>
+
+      <div class='location_input'><label> Hours </label> <input name=hours value="<%=loc[:hours]%>" placeholder='e.g. Mon-Fri 10:00-17:00, Sat-Sun 10:00-16:00'> </div>
+
+      <div class='location_input'><label> More Info </label> <textarea name=details value="<%=loc[:details]%>" placeholder='Any additional info about this location.'><%=loc[:details]%></textarea> </div>
+
+      <button class='btn btn-raised btn-primary'>Update Location Details </button>
+    </form>
+  </div>
+
+  <hr/>
+
+<h3> Location Stock </h3>
+  <div class='all_location_items'>    
+    <% items.each do |item| %>
+      <div class='single_location_item_list'>
+          <select class=location_items_selector name=product_id>
+            <% products.each do |product| %>
+              <option value="<%=product[:_id]%>" <%="selected" if product[:_id] == item[:product_id] %>>
+                <%=product[:title]%> 
+                <%#= product.to_json %>
+              </option>           
+            <% end %>
+          </select>    
+           <label> Quantity </label>
+           <input name=quantity value="<%=item[:quantity]%>" type=number />     
+           <label> Notes </label>
+           <input name=notes value="<%=item[:notes]%>" ></input>
+      </div>
+    <% end %>
+  </div>
+    <br/>
+    <button class='btn btn-raised btn-primary' onclick=updateLocationItems();> Save Location Items </button>
+    <button class='btn btn-primary' onclick=copyLastLocationItem()> + Add Item </button>
+
+<h3> Updates </h3>  
+<%= erb :'/partials/notes_box', locals: {item_id: loc[:_id]} %>
+
+  <script>
+    function copyLastLocationItem() {
+      var z = $(".single_location_item_list").last().clone(); 
+      $(".single_location_item_list").parent().append(z);
+    }
+
+    function updateLocationItems() {
+      var items = $('.single_location_item_list').toArray().map(el => ({product_id: $(el).find('select').val(), quantity: $(el).find('input').val(), notes: $(el).find('input[name=notes]').val()}));
+
+      $.post('/locations/<%=loc[:_id]%>',{items, ajax: true}).then(z => alert('Location items updated.'));
+    }
+
+    function initializeLocations() {
+      console.log('initializing location js')
+      var input = document.getElementById('address_input');
+
+      //prevent choosing place with enter from submitting 
+      google.maps.event.addDomListener(input, 'keydown', function(event) { if (event.keyCode === 13) { event.preventDefault(); } }); 
+
+      const autocomplete = new google.maps.places.Autocomplete(input);
+      console.log('set up google maps autocomplete on address_input')
+
+      autocomplete.addListener("place_changed", () => {
+        //ev.stopPropagation();
+        //infowindow.close();
+        //marker.setVisible(false);
+        const place = autocomplete.getPlace();
+        var geo = place.geometry;
+        if (geo) {
+          var lat = geo.location.lat()
+          var lng = geo.location.lng()  
+          $("#address_lat").val(lat);
+          $("#address_lng").val(lng);
+          console.log('set lat,lng as',lat,lng)
+        }
+        
+        console.log('place',place)        
+      });
+    
+    }
+    setTimeout(initializeLocations,0)
+    //google.maps.event.addDomListener(window, 'load', initialize);
+  
+  </script>
+</div>

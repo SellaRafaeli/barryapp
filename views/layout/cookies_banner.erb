@@ -1,0 +1,98 @@
+<style>
+.cookies_banner {
+margin: 20px;
+    padding: 20px;
+    color: black;
+    font-size: 100%;
+    border: solid;
+    position: fixed;
+    top: 50%;
+    background-color: #e4e4e4;
+    z-index: 99999999;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;     
+    top: 20%;
+    bottom: 20%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: scroll;
+    flex-direction: column;
+    zdisplay: none;
+}
+
+@media screen and (max-width: 800px) {
+.accept_cookies_btn {
+  zdisplay: none;
+}
+
+.cookies_btn_text {
+  text-align: justify;
+}
+
+</style>
+
+
+<div id=terms_banner_age class="cookies_banner noDisplayImportant">
+  <div class='cookies_btn_text'>I am 21 or older.<br/></div>
+  <div class='accept_cookies_btn'>
+    <small>
+      <a id=accept_cookies_btn class='btn btn-primary btn-raised' onclick="acceptTerms('age')">          
+        I am over the age of 21.
+      </a>
+    </small>
+  </div>
+</div>
+
+
+<div id=terms_banner_tos class="cookies_banner noDisplayImportant">
+  <div class='cookies_btn_text'>We use cookies and other technologies to track your behaviour so we can improve our product. You can read more about our <a class='simple_link' href='/privacy_policy'> privacy policy </a> and <a class='simple_link' href='/terms_of_service'> terms of service </a>. By continuing to use our site, you consent to these terms. <br/></div>
+  <br/>
+  <br/>
+  
+    <small>
+      <div class='accept_cookies_btn'>
+        <a id=accept_cookies_btn class='btn btn-primary btn-raised' onclick="acceptTerms('tos')">
+          Yes, I accept the terms of service.
+        </a>
+      </div>
+    </small>
+</div> 
+
+<div id=terms_banner_legality class="cookies_banner noDisplayImportant">
+  <div class='cookies_btn_text'>Please confirm weed is legal in your state, and that you will only act within the laws of your area.<br/></div>
+  <br/>
+  <br/>
+  
+    <small>
+      <div class='accept_cookies_btn'>
+        <a id=accept_cookies_btn class='btn btn-primary btn-raised' onclick="acceptTerms('legality')">
+          Yes, weed is legal in my state. 
+        </a>
+      </div>
+    </small>
+</div> 
+
+
+
+<script>
+function acceptTerms(field) {
+  localStorage['accept_terms_'+field] = true;
+  $("#terms_banner_"+field).hide();
+}
+function checkTerms(field) {
+  return localStorage['accept_terms_'+field] == 'true';
+}
+$(document).ready(function() { 
+  
+  
+  //if (!checkTerms('tos')) $("#terms_banner_tos").removeClass('noDisplayImportant');
+  if (!checkTerms('legality')) $("#terms_banner_legality").removeClass('noDisplayImportant');
+  if (!checkTerms('age')) $("#terms_banner_age").removeClass('noDisplayImportant');
+  
+});
+</script>

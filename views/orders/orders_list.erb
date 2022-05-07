@@ -1,0 +1,78 @@
+<%
+  is_seller ||= false
+  orders = orders#.reverse #if !$prod
+
+  # orders.select! {|o| o[:_id ] == pr[:order_id] } if pr[:order_id].present?
+  selected_order_status = pr[:order_status_type] || 'Any'
+  
+  if (selected_order_status!='Any')
+    orders = orders.select {|o| o[:status] == selected_order_status}
+  end
+%>
+<style>
+.orders_top_list {
+  zborder:1px solid red;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+}
+</style>
+<h2 class='orders_top_list'> 
+<span>Orders </span>
+
+  <% if is_seller && false %>
+  <% my_cast_ids = $casts.get_many(user_id: cuid).mapo(:_id) %>
+  <select class='input1' onchange='filterOrders(this)'>
+    <% (['Any'] + ORDER_STATUSES).each do |status| %>
+      <% num = $enrolls.count(status: status, cast_id: {'$in': my_cast_ids}) %>
+      <option value="<%=status%>" <%='selected' if selected_order_status == status %>>
+        <%= status %>
+        <%= "(#{num})" if status!='Any' %>  
+      </option>
+    <% end %>  
+  </select>
+  <% end %>
+</h2>
+
+
+<div class='orders_list'>
+<% if orders.any? %>
+  <% orders.reverse.each do |o| %>  
+    <%= erb :'orders/single_order', locals: {order: o, is_seller: is_seller} %>
+  <% end %>
+<% else %>
+<!--   <div class='no_data_yet'> You have no orders yet. </div>
+  <br/> -->
+<% end %>
+</div>
+
+<% if is_seller %>
+<div>
+  <% if $casts.exists?(user_id: cuid) %>
+  <button class='btn btn-raised btn-primary' type=button onclick=addOrder()>+ Add Order</button>
+  <% else %>
+  <h5> Create a product so you can create orders. </h5>
+  <% end %>
+</div>
+<% end %>
+
+  
+<script>
+function addOrder() {
+  $.post('/enrolls').then(res => {
+    if (res.err) alert(res.err);
+    else $(res.html).hide().prependTo($('.orders_list')).fadeIn(1000);
+    //else $('.orders_list').prepend(res.html);
+    
+  });
+}
+function updateOrderStatus(val, orderId) {
+  $.post('/enrolls/'+orderId, {status: val}).then(()=>alert('updated'));
+} 
+
+function filterOrders(sel) {
+  var val = $(sel).val();
+  console.log(val);
+  document.location = document.location+'&order_status_type='+val;
+}
+</script>

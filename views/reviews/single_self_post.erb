@@ -1,0 +1,23 @@
+<%#= review.to_json %>
+<% if !@self_box_styles %>
+<% @self_box_styles = true %>
+<style>
+.single_self_post {
+  text-align: center;
+}
+</style>
+<% end %>
+
+</style>
+<div class='review_body single_self_post'>
+  
+  <% if review[:video_url] %>
+    <div class='review_video'>
+      <video width="320" height="240" controls>
+        <source src="<%= review[:video_url] %>" type="video/mp4">
+      </video>
+      
+    </div>
+    <div class='review_text'><%= review[:seller_info] %> </div>
+  <% end %>
+</div>

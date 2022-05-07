@@ -1,0 +1,92 @@
+<%
+  all_ids     = Dir["views/blog/posts/**/*.erb"].map{|p| p.split('/').last.split('__').last }
+#bp  
+  all_posts   = [
+    {date: 'May 20th, 2020', author: '@sellarafaeli', file: '1_hello_world', title: 'Hello World'},
+    {date: 'May 20th, 2020', author: '@sellarafaeli', file: '2_favicon', title: 'Favicon'},
+    {date: 'June 19th, 2020', author: '@sellarafaeli', file: '3_founded_in_san_francisco', title: 'Founded with ❤️ in San Francisco'},
+  ].reverse
+
+  all_posts.each {|p| p[:path] = '/blog/' + p[:file] }
+
+
+  chosen_post = pr[:id].present? && all_posts.find {|p| p[:title] == pr[:id].to_s.gsub('-',' ') }
+
+  # bp
+  x=1
+%>
+
+<style>
+.single_blog_post {
+  margin-bottom: 40px;
+  padding: 20px;
+  max-width: 700px;
+  line-height: 1.8;
+
+}
+
+.single_blog_post h1 {
+  margin-top: 0;
+}
+
+.single_blog_post p {
+  font-size: 18px;
+}
+
+.single_blog_post figcaption {
+  font-size: 14px;
+  font-style: italic;
+}
+
+.single_blog_post a {
+  color: black;
+  font-weight: bold;
+}
+
+.single_blog_post a:hover {
+  text-decoration: underline !important;
+}
+
+.single_blog_post img {
+  max-width: 100%;
+}
+.single_blog_post_preview {
+  max-height: 550px;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+    
+  margin-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+}
+.single_blog_post_preview:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+</style>
+
+<%
+def post_link(post)
+  '/blog/'+post[:title].gsub(' ','-')
+end
+%>
+<div class='blog_container'>
+  <a href=/blog><h3 style='padding:20px'> nowcast blog </h3></a>
+  <% if chosen_post %>
+    <div class='single_blog_post'>
+      <%= render_blog_post(chosen_post, link: post_link(chosen_post)) %>    
+    </div>
+  <% else %>
+    <div class='all_blog_posts'>
+        <% all_posts.each_with_index do |post, idx| %>
+        <% link = post_link(post) %>
+        <div class='single_blog_post single_blog_post_preview' onclick='(e) => e.preventDefault(); document.location="<%=post_link(post)%>"'>          
+          <%= render_blog_post(post, preview: true, link: link) %>
+        </div>
+        <% if idx < all_posts.size-1 %>
+        <hr>
+        <% end %>
+        <% end %>      
+    </div>
+  <% end %>
+</div>
