@@ -164,6 +164,10 @@ get '/r/:code' do
 end
 
 get '/' do		
+	erb :'coming_soon'
+end
+
+get '/index' do		
 	# erb :'other/landing_page'
 	pr[:state] = 'New York'
 	pr[:city]  = 'New York'
