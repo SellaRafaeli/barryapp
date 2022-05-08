@@ -164,7 +164,7 @@ get '/r/:code' do
 end
 
 get '/' do		
-	erb :'coming_soon'
+	erb :'coming_soon', default_layout
 end
 
 get '/index' do		

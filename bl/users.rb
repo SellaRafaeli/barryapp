@@ -43,6 +43,7 @@ def is_buyer(user = cu)
 end
 
 get '/me' do
+	bp
 	redirect_unless_user
 
 	puts "in me now"
@@ -131,9 +132,9 @@ end
 
 def verify_signup_data
 	if pr[:name] == 'test' || (pr[:email] == 'test')
-		num        = nice_id
+		foo        = nice_id
 		pr[:name]  = Faker::Name.name #{}"Name "+num
-		pr[:email] = "email_#{num}@domain.com"
+		pr[:email] = "email_#{rand}@domain.com"
 	end
 
 	email    = pr[:email].to_s.downcase
@@ -209,12 +210,8 @@ def add_user
 		if pr[:event_title] #signup and create event at once
 			redirect "/casts/create?event_title=#{pr[:event_title]}"
 		else 
-			if pr[:zroom]
-				redirect '/chat/room'
-			else 
-				redirect '/'
-				# redirect '/me'
-			end
+			bp
+			z=2
 		end
 	end
 end
@@ -252,10 +249,14 @@ def user_type_logo(type)
 end
 
 post '/signup' do
-	verify_signup_data
+	# verify_signup_data
+	bp
 	res = add_user	
-	send_email('sella@good-weed.com', 'New user '+res.to_json, 'New user '+res.to_json) rescue nil	
-	res
+	bp
+	# send_email('sella@good-weed.com', 'New user '+res.to_json, 'New user '+res.to_json) rescue nil	
+	# res
+
+	redirect '/me'
 end
 
 get '/forgot_password' do

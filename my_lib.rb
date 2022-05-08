@@ -75,7 +75,7 @@ end
 def nice_id(coll = nil)
   #return rand(Time.now.to_i*100).to_s(36)
   res = SecureRandom.urlsafe_base64(7,false)[0..8]
-  res = nice_id if coll && coll.get(res)      
+  # res = nice_id if coll && coll.get(res)      
   res
 end
 

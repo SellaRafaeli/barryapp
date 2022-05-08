@@ -273,9 +273,7 @@
       
       
 
-      <a class='' href='/login'>
-      <%= !heb ? 'Login' : 'כניסה' %>
-      </a>    
+      <!-- <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>     -->
       
       <% if false %>
       <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>
@@ -298,7 +296,7 @@
     <a class='' href='/contact'>contact</a>
     <a class='' href='/articles'>blog</a> -->
 
-    <% if !cu %>
+    <% if !cu  %>
 
     <% if _req.path == '/' %>
       <a class='zbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
@@ -306,7 +304,8 @@
       <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
     <% end %>
 
-      <i class='fas zfa-store' style='margin-right: 10px'></i> <%= !heb ? 'Sign Up' : 'הרשמה' %></a>  
+      <i class='fas zfa-store' style='margin-right: 10px'></i> <%= !heb ? 'Submit Startup' : 'הרשמה' %>
+      </a>  
     <% end %>    
     <!-- <a class='' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a> -->
     <% if false %>
