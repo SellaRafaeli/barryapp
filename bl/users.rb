@@ -43,7 +43,6 @@ def is_buyer(user = cu)
 end
 
 get '/me' do
-	bp
 	redirect_unless_user
 
 	puts "in me now"

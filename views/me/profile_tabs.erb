@@ -36,7 +36,7 @@
  <div class='profile_tabs' style='margin-bottom: 50px; text-align: center; direction: ltr'>
     <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "profile" %>' href='/me?sec=profile'><i class='fal fa-user'></i> Profile </a>
 
-  <% if is_seller %>
+  <% if false %>
     <a style='display: none' class='profile_tab btn <%= "chosen_me_form_link" if sec == "dashboard" %>' href='/me?sec=dashboard'><i class='fal fa-chart-pie'></i> Dashboard </a>
     
     <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "by_me" %>' href='/me?sec=by_me'><i class='fal fa-cannabis'></i> Products (<%=$casts.count(user_id: cuid)%>)</a>
@@ -46,19 +46,19 @@
     <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "customers" %>' href='/me?sec=customers'><i class='fal fa-users'></i> Customers (<%=$customers.count(user_id: cuid)%>)</a>    
   <% end %>
   <!-- <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "convos" %>' href='/me?sec=convos'><i class='fal fa-comment-alt-dots'></i> Conversations </a> -->
-    
+  <% if false && is_seller %>  
   <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "for_me" %>' href='/me?sec=for_me'><i class='fal fa-user-graduate'></i> Orders <%#=my_sales(cuid).count%></a>
   <!-- <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "my_referrals" %>' href='/me?sec=my_referrals'> My Referrals </a> -->
   
-  <% if false && is_seller %>
+  
     <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "stats" %>' href='/me?sec=stats'><i class='fal fa-chart-line'></i> Stats </a>
   <% end %>
   
-
+  <% if false %>
 
   <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "account" %>' href='/me?sec=account'><i class='fal fa-street-view'></i> Account </a>
   
-  <% if true || is_seller %>
+  
   <a class='profile_tab btn' target=_blank href='/@<%=cu['handle']%>'>
      <i class='fa fa-external-link' style='margin-right: 5px'></i> My Page
   </a>    
