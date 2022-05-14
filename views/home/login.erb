@@ -1,11 +1,11 @@
 <div class='container1000'>
 <h3> 
-  <%= is_heb ? 'לוגין' : 'Login' %>
+  <%= is_heb ? 'לוגין' : 'Members Login' %>
 </h3>
 <br/>
 
 <form action='/login' method='post' class="center_col znoDisplayImportant">
-    <label class=w200> Email: </label> <input class='input1' placeholder='you@gmail.com' name='email' value="<%=pr[:email]%>" <%= pr[:email] ? '' : 'autofocus' %> />
+    <label class=w200> Email: </label> <input class='input1' placeholder='you@domain.com' name='email' value="<%=pr[:email]%>" <%= pr[:email] ? '' : 'autofocus' %> />
     <br/>
     <label class=w200> Password: </label> <input class='input1' placeholder='Password' name='password' type=password <%= pr[:email] ? 'autofocus' : '' %> />
     <% if pr[:go_back_to] %>

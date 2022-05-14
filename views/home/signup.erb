@@ -2,9 +2,9 @@
 %>
 <h3 id=signup> 
 <% if pr[:type] == 'seller' %>
-<%= is_heb ? 'ברוכים הבאים.' : "Sign Up:" %>
+<%= is_heb ? 'ברוכים הבאים.' : "Apply:" %>
 <% elsif pr[:type] == 'buyer' %>
-<%= is_heb ? 'ברוכים הבאים.' : "Sign Up To Order:" %>
+<%= is_heb ? 'ברוכים הבאים.' : "Sign Up for Beta:" %>
 <% end %>
 </h3>
 <form action='/signup' method='post'>

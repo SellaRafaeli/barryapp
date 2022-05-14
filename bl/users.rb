@@ -209,7 +209,6 @@ def add_user
 		if pr[:event_title] #signup and create event at once
 			redirect "/casts/create?event_title=#{pr[:event_title]}"
 		else 
-			bp
 			z=2
 		end
 	end
@@ -248,10 +247,8 @@ def user_type_logo(type)
 end
 
 post '/signup' do
-	# verify_signup_data
-	bp
+	verify_signup_data
 	res = add_user	
-	bp
 	# send_email('sella@good-weed.com', 'New user '+res.to_json, 'New user '+res.to_json) rescue nil	
 	# res
 
