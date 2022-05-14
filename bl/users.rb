@@ -307,3 +307,9 @@ get '/email_login' do
 		redirect '/login'
 	end
 end
+
+post '/beta_signup' do 
+	send_email('sella.rafaeli@gmail.com', 'New user '+pr.to_json, 'New user '+pr.to_json) rescue nil	
+	flash.message = 'Ok, thanks!'
+	redirect '/'
+end
