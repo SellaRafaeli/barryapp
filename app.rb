@@ -137,8 +137,9 @@ get '/values' do
 end
 
 get '/search' do 
-	# redirect '/'
-	erb :'devshops/search', default_layout
+	flash.message = 'Sorry, we have not launched yet'
+	redirect '/'
+	# erb :'devshops/search', default_layout
 end
 
 get '/accept_cookies' do 
