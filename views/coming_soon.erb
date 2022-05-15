@@ -13,12 +13,31 @@
 }
 .name {
   font-weight: bold;
-  color: #30ccff;
+  color: #30ccff !important;
   font-family: monospace;
+  padding-left: 5px;
+  font-size: 20px;
+  max-width: 300px;
 }
 .img_caption {
   padding: 10px;
 }
+.apply_box {
+text-align: center;
+    padding: 20px 10px;
+    background-color: whitesmoke;
+    font-weight: bold;
+    color: black;
+    width: 30%;
+    display: inline-block;
+    margin: 20px;
+}
+
+.main_title {
+  line-height: 1.4;
+  font-weight: bold;
+}
+
 </style>
 <div class='coming_soon'>
 
@@ -28,26 +47,46 @@
 <div class='rafaeli_io_coming_soon'>
 
   <div class='left_half half'>
-    <h5> <b>hire awesome developers.</b> </h5>
-    <h1> <span class='name'>rafaeli</span> is a marketplace for <br/>Software Development as a Service. </h1>
-
+    
+    <h1 class='main_title'> 
+      <!-- <span class='name'><a href='/signup?type=buyer'>A network of the world's top professional developers.</a></span> <br/> -->
+      <!-- <br/> -->
+      World-class tech talent, available <br/> on a monthly retainer. </h1>
+    
+    <!-- <h5> <b>You can <span class='name' style='font-size: 24px'>
+    <a href='/signup?type=buyer'>hire awesome developers</a></span> or <a href='/signup?type=seller'>apply to be hired.</a></b> 
+    </h5> -->
     
 
     <%#= erb :'home/login' %>
     
     <form action=/beta_signup method=post>
-        <div><label> Sign up for waitlist: </label></div>
+        <!-- <div><label> Sign up for waitlist: </label></div>
         <br/>
         <input class=input1 placeholder='me@startup.com' />
         <button class='btn btn-raised btn-primary'>submit</button>
+-->
+      <!-- <a class='apply_box btn btn-raised btn-primary' href='/signup?type=seller&subtype=talent'>
+        Browse
+      </a> -->
+        <div> 
+          <a class='apply_box btn btn-raised btn-primary' href='/signup?type=seller&subtype=talent'> Apply as talent </a>
+          <a class='apply_box btn btn-raised btn-info' href='/signup?type=buyer&subtype=startup'> Apply as startup </a>
+        </div>
     </form>
     <br/>
     <!-- <div><a style='font-size: 70%' class='' href=mailto:hi@ex8200.com>hi@rafaeli.io</a></div> -->
   </div>
   <div class='right_half half'>
     <img class=main_pic height=300px src='https://i.imgur.com/PlZMplg.png' />  
-    <div class='img_caption'><a href='/profiles/123'>John Bakilov</a> from <a href='/search?q=london'>London</a> charges $10-30K a month <br/> for <a href='/search?q=python'>Python</a> <a href='/search?q=python'>web development</a>.</div>
+    <div class='img_caption'><a href='/profiles/123'>John Bakilov</a> <a href='/search?q=london'>(London),</a> <a href='/search?q=python'>Python</a>: $10-30K a month.<br/>. 
+      <br/>
+      <br/>
+    </div>
   </div>
+</div>
+<div class=ct>
+  <!-- Find and hire elite developers at <a href='https://www.rafaeli.io'>rafaeli.io.</a> -->
 </div>
 </div>
 

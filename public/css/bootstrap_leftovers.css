@@ -25,6 +25,8 @@
 .btn:not(.btn-raised).btn-primary, .input-group-btn .btn:not(.btn-raised).btn-primary {
     color: #009688;
     color: #624038; /* !important;    */
+
+    color: #30ccff; /* light blue    */ 
 }
 .btn:not(.btn-raised), .btn:not(.btn-raised).btn-default, .input-group-btn .btn:not(.btn-raised), .input-group-btn .btn:not(.btn-raised).btn-default {
     color: rgba(0,0,0,.87);
@@ -58,6 +60,7 @@ a {
 }
 a, a:focus, a:hover {
   color: #009688;
+  color: #30ccff; /*light blue*/
 }
 /** {
     -webkit-tap-highlight-color: rgba(255,255,255,0);
