@@ -29,6 +29,7 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 	 'license_text', 'delivery_area', 'active', 'contact',
 	 'address','city', 'state', 
 	 'website',
+	 'show_profile_to', 'rate',
 	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key)
 
 #DEFAULT_IMG = DEFAULT_PIC = '/img/profile.png'

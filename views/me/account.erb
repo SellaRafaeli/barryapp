@@ -19,6 +19,7 @@
   
   <br/> 
 
+  <% if false %>
   <div class='display_flex'>
     <label> Payment Details </label>
     <textarea name=payout_info placeholder="How should we pay you? We support Paypal, Venmo, Bit, and bank transfers." value=""><%=user['payout_info']%></textarea> 
@@ -37,6 +38,7 @@
     </select>
     <!-- <span> </span> -->
   </div>
+  <% end %>
 
   <% if false %>
   <div class='display_flex'>
@@ -55,7 +57,7 @@
   </div>
   <% end %>
 
-  <hr/>
+  <% if false %>
   <div class='display_flex'>
   <label> Payouts </label>
     <% if payouts.any? %>
@@ -72,10 +74,11 @@
   </div>
   
 
-<br/>
+  <br/>
       <div class=ct>
         <button onclick='$("#me_form").submit()' class='btn btn-raised btn-info'>Save</button>
       </div>
+  <% end %>
       
 <script>
 function submitLicense() {

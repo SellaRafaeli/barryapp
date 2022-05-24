@@ -25,8 +25,22 @@
   <div class='display_flex'>                  
       <label> Name  <div></div></label>
       <input class='input1' placeholder='' value="<%=user['name']%>" name='name' style='margin-right: 5px; margin-left: 0'/>
-      <!-- <span> This is what you'll be known as.</span> -->
-    </div>
+  </div>
+
+  <div class='display_flex'>                  
+      <label> Title <div></div></label>
+      <input class='input1' placeholder='Your description in one line' value="<%=user['title']%>" name='title' style='margin-right: 5px; margin-left: 0'/>
+  </div>
+
+  <div class='display_flex'>                  
+    <label> Location <div></div></label>
+    <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
+  </div>
+
+  <div class='display_flex'>                  
+    <label> Rate Range <div></div></label>
+    <input class='input1' placeholder='$10k-30k/mo' value="<%=user['rate']%>" name='rate' style='margin-right: 0px; margin-left: 0'/>
+  </div>
 
   <br/> 
 
@@ -74,23 +88,37 @@
 
   <div class='display_flex'>
     <label> Description </label>
+    <!-- <div class=help_text>
+      <div>Add as much information about yourself as possible.</div>
+    </div> -->
     <textarea name=desc placeholder="Describe yourself." value=""><%=user['desc']%></textarea> 
-    <!-- <span>Use #hashtags like #actor or #dance_teacher</span> -->
+    
   </div>
   <br/>
 
-  <div class='display_flex' style='margin-top:20px'>
+  <div class='display_flex' style='margin-top:20px; zdisplay: none'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Show Your Profile To
+    </label>
+    
+    <select name=show_profile_to>
+      <% ['Everyone', 'Approved Startups', 'Nobody'].each do |opt| %>
+        <option <%="selected" if user[:show_profile_to]==opt %>><%=opt%></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class='display_flex' style='margin-top:20px; display: none;'>
     <%#= user.to_json %>
     <label class='ztooltip'> Tags </label>
     <input style='width:100%' name=tags placeholder='tag1, tag2, tag3-multiple-words, tag4' value="<%=user[:tags]%>" />
   </div>
 
-  <hr/>
   <br/>
 
 
 
-  <div class='display_flex' style='margin-top:20px'>
+  <div class='display_flex' style='margin-top:20px; display: none'>
     <%#= user.to_json %>
     <label class='ztooltip'> Web Site </label>
     
@@ -242,29 +270,10 @@
   <br/>
   <% end %>
 
-  <br/>
+  <br/>  
 
-  <div class='display_flex' style='margin-top:20px; display: none'>
-    <%#= user.to_json %>
-    <label class='ztooltip'> Show Your Profile?  
-    </label>
+  <br/>
     
-    <select name=active>
-      <% ['yes', 'no'].each do |opt| %>
-        <option <%="selected" if user[:active]==opt %>><%=opt%></option>
-      <% end %>
-    </select>
-  </div>
-
-  <br/>
-  <% if false %>
-  <div class='display_flex'>                  
-    <label> Location <div></div></label>
-    <input class='input1' placeholder='123 HaYarkon, Tel Aviv' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
-    <!-- <span> This is what you'll be known as.</span> -->
-  </div>
-  <% end %>
-
   <% if false %>
   <div class='display_flex' style='margin-top: 30px'>
     <label class='tooltip'> My Page Theme           

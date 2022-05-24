@@ -1,8 +1,9 @@
 <% 
+  if pr[:type] && pr[:subtype]
 %>
 <h3 id=signup> 
 <% if pr[:type] == 'seller' %>
-<%= is_heb ? 'ברוכים הבאים.' : "Apply:" %>
+<%= is_heb ? 'ברוכים הבאים.' : "Apply as #{pr[:subtype]}" %>
 <% elsif pr[:type] == 'buyer' %>
 <%= is_heb ? 'ברוכים הבאים.' : "Sign Up for Beta:" %>
 <% end %>
@@ -10,3 +11,16 @@
 <form action='/signup' method='post'>
   <%= erb :'login/signup_fields', locals: {only_signup: true} %>
 </form>
+<% else %>
+<div> 
+          <!-- <a class='apply_box btn btn-raised btn-info' href='/search'> Browse </a> -->
+          <h2>Oh, exciting! Let's do this. </h2>
+          <div>
+            <a class='zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=talent'> Apply as talent </a>
+            <span style='display: inline-block; width: 20px'></span>
+            <a class='zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=team'> Apply as team </a>
+            <span style='display: inline-block; width: 20px'></span>
+            <a class='zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=buyer&subtype=startup'> Apply as startup </a>
+          </div>
+        </div>
+<% end %>

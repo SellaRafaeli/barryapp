@@ -285,21 +285,22 @@
       
     <% end %>
 
-    <% if false && !is_homepage %>
+    <% if true %>
     <a class='' href='/search'><i class='fa fa-search'></i> <%= 'search' %> </a>
     <% end %>
 
     <% if cu && !is_pro(cu) %>
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
     <% end %>
-    <!-- <a class='' href='/about'>about</a>
-    <a class='' href='/contact'>contact</a>
+    <!-- <a class='' href='/how_it_works'>How It Works</a> -->
+    <!-- <a class='' href='/about'>how it works</a> -->
+    <!-- <a class='' href='/contact'>contact</a>
     <a class='' href='/articles'>blog</a> -->
 
     <% if !cu  %>
 
     <% if _req.path == '/' %>
-      <a class='zbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
+      <a class='nzbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
     <% else %>
       <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
     <% end %>

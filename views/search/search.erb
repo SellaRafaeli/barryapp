@@ -1,15 +1,13 @@
 <%
   # pr[:city] = pr[:city] || 'New York City'  
   # pr[:city] = pr[:city].gsub('-',' ')
-  
-
   # pr[:state] = pr[:state] || 'NY'
   city  = pr[:city] 
-  state = pr[:state].titleize
-  state = 'Idaho' unless AREAS[state] 
+  state = pr[:state].to_s.titleize
+  state = 'Idaho' # unless AREAS[state] 
 
   chosen_state       = state
-  chosen_state_short = AREAS.hwia[chosen_state][:short]
+  chosen_state_short = 'ny' # AREAS.hwia[chosen_state][:short]
   chosen_state_short ||= 'NY'
 
   cities = []

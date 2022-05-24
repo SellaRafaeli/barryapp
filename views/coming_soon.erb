@@ -35,7 +35,19 @@ text-align: center;
 
 .main_title {
   line-height: 1.4;
-  font-weight: bold;
+  /*font-weight: bold;*/
+  margin: 12px
+}
+
+.mid_title {
+  background-color: whitesmoke;
+  padding: 10px;
+  max-width: 60%;
+  margin: auto;
+}
+
+.img_caption a {
+  color: black;
 }
 
 </style>
@@ -48,10 +60,10 @@ text-align: center;
 
   <div class='left_half half'>
     
-    <h1 class='main_title'> 
-      <!-- <span class='name'><a href='/signup?type=buyer'>A network of the world's top professional developers.</a></span> <br/> -->
-      <!-- <br/> -->
-      World-class tech talent, available <br/> on a monthly retainer. </h1>
+    <h4 class='main_title'>we rep</h4>
+    <h1 class='mid_title'> Really good developers. </h1>
+    <h3 class=''>We connect verified senior developers and teams <br/> with startups around the world. </h3>
+    <!-- <h3 class=''>We connect <br/> Senior Developers! </h3> -->
     
     <!-- <h5> <b>You can <span class='name' style='font-size: 24px'>
     <a href='/signup?type=buyer'>hire awesome developers</a></span> or <a href='/signup?type=seller'>apply to be hired.</a></b> 
@@ -60,26 +72,38 @@ text-align: center;
 
     <%#= erb :'home/login' %>
     
+    <a class='apply_box btn btn-raised btn-info' href='/search'>
+        Browse Talent <i class='fa fa-search' style='margin-left: 5px'></i>
+    </a>
+    <div>
+    <a class='btn btn-sm' href='/signup'>
+        Apply
+    </a>
+  </div>
+
+
     <form action=/beta_signup method=post>
         <!-- <div><label> Sign up for waitlist: </label></div>
         <br/>
         <input class=input1 placeholder='me@startup.com' />
         <button class='btn btn-raised btn-primary'>submit</button>
 -->
-      <!-- <a class='apply_box btn btn-raised btn-primary' href='/signup?type=seller&subtype=talent'>
-        Browse
-      </a> -->
-        <div> 
-          <a class='apply_box btn btn-raised btn-primary' href='/signup?type=seller&subtype=talent'> Apply as talent </a>
-          <a class='apply_box btn btn-raised btn-info' href='/signup?type=buyer&subtype=startup'> Apply as startup </a>
-        </div>
+      
+
+        
     </form>
     <br/>
     <!-- <div><a style='font-size: 70%' class='' href=mailto:hi@ex8200.com>hi@rafaeli.io</a></div> -->
   </div>
   <div class='right_half half'>
-    <img class=main_pic height=300px src='https://i.imgur.com/PlZMplg.png' />  
-    <div class='img_caption'><a href='/profiles/123'>John Bakilov</a> <a href='/search?q=london'>(London),</a> <a href='/search?q=python'>Python</a>: $10-30K a month.<br/>. 
+    <!-- <img class=main_pic height=300px src='https://i.imgur.com/PlZMplg.png' />   -->
+    <img class=main_pic height=300px src='https://i.imgur.com/SrCq3xY.png' />
+    <div class='img_caption'>
+      <a href='/profiles/123'>Sella Rafaeli,</a> 
+      <a href='/search?q=tel aviv'>Tel Aviv</a> 
+      <br/>
+      <a href='/search?q=ruby,javascript'>Ruby, JavaScript</a>: $10-30K a month.
+      <br/>
       <br/>
       <br/>
     </div>

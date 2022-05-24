@@ -1,0 +1,67 @@
+<%
+  val     = pr[:q]
+
+  all_sellers = $users.all(type: 'seller')
+  #users = all_sellers.select {|u| val && u.to_s.include?(val.to_s) }
+  users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
+  results = users
+
+  # results = [
+  #   {name: 'Sella Rafaeli', title: 'Expert Fullstack Architect', location: 'Tel Aviv', desc: 'Really nice guy.', rate: '$10k-30k USD/mo'}
+  # ]
+
+
+# bp
+
+x=1 
+
+%>
+
+<style>
+.main_search_wrapper {
+  margin: 40px;
+}
+.main_search {
+  border-radius: 0px;
+}
+.single_result {
+  background-color: whitesmoke;
+  padding:5px 10px;
+  margin-bottom: 10px;
+}
+.name {
+  font-weight: bold;
+}
+.subtitle {
+  margin:10px 0;
+}
+.desc {
+  color: grey;
+}
+.rate {
+  margin-top: 10px;
+}
+</style>
+
+
+<div class='main_search_wrapper ct'>
+  <form method=get action=search>
+    <input name=q class='main_search input1' placeholder='search...' value="<%=val%>" autocomplete />
+    <button class='btn btn-raised btn-primary'>go </button>
+  </form>
+</div>
+
+<% results.each do |res| %>
+  <div class='single_result'>
+    <div class='name'><%=res[:name]%></div>
+    <div class='subtitle'>      
+      <% if res[:title].present? %><span class='title'><%=res[:title]%></span> | <% end %>
+      <span class='location'><%=res[:location]%></span>
+    </div>
+    <div class='desc'>
+      <%= res[:desc] %>
+    </div>
+
+    <% if res[:rate] %><div class='rate'><%= res[:rate] %></div><% end %>
+  </div>
+<% end %>
