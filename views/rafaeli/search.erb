@@ -1,9 +1,15 @@
 <%
   val     = pr[:q]
 
-  all_sellers = $users.all(type: 'seller')
-  #users = all_sellers.select {|u| val && u.to_s.include?(val.to_s) }
-  users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
+  all_sellers = $users.all(type: 'seller').reverse
+
+  fields = [:title, :location, :desc, :rate] 
+  users  = all_sellers.select {|u| 
+    text = fields.map {|f| " "+u[f].to_s }.join(' ')
+    u[:text] = text
+    val && text.downcase.include?(val.to_s) 
+  }
+  # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
   results = users
 
   # results = [
@@ -28,6 +34,7 @@ x=1
   background-color: whitesmoke;
   padding:5px 10px;
   margin-bottom: 10px;
+  display: flex;
 }
 .name {
   font-weight: bold;
@@ -41,6 +48,16 @@ x=1
 .rate {
   margin-top: 10px;
 }
+.img_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img_container img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 100px;
+}
 </style>
 
 
@@ -53,15 +70,22 @@ x=1
 
 <% results.each do |res| %>
   <div class='single_result'>
-    <div class='name'><%=res[:name]%></div>
-    <div class='subtitle'>      
-      <% if res[:title].present? %><span class='title'><%=res[:title]%></span> | <% end %>
-      <span class='location'><%=res[:location]%></span>
-    </div>
-    <div class='desc'>
-      <%= res[:desc] %>
-    </div>
+    <div class='left_half flex6'>
+      <div class='name'><%=res[:text]%></div>
+      <div class='subtitle'>      
+        <% if res[:title].present? %><span class='title'><%=res[:title]%></span> | <% end %>
+        <span class='location'><%=res[:location]%></span>
+      </div>
+      <div class='desc'>
+        <%= res[:desc] %>
+      </div>
 
-    <% if res[:rate] %><div class='rate'><%= res[:rate] %></div><% end %>
+      <% if res[:rate] %><div class='rate'><%= res[:rate] %></div><% end %>    
+    </div>
+    <div class='right_half img_container flex1' style='border:1px solid red; text-align: right'>
+      <% if res[:img_url].present? %>
+      <img src='<%=res[:img_url]%>' />
+      <% end %>
+    </div>
   </div>
 <% end %>

@@ -148,14 +148,14 @@ def verify_signup_data
 			halt(401,{err: 'Invalid email.'}) 
 		else 
 			flash_err('Invalid email.') 
-			redirect '/signup'
+			redirect back #'/signup'
 		end
 	elsif !(email.present? && name.present?)
 		if pr[:ajax] 
 			halt(401,{err: 'Missing email or name.'})
 		else 
 			flash_err('Missing email or name.') 
-			redirect '/signup'
+			redirect back # '/signup'
 		end
 	end
 

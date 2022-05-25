@@ -12,15 +12,26 @@
   <%= erb :'login/signup_fields', locals: {only_signup: true} %>
 </form>
 <% else %>
-<div> 
+
+<style>
+.apply_btn {
+  width: 300px;
+  display: inline-block;
+}
+</style>
+<div class=ct> 
           <!-- <a class='apply_box btn btn-raised btn-info' href='/search'> Browse </a> -->
           <h2>Oh, exciting! Let's do this. </h2>
           <div>
-            <a class='zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=talent'> Apply as talent </a>
-            <span style='display: inline-block; width: 20px'></span>
-            <a class='zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=team'> Apply as team </a>
-            <span style='display: inline-block; width: 20px'></span>
-            <a class='zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=buyer&subtype=startup'> Apply as startup </a>
+            <a class='apply_btn zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=talent'> Apply as talent </a>
+            
+            <!-- <span style='display: inline-block; width: 20px'></span> -->
+            <div style='margin-top:0px'></div>
+            <a class='apply_btn zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=team'> Apply as team </a>
+            
+            <!-- <span style='display: inline-block; width: 20px'></span> -->
+            <div style='margin-top:0px'></div>
+            <a class='apply_btn zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=buyer&subtype=startup'> Apply as startup </a>
           </div>
         </div>
 <% end %>
