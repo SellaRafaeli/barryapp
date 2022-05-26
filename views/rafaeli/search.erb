@@ -1,13 +1,14 @@
 <%
-  val     = pr[:q]
+  search_val     = pr[:q].to_s.downcase
 
+  #search_val = 'javascript' unless val.present?
   all_sellers = $users.all(type: 'seller').reverse
 
   fields = [:title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
     text = fields.map {|f| " "+u[f].to_s }.join(' ')
     u[:text] = text
-    val && text.downcase.include?(val.to_s) 
+    search_val && text.downcase.include?(search_val.to_s) 
   }
   # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
   results = users
@@ -24,8 +25,11 @@ x=1
 %>
 
 <style>
+:root {
+  --color1: rgb(26, 13, 171);
+}
 .main_search_wrapper {
-  margin: 40px;
+  zmargin-bottom: 10px;
 }
 .main_search {
   border-radius: 0px;
@@ -33,7 +37,7 @@ x=1
 .single_result {
   zbackground-color: whitesmoke;
   padding:5px 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   display: flex;
 }
 .name {
@@ -43,7 +47,8 @@ x=1
   font-size: 14px;
 }
 .title {
-  color: rgb(26, 13, 171);
+  zcolor: rgb(26, 13, 171);
+  color: var(--color1);
   margin:7px 0 3px 0;
   display: block;
   font-size: 20px;
@@ -73,41 +78,101 @@ x=1
   color: rgb(26, 13, 171);
   font-size: 14px;
 }
+.search_results_wrapper {
+  max-width: 900px;
+  margin: auto;
+  margin-top: 20px;
+}
 </style>
 
 
 <div class='main_search_wrapper ct'>
   <form method=get action=search>
-    <input name=q class='main_search input1' placeholder='search...' value="<%=val%>" autocomplete />
+    <input name=q class='main_search input1' placeholder='search...' value="<%=search_val%>" autocomplete />
     <button class='btn btn-raised btn-primary'>go </button>
   </form>
 </div>
 
-<% results.each do |res| %>
-  <div class='single_result'>
-    <div class='left_half flex6'>
-      <div class='top_row'>
-        <span class='name'><%=res[:name]%></span>
-        <% if res[:location] %>
-        <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s.downcase %></span>
+<style>
+.keywords {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+.single_keyword {
+  display: inline-block;
+  zcolor: var(--color1);
+  color: grey;
+  text-transform: lowercase;
+  font-size: 13px;
+  margin: 0 10px;
+}
+</style>
+
+<div class='keywords'>
+<%  
+  all_opts = {
+    frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
+    backend:  ['java', 'c++', 'python', 'node', 'go', 'ruby'],
+    fullstack: ['express', 'rails', 'django', 'laravel'],
+    mobile: ['ios', 'android', 'swift', 'flutter'],
+    devops: ['aws', 'gcp', 'azure', 'heroku']
+  }.hwia
+
+  opts = all_opts[search_val] || all_opts.keys
+  
+
+  keywords = opts
+  keywords.each do |keyword|
+%>
+  <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
+<% end %>
+</div>
+
+<div class='search_results_wrapper'>
+<% if results.any? %>
+  <% results.each do |res| %>
+    <div class='single_result'>
+      <div class='left_half flex6'>
+        <div class='top_row'>
+          <span class='name'><%=res[:name]%></span>
+          <% if res[:location] %>
+          <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s.downcase %></span>
+          <% end %>
+        </div>
+        <div class='title'>      
+          <% if res[:title].present? %><span class='title'><%=res[:title]%></span> <% end %>
+          
+        </div>
+        <div class='desc'>
+          <%= res[:desc] %>
+        </div>
+
+        <div class='bottom_links'>
+          <% if res[:rate] %><div class='rate bottom_link'><%= res[:rate] %></div><% end %>    
+        </div>
+      </div>
+      <% if false %>
+      <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>
+        <% if res[:img_url].present? %>
+        <img src='<%=res[:img_url]%>' />
         <% end %>
       </div>
-      <div class='title'>      
-        <% if res[:title].present? %><span class='title'><%=res[:title]%></span> <% end %>
-        
-      </div>
-      <div class='desc'>
-        <%= res[:desc] %>
-      </div>
-
-      <div class='bottom_links'>
-        <% if res[:rate] %><div class='rate bottom_link'><%= res[:rate] %></div><% end %>    
-      </div>
-    </div>
-    <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>
-      <% if res[:img_url].present? %>
-      <img src='<%=res[:img_url]%>' />
       <% end %>
     </div>
+  <% end %>
+<% else %>
+  <div class='no_results ct'>
+    <br/>
+    <h5> 
+      Oh, sorry. Nobody available for that right now. 
+      <br/>
+      <br/>
+      We're still in alpha, launching early '23. 
+      <br/>
+      <br/>
+      You can <button>make a request</button> for us to source such talent for you. It's free. 
+    </h5>
   </div>
 <% end %>
+</div>
