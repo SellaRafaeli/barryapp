@@ -293,9 +293,8 @@
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
     <% end %>
     <!-- <a class='' href='/how_it_works'>How It Works</a> -->
-    <!-- <a class='' href='/about'>how it works</a> -->
-    <!-- <a class='' href='/contact'>contact</a>
-    <a class='' href='/articles'>blog</a> -->
+    <!-- <a class='' href='/about'>how it works</a> -->    
+    <!-- <a class='' href='/articles'>blog</a> -->
 
     <% if !cu  %>
 
@@ -304,9 +303,7 @@
     <% else %>
       <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
     <% end %>
-
-      <i class='fas zfa-store' style='margin-right: 10px'></i> <%= !heb ? 'Apply' : 'הרשמה' %>
-      </a>  
+      <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Apply' : 'הרשמה' %></a>  
     <% end %>    
     <!-- <a class='' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a> -->
     <% if false %>
@@ -345,6 +342,8 @@
 
     
     <% end %>
+
+    <a class='' href='/contact'>Contact</a>
 
     <%= erb :'header/hamburger' %>
   </div>  
