@@ -11,3 +11,7 @@ def is_pro(user = cu)
 	#return true if !$prod
 	user && user[NOWCAST_PRO]
 end
+
+def is_verified(user = cu)
+	user && user[:verified]
+end

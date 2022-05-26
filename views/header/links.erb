@@ -177,7 +177,7 @@
 .links_profile_pic {
   height: 20px;
   border-radius: 2px;
-  border: 1px solid #386256;
+  zborder: 1px solid #386256;
   padding: 4px;
   margin-right: 5px;
 }
@@ -264,7 +264,7 @@
         <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
         <%#= cu_logo %>         
 
-         <b><%= cu[:name] %> </b><%= "<b class='nowcast_color'>(pro)</b>" if is_pro(cu) %>
+         <b><%= cu[:name] %> </b><%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_verified(cu) %>
        </a>       
       <!-- <a class='' target=_blank href='/@<%=cu['handle']%>'>
         <i class='fa fa-external-link' style='margin-right: 5px'></i> View @<%=cu['handle']%>         
@@ -273,7 +273,7 @@
       
       
 
-      <!-- <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>     -->
+      <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>
       
       <% if false %>
       <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>
@@ -285,7 +285,7 @@
       
     <% end %>
 
-    <% if true %>
+    <% if cu && is_verified %>
     <a class='' href='/search'><i class='fa fa-search'></i> <%= 'search' %> </a>
     <% end %>
 

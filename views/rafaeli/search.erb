@@ -12,22 +12,9 @@
   }
   # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
   results = users
-
-  # results = [
-  #   {name: 'Sella Rafaeli', title: 'Expert Fullstack Architect', location: 'Tel Aviv', desc: 'Really nice guy.', rate: '$10k-30k USD/mo'}
-  # ]
-
-
-# bp
-
-x=1 
-
 %>
 
 <style>
-:root {
-  --color1: rgb(26, 13, 171);
-}
 .main_search_wrapper {
   zmargin-bottom: 10px;
 }
@@ -129,50 +116,9 @@ x=1
 <% end %>
 </div>
 
-<div class='search_results_wrapper'>
-<% if results.any? %>
-  <% results.each do |res| %>
-    <div class='single_result'>
-      <div class='left_half flex6'>
-        <div class='top_row'>
-          <span class='name'><%=res[:name]%></span>
-          <% if res[:location] %>
-          <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s.downcase %></span>
-          <% end %>
-        </div>
-        <div class='title'>      
-          <% if res[:title].present? %><span class='title'><%=res[:title]%></span> <% end %>
-          
-        </div>
-        <div class='desc'>
-          <%= res[:desc] %>
-        </div>
 
-        <div class='bottom_links'>
-          <% if res[:rate] %><div class='rate bottom_link'><%= res[:rate] %></div><% end %>    
-        </div>
-      </div>
-      <% if true %>
-      <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>
-        <% if res[:img_url].present? %>
-        <img src='<%=res[:img_url]%>' />
-        <% end %>
-      </div>
-      <% end %>
-    </div>
-  <% end %>
+<% if is_verified %>
+  <%= erb :'/rafaeli/search_results', locals: {results: results} %>
 <% else %>
-  <div class='no_results ct'>
-    <br/>
-    <h5> 
-      Oh, sorry. Nobody available for that right now. 
-      <br/>
-      <br/>
-      We're still in alpha, launching early '23. 
-      <br/>
-      <br/>
-      You can <button>make a request</button> for us to source such talent for you. It's free. 
-    </h5>
-  </div>
+  <%= erb :'/rafaeli/please_apply' %>
 <% end %>
-</div>

@@ -2,7 +2,10 @@
 
 /*post*/
 body {
-	font-family: Oxygen, Rubik, 'Poppins', 'Assistant', sans-serif !important;
+	font-family: Raleway, Oxygen, Rubik, 'Poppins', 'Assistant', sans-serif !important;
+}
+:root {
+  --color1: rgb(26, 13, 171);
 }
 #editor {
   font-size: 16px;
