@@ -74,7 +74,7 @@ def send_login_email(email)
     token = update_user_token(user)
     url   = "#{$root_url}/email_login?token=#{token}"    
     msg    = "Hi, somebody told us you forgot your password. You can click here to log in: #{url}"
-    send_email(user[:email], "rafaeli login link", msg)
+    send_email(user[:email], "rafaeli login link - "+Time.now.to_s, msg)
   end
 end
 # def send_default_email #for testing
