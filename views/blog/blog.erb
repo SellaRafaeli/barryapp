@@ -2,9 +2,9 @@
   all_ids     = Dir["views/blog/posts/**/*.erb"].map{|p| p.split('/').last.split('__').last }
 #bp  
   all_posts   = [
-    {date: 'May 20th, 2020', author: '@sellarafaeli', file: '1_hello_world', title: 'Hello World'},
-    {date: 'May 20th, 2020', author: '@sellarafaeli', file: '2_favicon', title: 'Favicon'},
-    {date: 'June 19th, 2020', author: '@sellarafaeli', file: '3_founded_in_san_francisco', title: 'Founded with ❤️ in San Francisco'},
+    # {date: 'May 20th, 2020', author: '@sellarafaeli', file: '1_hello_world', title: 'Hello World'},
+    # {date: 'May 20th, 2020', author: '@sellarafaeli', file: '2_favicon', title: 'Favicon'},
+    # {date: 'June 19th, 2020', author: '@sellarafaeli', file: '3_founded_in_san_francisco', title: 'Founded with ❤️ in San Francisco'},
   ].reverse
 
   all_posts.each {|p| p[:path] = '/blog/' + p[:file] }
@@ -66,12 +66,9 @@
 </style>
 
 <%
-def post_link(post)
-  '/blog/'+post[:title].gsub(' ','-')
-end
 %>
+
 <div class='blog_container'>
-  <a href=/blog><h3 style='padding:20px'> nowcast blog </h3></a>
   <% if chosen_post %>
     <div class='single_blog_post'>
       <%= render_blog_post(chosen_post, link: post_link(chosen_post)) %>    
