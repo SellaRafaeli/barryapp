@@ -1,3 +1,11 @@
+<style>
+.bottom_link {
+  height: 10px;
+  display: inline-block;
+  font-size: 12px;
+  padding-bottom: 12px
+}
+</style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
   <% results.each do |res| %>
@@ -6,19 +14,26 @@
         <div class='top_row'>
           <span class='name'><%=res[:name]%></span>
           <% if res[:location] %>
-          <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s.downcase %></span>
-          <% end %>
+          <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s %></span>
+          <% end %><% if res[:rate] %><span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
+          <% end %>    
         </div>
         <div class='title'>      
           <% if res[:title].present? %><span class='title'><%=res[:title]%></span> <% end %>
           
         </div>
         <div class='desc'>
-          <%= res[:desc] %>
+          <%= res[:desc] %>          
         </div>
 
         <div class='bottom_links'>
-          <% if res[:rate] %><div class='rate bottom_link'><%= res[:rate] %></div><% end %>    
+          <br/>
+          <% if res[:license_url] %>            
+            <a class='btn btn-sm btn-info btn-raised bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
+          <% end %>    
+
+            <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> 
+            <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> 
         </div>
       </div>
       <% if true %>
