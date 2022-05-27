@@ -12,15 +12,21 @@
     <input hidden name=go_back_to value="<%=pr[:go_back_to]%>">
     <% end %>
     <br/>
-    <button class='btn btn-raised btn-info'>Let's Go!</button>        
+    <br/>
+    <div class=ct>
+      <button class='btn btn-raised btn-info'>Let's Go!</button>        
+      <br/>
+      <small><a style='cursor: pointer; font-size: 80%' onclick=promptForgotPassword() type=button class='zbtn btn-primary btn-sm btn-raised'>
+<%= is_heb ? "לחצ/י עבור לינק כניסה שיישלח למייל" : 'Forgot password?' %>
+</a></small>
+        <!-- <div><a style='font-size: 70%' href='/forgot_password'>forgot password?</a></div> -->
+    </div>
 </form>
 
 <br/>
 <br/>
 
-<!-- <div class=ct><small><a style='cursor: pointer' onclick=promptForgotPassword() type=button class='btn btn-primary btn-raised'>
-<%= is_heb ? "לחצ/י עבור לינק כניסה שיישלח למייל" : 'Forgot password? Click for Magic Sign-In Link' %>
-</a></small></div> -->
+
 </div>
 <script>
 function promptForgotPassword() {

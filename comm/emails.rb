@@ -14,7 +14,7 @@ $postmark_client = Postmark::ApiClient.new(ENV['POSTMARK_API_TOKEN'])
 # on payment, to cast owner?
 
 EMAILS_ON     = ENV['EMAILS_ON'].to_s == 'yes'
-EMAILS_FROM   = 'hi@good-weed.com' # more "from" emails can be added on Postmark
+EMAILS_FROM   = 'hi@rafaeli.io' # more "from" emails can be added on Postmark
 
 def send_email(to, subj, html_body, opts = {})
   res = 'unset'
@@ -73,8 +73,8 @@ def send_login_email(email)
   if (user = $users.get(email: email)) 
     token = update_user_token(user)
     url   = "#{$root_url}/email_login?token=#{token}"    
-    msg    = "Hi, somebody told us you forgot your password to nowcast. You can click here to log in: #{url}"
-    send_email(user[:email], "nowcast login link", msg)
+    msg    = "Hi, somebody told us you forgot your password. You can click here to log in: #{url}"
+    send_email(user[:email], "rafaeli login link", msg)
   end
 end
 # def send_default_email #for testing

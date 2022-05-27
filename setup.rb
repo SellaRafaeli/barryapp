@@ -1,5 +1,5 @@
 $prod       = settings.production? #RACK_ENV==production?
-$prod_url   = 'https://good-weed.com'
+$prod_url   = 'https://www.rafaeli.io'
 $root_url   = $prod ? $prod_url : 'http://localhost:4200'
 
 ONE_YEAR_IN_SECONDS = 31556952
