@@ -4,7 +4,7 @@
   #search_val = 'javascript' unless val.present?
   all_sellers = $users.all(type: 'seller').reverse
 
-  fields = [:title, :location, :desc, :rate] 
+  fields = [:name, :title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
     text = fields.map {|f| " "+u[f].to_s }.join(' ')
     u[:text] = text
