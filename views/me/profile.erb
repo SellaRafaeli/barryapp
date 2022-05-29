@@ -33,7 +33,7 @@
       margin-bottom: 20px;
     }
   </style>
-  <div class='we_will_contact_you_to_verify'>
+  <div class='we_will_contact_you_to_verify ct'>
     Please fill out your profile. We will contact you for verification.
   </div>
   <% end %>
@@ -57,11 +57,11 @@
   <div class='display_flex' style='margin-top:20px'>
     <%#= user.to_json %>
 
-    <label> CV </label>
+    <label class=flex1> CV </label>
     <input name=license_url      class=license_url value="<%=user['license_url']%>" hidden />    
     <input name=license_filename class=license_filename value="<%=user['license_filename']%>" hidden /> 
     
-    <div>
+    <div class=flex1>
       <button type=button class='btn btn-raised btn-primary' onclick=submitLicense()> Click to upload</button>
       <a class='simple_link license_url' href='<%=user['license_url']%>' target=_blank><%=user['license_filename']%></a>
 
@@ -102,7 +102,7 @@
 
     </div>
     <div class='ct flex1'>
-      <img style='cursor: pointer' id=user_profile_input_img onclick=$("#img_uploader").click() class=user_img_fullsize src="<%=user[:img_url]%>" />
+      <img style='cursor: pointer' id=user_profile_input_img onclick=$("#profile_pic_uploader").click() class=user_img_fullsize src="<%=user[:img_url]%>" />
     </div>        
   </div>
 
