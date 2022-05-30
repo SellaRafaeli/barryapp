@@ -32,6 +32,11 @@
             <a class='btn btn-sm btn-info btn-raised bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
           <% end %>    
 
+          <form>
+            <input placeholder='Message' />
+            <button>send </button>
+          </form>
+
             <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> 
             <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> 
         </div>
@@ -55,8 +60,13 @@
       We're still in alpha, launching early '23. 
       <br/>
       <br/>
-      You can <button>make a request</button> for us to source such talent for you. It's free. 
+      You can <a href='mailto:requests@rafaeli.io?subject=Request for talent'>write us</a> for specific requests.</a>
+      <div>
     </h5>
   </div>
 <% end %>
 </div>
+
+<script>
+
+</script>

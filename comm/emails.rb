@@ -19,13 +19,14 @@ EMAILS_FROM   = 'hi@rafaeli.io' # more "from" emails can be added on Postmark
 def send_email(to, subj, html_body, opts = {})
   res = 'unset'
   if EMAILS_ON
-    res = $postmark_client.deliver(
-      from: opts[:from] || EMAILS_FROM,
+    Thread.new {
+      res = $postmark_client.deliver(from: opts[:from] || EMAILS_FROM,
       to: to,
       subject: subj,
       html_body: html_body,
-      track_opens: true
-    )
+      track_opens: true)
+    }
+
   else 
     puts "Skipping email subject: #{subj} because !EMAILS_ON".red    
   end

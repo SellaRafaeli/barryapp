@@ -134,6 +134,18 @@
   </div>
   <br/>
 
+  <% if is_buyer %>
+  <div class='display_flex'>
+    <label> Looking For </label>
+    <!-- <div class=help_text>
+      <div>Add as much information about yourself as possible.</div>
+    </div> -->
+    <textarea name=looking_for placeholder="What are you looking for?." value=""><%=user['looking_for']%></textarea> 
+    
+  </div>
+  <br/>
+  <% end %>
+
   <div class='display_flex' style='margin-top:20px; display: none'>
     <%#= user.to_json %>
     <label class='ztooltip'> Profile Visibility (Who Can See Me)

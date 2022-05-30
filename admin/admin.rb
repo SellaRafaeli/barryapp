@@ -98,7 +98,7 @@ rescue
 end
 
 get '/admin' do
-  redirect '/admin/manage/casts'
+  redirect '/admin/manage/users'
   #  to_page(:"admin/dashboard")
   #session[:is_admin] = true
   #redirect '/admin/manage/users'

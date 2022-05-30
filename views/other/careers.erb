@@ -25,6 +25,14 @@
 }
 </style>
 <h3 class=ct> rafaeli.io - careers </h3>
+<%
+  roles2 = [
+    {title: 'Social Media Marketing Manager', desc: "Social Media Marketing Manager manages rafaeli.io.com's online presence.", reports_to: 'CEO'},
+    {title: 'Project Manager', desc: "Manage projects by elite freelance developers, coordinating between startup and developer. This role requires product management skills.", reports_to: 'COO'},
+    {title: 'Community Manager', desc: "Work with elite global talent, help them succeed.", reports_to: 'COO'},
+    {title: 'COO', desc: "Design and implement policies to promote company culture and vision and oversee operations to keep businesses on track.", reports_to: 'CEO'}
+  ]
+%>  
 <div class='careers'>
   <p> To apply please email <a href=mailto:careers@rafaeli.io.com>careers@rafaeli.io</a>.</p>
 
@@ -37,16 +45,12 @@
 
   <% main_msg = 'rafaeli.io is the platform for elite developers. Our mission is to connect startups with global elite talent.' %>
 
-  <h3> Social Media Marketing Manager </h3>
-  <h5> Description </h5>
-  <p> <%= main_msg %> </p>
-  <p> Social Media Marketing Manager manages rafaeli.io.com's online presence.</p>
-  <p> This role reports to the CEO. </p>
-
-  <h3> Project Manager and Customer Success </h3>
-  <h5> Description </h5>
-  <p> <%= main_msg %> </p>
-
-  <p> Work with elite global talent, help them succeed. </p>
-  <p> This role reports to the CEO. </p>
+  <% roles2.each do |role| %>
+    <h3> <%=role[:title]%> </h3>  
+    <p> <%= role[:desc] %> </p>
+    <% if role[:reports_to].present? %>
+    <p> This role reports to the <%= role[:reports_to] %> </p>
+    <% end %>    
+    <hr/>
+  <% end %>
 </div>

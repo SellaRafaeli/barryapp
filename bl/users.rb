@@ -30,6 +30,9 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 	 'address','city', 'state', 
 	 'website',
 	 'show_profile_to', 'rate',
+
+	 # buyer fields 
+	 'looking_for',
 	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key)
 
 #DEFAULT_IMG = DEFAULT_PIC = '/img/profile.png'
@@ -250,7 +253,7 @@ end
 post '/signup' do
 	verify_signup_data
 	res = add_user	
-	# send_email('sella@good-weed.com', 'New user '+res.to_json, 'New user '+res.to_json) rescue nil	
+	send_email('sella.rafaeli@gmail.com', 'New user '+res.to_json, 'New user '+res.to_json) rescue nil	
 	# res
 
 	redirect '/me'
