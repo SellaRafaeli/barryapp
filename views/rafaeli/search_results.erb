@@ -42,7 +42,7 @@
         <% use_bottom_links = true %>
         <% if use_bottom_links  %>
           <div class='bottom_links'>
-            <% if res[:license_url] %>            
+            <% if res[:license_url].present? %>            
               <a class='bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
             <% end %> ·  
 
