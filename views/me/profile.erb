@@ -129,10 +129,11 @@
     <!-- <div class=help_text>
       <div>Add as much information about yourself as possible.</div>
     </div> -->
-    <textarea name=desc placeholder="Describe yourself." value=""><%=user['desc']%></textarea> 
-    
+    <textarea name=desc placeholder="Describe yourself." value=""><%=user['desc']%></textarea>     
   </div>
   <br/>
+
+
 
   <% if is_buyer %>
   <div class='display_flex'>
@@ -144,6 +145,9 @@
     
   </div>
   <br/>
+  <%#= cu.to_json %>
+  <% elsif is_seller %>
+    <%#= erb :'rafaeli/dev_questions' %>
   <% end %>
 
   <div class='display_flex' style='margin-top:20px; display: none'>

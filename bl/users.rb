@@ -39,11 +39,19 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 DEFAULT_IMG = DEFAULT_PIC = '/img/leaf.svg'
 
 def is_seller(user = cu)
-	user && user[:type] == 'seller'
+	user && user[:type].to_s == 'seller'
 end
 
 def is_buyer(user = cu) 
 	user && user[:type].to_s == 'buyer'
+end
+
+def is_talent(user = cu) 
+	user && user[:subtype].to_s == 'talent'
+end
+
+def is_team(user = cu)
+	user && user[:subtype].to_s == 'team'
 end
 
 get '/me' do
