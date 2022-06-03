@@ -73,6 +73,7 @@ a, a:focus, a:hover {
 
 .btn-group-raised .btn.btn-info, .btn-group-raised .input-group-btn .btn.btn-info, .btn.btn-fab.btn-info, .btn.btn-raised.btn-info, .input-group-btn .btn.btn-fab.btn-info, .input-group-btn .btn.btn-raised.btn-info {
     background-color: #03a9f4;
+    background-color: var(--color1);;
     color: rgba(255,255,255,.84);
 }
 
@@ -165,7 +166,7 @@ label {
 }
 
 .btn:not(.btn-raised).btn-info, .input-group-btn .btn:not(.btn-raised).btn-info {
-    color: #03a9f4;
+    color: #03a9f4;    
 }
 .btn:not(.btn-raised), .input-group-btn .btn:not(.btn-raised) {
     -webkit-box-shadow: none;

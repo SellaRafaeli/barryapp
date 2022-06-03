@@ -103,7 +103,7 @@
 }
 </style>
 
-<div class='keywords'>
+<div class='keywords noDisplay'>
 <%  
   all_opts = {
     frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
@@ -121,6 +121,20 @@
 %>
   <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
 <% end %>
+</div>
+
+<div class='search_controls ct' style='font-size: 15px'>
+  <br/>
+  <select style='border: none'>
+    <option>👤 individuals</option>
+    <option>👥 teams</option>
+  </select>
+
+  <select style='border: none'>
+    <option>🌐 anywhere</option>
+    <option>🇮🇱 israel</option>
+    <option>🇺🇦 ukraine</option>
+  </select>
 </div>
 
 
