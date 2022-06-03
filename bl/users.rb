@@ -35,7 +35,7 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 	 'looking_for',
 	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key)
 
-#DEFAULT_IMG = DEFAULT_PIC = '/img/profile.png'
+DEFAULT_IMG_OLD = '/img/profile.png'
 DEFAULT_IMG = DEFAULT_PIC = '/img/leaf.svg'
 
 def is_seller(user = cu)

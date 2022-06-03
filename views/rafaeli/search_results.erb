@@ -25,9 +25,9 @@
       <div class='left_half flex6'>
         <div class='top_row'>
           <span class='name'><%=res[:name]%></span>
-          <% if res[:location] %>
+          <% if res[:location].present? %>
           <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s %></span>
-          <% end %><% if res[:rate] %><span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
+          <% end %><% if res[:rate].present? %><span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
           <% end %>    
         </div>
         <div class='title'>      
@@ -38,15 +38,32 @@
           <%= res[:desc] %>          
         </div>
 
+        <!-- LINKS -->
+        <% use_bottom_links = true %>
+        <% if use_bottom_links  %>
+          <div class='bottom_links'>
+            <% if res[:license_url] %>            
+              <a class='bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
+            <% end %> ·  
+
+              <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> ·
+              <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> ·
+              <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> GitHub </a> ·
+              <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Homepage </a> ·
+              <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> foo@email.com </a>
+          </div>
+        <% end %>
+
+        <!-- EXPERIENCE -->
         <%  user_casts = $casts.all(user_id: res[:_id]) %>
         <div class='experiences_list' style='padding-left:10px'>
         <% user_casts.to_a.each do |cast| %>
           <div class='single_experience' onclick=$(this).find(".exp_desc").toggle() style='font-size: 12px; margin-top: 10px'>
             <div>
-              <span class='exp_img'> <img style='height:20px' src='<%=cast[:img_url]%>' /></span >
+              <span class='exp_img' style='height:20px; width: 20px; display: inline-block; padding-right: 10px'> <img style='height:20px' src='<%=cast[:img_url]%>' /></span >
               <span class=''><%=cast[:title]%></span >
-              <span>/ <%=cast[:client_name]%></span>
-              <span>/ <%=cast[:custom_time]%></span>
+              <% if cast[:client_name].present? %> <span>› <%=cast[:client_name]%></span> <% end %>
+              <% if cast[:custom_time].present? %> <span>› <%=cast[:custom_time]%></span> <% end %>
             </div>
 
             <% 
@@ -56,35 +73,16 @@
 
             %> 
 
-            <div class='exp_desc <% if (!search_val || !cast[:desc].to_s.downcase.include?(search_val)) %> noDisplay <% end %>' style='padding: 10px 0 0 20px'>
+            <div class='exp_desc <% if (!search_val || !cast[:desc].to_s.downcase.include?(search_val)) %> noDisplay <% end %>' style='padding: 10px 0 0 33px'>
               <%= cast[:desc] %>
             </div>
           </div>          
         <% end %>
-        </div>
-
-
-        <% use_bottom_links = false %>
-        <% if use_bottom_links  %>
-          <div class='bottom_links'>
-            <br/>
-            <% if res[:license_url] %>            
-              <a class='btn btn-sm btn-info btn-raised bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
-            <% end %>    
-
-            <form>
-              <input placeholder='Message' />
-              <button>send </button>
-            </form>
-
-              <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> 
-              <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> 
-          </div>
-        <% end %>
+        </div>        
       </div>
       <% if true %>
       <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>
-        <% if res[:img_url].present? %>
+        <% if res[:img_url].present? && (!res[:img_url].to_s.include?('profile.png')) %>
         <img src='<%=res[:img_url]%>' />
         <% end %>
       </div>
