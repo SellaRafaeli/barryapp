@@ -13,12 +13,25 @@
 <div class='cast_box single_type_box <%=cast[:product_type]%>' <% if is_owner %> onclick='document.location="<%=edit_cast_link%>"' <% end %> >          
 
   <div style='display: flex'>
-    <div class='cast_img_wrapper'>
+    <div class='cast_img_wrapper flex1'>
       <img src='<%= cast_pic %>' class='single_type_box_image' />
     </div>
-    <div class='center2' style='width: 100%'><%= cast[:title] %></div>
+
+    <div class='ct flex3' style='padding-top:10px'>
+      <div class='center2' style='width: 100%'><%= cast[:title] %></div>    
+
+      <div class='ct' style='padding: 10px'>
+        <div class='center2 client_name' style='display: inline-block;'><%= cast[:client_name] %></div>
+        <div class='center2 client_name' style='display: inline-block;'><%= cast[:custom_time] %></div>
+      </div>
+    </div>
+
+    <% if cast_price(cast).present? %>
     <div class='cast_price center2' style='width: 100px'><%= cast_price(cast) %></div>    
+    <% end %>
   </div>
+
+  
   
   <% if tags.any? %>
   <div class='cast_tags'>

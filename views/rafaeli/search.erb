@@ -6,7 +6,14 @@
 
   fields = [:name, :title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
+
+
+    
+
     text = fields.map {|f| " "+u[f].to_s }.join(' ')
+
+    text += (casts_text = $casts.all(user_id: u[:_id]).map {|cast| "#{cast[:desc]} #{cast[:client_name]} #{cast[:title]} #{cast[:custom_time]}" }).join(' ')
+
     u[:text] = text
     search_val && text.downcase.include?(search_val.to_s) 
   }
@@ -118,7 +125,7 @@
 
 
 <% if true || is_verified %>
-  <%= erb :'/rafaeli/search_results', locals: {results: results} %>
+  <%= erb :'/rafaeli/search_results', locals: {results: results, search_val: search_val} %>
 <% else %>
   <%= erb :'/rafaeli/please_apply' %>
 <% end %>

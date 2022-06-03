@@ -7,6 +7,15 @@
   font-size: 12px;
   padding-bottom: 12px
 }
+
+.single_experience {
+  cursor: pointer;
+  padding: 10px;
+
+}
+.single_experience:hover {
+  background-color:whitesmoke;
+}
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
@@ -30,10 +39,29 @@
         </div>
 
         <%  user_casts = $casts.all(user_id: res[:_id]) %>
-        <% if user_casts.any? %>
-        <br/>
-        <%= erb :'casts/casts_list', locals: {casts: user_casts, is_owner: true, show_enrolls: true} %>
+        <div class='experiences_list' style='padding-left:10px'>
+        <% user_casts.to_a.each do |cast| %>
+          <div class='single_experience' onclick=$(this).find(".exp_desc").toggle() style='font-size: 12px; margin-top: 10px'>
+            <div>
+              <span class='exp_img'> <img style='height:20px' src='<%=cast[:img_url]%>' /></span >
+              <span class=''><%=cast[:title]%></span >
+              <span>/ <%=cast[:client_name]%></span>
+              <span>/ <%=cast[:custom_time]%></span>
+            </div>
+
+            <% 
+
+             
+            x=1
+
+            %> 
+
+            <div class='exp_desc <% if (!search_val || !cast[:desc].to_s.downcase.include?(search_val)) %> noDisplay <% end %>' style='padding: 10px 0 0 20px'>
+              <%= cast[:desc] %>
+            </div>
+          </div>          
         <% end %>
+        </div>
 
 
         <% use_bottom_links = false %>
