@@ -1,3 +1,5 @@
+
+
 <style>
 .bottom_link {
   height: 10px;
@@ -8,6 +10,7 @@
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
+  <% results = results[0..2] %>
   <% results.each do |res| %>
     <div class='single_result'>
       <div class='left_half flex6'>
@@ -26,20 +29,23 @@
           <%= res[:desc] %>          
         </div>
 
-        <div class='bottom_links'>
-          <br/>
-          <% if res[:license_url] %>            
-            <a class='btn btn-sm btn-info btn-raised bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
-          <% end %>    
+        <% use_bottom_links = false %>
+        <% if use_bottom_links  %>
+          <div class='bottom_links'>
+            <br/>
+            <% if res[:license_url] %>            
+              <a class='btn btn-sm btn-info btn-raised bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >CV</a> 
+            <% end %>    
 
-          <form>
-            <input placeholder='Message' />
-            <button>send </button>
-          </form>
+            <form>
+              <input placeholder='Message' />
+              <button>send </button>
+            </form>
 
-            <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> 
-            <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> 
-        </div>
+              <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> 
+              <a class='btn btn-sm btn-raised btn-info bottom_link' href='/' onclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> 
+          </div>
+        <% end %>
       </div>
       <% if true %>
       <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>
@@ -47,9 +53,12 @@
         <img src='<%=res[:img_url]%>' />
         <% end %>
       </div>
-      <% end %>
+      <% end %>      
     </div>
   <% end %>
+      <div class=ct>
+        <button>click to see more </button>
+      </div>
 <% else %>
   <div class='no_results ct'>
     <br/>

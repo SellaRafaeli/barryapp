@@ -117,7 +117,7 @@
 </div>
 
 
-<% if is_verified %>
+<% if true || is_verified %>
   <%= erb :'/rafaeli/search_results', locals: {results: results} %>
 <% else %>
   <%= erb :'/rafaeli/please_apply' %>
