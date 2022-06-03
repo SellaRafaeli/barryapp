@@ -29,6 +29,13 @@
           <%= res[:desc] %>          
         </div>
 
+        <%  user_casts = $casts.all(user_id: res[:_id]) %>
+        <% if user_casts.any? %>
+        <br/>
+        <%= erb :'casts/casts_list', locals: {casts: user_casts, is_owner: true, show_enrolls: true} %>
+        <% end %>
+
+
         <% use_bottom_links = false %>
         <% if use_bottom_links  %>
           <div class='bottom_links'>

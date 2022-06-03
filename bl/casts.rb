@@ -25,6 +25,12 @@ CAST_AMENITIES = [
 CAST_AMENITIES_NAMES   = CAST_AMENITIES.mapo(:name)
 CAST_AMENITIES_DETAILS = CAST_AMENITIES_NAMES.map {|name| name+"_details" }
 
+
+RAFAELI_FIELDS = [
+	'client_name'
+]
+
+
 CAST_FIELDS = [
 	'user_id',
 	'type', #course, class, event, show, special, talk
@@ -66,7 +72,7 @@ CAST_FIELDS = [
 	'product_type',
 	'strain',
 	'thc'
-] + CAST_AMENITIES_NAMES + CAST_AMENITIES_DETAILS
+] + CAST_AMENITIES_NAMES + CAST_AMENITIES_DETAILS + RAFAELI_FIELDS
 
 MIN_VARIABLE_AMOUNT = 5
 
@@ -434,13 +440,13 @@ post '/casts/edit/:id' do
 	[:datetime].each                  { |f| data[f] = DateTime.parse(pr[f]) if data[f].present? }
 	[:series_start, :series_end].each { |f| data[f] = Date.parse(pr[f])     if data[f].present? }
 	
-	pr[:tags] = pr[:tags].split(',').map(&:strip)
+	pr[:tags] = pr[:tags].to_s.split(',').map(&:strip)
 	$casts.update_id(id, data)
 	if pr[:ajax] 
 		{msg: 'ok'}
 	else 
 		flash.message = 'Updated.'
-		redirect '/casts/'+id
+		redirect '/casts/edit/'+id
 		 #redirect "/me?sec=by_me"
 	end
 end	

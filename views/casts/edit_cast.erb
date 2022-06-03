@@ -78,7 +78,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 </style>
 <div class='ct' style='font-size:16px; padding-bottom: 200px'>
   <h1> 
-    <span><%= is_new ? 'Create' : 'Edit' %> Product </span>    
+    <span><%= is_new ? 'Create' : 'Edit' %> Experience </span>    
   </h1>
   <div style='font-weight: bold; font-size: 120%; margin:20px'>
   
@@ -91,7 +91,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
         end 
       %>
 
-      <a target=_blank href='<%=cast_link(cast)%>' class='btn nowcast_color' > Product Page <i class='cast_title_icon fa fa-external-link'></i></a>
+      <!-- <a target=_blank href='<%=cast_link(cast)%>' class='btn nowcast_color' > Product Page <i class='cast_title_icon fa fa-external-link'></i></a> -->
       
 
       <% if false %>
@@ -104,19 +104,25 @@ tags = cast[:tags].to_a.join(',') rescue ''
   <%#= nc.to_json %>
   <% end %>
   <form id=edit_cast_form method=post action='/casts/edit/<%=id%>'>
-    <div>
+    <!-- <div>
       <button class='btn btn-raised btn-info'>Update</button>    
       <br/>
       <br/>
-    </div>
+    </div> -->
     <div class='nc_box ct'>
 
       <div class=''>
-      <label style='zwidth: auto'> Name </label>
+      <label style='zwidth: auto'> Client Name </label>
+      <input name=client_name style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Hysolate" value="<%= nc[:client_name] %>" required />
+      <br/>
+
+      <label style='zwidth: auto'> Project </label>
 
       <input name=type hidden value='<%=cast[:type]%>' />
-      <input name=title style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Good weed"value="<%= nc[:title] %>" required />
+      <input name=title style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Admin dashboard" value="<%= nc[:title] %>" required />
       <br/>
+
+
 
       <% if false %>
       <div class='only_if_single <%="noDisplay" if nc[:recurrence].to_s==RECURRENCE_MULTI.to_s%>'>
@@ -191,7 +197,8 @@ tags = cast[:tags].to_a.join(',') rescue ''
           <div>Description</div>
           <div style='margin-top:20px; color:grey; padding-right: 20px'><!-- What can people expect from you? Make it both informational and attractive! The more info and details you can give, the more prepared and interested potential viewers will be. --></div>
         </label>
-        <textarea placeholder="Describe the item to be sold" style='width: 40%; font-family: inherit;' class='ml10 cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
+        <textarea placeholder="Describe the work you did. Include scope, technology, date, and rate." style='width: 40%; font-family: inherit;' class='ml10 cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
+
       </div>
 
       
@@ -201,12 +208,13 @@ tags = cast[:tags].to_a.join(',') rescue ''
         <label> Schedule and duration
         <!-- <div style='margin-top:20px; color:grey; padding-right: 20px'>Specify when course classes take place, and how much it costs.</div> -->
         </label>
-        <textarea placeholder="When should people book this cast?" style='width: 40%; font-family: inherit; height: 70px' class='ml10 cast_desc_textarea' name=custom_time><%=nc[:custom_time]%></textarea>
+        <input name=custom_time style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="When did this work take place?" value="<%= nc[:custom_time] %>" required />
+
       </div>
       <% end %>
       
 
-      <% if true %>
+      <% if false %>
         <br/>
         <div>
           <label style='vertical-align: top;'>Cost
@@ -236,7 +244,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
         <div class='display_flex' style='margin-top:20px'>
           <span type=file id=img_uploader style='display: none'> </span>
           <label class='pic_label' onclick=$("#img_uploader").click()>
-            <div> Preview Pic </div>
+            <div> Client Logo </div>
             <div style='margin-top:20px; color:grey; padding-right: 20px'></div>          
           </label>
           
@@ -268,15 +276,16 @@ tags = cast[:tags].to_a.join(',') rescue ''
         <br/>
         <br/>
         
-      <% if true %>
+      <% if false %>
       <div>
         <label> Tags </label>
         <span style="width: 40%; display: inline-block; text-align: right">
-          <input style='width: 100%' value="<%=tags%>" name=tags placeholder='e.g. sativa, relaxing, edibles, og-kush' />
+          <input style='width: 100%' value="<%=tags%>" name=tags placeholder='Keywords' />
         </span>          
       </div>
       <br/>
 
+      <% if false %>
       <div class='zonly_if_costs_money'>
         <label> Payment Note </label>
         <span style="width: 40%; display: inline-block; text-align: right">
@@ -284,6 +293,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
         </span>          
       </div>
       <br/>
+      <% end %>
 
       
       <% end %>

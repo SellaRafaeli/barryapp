@@ -1,13 +1,16 @@
 <%
   user = cast[:user] || $users.get(cast[:user_id]) || {}  
+  is_owner = user[:_id] == cuid
   cast_pic = cast[:img_url]
   cast_pic = DEFAULT_PIC unless cast_pic.present?
   user_pic = user[:img_url]
   user_pic = cast_pic unless user_pic.present? && CGI.unescape_html(user_pic)!=DEFAULT_PIC   
   tags = cast[:tags].split(',') rescue []
+  tags = []
+  edit_cast_link = "/casts/edit/#{cast[:_id]}"
 %>
 
-<div class='cast_box single_type_box <%=cast[:product_type]%>' onclick='document.location="<%=cast_link(cast)%>"'>          
+<div class='cast_box single_type_box <%=cast[:product_type]%>' <% if is_owner %> onclick='document.location="<%=edit_cast_link%>"' <% end %> >          
 
   <div style='display: flex'>
     <div class='cast_img_wrapper'>
@@ -29,7 +32,7 @@
 <% if false %>
 <span class='cast_box single_type_box <%=cast[:product_type]%>' onclick='document.location="<%=cast_link(cast)%>"'>          
   <div class='cast_img_and_logistics'>
-    <a class='single_type_box_image_link_container' href='<%=cast_link(cast)%>'>
+    <a class='single_type_box_image_link_container' href='# <%#=cast_link(cast)%>'>
       <% if cast[:public_video_url].present? %>        
         <video class=single_type_box_image muted zonmouseover="$(this)[0].play()" zonmouseout=$(this)[0].pause() controls>
           <source src="<%=cast[:public_video_url]%>" type="video/mp4">
@@ -52,7 +55,7 @@
   </div> 
   <div class='cast_box_text_and_img display_flex' style='margin-top: 10px; word-break: break-word;'>
     <div class='cast_box_text'>      
-      <a class='cast_box_text_title' href='<%=cast_link(cast)%>'>
+      <a class='cast_box_text_title' href='# <%#=cast_link(cast)%>'>
         <h4 class='cast_box_title'><%= cast[:title] %>
         <!-- <div class='cast_box_desc'><%= cast[:desc] %></div> -->
           <% if false && (reviews = cast_reviews(cast[:_id])).size > 0 %>
