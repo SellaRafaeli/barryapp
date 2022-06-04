@@ -195,7 +195,7 @@ def add_user
 	
 	handle   = $users.available_field('handle', name.split(/@/).first).to_s.strip.downcase
 
-	data = {email: email, name: name, handle: handle, img_url: '/img/profile.png', type: pr[:type]}
+	data = {email: email, name: name, handle: handle, type: pr[:type], subtype: pr[:subtype]}
 	# data[:style]    = pr[:style] || DEFAULT_BRAND
 	data[:password]   = BCrypt::Password.create(password) if password.present?
 	data[:referrer]   = session[EXTERNAL_REFERER] if session[EXTERNAL_REFERER]
@@ -280,7 +280,7 @@ post '/login' do
 	password = pr[:password].to_s.downcase
 	user = $users.get(email: email)
 
-	if (user) && (BCrypt::Password.new(user[:password]) == password)
+	if (user) && user[:password].present? && (BCrypt::Password.new(user[:password]) == password)
 		session[:user_id] = user[:_id]
 		flash.message = 'Welcome back.'
 		

@@ -269,7 +269,17 @@
         <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
         <%#= cu_logo %>         
 
-         <b><%= cu[:name] %> </b><%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_verified(cu) %>
+         <b><%= cu[:name] %> </b>
+
+         <%#= cu[:type] %>
+         <%#= cu[:subtype] %>
+        <span style='display: inline-block; padding:0 7px; position: relative; top: 1px'>
+          <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'talent' %>👤<% end %>
+          <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'team' %>  👥<% end %>
+          <% if cu[:type].to_s == 'buyer' %> 🦄<% end %>
+        </span>
+        <%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_verified(cu) %>
+
        </a>       
       <!-- <a class='' target=_blank href='/@<%=cu['handle']%>'>
         <i class='fa fa-external-link' style='margin-right: 5px'></i> View @<%=cu['handle']%>         

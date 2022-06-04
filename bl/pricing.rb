@@ -13,5 +13,6 @@ def is_pro(user = cu)
 end
 
 def is_verified(user = cu)
+	# return true
 	user && user[:verified]
 end
