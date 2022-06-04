@@ -22,6 +22,36 @@ FACETS    = [
     {icon: 'star', key: 'brand', label: 'Brand'},
     {icon: 'star', key: 'black_owned', label: 'Professional'},
   ]
+
+RAFAELI_KEYS = [
+	'edu_institute_0',
+	'edu_achievement_0',
+	'edu_date_0',
+	'edu_institute_1',
+	'edu_achievement_1',
+	'edu_date_1',
+	'edu_institute_2',
+	'edu_achievement_2',
+	'edu_date_2',
+
+	'links_name_0',
+	'links_val_0',
+
+	'links_name_1',
+	'links_val_1',
+
+	'links_name_2',
+	'links_val_2',
+
+	'links_name_3',
+	'links_val_3',
+
+	'links_name_4',
+	'links_val_4',
+]
+RAFA_NUM_EDU   = 3
+RAFA_NUM_LINKS = 5
+
 USER_KEYS = ["email",  "name", "handle", "img_url", "timezone", 
 	"contact_me", "title", "subtitle", "desc", "lang", "country",
 	 "location", "my_theme", "media", "payout_info", "tags", 
@@ -33,7 +63,7 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 
 	 # buyer fields 
 	 'looking_for',
-	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key)
+	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key) + RAFAELI_KEYS
 
 DEFAULT_IMG_OLD = '/img/profile.png'
 DEFAULT_IMG = DEFAULT_PIC = '/img/leaf.svg'
@@ -83,7 +113,7 @@ get '/my_programs' do
 	erb :'/users/my_programs', default_layout
 end
 
-post '/update_me' do
+post '/update_me' do	
 	FACETS.mapo(:key).each {|key| pr[key] ||= 'off' } # reset facets because only "on" are sent 
 	redirect_unless_user
 
@@ -101,7 +131,7 @@ post '/update_me' do
 	# 	flash_err 'Handle is taken.'
 	# 	redirect '/me'
 	# end
-
+	# bp
 	user = $users.update_id(cu['_id'],data)
 	flash.message = 'Updated!'
 

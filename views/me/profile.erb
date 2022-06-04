@@ -135,6 +135,8 @@
 
 
 
+
+
   <% if is_buyer %>
   <div class='display_flex'>
     <label> Looking For </label>
@@ -147,6 +149,8 @@
   <br/>
   <%#= cu.to_json %>
   <% elsif is_seller %>
+    <%= erb :'rafaeli/dev_education', locals: {user: user} %>
+    <%= erb :'rafaeli/dev_links', locals: {user: user} %>
     <%#= erb :'rafaeli/dev_questions' %>
   <% end %>
 

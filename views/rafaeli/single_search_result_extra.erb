@@ -1,0 +1,21 @@
+<div class='single_experience' onclick=$(this).find(".exp_desc").toggle() style='font-size: 14px; margin-top: 10px'>
+  <div>
+    <span class='exp_img ct' style='height:20px; width: 20px; display: inline-block; padding-right: 10px'> 
+      <% if cast[:img_url].present? %>
+      <img style='height:20px' src='<%=cast[:img_url]%>' />
+      <% else %>
+      <%= locals[:emoji] || '💼' %>
+      <% end %>
+
+    </span>
+    <span class='' style='font-weight: bold'><%=cast[:title]%></span >
+    <% if cast[:client_name].present? %> <span>› <%=cast[:client_name]%></span> <% end %>
+    <% if cast[:custom_time].present? %> <span style='color: grey'>› <%=cast[:custom_time]%></span> <% end %>
+  </div>
+
+  <% if cast[:desc].present? %>
+  <div class='exp_desc <% if (!search_val || !cast[:desc].to_s.downcase.include?(search_val)) %> noDisplay <% end %>' style='padding: 10px 0 0 33px'>
+    <%= cast[:desc] %>
+  </div>
+  <% end %>
+</div>          
