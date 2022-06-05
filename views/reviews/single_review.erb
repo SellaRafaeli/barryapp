@@ -67,6 +67,7 @@
   reviewer_name   = reviewer[:name] ? "#{reviewer[:name]}, " : 'anonymous' 
   reviewer_name   = review[:reviewer_name] if review[:reviewer_name]
   img_url = nil 
+
   if reviewer[:_id] 
     img_url = reviewer[:img_url]
   elsif review[:reviewer_img_url]
@@ -114,7 +115,7 @@
     </div>
     
     
-      <% if reviewer[:_id] %>
+      <% if true #reviewer[:_id] %>
         <% if can_delete_review(review) %>
           <form method=post action='/reviews/<%=review[:_id]%>/delete' 
             onsubmit='if (!confirm("Are you sure? This is irreversible.")) return false;'

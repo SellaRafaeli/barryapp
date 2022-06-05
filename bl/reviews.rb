@@ -33,7 +33,10 @@ end
 
 def can_delete_review(review) 
 	return false unless review 
-	(review[:buyer_id] == cuid) || ($prod && is_admin)
+
+	res = (review[:buyer_id] == cuid) || (review[:seller_id] == cuid) || ($prod && is_admin)
+	puts "review is #{review.to_json}, res is #{res}"
+	res
 end
 
 get '/recommend' do 
@@ -59,15 +62,15 @@ def cast_reviews(item_id)
 	return []
 end
 
-# post '/reviews/:id/delete' do 
-# 	require_user 
+post '/reviews/:id/delete' do 
+	require_user 
 
-# 	if can_delete_review($reviews.get(pr[:id])) 
-# 		$reviews.delete_one(_id: pr[:id])
-# 		flash.message = 'Deleted.'
-# 		redirect back
-# 	else 
-# 		flash.message = 'Sorry, you cannot do that.'
-# 		redirect back
-# 	end
-# end
+	if can_delete_review($reviews.get(pr[:id])) 
+		$reviews.delete_one(_id: pr[:id])
+		flash.message = 'Deleted.'
+		redirect back
+	else 
+		flash.message = 'Sorry, you cannot do that.'
+		redirect back
+	end
+end

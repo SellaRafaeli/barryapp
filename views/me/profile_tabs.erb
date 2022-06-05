@@ -59,7 +59,7 @@
 
   <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "account" %>' href='/me?sec=account'><i class='fal fa-street-view'></i> Account </a>
   
-  <% if false %>
+  <% if is_seller %>
   <a class='profile_tab btn' target=_blank href='/@<%=cu['handle']%>'>
      <i class='fa fa-external-link' style='margin-right: 5px'></i> My Page
   </a>    

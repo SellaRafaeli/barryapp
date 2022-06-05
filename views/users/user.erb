@@ -308,11 +308,12 @@
     
   <% if user_casts.any? %>    
     <div class=user_section>      
-      <h4> Products </h4>      
+      <h4> Experience </h4>      
       <%= erb :'casts/casts_list', locals: {casts: user_casts, show_product_categories: false} %>
     </div>
   <% end %>
 
+  <% user_locations = [] %>
   <% if user_locations.any? %>
       <h3> Locations </h3>
       <% user_locations.to_a.each do |loc| %>
@@ -370,7 +371,7 @@
 
   <% if true %>
   <div class='user_section' id=reviews>
-    <h1> reviews </h1>
+    <!-- <h1> Peer Reviews </h1> -->
     <%
       if is_seller(user) || user[:seed]
         reviews = seller_reviews(user_id)
@@ -387,7 +388,7 @@
     %>
     <!-- <h3> <%= is_heb ? 'ביקורות' : 'Reviews' %></h3> -->
     <% if is_seller(user) && reviews.any? %>
-    <h4> Reviews </h4>
+    <h4> Recommendations </h4>
     <% end %>
     <%= erb :'reviews/reviews_list', locals: {reviews: reviews, user: user} %>
   </div>

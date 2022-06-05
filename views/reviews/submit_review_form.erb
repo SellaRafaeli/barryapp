@@ -40,9 +40,7 @@
       <!-- <textarea placeholder='Your review...' name=msg></textarea>   -->
       <textarea class="<%= rtl_if_heb %> <%=text_align_right_if_heb%>" style='height:50px; font-size: 14px;' placeholder='<%=placeholder%>' name=text required ></textarea>
 
-      <br/>
-      <br/>
-      <% if true %>
+      <% if false %>
       <select name=rating required>
         <option value=""> Rating</option>
         <option value=5>5 stars (amazing)</option>
@@ -52,6 +50,7 @@
         <option value=1>1 star  (terrible)</option>
         
       </select>
+              
       <button type=button id=profile_pic_uploader onclick=uploadReviewVideo() > Attach video review </button>
       <% end %>
       

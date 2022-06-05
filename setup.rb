@@ -1,6 +1,6 @@
 $prod       = settings.production? #RACK_ENV==production?
 $prod_url   = 'https://www.rafaeli.io'
-$root_url   = $prod ? $prod_url : 'http://localhost:4200'
+$root_url   = $prod ? $prod_url : 'http://localhost:8200'
 
 ONE_YEAR_IN_SECONDS = 31556952
 SESSION_SECRET = ENV['SESSION_SECRET'] || '&a!*^n31994@'
