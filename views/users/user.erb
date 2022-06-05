@@ -28,7 +28,7 @@
 
   user_locations = $locations.get_many(user_id: user_id)
 
-  allow_admin_login = !$prod || (ENV['ALLOW_ADMIN_LOGIN'] == 'yes')
+  allow_admin_login = !$prod || is_admin #(ENV['ALLOW_ADMIN_LOGIN'] == 'yes')
 
    num_views = $stats.count(type: 'store_view', seller_id: user_id)
 %>
