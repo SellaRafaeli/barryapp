@@ -375,10 +375,10 @@
     <%
       if is_seller(user) || user[:seed]
         reviews = seller_reviews(user_id)
-        if !reviews.any? 
-          [1,2,3,4,5].sample.times { add_generated_review(user_id) }
-          reviews = seller_reviews(user_id)
-        end
+        # if !reviews.any? 
+        #   [1,2,3,4,5].sample.times { add_generated_review(user_id) }
+        #   reviews = seller_reviews(user_id)
+        # end
       elsif is_buyer(user)
 
         reviews = buyer_reviews(user_id)
