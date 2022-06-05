@@ -17,12 +17,19 @@
       <img src='<%= cast_pic %>' class='single_type_box_image' />
     </div>
 
-    <div class='ct flex3' style='padding-top:10px'>
-      <div class='center2' style='width: 100%'><%= cast[:title] %></div>    
+    <div class='zct flex3' style='padding-top:10px;'>
+      <%
+        title = cast[:title]
+        name  = cast[:client_name]
+        time  = cast[:custom_time]
+      %>
+      <div class='zcenter2' style='width: 100%; font-size: 90%; color: #858585'>
+        <%= name %> 
+        <% if time.present? %>(<span class=time><%= time%></span>) <% end %>
+      </div>    
 
-      <div class='ct' style='padding: 10px'>
-        <div class='center2 client_name' style='display: inline-block;'><%= cast[:client_name] %></div>
-        <div class='center2 client_name' style='display: inline-block;'><%= cast[:custom_time] %></div>
+      <div class='zct' style='padding-top: 10px'>
+        <div class='zcenter2 client_name' style='display: inline-block;'><%= title %></div>        
       </div>
     </div>
 

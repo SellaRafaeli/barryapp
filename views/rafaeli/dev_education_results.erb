@@ -1,0 +1,24 @@
+<%
+  search_val ||= nil
+  shown_education_title ||= false 
+%>
+
+<div class='education_list' style='padding-left:10px'>
+<% RAFA_NUM_EDU.times do |i| %>
+  <%             
+    title = res['edu_achievement_'+i.to_s]
+    client_name = res['edu_institute_'+i.to_s]
+    custom_time = res['edu_date_'+i.to_s]
+    cast = {title: title, client_name: client_name, custom_time: custom_time}
+  %>
+  
+  <% if title.present? %>
+    <% if !shown_education_title %>              
+      <div style='font-weight: bold; margin: 10px'> Education </div>
+      <% shown_education_title = true %>
+    <% end %>
+
+    <%= erb :'rafaeli/single_search_result_extra', {locals: {cast: cast, search_val: search_val, emoji: '🏫'}} %>
+    <% end %>
+  <% end %>        
+</div>

@@ -44,41 +44,10 @@
 
         <!-- LINKS -->
         <% use_bottom_links = true %>
-        <% if use_bottom_links  %>
-          <div class='bottom_links'>
-            <% if res[:license_url].present? %>            
-              <a class='bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >📎 CV</a> ·
-            <% end %>   
-
+        <% if use_bottom_links  %>          
               <!-- <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> ·
               <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> · -->
-              <% RAFA_NUM_LINKS.times do |i| %>
-                <% link_name = res["links_name_"+i.to_s].to_s.downcase %>
-                <% link_val  = res["links_val_"+i.to_s] %>
-                <% if link_val.present? %>
-                  <% is_email = link_name.include? 'email' %>
-                  <a class='bottom_link' target=_blank 
-                      <% if is_email %> href='mailto:<%=link_val%>'
-                      <% else %> href='//<%=link_val%>' <% end %> 
-                    >
-
-                    <% if is_email %> 📩 <% end %>
-                    <% if link_name.include? 'git' %>   <i class='fa fa-github'></i> <% end %>
-                    <% if link_name.include? 'linkedin' %>  <i class='fa fa-linkedin'></i> <% end %>
-                    <% if link_name.include? 'home' %>  <i class='fa fa-home'></i> <% end %>
-                    
-                    <%= link_name %>                
-                  </a> 
-                  <% if res["links_val_"+(i+1).to_s].present? %> <span class='separator-dot'> · </span> <% end %>
-                  <% end %>
-                <% end %>
-              
-              <!-- <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Homepage </a> ·
-              <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> foo@email.com </a>  -->
-              <% if false && user_casts.any? %>
-               <a class='bottom_link' style='font-weight: bold' href='#' onclick='$(this).closest(".single_result").find(".experiences_list").toggle(); return false'> Experience (<%= user_casts.count %>) </a> 
-              <% end %>
-          </div>
+              <%= erb :'rafaeli/dev_bottom_links', locals: {res: res} %>              
         <% end %>
 
         <!-- EXPERIENCE -->
@@ -92,26 +61,7 @@
         <% end %>
 
         <!-- EDUCATION -->
-          <% shown_education_title = false %>
-          <div class='education_list' style='padding-left:10px'>
-          <% RAFA_NUM_EDU.times do |i| %>
-            <%             
-              title = res['edu_achievement_'+i.to_s]
-              client_name = res['edu_institute_'+i.to_s]
-              custom_time = res['edu_date_'+i.to_s]
-              cast = {title: title, client_name: client_name, custom_time: custom_time}
-            %>
-            
-            <% if title.present? %>
-              <% if !shown_education_title %>              
-                <div style='font-weight: bold; margin: 10px'> Education </div>
-                <% shown_education_title = true %>
-              <% end %>
-
-              <%= erb :'rafaeli/single_search_result_extra', {locals: {cast: cast, search_val: search_val, emoji: '🏫'}} %>
-              <% end %>
-            <% end %>        
-            </div>        
+        <%= erb :'rafaeli/dev_education_results', locals: {res: res, search_val: search_val} %>                      
       </div>
       <% if true %>
       <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>

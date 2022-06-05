@@ -305,13 +305,33 @@
       </a>  
       <% end %>
     </div>
+  
     
+    <style>
+      .user_bottom_links_container {
+        text-align: center;
+        font-size: 14px;
+      }
+      .bottom_link {
+        color: var(--color1);
+      }
+    </style>
+    <div class='user_bottom_links_container'>
+    <%= erb :'rafaeli/dev_bottom_links', locals: {res: user} %>
+    </div>
+
   <% if user_casts.any? %>    
     <div class=user_section>      
       <h4> Experience </h4>      
       <%= erb :'casts/casts_list', locals: {casts: user_casts, show_product_categories: false} %>
     </div>
   <% end %>
+
+
+  <div class=user_section>      
+    <h4> Education </h4>      
+    <%= erb :'rafaeli/dev_education_results', locals: {res: user, shown_education_title: true} %>
+  </div>
 
   <% user_locations = [] %>
   <% if user_locations.any? %>
