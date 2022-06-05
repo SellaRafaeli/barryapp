@@ -2,6 +2,7 @@ $users = $mongo.collection('users')
 
 $users.indexes.create_one({email: 1}, unique: true) rescue nil
 $users.indexes.create_one({city: 1}) rescue nil
+$users.indexes.create_one({handle: 1}) rescue nil
 $users.indexes.create_one({city: 1, state: 1}) rescue nil
 $users.indexes.create_one({zipcodes: 1}) rescue nil
 
@@ -77,7 +78,7 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key) + RAFAELI_KEYS
 
 DEFAULT_IMG_OLD = '/img/profile.png'
-DEFAULT_IMG = DEFAULT_PIC = '/img/leaf.svg'
+DEFAULT_IMG = DEFAULT_PIC = 'https://i.imgur.com/bnxiNtq.png' #'/img/leaf.svg'
 
 def is_seller(user = cu)
 	user && user[:type].to_s == 'seller'
