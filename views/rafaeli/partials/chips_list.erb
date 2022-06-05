@@ -13,6 +13,13 @@
       <span class='chip-emoji'>
         <%= '☑️' if chip == 'verified' %>
         <%= '🤗' if chip == 'popular' %>
+        <% if chip.include? 'ruby' %>
+          <img src='https://i.imgur.com/MKhrsv3.png' style='height: 15px; width: 15px; margin-right: 10px' />        
+        <% end %>
+
+        <% if chip.include? 'js' %>
+          <img src='https://imgur.com/ezCw9Zo.png' style='height: 15px; width: 15px; margin-right: 10px' />        
+        <% end %>      
       </span>
       <span class='chip-text'><%= chip %></span>
         
