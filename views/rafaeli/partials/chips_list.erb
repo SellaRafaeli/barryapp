@@ -9,6 +9,13 @@
 
 <span class='chips-list'>
   <% get_user_chips(user).each do |chip| %>
-    <span class='single_chip'><%= chip %></span>
+    <span class='single_chip'>
+      <span class='chip-emoji'>
+        <%= '☑️' if chip == 'verified' %>
+        <%= '🤗' if chip == 'popular' %>
+      </span>
+      <span class='chip-text'><%= chip %></span>
+        
+    </span>
   <% end %>
 </span>

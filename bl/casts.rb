@@ -543,7 +543,12 @@ end
 
 get '/@*' do	
   handle = pr['splat'].split('/')[0][0]
-  user   = $users.get(handle: handle) || {}
+  user   = $users.get(handle: handle) 
+
+  if !user 
+  	flash.message = 'No such user found.'
+  	redirect '/'
+  end
 
   # @hide_header = true if is_pro(user)
 
