@@ -1,0 +1,49 @@
+<style>
+.links_input {
+  font-size: 14px !important;
+}
+</style>
+<hr/>
+<%
+
+questions = [
+  'What was your favorite experience?',
+  'What are you best at?',
+]
+
+%>
+<% 5.times do |i| %>  
+  <div class='display_flex'>
+    <div class=flex1>
+      <% if i ==0 %>
+        <label> Interview Questions </label> 
+      <% else %>
+        <label> </label> 
+      <% end %>
+    </div>
+    <div class=flex4>
+    <!-- <div class=help_text>
+      <div>Add as much information about yourself as possible.</div>
+    </div> -->
+    <%
+      question = user['interview_questions_'+i.to_s] || questions[i]
+    %>  
+      <div>
+        <input zlist="links-options" value="<%=question%>" name=interview_questions_<%=i%> class='links_input' placeholder='Interview question' style='margin-left: 0'/>
+        <br/>
+
+
+        <textarea value="<%=user['interview_answers_'+i.to_s]%>" name=interview_answers_<%=i%> class='links_input' placeholder='Answer' style='width: 100%;margin-top: 10px' /><%=user['interview_answers_'+i.to_s]%></textarea>
+      </div>
+    </div>
+  </div>
+  <br/>
+<% end %>
+<datalist id="links-options">
+    <option value="GitHub">
+    <option value="GitLab">
+    <option value="LinkedIn">
+    <option value="Homepage">
+    <option value="Other">
+</datalist>
+<br/>

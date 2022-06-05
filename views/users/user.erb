@@ -333,6 +333,10 @@
     <%= erb :'rafaeli/dev_education_results', locals: {res: user, shown_education_title: true} %>
   </div>
 
+  <div class=user_section>          
+    <%= erb :'rafaeli/dev_interview_results', locals: {res: user} %>
+  </div>
+
   <% user_locations = [] %>
   <% if user_locations.any? %>
       <h3> Locations </h3>

@@ -48,6 +48,17 @@ RAFAELI_KEYS = [
 
 	'links_name_4',
 	'links_val_4',
+
+	'interview_questions_0',
+	'interview_answers_0',
+	'interview_questions_1',
+	'interview_answers_1',
+	'interview_questions_2',
+	'interview_answers_2',
+	'interview_questions_3',
+	'interview_answers_3',
+	'interview_questions_4',
+	'interview_answers_4',
 ]
 RAFA_NUM_EDU   = 3
 RAFA_NUM_LINKS = 5

@@ -1,0 +1,32 @@
+<%
+  search_val  ||= nil
+  shown_interview_title ||= false 
+%>
+
+<style>
+.single_interview_answer_result .search_result_title {
+  font-size: 115%;
+  margin-top:15px;
+  display: inline-block;
+}
+</style>
+<div class='education_list' style='zpadding-left:10px'>
+<% 5.times do |i| %>
+  <%             
+    question = res['interview_questions_'+i.to_s]
+    answer   = res['interview_answers_'+i.to_s]
+    cast = {title: question, desc: answer}
+  %>
+  
+  <% if question.present? && answer.present? %>
+    <% if !shown_interview_title %>              
+      <div style='margin-top: 30px'> Interview Question Results </div>
+      <% shown_interview_title = true %>
+    <% end %>
+
+    <div class='single_interview_answer_result' style='margin-top: 10px'>
+      <%= erb :'rafaeli/single_search_result_extra', {locals: {cast: cast, search_val: search_val, emoji: '❓'}} %>
+    </div>
+    <% end %>
+  <% end %>        
+</div>
