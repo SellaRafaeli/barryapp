@@ -20,7 +20,6 @@
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
-  <% results = results[0..2] %>
   <% results.each do |res| %>
     <%  user_casts = $casts.all(user_id: res[:_id]) %>
     <div class='single_result'>

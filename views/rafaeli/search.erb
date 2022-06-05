@@ -19,6 +19,10 @@
   }
   # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
   results = users
+
+  results = results.sort_by {|u| search_user_score(u, search_val) }.reverse
+  
+  x=1
 %>
 
 <style>
