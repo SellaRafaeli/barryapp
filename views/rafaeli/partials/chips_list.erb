@@ -1,0 +1,14 @@
+<style>
+.single_chip {
+  background-color: darkblue;
+  padding: 1px 10px;
+  margin-right: 1px;
+  color: white;
+}
+</style>
+
+<span class='chips-list'>
+  <% get_user_chips(user).each do |chip| %>
+    <span class='single_chip'><%= chip %></span>
+  <% end %>
+</span>

@@ -137,9 +137,9 @@
 }
 
 .user_main_img img {
-  height: 100px;
+  zheight: 100px;
   border:3px solid white;
-  width: 100px;
+  width: 100%;
   object-fit: contain;
 }
 
@@ -149,8 +149,8 @@
 
 @media (max-width: 1200px) {
   .user_main_img img {
-    max-height: 500px;  
-    max-width: 330px;
+    zmax-height: 500px;  
+    zmax-width: 330px;
   }  
 }
 
@@ -257,7 +257,7 @@
         </div>
         <% end %>
 
-        <div class='zflex1 center_contents'>
+        <div class='zflex1 zcenter_contents'>
           <% if location.present? %><div class='user_location'><i class='fa fa-globe'></i> <%= location %></div><% end %>
         </div>
         <% if false %>
@@ -318,6 +318,8 @@
     </style>
     <div class='user_bottom_links_container'>
     <%= erb :'rafaeli/dev_bottom_links', locals: {res: user} %>
+    <br/>
+    <%= erb :'rafaeli/partials/chips_list', locals: {user: user} %>
     </div>
 
   <% if user_casts.any? %>    

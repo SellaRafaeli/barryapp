@@ -58,7 +58,7 @@ RAFAELI_KEYS = [
 	'interview_questions_3',
 	'interview_answers_3',
 	'interview_questions_4',
-	'interview_answers_4',
+'interview_answers_4',
 ]
 RAFA_NUM_EDU   = 3
 RAFA_NUM_LINKS = 5
@@ -365,4 +365,9 @@ post '/beta_signup' do
 	send_email('sella.rafaeli@gmail.com', 'New user '+pr.to_json, 'New user '+pr.to_json) rescue nil	
 	flash.message = 'Ok, thanks!'
 	redirect '/'
+end
+
+## admin
+def get_user_chips(user) 
+	user[:chips].to_s.split(',')
 end
