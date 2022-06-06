@@ -130,9 +130,10 @@ get '/contact' do
 	return {msg: 'got-ok'} if pr[:ok]
 	return erb :'other/contact' if pr[:no_layout]
 	@time_request_started ||= Time.now
-	puts "before other/contact, Seconds since time_request_started: #{Time.now - @time_request_started}"
-	res = erb :'other/contact', default_layout
-	puts "after  other/contact, Seconds since time_request_started: #{Time.now - @time_request_started}"
+	# puts "before other/contact, Seconds since time_request_started: #{Time.now - @time_request_started}"
+	# res = erb :'other/contact', default_layout
+	res = erb :'other/contact', {layout: :layout2}
+	# puts "after  other/contact, Seconds since time_request_started: #{Time.now - @time_request_started}"
 	res
 end
 

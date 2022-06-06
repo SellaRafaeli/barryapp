@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<%# flash.message = 'test' %>
+<%
+# record_pageview
+path = _req.path.to_s rescue 'error-path'
+@brand = get_brand
+%>
+<%= erb :'layout/doc_head' if pr[:z].to_i > 1 %>
+<link rel="stylesheet" href="/css/bootstrap_leftovers.css">
+<body>  
+    <%#= erb :"layout/flash" rescue '' %>        
+    
+    <%= erb :"header/links" if pr[:z].to_i > 3 %>
+    
+    <%
+      show_wide = (path == '/') || path.start_with?('/me') || path.to_s.starts_with?("/admin")
+      show_wide = true if path.start_with?('/locations')
+      show_wide = true if path.start_with?('/customers')
+
+      containerClass = 'container1000' unless show_wide
+    %>
+    <div class='<%=containerClass%> <%="container" unless @no_container || path=='z/' || path.to_s.starts_with?("/admin") %> <%=@custom_container_class%>'>
+      <%= yield %> 
+      <div style='zpadding-bottom: 300px; background-color: whitesmoke'></div>
+    </div>
+
+    
+    
+  <%= erb :"layout/css_files" if pr[:z].to_i > 10 %>    
+  <%= erb :'layout/js_scripts' if pr[:z].to_i > 20 %>  
+    
+  <link rel="stylesheet" href="/css/fonts/RobotoFonts.css">
+  <link rel="stylesheet" href="/css/fonts/MaterialIcons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7COpen%20Sans%3A400%2C700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7COpen%20Sans%3A400%2C700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<style>
+
+body {
+  <%= is_heb ? "direction: rtl;" : "direction: ltr;" %>
+}
+</style>
+<% if !$prod %>
+<style>
+.dev_mode {
+  position: fixed; 
+  top: 0; 
+  <% if heb %>
+  left: 0;
+  <% else %>
+  right: 0; 
+  <% end %>
+
+  height: 100px; 
+  width: 100px; 
+  background-color: goldenrod; 
+  text-align: center; 
+  font-weight: bold; 
+  font-size: 30px;
+}
+</style>
+<div class=dev_mode>
+  DEV MODE
+</div>
+
+<% end %>
+
+
+<% if cuid %> <script> window.cuid ="<%=cuid%>"; </script><% end %>
+  
+<script>
+function layoutOnLoad() {
+  //$('[data-toggle="tooltip"]').tooltip(); 
+  // updateOpenChats();
+  console.log('done layoutOnLoad');
+}
+
+$(document).ready(layoutOnLoad);
+</script>
+<%
+  cookies_accepted = session[:cookies_accepted].present? rescue false
+%>
+<%# = erb :'layout/cookies_banner' if !cookies_accepted %>
+
+<script>
+window.filestackAPIkey = 'AHuQo4ciRwufvk1mRbnaNz';
+window.filestackClient = filestack.init(filestackAPIkey);
+
+
+function filestackUpload(cb, opts = {}) {
+  const foo = {
+    bar: 'true',
+    yes: 'foo'
+  };
+  var options = {
+    onFileUploadFinished: cb,
+    fromSources: ['local_file_system','webcam','video'],
+    onFileSelected: file => {
+        // If you throw any error in this function it will reject the file selection.
+        // The error message will be displayed to the user as an alert.
+        if (file.size > 1000 * 1000 * 150) {
+          throw new Error('File too big, select something smaller than 150MB');
+        }
+      }
+  };
+  options = Object.assign(options,opts);
+  window.filestackClient.picker(options).open();
+}
+</script>
+
+<% if pr[:css] %>
+<link rel="stylesheet" type="text/css" href="<%=pr[:css]%>">  
+<% end %>
+<%#= erb :"layout/footer" if $prod || true %>           
+</body>
+</html>
