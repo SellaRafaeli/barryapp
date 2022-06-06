@@ -23,6 +23,8 @@
     fields = (['user_handle','title', 'tags', 'created_at', 'desc'] + fields.uniq).uniq
     #fields = (['user_handle','title', 'tags', 'created_at', 'desc']).uniq
   end
+
+  # fields = ['delete'] + fields
 %>
 
 <style>
@@ -132,6 +134,7 @@ thead {
         <% if cu && cu['handle'] == 'sellarafaeli' %>
         <th class='table-cell-width'></th>
         <% end %>
+        <th>(delete btn)</th>
         <% fields.each do |field| %>
           <th class='table-cell-width'> <%= field.to_s %> </th>
         <% end %>
@@ -143,7 +146,7 @@ thead {
           colors = ['#e4e4e4', 'whitesmoke', 'white'] #, 'pink', 'lawngreen', 'lightgrey', 'forestgreen', 'aqua', 'beige']
       %>     
         <tr class='mongo_item_row' style='background-color: <%=colors[idx % colors.size]%>'>
-          <% if cu && cu['handle'] == 'sellarafaeli' %>
+          <% if cu && is_admin %>
           <td class='mongo_item_cell table-cell-width truncate cell'>
             <i class="fa fa-times-circle-o" onclick="deleteItem('<%=coll_name%>','<%=item['_id']%>', this)" style='font-size:20px; color:darkred; cursor: pointer'></i>
             <!-- <select class='form-control' name="ab" onchange="if (this.selectedIndex) alert(this.selectedIndex);">
