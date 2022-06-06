@@ -11,7 +11,7 @@ path = _req.path.to_s rescue 'error-path'
 <body>  
     <%= erb :"layout/flash" rescue '' %>        
     
-    <%= erb :"header/links" unless @hide_links %>
+    <%= erb :"header/links2" unless @hide_links %>
     
     <%
       show_wide = (path == '/') || path.start_with?('/me') || path.to_s.starts_with?("/admin")
