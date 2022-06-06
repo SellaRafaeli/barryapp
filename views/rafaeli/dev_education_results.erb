@@ -3,7 +3,7 @@
   shown_education_title ||= false 
 %>
 
-<div class='education_list' style='padding-left:10px'>
+<div class='education_list' style='zpadding-left:10px'>
 <% RAFA_NUM_EDU.times do |i| %>
   <%             
     title = res['edu_achievement_'+i.to_s]
@@ -14,7 +14,7 @@
   
   <% if title.present? %>
     <% if !shown_education_title %>              
-      <div style='font-weight: bold; margin: 10px'> Education </div>
+      <h4 style='font-weight: bold; margin: 10px'> Education </h4>
       <% shown_education_title = true %>
     <% end %>
 

@@ -22,7 +22,7 @@ end
 # end
 
 def can_leave_review(user)
-	return true # for now! 21.7
+	# return true # for now! 21.7
 	return false unless user && cu
 	# order_exists  = $enrolls.exists?(cast_id: cast[:_id], user_id: user[:_id])
 	# review_exists = $reviews.exists?(cast_id: cast[:_id], buyer_id: user[:_id])

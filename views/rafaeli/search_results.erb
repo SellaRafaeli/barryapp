@@ -55,7 +55,7 @@
         <% end %>
 
         <!-- EXPERIENCE -->
-        <% if user_casts.any? %> 
+        <% if false && user_casts.any? %> 
           <div class='experiences_list' style='padding-left:10px'>
           <div style='font-weight: bold; margin: 10px'> Experience </div>
           <% user_casts.to_a.each do |cast| %>
@@ -65,7 +65,7 @@
         <% end %>
 
         <!-- EDUCATION -->
-        <%= erb :'rafaeli/dev_education_results', locals: {res: res, search_val: search_val} %>                      
+        <%#= erb :'rafaeli/dev_education_results', locals: {res: res, search_val: search_val} %>                      
       </div>
       <% if true %>
       <div class='right_half img_container flex1' style='zborder:1px solid red; text-align: right'>
