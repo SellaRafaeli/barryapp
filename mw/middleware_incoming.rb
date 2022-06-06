@@ -48,12 +48,12 @@ def valid_url?(url)
   url.slice(URI::regexp(%w(http https))) == url
 end
 
-def validate_params
+# def validate_params
  # bp
  # if (url = pr[:img_url]).present?
  #    #pr[:img_url] = '/img/profile.png' unless valid_url?(url) && url.starts_with?('https://i.imgur.com/') && url.ends_with?('.png')
  # end
-end
+# end
 
 def store_external_ref
   referer = request_header('referer')
@@ -68,7 +68,7 @@ before do
   #require_user unless is_open_route       
   @time_started_request = Time.now    
   # flash.message= ("session ref is "+session[:ref].to_s)
-  validate_params
+  # validate_params
 
   store_external_ref
   data = {active_at: Time.now}

@@ -100,7 +100,10 @@ get '/me' do
 	redirect_unless_user
 
 	puts "in me now"
-	erb :'me/me', default_layout
+	puts "before rendering me/me, Seconds since time_request_started: #{Time.now - @time_request_started}"
+	res = erb :'me/me', default_layout
+	puts "after rendering me/me, Seconds since time_request_started: #{Time.now - @time_request_started}"
+	res
 end
 
 get '/users/:id' do
