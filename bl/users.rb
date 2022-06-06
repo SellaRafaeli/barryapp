@@ -191,8 +191,8 @@ def verify_signup_data
 	end
 
 	email    = pr[:email].to_s.downcase
-	password = pr[:password].to_s.downcase
-	name     = pr[:name].to_s.downcase	
+	password = pr[:password].to_s#.downcase
+	name     = pr[:name].to_s#.downcase	
 
 	pr[:type] = :buyer unless pr[:type].to_s == 'seller' 
 

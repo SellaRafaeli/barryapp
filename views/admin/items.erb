@@ -146,7 +146,7 @@ thead {
           colors = ['#e4e4e4', 'whitesmoke', 'white'] #, 'pink', 'lawngreen', 'lightgrey', 'forestgreen', 'aqua', 'beige']
       %>     
         <tr class='mongo_item_row' style='background-color: <%=colors[idx % colors.size]%>'>
-          <% if cu && is_admin %>
+          <% if true %>
           <td class='mongo_item_cell table-cell-width truncate cell'>
             <i class="fa fa-times-circle-o" onclick="deleteItem('<%=coll_name%>','<%=item['_id']%>', this)" style='font-size:20px; color:darkred; cursor: pointer'></i>
             <!-- <select class='form-control' name="ab" onchange="if (this.selectedIndex) alert(this.selectedIndex);">
