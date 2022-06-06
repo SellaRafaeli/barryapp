@@ -1,0 +1,20 @@
+<%
+  page_num = 0
+%>
+<style>
+.selected_page {
+  font-weight: bold;
+  background-color: goldenrod;
+  color: white;
+}
+</style>
+
+<div class='page_nums display_flex ct' style='justify-content: center; margin: 20px;'>
+  <% 10.times do |i| %>
+  <div class='single_page_num_wrapper' style='margin:0 3px'>
+    <div class='page_icon'>⭕</div>
+    <div class='page_num <%="selected_page" if page_num==i%>' ><%= i %></div>
+  </div>
+  
+  <% end %>
+</div>
