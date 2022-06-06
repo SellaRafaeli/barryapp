@@ -149,7 +149,9 @@
   <br/>
   <%#= cu.to_json %>
   <% elsif is_seller %>
+    <% if is_talent %>
     <%= erb :'rafaeli/dev_education', locals: {user: user} %>
+    <% end %>
     <%= erb :'rafaeli/dev_links', locals: {user: user} %>
     <%= erb :'rafaeli/dev_interview_questions', locals: {user: user} %>
     <%#= erb :'rafaeli/dev_questions' %>

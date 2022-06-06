@@ -1,16 +1,30 @@
+<% if !@chips_css %>
+<% @chips_css = true %>
+
 <style>
-.single_chip {
-  background-color: darkblue;
+.single_chip {  
   padding: 1px 10px;
   margin-right: 1px;
   color: white;
+  font-size: 12px;
+  color: white;
+  background-color: goldenrod;
+  /* background-color: darkgoldenrod; */
+  padding: 3px 5px;
+  border-radius: 3px;
+  margin-right: 5px;
 }
 </style>
+<% end %>
 
 <span class='chips-list'>
   <% get_user_chips(user).each do |chip| %>
     <span class='single_chip'>
       <span class='chip-emoji'>
+        <% if chip == 'available' %>        
+        <span style='color: lightgreen'>⬤ </span>
+        <% end %>
+
         <%= '☑️' if chip == 'verified' %>
         <%= '🤗' if chip == 'popular' %>
         <% if chip.include? 'ruby' %>

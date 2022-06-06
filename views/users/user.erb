@@ -20,8 +20,9 @@
   # user_casts.each { |cast| cast[:reviews] = cast_reviews(cast[:_id]); any_reviews = true if cast[:reviews].any?  }
 
   title = user[:title]
-  title = "#{user[:name]}" unless title.present?
-  title = "#{user[:handle]}" unless title.present?
+  name  = user[:name]
+  # title = "#{user[:name]}" unless title.present?
+  # title = "#{user[:handle]}" unless title.present?
 
   subtitle = user[:subtitle]
   subtitle = "" #"You can find me here on nowcast." unless subtitle.present?
@@ -52,6 +53,7 @@
   zborder: 1px solid #028b25;
   border-radius: 5px;
   color: #150000;
+  text-align: center;
 }
 .analytics_btn {
   margin-right: 10px;
@@ -126,12 +128,16 @@
 }
 
 .user_page .title {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   margin: 0;
   display: inline-block;
 }
 
+.user_page .name {
+  margin: 10px 0;
+  font-size: 26px;
+}
 .user_page .subtitle {
   font-size: 30px;
 }
@@ -211,7 +217,8 @@
     <% end %>
     
     <div class='user_top_right flex5'>
-      <h1 id=about class='title'><%= title %></h1>
+      <h2 id=title class='title'><%= title %></h2>
+      <h1 id=name  class='name'><%= name %></h1>
       <!-- <div class=''>Delivery Area: <%= user[:delivery_area] || 'n/a' %></div> -->
       <% if user[:license_numbers] %>
         <div class='license_numbers'>
@@ -248,7 +255,7 @@
           <small style='color: black; font-style: italic'> <%= [user[:city],user[:state]].compact.join(', ') %></small>
         </div>
         <div>
-          <small style='color: black; font-style: italic'> <%= [user[:email], user[:contact]].compact.join('<br> ') %></small>
+          <small style='color: black; zfont-style: italic'> <%= [user[:email], user[:contact]].compact.join('<br> ') %></small>
         </div>
 
         <% if false && user[:ambassador] %>

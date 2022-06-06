@@ -25,23 +25,23 @@
     <div class='single_result'>
       <div class='left_half flex6'>
         <div class='top_row' style='display: flex; align-items: center'>          
-          <div class='top_row_left' style='margin-right: auto'>
+          <div class='top_row_left flex3' style='margin-right: auto'>
             <span class='name'><%=res[:title]%></span>
             <% if res[:location].present? %>
             <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s %></span>
             <% end %><% if res[:rate].present? %><span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
             <% end %>    
           </div>
-          <div class='top_row_right' style='padding-right: 20px'>
-            <%= erb :'rafaeli/partials/chips_list', locals: {user: res} %>
+          <div class='top_row_right flex3' style='padding-right: 20px'>
+            
           </div>
         </div>
         <div class='title'>      
           <a target=_blank href='<%=$root_url%><%=user_link(res)%>'>
             <% if res[:name].present? %><span class='title'><%=res[:name]%></span> <% end %>
-          </a>
-          
+          </a>            
         </div>
+        <div><%= erb :'rafaeli/partials/chips_list', locals: {user: res} %></div>
         <div class='desc'>
           <%= res[:desc] %>          
         </div>
@@ -52,7 +52,7 @@
               <!-- <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> ·
               <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> · -->
               <%= erb :'rafaeli/dev_bottom_links', locals: {res: res} %>              
-        <% end %>
+        <% end %>        
 
         <!-- EXPERIENCE -->
         <% if false && user_casts.any? %> 
