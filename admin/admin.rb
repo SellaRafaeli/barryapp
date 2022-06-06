@@ -145,7 +145,7 @@ post '/admin/update_item' do
 end
 
 post '/admin/delete_item' do
-  require_superadmin 
+  # require_superadmin 
   require_fields(['id','coll'])
   $mongo.collection(params[:coll]).delete_one({_id: params[:id]})
   {msg: "ok"}
