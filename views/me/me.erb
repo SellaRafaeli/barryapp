@@ -116,6 +116,7 @@ form .user_img:hover {
         <div class='me_sec <%=part_sec%> <%="noDisplay" unless sec == part_sec%>'>    
           <% puts "Seconds until #{part_sec}: #{(Time.now - @time_started_request)}" %>
           <%= erb :"me/#{part_sec}", locals: {user: user, user_id: user_id} %>    
+          <% puts "Seconds after #{part_sec}: #{(Time.now - @time_started_request)}" %>
         </div>
       <% end %>
     </div>
