@@ -34,6 +34,7 @@ text-align: center;
     width: 30%;
     display: inline-block;
     margin: 20px;
+    font-size: 16px;
 }
 
 .main_title {
@@ -43,12 +44,14 @@ text-align: center;
 }
 
 .mid_title {
-    background-color: whitesmoke;
+    zbackground-color: whitesmoke;
     padding: 14px;
     max-width: 80%;
     margin: auto;
     color: #03a9f4;
     color: var(--color1);
+    font-size: 45px;
+    font-weight: bold;
     /* text-align: left; */
     /* padding-left: 140px; */
     /*border: 1px dashed #03a9f4;*/
@@ -71,23 +74,22 @@ text-align: center;
 
   <div class='left_half half'>
     
-    <!-- <h4 class='main_title'>Hire</h4> -->
+    <!-- <h4 class='main_title'>Hire</h4> -->    
     <h1 class='mid_title'> 
-      Verified Developers<br/>
+      The Best Developers <br/>in the Country<br/>
     </h1>
     <!-- <h3 class=''>We connect verified senior developers and teams <br/> with startups around the world. </h3> -->
     
     <h3 class='lower_title'>
       <!-- A Private Network of 
       <br/> -->
-      Hire them here!
+      Hire verified professional top talent.
       <!-- Choose elite global talent  -->
       <br/>
       <!-- to hire developers -->
       <!-- for hire on a monthly retainer. -->
       <!-- Verified senior developers for hire. -->
     </h3>
-
     <!-- <h3 class='lower_title'>
       Choose from our elite network of 
       <br />  
@@ -109,13 +111,18 @@ text-align: center;
     <%#= erb :'home/login' %>
     
     <a class='apply_box btn btn-raised btn-info' href='/search' style='min-width: 160px; line-height: 1.5'>
-        See Recommended<br/> Developers <i class='fa fa-search' style='margin-left: 5px'></i>
+        Browse Talent <i class='fa fa-search' style='margin-left: 5px'></i>
     </a>
+
+
+
+    
     <div>
     <a class='btn btn-sm' href='/signup'> Apply </a>
     <a class='btn btn-sm' href='/login'> Members Login </a>
-    <a class='btn btn-sm' href='/about'> About Us </a>
+    <!-- <a class='btn btn-sm' href='/about'> About Us </a> -->
   </div>
+
     <br/>
     <!-- <div><a style='font-size: 70%' class='' href=mailto:hi@ex8200.com>hi@rafaeli.io</a></div> -->
   </div>
@@ -133,10 +140,29 @@ text-align: center;
     </div>
   </div>
 </div>
+
+  <%= erb :'rafaeli/homepage/langs' %>    
+  <%= erb :'rafaeli/homepage/countries' %>    
+    
+
+<%
+  trusted_by = [
+    'https://i.imgur.com/rtvfBlu.png',
+    'https://i.imgur.com/4lYKeZP.png',
+    'https://i.imgur.com/aMidOTM.png',
+    'https://i.imgur.com/8hrFhro.png',
+    'https://i.imgur.com/JdUZO97.png',
+    'https://i.imgur.com/G5OB8Q4.png',
+    'https://i.imgur.com/I8z9yxN.png',
+    'https://i.imgur.com/dB5tWJY.png'
+  ]
+%>
 <div class=ct>
-  <div class='ct' style='max-width: 800px; margin: auto'>
-    <div style='font-weight: bold; font-size: 14px; margin-bottom: 20px'> Trusted By</div>
-    <img style='height: 200px' src='https://i.imgur.com/mYxf9zT.png' />
+  <div class='ct' style='max-width: 850px; margin: auto'>
+    <h3 style='margin-bottom: 20px'> Trusted By</h3>
+    <% trusted_by.each_with_index do |img, idx| %>
+      <img style='width: 150px' src='<%=img%>' />
+    <% end %>
   </div>
   <!-- Find and hire elite developers at <a href='https://www.rafaeli.io'>rafaeli.io.</a> -->
 </div>

@@ -1,0 +1,36 @@
+<style>
+.single-lang:hover {
+  box-shadow: 5px 5px #ccc;;
+}
+</style>
+<%
+  langs = [
+    {text: 'ruby', img: 'https://i.imgur.com/bjB4FK6.jpg'}, 
+    {text: 'js', img: 'https://i.imgur.com/6I72wtE.png'},
+    {text: 'vue', img: 'https://i.imgur.com/4lBEfxQ.png'},
+    {text: 'angular', img: 'https://i.imgur.com/DUmc6vg.png'},
+    {text: 'python', img: 'https://i.imgur.com/teNMTyF.jpg'},
+    {text: 'node', img: 'https://i.imgur.com/XVoBEAZ.png'},
+    {text: 'go', img: 'https://i.imgur.com/52n5sZL.jpg'}
+  ] 
+
+  langs2 = [
+    {text: 'rails', img: 'https://i.imgur.com/pU5kPg7.png'},
+    {text: 'django', img: 'https://i.imgur.com/RnCoMxo.png'},
+    {text: 'sinatra', img: 'https://i.imgur.com/lYvQv8O.png'},
+    {text: 'kubernetes', img:  'https://i.imgur.com/xXUin6U.png'},
+    {text: 'android', img: 'https://i.imgur.com/KAYsCXU.png'},
+    {text: 'heroku', img: 'https://i.imgur.com/YkcJo1h.png'},
+  ]
+
+  langs+=langs2
+
+  %>
+<h3> Every Language and Framework </h3>
+<div class='langs' style='max-width: 800px; margin: auto'>
+  <% langs.each do |lang| %>
+    <a href='/search?q=<%=lang[:text]%>'>
+      <img class='single-lang' src='<%=lang[:img]%>' style='width: 50px; margin: 20px'/>
+    </a>
+  <% end %>
+</div>

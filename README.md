@@ -11,3 +11,17 @@ rafaeli is a platform to hire elite developers on a monthly retainer. We give st
 # Homepage - country flags 
 # Homepage - categories 
 # Videos 
+
+-- 
+* country flags 
+* language icons 
+* mobile-friendly company logos
+* user-page company logos 
+* bottom page faces 
+* upload 5 profiles
+	- sella
+	- rotem
+	- tal cohen
+	- clientside
+	- websailors
+	- startupboosters

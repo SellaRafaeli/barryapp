@@ -1,0 +1,21 @@
+<style>
+.single-flag:hover {
+  box-shadow: 5px 5px #ccc;;
+}
+</style>
+
+<h3> Talent from Top Countries </h3>
+<div class='flags'>
+  <style> .single-flag { font-size: 50px; margin-right: 10px} </style>
+  <% flags = [
+      {text: 'us', flag: '🇺🇸'}, 
+      {text: 'uk', flag: '🇬🇧'}, 
+      {text: 'eu', flag: '🇪🇺'}, 
+      {text: 'ua', flag: '🇺🇦'}, 
+      {text: 'il', flag: '🇮🇱'}, 
+      {text: 'ae', flag: '🇦🇪'}
+  ] %>
+  <% flags.each do |flag| %>
+    <a href='/search?country=<%=flag[:text]%>' class='single-flag'><%=flag[:flag]%></a>
+  <% end %>
+</div>  

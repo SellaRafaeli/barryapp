@@ -1,12 +1,16 @@
 /*hello*/
 
 /*post*/
+/*@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');*/
+
 body {
-	font-family: Raleway, Oxygen, Rubik, 'Poppins', 'Assistant', sans-serif !important;
+	font-family: Inter, Raleway, Oxygen, Rubik, 'Poppins', 'Assistant', sans-serif !important;
 }
 :root {
-  --color1: rgb(26, 13, 171);
-  --color2: #a12345;
+  --zcolor1: rgb(26, 13, 171);
+  --color1: #1a0dab;
+  --zcolor2: #a12345;
+  --color2: #690DAB;
   --color3: #ab1234;
   --color4: #abc123;
   --lightblue: #30ccff;

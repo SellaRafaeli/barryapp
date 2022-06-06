@@ -98,13 +98,13 @@
 
 .user_top_half {
   margin-bottom: 20px;
-  padding:0 50px;
+  zpadding:0 50px;
 }
 
 .user_top_left {      
     display: inline-flex;
     flex-wrap: wrap;
-    justify-content: center;
+    zjustify-content: center;
     margin-top: 20px;
     /*height: 100%;*/
     align-items: center;
@@ -126,7 +126,7 @@
 }
 
 .user_page .title {
-  font-size: 50px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0;
   display: inline-block;
@@ -156,8 +156,8 @@
 
 @media (min-width: 1200px) {
   .user_main_img img {
-    height: 100px;  
-    width: 100px;
+    zheight: 100px;  
+    zwidth: 100px;
   }  
   .user_top_left {
     margin-right: 30px;
@@ -210,7 +210,7 @@
     </div>
     <% end %>
     
-    <div class='user_top_right flex1'>
+    <div class='user_top_right flex5'>
       <h1 id=about class='title'><%= title %></h1>
       <!-- <div class=''>Delivery Area: <%= user[:delivery_area] || 'n/a' %></div> -->
       <% if user[:license_numbers] %>
@@ -413,6 +413,7 @@
       end
     %>
     <!-- <h3> <%= is_heb ? 'ביקורות' : 'Reviews' %></h3> -->
+    
     <% if is_seller(user) && reviews.any? %>
     <h4> Recommendations </h4>
     <% end %>
