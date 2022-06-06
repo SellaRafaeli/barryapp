@@ -29,7 +29,7 @@
 
   user_locations = $locations.get_many(user_id: user_id)
 
-  allow_admin_login = !$prod || is_admin #(ENV['ALLOW_ADMIN_LOGIN'] == 'yes')
+  # allow_admin_login = !$prod || is_admin #(ENV['ALLOW_ADMIN_LOGIN'] == 'yes')
 
    num_views = $stats.count(type: 'store_view', seller_id: user_id)
 %>
@@ -201,8 +201,8 @@
 <div class='user_page container1300'>
 
   <div class='user_top_half display_flex_wrap'>
-    <% if allow_admin_login %>
-    <a style='position: absolute; left: 10px' class='btn btn-raised btn-danger' href='/protected/login_as?email=<%=user[:email]%>'>admin login</a>
+    <% if is_admin %>
+    <a style='position: absolute; left: 10px' class='btn btn-raised btn-danger' href='/admin/login_as?email=<%=user[:email]%>'>admin login</a>
     <% end %>
 
     <% if user[:img_url].present? %>

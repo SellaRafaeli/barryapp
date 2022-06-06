@@ -39,12 +39,12 @@ get '/admin/admin_stats' do
   erb :'admin/admin_stats', default_layout
 end 
 
-get '/protected/login_as' do
+get '/admin/login_as' do
   user = $users.get(email: pr[:email])
   
   session[:user_id] = user[:_id]
   flash.message = "You are now logged in as #{user[:email]}"
-  redirect back
+  redirect '/me'
 end
 
 get '/protected/enroll_to' do
@@ -86,12 +86,12 @@ get '/admin/earnings/?:earn_id?' do
 end
 
 zADMIN_EMAILS = ['abelyael@gmail.com', 'tzlilberlin11@gmail.com', 'sella.rafaeli@gmail.com', 'galweinstock@icloud.com', 'tifrah2008@gmail.com']
-ADMIN_EMAILS = ['sella@good-weed.com', 'tifrah2008@gmail.com']
+zADMIN_EMAILS = ['sella@good-weed.com', 'tifrah2008@gmail.com']
 ADMIN_IDS    = ['8FNGN', 'kOdWD', 'XS0xK', 'GMf07', 'grTIU']
+ADMIN_EMAILS = ['sella.rafaeli@gmail.com']
 
 def is_admin(user = cu)
-  return true if !$prod #&& cu[:email].to_s=='sella.rafaeli@gmail.com'
-
+  # return true if !$prod #&& cu[:email].to_s=='sella.rafaeli@gmail.com'
   cu[:email].in?(ADMIN_EMAILS) #&& cuid.in?(ADMIN_IDS) && admin_authorized?
 rescue 
   false

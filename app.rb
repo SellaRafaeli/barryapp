@@ -47,13 +47,13 @@ post '/contact' do
 
 end
 
-get '/login_as/?:handle?' do 
-	return if $prod
-	handle = pr[:handle]
-	user   = $users.get(handle: handle) || $users.random
-	session[:user_id] = user[:_id] 
-	redirect '/me'
-end
+# get '/admin/login_as/?:handle?' do 
+# 	return if $prod
+# 	handle = pr[:handle]
+# 	user   = $users.get(handle: handle) || $users.random
+# 	session[:user_id] = user[:_id] 
+# 	redirect '/me'
+# end
 
 get '/gold' do
 	redirect '/me' if cu
