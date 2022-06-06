@@ -19,7 +19,6 @@ rafaeli is a platform to hire elite developers on a monthly retainer. We give st
 * user-page company logos 
 * bottom page faces 
 
-
 * upload 5 profiles
 	- sella
 	- rotem

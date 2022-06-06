@@ -17,9 +17,13 @@
 .title:hover {
   text-decoration: underline;
 }
+.rate {
+  font-weight: bold;
+}
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
+  <% results = results[0..10] %>
   <% results.each do |res| %>
     <%  user_casts = $casts.all(user_id: res[:_id]) %>
     <div class='single_result'>
@@ -29,7 +33,7 @@
             <span class='name'><%=res[:title]%></span>
             <% if res[:location].present? %>
             <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s %></span>
-            <% end %><% if res[:rate].present? %><span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
+            <% end %><% if res[:rate].present? %><span class='location rate' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
             <% end %>    
           </div>
           <div class='top_row_right flex3' style='padding-right: 20px'>

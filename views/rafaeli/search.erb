@@ -85,12 +85,28 @@
   margin: auto;
   margin-top: 20px;
 }
+#main_search {
+  width: 300px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline: none;
+  color: grey;
+}
+span.magnifying_class_search {
+  position: absolute;
+  top: 3px;
+  right: 38px;
+} 
 </style>
 
 
 <div class='main_search_wrapper ct'>
   <form method=get action=search>
-    <input id=main_search name=q class='main_search input1' placeholder='search...' value="<%=search_val%>" autocomplete />
+    <span style='position: relative;'>
+      <input id=main_search name=q class='main_search input1' placeholder='search...' value="<%=search_val%>" autocomplete />
+      <span class=magnifying_class_search>🔎</span>
+    </span>
     <button class='btn btn-raised btn-info'>go </button>
   </form>
 </div>
