@@ -1,10 +1,10 @@
 <%
-  user = cast[:user] || $users.get(cast[:user_id]) || {}  
-  is_owner = user[:_id] == cuid
+  # user = cast[:user] || $users.get(cast[:user_id]) || {}  
+  is_owner = cast[:user_id] == cuid
   cast_pic = cast[:img_url]
   cast_pic = DEFAULT_PIC unless cast_pic.present?
-  user_pic = user[:img_url]
-  user_pic = cast_pic unless user_pic.present? && CGI.unescape_html(user_pic)!=DEFAULT_PIC   
+  #user_pic = user[:img_url]
+  #user_pic = cast_pic unless user_pic.present? && CGI.unescape_html(user_pic)!=DEFAULT_PIC   
   tags = cast[:tags].split(',') rescue []
   tags = []
   edit_cast_link = "/casts/edit/#{cast[:_id]}"

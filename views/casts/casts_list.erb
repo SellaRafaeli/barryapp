@@ -1,17 +1,17 @@
 <%  
   offer_cancel ||= locals[:offer_cancel] ||= false
-
-  series  = casts.select {|c| c[:recurrence].to_s == RECURRENCE_MULTI }
-  singles = casts.select {|c| c[:recurrence].to_s == RECURRENCE_SINGLE }
+  casts ||= []
+  # series  = casts.select {|c| c[:recurrence].to_s == RECURRENCE_MULTI }
+  # singles = casts.select {|c| c[:recurrence].to_s == RECURRENCE_SINGLE }
   
-  series   = series.to_a.sort_by  { |c| [dow_idx(c[:dow]).to_i, c[:hour].to_i, c[:mins].to_i, c[:title].to_s]}
-  singles  = singles.to_a.sort_by { |c| [dow_idx(c[:dow]).to_i, c[:hour].to_i, c[:mins].to_i, c[:title].to_s]}
+  # series   = series.to_a.sort_by  { |c| [dow_idx(c[:dow]).to_i, c[:hour].to_i, c[:mins].to_i, c[:title].to_s]}
+  # singles  = singles.to_a.sort_by { |c| [dow_idx(c[:dow]).to_i, c[:hour].to_i, c[:mins].to_i, c[:title].to_s]}
 
   #casts    = casts.select { |cast| cast_is_soon(cast) }
 
   #casts    = casts.select { |cast| cast['title'] == 'my awesome class' }
-  casts    = casts.select {|cast| !cast[:support_cast]}
-  casts    = add_user_to_casts(casts)
+  # casts    = casts.select {|cast| !cast[:support_cast]}
+  # casts    = add_user_to_casts(casts)
   # casts    = casts.sort_by {|cast|     
   #   date = cast_next_date_utc(cast) 
   #   # puts cast['title'] + date.to_s.red
@@ -101,7 +101,7 @@ x=1
   <% 
     id         = cast[:_id] 
     is_owner   = cast[:user_id] == cuid    
-    owner      = $users.get(cast[:user_id]) || {}
+    # owner      = $users.get(cast[:user_id]) || {}
     custom_img = get_custom_img(cast)     
     color      = "nowcast_#{string_color(cast[:title])}"
     use_old_list = false

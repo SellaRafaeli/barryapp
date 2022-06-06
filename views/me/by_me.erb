@@ -2,11 +2,11 @@
 
 <div class='my_casts_list zmw1000'>
 <!--   <h4> I teach: </h4> -->
-  <% if !$casts.exists?(user_id: cuid) %>
+
 <!--         <div class='alert_message'>
       You have no courses yet. <a href='/create'>Click to create your first one</a>.
     </div> -->
-  <% end %>
+
 
   <%  user_casts = $casts.all(user_id: user_id) %>
   <% if user_casts.any? %>
