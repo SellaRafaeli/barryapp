@@ -114,7 +114,7 @@ form .user_img:hover {
       in_use_sections = ['profile','by_me','account']
       in_use_sections.each do |part_sec| %>
         <div class='me_sec <%=part_sec%> <%="noDisplay" unless sec == part_sec%>'>    
-          <% puts "#{part_sec} #{(Time.now - @time_started_request)/1000.to_f}" %>
+          <% puts "Seconds until #{part_sec}: #{(Time.now - @time_started_request)}" %>
           <%= erb :"me/#{part_sec}", locals: {user: user, user_id: user_id} %>    
         </div>
       <% end %>
