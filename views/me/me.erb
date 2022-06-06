@@ -96,10 +96,23 @@ form .user_img:hover {
       });
     </script>
 
-    <form id=me_form action='update_me' method='post' class='form1' zonsubmit='if (!$("input[name=zipcode]").val()) { alert("Please enter Zip Code."); return false; }'>      
+
+    <script>
+    function handleSubmitMeForm(form) {
+      var data = serializeObject(form);
+      debugger
+      x=1;
+    }
+
+    </script>
+
+    <form id=me_form action='update_me' method='post' class='form1' onsubmit='handleSubmitMeForm(this); return false;'>      
 
     <div style='zmax-width: 800px; margin-left:auto; margin-right: auto;'>
-      <% ['dashboard','account', 'customers', 'convos', 'profile', 'by_me', 'for_me', 'locations', 'stats'].each do |part_sec| %>
+      <% 
+      all_sections = ['dashboard','account', 'customers', 'convos', 'profile', 'by_me', 'for_me', 'locations', 'stats']
+      in_use_sections = ['profile','by_me','account']
+      in_use_sections.each do |part_sec| %>
         <div class='me_sec <%=part_sec%> <%="noDisplay" unless sec == part_sec%>'>    
           <% puts "#{part_sec} #{(Time.now - start)/1000.to_f}" %>
           <%= erb :"me/#{part_sec}", locals: {user: user, user_id: user_id} %>    

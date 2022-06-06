@@ -42,9 +42,9 @@
     
     
     
-    <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "locations" %>' href='/me?sec=locations'><i class='fal fa-warehouse'></i> Locations (<%=$locations.count(user_id: cuid)%>)</a>    
+    <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "locations" %>' href='/me?sec=locations'><i class='fal fa-warehouse'></i> Locations (<%#=$locations.count(user_id: cuid)%>)</a>    
 
-    <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "customers" %>' href='/me?sec=customers'><i class='fal fa-users'></i> Customers (<%=$customers.count(user_id: cuid)%>)</a>    
+    <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "customers" %>' href='/me?sec=customers'><i class='fal fa-users'></i> Customers (<%#=$customers.count(user_id: cuid)%>)</a>    
   <% end %>
   <!-- <a class='profile_tab btn <%= "chosen_me_form_link" if sec == "convos" %>' href='/me?sec=convos'><i class='fal fa-comment-alt-dots'></i> Conversations </a> -->
   <% if false && is_seller %>  

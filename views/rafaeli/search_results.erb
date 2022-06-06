@@ -23,7 +23,7 @@
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
-  <% results = results[0..10] %>
+  <% results = results[0..4] %>
   <% results.each do |res| %>
     <%  user_casts = $casts.all(user_id: res[:_id]) %>
     <div class='single_result'>
@@ -80,9 +80,7 @@
       <% end %>      
     </div>
   <% end %>
-      <div class=ct>
-        <button>click to see more </button>
-      </div>
+      <%= erb :'rafaeli/search/page_numbers' %>
 <% else %>
   <div class='no_results ct'>
     <br/>
