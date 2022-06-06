@@ -1,0 +1,284 @@
+<style>
+.top-nav {
+  margin: 0 20px;
+  margin: 0;
+  <% if !$prod %>
+  border: 1px solid goldenrod;
+  <% end %>
+
+  <% if heb %>
+  zdirection: rtl;
+  <% end %>
+
+}
+.footer a {
+  margin: 20px;  
+  /*color: #209CEE;*/
+  color: #aab8c2
+}
+
+.top-nav a:not(.logo) {
+  color: #1e5353;
+  color: #12abcd;
+  color: var(--color1);
+  color: var(--color2);
+  color: black;
+  margin: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.top-nav a:not(.logo):hover {
+  color: black;
+  color: var(--lightblue) !important;
+  ztext-decoration: underline !important;
+}
+
+@media screen and (min-width: 1000px) {
+  .logo {
+    width: 200px;
+    zborder:1px solid red;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+  }
+  .search_go_btn {
+    /*display: none;*/
+  }
+
+  .top-nav {
+    margin: 0 20px;
+    padding: 20px 0 10px;    
+    height: 50px;
+    /*position: absolute;
+    
+    top: 0;
+    left: 0;
+    z-index: 999;*/
+  }
+
+  .top-nav a:not(.logo) {
+    background-color: white;
+    padding: 5px 10px;
+  }
+}
+
+
+.search_input {
+  padding: 13px 40px 13px 20px;
+  border: 1px solid grey;
+  font-size: 17px;
+  width: 200px;
+  margin-left: 0px;
+}
+.links_city_selector_container {
+  display: inline-block;
+  vertical-align: super;
+  margin-bottom: 20px;  
+}
+@media screen and (max-width: 800px) {
+  .links_city_selector_container {
+    zmargin-left: 40px;
+  }
+  .container {
+    margin:10px 0;
+    padding:10px 0;
+    position: relative;
+    /*top: 30px;*/
+  }
+  .search_input {
+    width: 300px;
+  }
+  .top-nav {
+    margin: 10px;
+/*    border-bottom:1px solid whitesmoke;*/
+    position: relative;
+
+  }
+  .top-nav a, .top-nav .search_input_form {
+    display: none;
+    margin: 5px;
+  }
+  /*.fa-gear:hover {
+    color: red;
+  }*/
+  .top-nav a:not(.logo).expanded, .top-nav .search_input_form.expanded {
+    display: block;
+    padding: 15px;
+    background:whitesmoke;
+    padding-right: 30px;
+    margin-left: 50px;
+    color: black;
+    text-align: center;
+  }
+
+  .top-nav a.logo {
+    display: block;
+    text-align: center;
+  }
+  .top-nav a .sub_logo_msg {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+  .hamburger {
+    display: block;
+  }
+
+  .create_form {
+    float: left;
+  }
+
+  .search_input {
+    padding-right: 0;
+  }
+}
+
+.search_input_form {
+/*  display: inline-block;*/
+}
+
+.logo_sub_text {
+  position: relative;
+  top: 20px;
+  <% if heb %>  
+  left: 80px;
+  <% else %>
+  right: 80px;
+  <% end %>
+  font-size: 13px;
+  color: grey;
+}
+
+#top_plus_btn {
+  font-size: 17px;
+  border-radius: 4px;
+  padding: 3px 20px;
+  position: relative;
+  top: 0px;
+}
+
+.country_icon_container {
+  zbackground: linear-gradient(#e66465, #9198e5, #47f53b);  
+}
+
+.country_icon {
+  height: 35px;
+  width: 35px;
+  padding: 0;
+  border-radius: 50%;
+}
+.client_logo {
+  background-color: #324167;
+  padding: 10px;
+  border-radius: 10px;
+}
+.sub_logo_msg {
+  font-size: 14px; 
+  color:#1F5151; 
+  left: 6px;
+  position: absolute;
+  top: 26px;
+}
+
+.links_profile_pic {
+  height: 20px;
+  border-radius: 2px;
+  zborder: 1px solid #386256;
+  padding: 4px;
+  margin-right: 5px;
+}
+
+</style>
+
+<%
+  path = _req.path rescue ''
+  logo = '/favicon.ico'
+  logo = '/img/landing_page/logo6.png'
+  is_post_page = path.to_s.starts_with?('/posts/') rescue false
+  is_main_page = path.to_s == '/' rescue false
+%>
+
+<% if path.starts_with?('/admin') %>
+  <div style='padding:10px'>
+    
+    <a class='btn' href='/'>Homepage</a>
+    <a href='/admin'><b>Admin</b></a>
+    <a target=_blank class='btn btn-info' href='/admin/admin_stats'>Admin Stats</a>
+    <a target=_blank class='btn btn-info' href='/admin/sellers'>Sellers Notes</a>
+    
+    <form method=post action="/admin/upload_gdoc_sellers" style='display: inline-block;' enctype="multipart/form-data">
+      <label class='btn btn-warning btn-raised'> upload new gdoc of sellers </label>
+      <input name=file size=50 type="file" onchange="if (confirm('confirm submission of this file?')) form.submit()" />
+    </form>
+  </div>
+<% else %>
+  <div class='top-nav'>
+    <div class='logo_container' style='display: inline-block; display: none'>
+      <a href='/' class='logo'>
+        <b style='color: #00b140'>
+          <img src='/img/nowcast_logo_pause.png' style='height:80px' />
+        </b> 
+        <small class='logo_sub_text'>
+          <%= html_title %>
+        </small>
+      </a>    
+    </div>
+    
+    <% unless @hide_header %>
+    <style>
+      .logo-text {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .logo-slogan {
+
+      }
+    </style>
+    <a class='zbtn' href='/'>
+      <span class='logo-text'> &lt;/&gt; rafaeli devs</span>
+    </a>
+    <% if cu %>
+      <a class='user_name' href='/me'>
+        <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
+         <b><%= cu[:name] %> </b>
+        <span style='display: inline-block; padding:0 7px; position: relative; top: 1px'>
+          <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'talent' %>👤<% end %>
+          <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'team' %>  👥<% end %>
+          <% if cu[:type].to_s == 'buyer' %> 🦄<% end %>
+        </span>
+        <%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_verified(cu) %>
+       </a>       
+    <% else %>      
+      <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>
+    <% end %>
+
+    
+    <a class='' href='/search'><i class='fa fa-search'></i> <%= 'search' %> </a>
+
+    <% if !cu  %>
+      <% if _req.path == '/' %>
+        <a class='nzbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'      
+      <% else %>
+        <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
+      <% end %>
+        <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Apply' : 'הרשמה' %></a>  
+    <% end %>    
+    
+
+    <% if cu %>      
+      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times-circle' ></i></a>
+    <% end %>    
+
+    
+    <% end %>
+
+    <a class='' href='/we_love_developers'>We Love Developers</a>
+    <a class='' href='/how_it_works'>How It Works</a>
+    <a class='' href='/contact'>Contact</a>
+    <a class='' href='/careers'>Careers & Hiring</a>
+    <a class='' href='/blog'>Blog</a>
+
+    <%= erb :'header/hamburger' %>
+  </div>  
+<% end %>  

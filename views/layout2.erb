@@ -6,12 +6,12 @@
 path = _req.path.to_s rescue 'error-path'
 @brand = get_brand
 %>
-<%= erb :'layout/doc_head' if pr[:z].to_i > 1 %>
+<%= erb :'layout/doc_head'  %>
 <link rel="stylesheet" href="/css/bootstrap_leftovers.css">
 <body>  
     <%#= erb :"layout/flash" rescue '' %>        
     
-    <%= erb :"header/links" if pr[:z].to_i > 3 %>
+    <%= erb :"header/links2"  %>
     
     <%
       show_wide = (path == '/') || path.start_with?('/me') || path.to_s.starts_with?("/admin")
@@ -27,8 +27,8 @@ path = _req.path.to_s rescue 'error-path'
 
     
     
-  <%= erb :"layout/css_files" if pr[:z].to_i > 10 %>    
-  <%= erb :'layout/js_scripts' if pr[:z].to_i > 20 %>  
+  <%= erb :"layout/css_files"  %>    
+  <%= erb :'layout/js_scripts' %>  
     
   <link rel="stylesheet" href="/css/fonts/RobotoFonts.css">
   <link rel="stylesheet" href="/css/fonts/MaterialIcons.css">
