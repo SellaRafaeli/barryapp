@@ -1,5 +1,7 @@
 $casts = $nowcasts = $nc = $ncs = $mongo.collection('casts')
 
+$casts.indexes.create_one({user_id: 1}) rescue nil
+
 RECURRENCE_SINGLE    = 'single'
 RECURRENCE_MULTI     = 'recurring'
 RECURRENCE_ON_DEMAND = 'on_demand'
