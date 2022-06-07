@@ -69,6 +69,9 @@
 %>
 
 <div class='blog_container'>
+  <% if is_admin %>
+
+  <% end %>
   <% if chosen_post %>
     <div class='single_blog_post'>
       <%= render_blog_post(chosen_post, link: post_link(chosen_post)) %>    

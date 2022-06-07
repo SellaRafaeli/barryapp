@@ -154,7 +154,7 @@ get '/accept_cookies' do
 end
 
 get '/test' do
-	erb :'other/test', default_layout
+	erb :'other/test' #, default_layout
 end
 
 def is_home
