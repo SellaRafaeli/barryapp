@@ -132,7 +132,7 @@ get '/contact' do
 	@time_request_started ||= Time.now
 	# puts "before other/contact, Seconds since time_request_started: #{Time.now - @time_request_started}"
 	# res = erb :'other/contact', default_layout
-	res = erb :'other/contact', {layout: :layout2}
+	res = erb :'other/contact', {layout: :layout3}
 	# puts "after  other/contact, Seconds since time_request_started: #{Time.now - @time_request_started}"
 	res
 end
