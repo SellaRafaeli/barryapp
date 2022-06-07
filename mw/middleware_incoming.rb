@@ -110,6 +110,7 @@ def cu_session
 
 def cu
    # return current user
+   return @cu ||= cu_session
    if request.path_info.starts_with?("/admin")
     @cu = cu_session
    else
