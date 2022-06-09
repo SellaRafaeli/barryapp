@@ -1,6 +1,6 @@
-MOVED TO LINKS2
 
-<!-- <style>
+
+<style>
 .top-nav {
   margin: 0 20px;
   margin: 0;
@@ -234,7 +234,7 @@ MOVED TO LINKS2
       </a>
     </span>
     <% if use_client_logo %>
-    <!-- <div>A world of well-being</div> -->
+    
     <% end %>
     <% end %>       
 
@@ -252,9 +252,7 @@ MOVED TO LINKS2
     
     <% unless @hide_header %>
     
-    <!-- <a class='nowcast_color' href='/' style='color: #00b140'>
-      Good-Weed
-    </a>     -->
+    
     <style>
       .logo-text {
         font-size: 16px;
@@ -266,7 +264,7 @@ MOVED TO LINKS2
     </style>
     <a class='zbtn' href='/'>
       <span class='logo-text'> &lt;/&gt; rafaeli devs</span>
-      <!-- <span class='logo-slogan'>devs & more</span> -->
+      
     </a>
     <% if cu %>
       <a class='user_name' href='/me'>
@@ -285,18 +283,16 @@ MOVED TO LINKS2
         <%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_verified(cu) %>
 
        </a>       
-      <!-- <a class='' target=_blank href='/@<%=cu['handle']%>'>
-        <i class='fa fa-external-link' style='margin-right: 5px'></i> View @<%=cu['handle']%>         
-      </a>     -->
+      
     <% else %>      
       
       
 
-      <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>
+      
       
       <% if false %>
       <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>
-      <!-- https://fontawesome.com/v5.15/icons?d=gallery&p=2&q=dollar -->
+      
       <i class='fal fa-smile' style='margin-right: 10px'></i> <%= !heb ? 'Sign up to buy' : 'הרשמה' %>
       
       </a>          
@@ -305,14 +301,15 @@ MOVED TO LINKS2
     <% end %>
 
     <% if true || cu && is_verified %>
-    <a class='' href='/search'><i class='fa fa-search'></i> <%= 'search' %> </a>
+    <a class='' href='/search'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'Search' %></span> </a>
     <% end %>
 
+    <a class='' href='/login'><%= !heb ? 'Members Login' : 'כניסה' %></a>
     <% if cu && !is_pro(cu) %>
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
     <% end %>
     
-    <!-- <a class='' href='/about'>how it works</a> -->    
+    
     
 
     <% if !cu  %>
@@ -324,14 +321,14 @@ MOVED TO LINKS2
     <% end %>
       <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Apply' : 'הרשמה' %></a>  
     <% end %>    
-    <!-- <a class='' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a> -->
+    <a class='noDisplay' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a>
     <% if false %>
     <a class='' href='/vip'><i class='fa fa-question-smiley' style='margin-right: 5px'></i> <%= 'VIP chat' %> </a>
     <% end %>
     <% if false%>
     <a class='noD' href='/help'><i class='fa fa-question-circle noDisplay' style='margin-right: 5px'></i> <%= 'About' %> </a>
     <% end %>
-    <!-- <a class='' href='/influencers'><i class='fas fa-user-tie' style='margin-right: 5px'></i> <%= 'influencers' %> </a> -->
+    
     
       <% ([] || ['usa', 'israel']).each do |country| %>
         <a style='padding: 0' class='country_icon_container' href='/?country=<%=country%>'><img class='country_icon' src='/img/icons/<%=country%>.png' /></a>
@@ -370,4 +367,4 @@ MOVED TO LINKS2
 
     <%= erb :'header/hamburger' %>
   </div>  
-<% end %>   -->
+<% end %>   
