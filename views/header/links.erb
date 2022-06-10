@@ -300,11 +300,13 @@
       
     <% end %>
 
-    <% if false && cu && is_verified %>
+    <% if true || cu && is_verified %>
     <a class='' href='/search'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'Search' %></span> </a>
     <% end %>
 
-    <a class='' href='/login'><%= !heb ? 'Members' : 'כניסה' %></a>
+    <% if !cu %>
+    <a class='' href='/login'><%= !heb ? 'Members Login' : 'כניסה' %></a>
+    <% end %>
     <% if cu && !is_pro(cu) %>
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
     <% end %>
@@ -352,10 +354,7 @@
     <% if false %>
       <a href='<%= link %>' class='btn btn-primary btn-raised btn-info' id='top_plus_btn'><%= text %></a>
     <% end %>
-    <% if cu %>      
-      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times-circle' ></i></a>
-    <% end %>    
-
+    
     
     <% end %>
 
@@ -364,6 +363,10 @@
     <a class='' href='/contact'>Contact</a>
     <a class='' href='/careers'>Careers & Hiring</a>
     <a class='' href='/blog'>Blog</a>
+
+    <% if cu %>      
+      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times-circle' ></i></a>
+    <% end %>    
 
     <%= erb :'header/hamburger' %>
   </div>  

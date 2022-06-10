@@ -166,8 +166,8 @@ get '/r/:code' do
 end
 
 get '/' do		
-	erb :'rafaeli/search', default_layout
-	# erb :'coming_soon', default_layout
+	#erb :'rafaeli/search', default_layout
+	erb :'coming_soon', default_layout
 end
 
 get '/search' do 
