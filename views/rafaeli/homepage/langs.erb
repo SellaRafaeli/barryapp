@@ -1,6 +1,18 @@
 <style>
+.langs {
+  max-width: 1200px; 
+  margin: auto;
+}
+.single-lang {
+  width: 26px; 
+  margin: 5px;
+  display: inline-block;
+  border-bottom:2px solid transparent;
+  padding-bottom: 10px;
+}
 .single-lang:hover {
-  box-shadow: 5px 5px #ccc;;
+  zbox-shadow: 5px 5px #ccc;;
+  border-bottom:2px solid #ccc;
 }
 </style>
 <%
@@ -26,11 +38,11 @@
   langs+=langs2
 
   %>
-<h3> Every Language and Framework </h3>
-<div class='langs' style='max-width: 800px; margin: auto'>
+<!-- <h3> Every Language and Framework </h3> -->
+<div class='langs'>
   <% langs.each do |lang| %>
     <a href='/search?q=<%=lang[:text]%>'>
-      <img class='single-lang' src='<%=lang[:img]%>' style='width: 50px; margin: 20px'/>
+      <img class='single-lang' src='<%=lang[:img]%>' />
     </a>
   <% end %>
 </div>

@@ -300,11 +300,11 @@
       
     <% end %>
 
-    <% if true || cu && is_verified %>
+    <% if false && cu && is_verified %>
     <a class='' href='/search'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'Search' %></span> </a>
     <% end %>
 
-    <a class='' href='/login'><%= !heb ? 'Members Login' : 'כניסה' %></a>
+    <a class='' href='/login'><%= !heb ? 'Members' : 'כניסה' %></a>
     <% if cu && !is_pro(cu) %>
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
     <% end %>
@@ -359,8 +359,8 @@
     
     <% end %>
 
-    <a class='' href='/we_love_developers'>We Love Developers</a>
-    <a class='' href='/how_it_works'>How It Works</a>
+    <!-- <a class='' href='/we_love_developers'>We Love Developers</a> -->
+    <a class='' href='/how_it_works'>About</a>
     <a class='' href='/contact'>Contact</a>
     <a class='' href='/careers'>Careers & Hiring</a>
     <a class='' href='/blog'>Blog</a>

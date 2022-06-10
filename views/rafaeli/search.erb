@@ -87,9 +87,11 @@
 }
 #main_search {
   width: 300px;
-  border-top: none;
+  /*border-top: none;
   border-right: none;
-  border-left: none;
+  border-left: none;*/
+  border-radius: 50px;
+  font-size: 14px;
   outline: none;
   color: grey;
 }
@@ -104,11 +106,13 @@ span.magnifying_class_search {
 <div class='main_search_wrapper ct'>
   <form method=get action=search>
     <span style='position: relative;'>
-      <input id=main_search name=q class='main_search input1' placeholder='search...' value="<%=search_val%>" autocomplete />
-      <span class=magnifying_class_search>🔎</span>
+      <input id=main_search name=q class='main_search input1' placeholder='search developers...' value="<%=search_val%>" autocomplete />
+      <!-- <span class=magnifying_class_search>🔎</span> -->
     </span>
     <button class='btn btn-raised btn-info'>go </button>
   </form>
+  <%= erb :'rafaeli/homepage/langs' %>    
+  <%#= erb :'rafaeli/homepage/countries' %>    
 </div>
 
 <style>
