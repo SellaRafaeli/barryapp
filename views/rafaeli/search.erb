@@ -94,11 +94,12 @@
   font-size: 14px;
   outline: none;
   color: grey;
+  padding-left: 45px;
 }
 span.magnifying_class_search {
   position: absolute;
   top: 3px;
-  right: 38px;
+  left: 38px;
 } 
 </style>
 
@@ -106,8 +107,8 @@ span.magnifying_class_search {
 <div class='main_search_wrapper ct'>
   <form method=get action=search>
     <span style='position: relative;'>
-      <input id=main_search name=q class='main_search input1' placeholder='search...' value="<%=search_val%>" autocomplete />
-      <!-- <span class=magnifying_class_search>🔎</span> -->
+      <input autofocus id=main_search name=q class='main_search input1' placeholder='' value="<%=search_val%>" autocomplete />
+      <span class=magnifying_class_search>🔎</span>
     </span>
     <button class='btn btn-raised btn-info'>go </button>
   </form>
