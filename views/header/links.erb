@@ -300,12 +300,12 @@
       
     <% end %>
 
-    <% if true || cu && is_verified %>
+    <% if false && cu && is_verified %>
     <a class='' href='/search'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'Search' %></span> </a>
     <% end %>
 
     <% if !cu %>
-    <a class='' href='/login'><%= !heb ? 'Members Login' : 'כניסה' %></a>
+    <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>
     <% end %>
     <% if cu && !is_pro(cu) %>
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
@@ -321,7 +321,7 @@
     <% else %>
       <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
     <% end %>
-      <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Apply' : 'הרשמה' %></a>  
+      <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Register' : 'הרשמה' %></a>  
     <% end %>    
     <a class='noDisplay' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a>
     <% if false %>

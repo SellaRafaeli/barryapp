@@ -3,7 +3,9 @@
 %>
 <h3 id=signup> 
 <% if pr[:type] == 'seller' %>
-<%= is_heb ? 'ברוכים הבאים.' : "Apply as #{pr[:subtype]}" %>
+<%#= is_heb ? 'ברוכים הבאים.' : "Apply as #{pr[:subtype]}" %>
+<%= is_heb ? 'ברוכים הבאים.' : "Register" %>
+
 <% elsif pr[:type] == 'buyer' %>
 <%= is_heb ? 'ברוכים הבאים.' : "Sign Up for Beta:" %>
 <% end %>
@@ -30,9 +32,11 @@
             <div style='margin-top:0px'></div>
             <a class='apply_btn zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=seller&subtype=team'> Apply as team </a>
             
+            <% if false %>
             <!-- <span style='display: inline-block; width: 20px'></span> -->
             <div style='margin-top:0px'></div>
             <a class='apply_btn zapply_box btn btn-sm btn-raised btn-primary' href='/signup?type=buyer&subtype=startup'> Apply as startup </a>
+            <% end %>
           </div>
         </div>
 <% end %>

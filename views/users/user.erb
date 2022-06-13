@@ -419,11 +419,12 @@
       end
     %>
     <!-- <h3> <%= is_heb ? 'ביקורות' : 'Reviews' %></h3> -->
-    
-    <% if is_seller(user) && reviews.any? %>
-    <h4> Recommendations </h4>
+    <% if false %>
+      <% if is_seller(user) && reviews.any? %>
+      <h4> Recommendations </h4>
+      <% end %>
+      <%= erb :'reviews/reviews_list', locals: {reviews: reviews, user: user} %>
     <% end %>
-    <%= erb :'reviews/reviews_list', locals: {reviews: reviews, user: user} %>
   </div>
   <% end %>
 </div>
