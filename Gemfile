@@ -8,6 +8,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'mongo', '~> 2.5.0'
 gem 'bson_ext'
+
 # gem 'pg'
 gem 'activesupport',        '5.0.0.1' # utility functions like hash.slice
 #gem 'activerecord'
@@ -47,6 +48,8 @@ gem 'zip-codes'
 gem 'stripe' 
 gem 'pusher'
 # gem "faye-websocket"
+
+gem 'pdf-reader', '~> 2.10'
 
 group :development, :test do
   gem 'puma'

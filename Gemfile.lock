@@ -1,11 +1,13 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    Ascii85 (1.1.0)
     activesupport (5.0.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    afm (0.2.2)
     babosa (1.0.2)
     bcrypt (3.1.16)
     bond (0.5.1)
@@ -35,6 +37,7 @@ GEM
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
+    hashery (2.1.2)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
     httpclient (2.8.3)
@@ -60,6 +63,12 @@ GEM
     nokogiri (1.11.7-x86_64-linux)
       racc (~> 1.4)
     paint (2.2.1)
+    pdf-reader (2.10.0)
+      Ascii85 (~> 1.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     postmark (1.21.4)
       json
     pry (0.13.1)
@@ -101,6 +110,7 @@ GEM
       rack (>= 1.0)
       rack-test (~> 0.6.2)
       ripl (>= 0.7.0)
+    ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.4)
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
@@ -121,6 +131,7 @@ GEM
     stripe (5.35.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    ttfunk (1.7.0)
     tux (0.3.0)
       ripl (>= 0.3.5)
       ripl-multi_line (>= 0.2.4)
@@ -154,6 +165,7 @@ DEPENDENCIES
   json (= 2.1.0)
   mongo (~> 2.5.0)
   nokogiri
+  pdf-reader (~> 2.10)
   postmark
   pry-byebug
   puma
