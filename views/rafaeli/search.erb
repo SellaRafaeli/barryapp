@@ -101,21 +101,46 @@ span.magnifying_class_search {
   top: 3px;
   left: 38px;
 } 
+
+.search_controls select {
+  width: 50px;
+}
 </style>
 
 
 <!-- <h1 style='font-size: 20px; text-align: center'>Elite Freelancers.</h1> -->
 
 <div class='main_search_wrapper ct'>
-  <form method=get action=search>
+  <form method=get action=search style='display: inline-block;'>
     <span style='position: relative;'>
       <input autofocus id=main_search name=q class='main_search input1' placeholder='' value="<%=search_val%>" autocomplete />
       <span class=magnifying_class_search>🔎</span>
     </span>
-    <button class='btn btn-raised btn-info'>go </button>
+    <button class='btn btn-raised btn-primary'>Go</button>
   </form>
   <%#= erb :'rafaeli/homepage/langs' %>    
   <%#= erb :'rafaeli/homepage/countries' %>    
+  <div class='search_controls ct' style='font-size: 15px; display: inline-block;'>
+    <br/>  
+    <select style='border: none'>
+      <option>🌎 anywhere</option>
+      
+      <option <%="selected" if pr[:country]=='us'%>>🇺🇸 USA</option>
+      <option <%="selected" if pr[:country]=='uk'%>>🇬🇧 United Kingdom</option>
+      <option <%="selected" if pr[:country]=='eu'%>>🇪🇺 European Union</option>    
+      <option <%="selected" if pr[:country]=='ua'%>>🇺🇦 ukraine</option>
+      <option <%="selected" if pr[:country]=='il'%>>🇮🇱 israel</option>
+      <option <%="selected" if pr[:country]=='ae'%>>🇦🇪 Dubai</option>    
+      
+    </select>
+
+    <select style='border: none'>
+      <!-- <option>👤 / 👥 individuals & teams</option> -->
+      <option>👤 individuals</option>
+      <option>👥 teams</option>
+    </select>
+  </div>
+
 </div>
 
 <style>
@@ -152,27 +177,6 @@ span.magnifying_class_search {
 %>
   <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
 <% end %>
-</div>
-
-<div class='search_controls ct' style='font-size: 15px'>
-  <br/>  
-  <select style='border: none'>
-    <option>🌐 anywhere</option>
-    
-    <option <%="selected" if pr[:country]=='us'%>>🇺🇸 USA</option>
-    <option <%="selected" if pr[:country]=='uk'%>>🇬🇧 United Kingdom</option>
-    <option <%="selected" if pr[:country]=='eu'%>>🇪🇺 European Union</option>    
-    <option <%="selected" if pr[:country]=='ua'%>>🇺🇦 ukraine</option>
-    <option <%="selected" if pr[:country]=='il'%>>🇮🇱 israel</option>
-    <option <%="selected" if pr[:country]=='ae'%>>🇦🇪 Dubai</option>    
-    
-  </select>
-
-  <select style='border: none'>
-    <!-- <option>👤 / 👥 individuals & teams</option> -->
-    <option>👤 individuals</option>
-    <option>👥 teams</option>
-  </select>
 </div>
 
 
