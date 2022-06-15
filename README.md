@@ -4,6 +4,11 @@ Business Plan
 > We oversee these services and vouch for success / good work for 10% commission.
 > We promote in search results for money. (Our gold members are immune from commission as well.)
 
+Summer Goals:
+* Raise Money
+* X devs paying X money
+
+
 
 Wizard questions:
 - How many people at your company? 

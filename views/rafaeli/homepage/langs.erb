@@ -1,11 +1,11 @@
 <style>
 .langs {
-  max-width: 1200px; 
+  max-width: 50%; 
   margin: auto;
 }
 .single-lang {
-  width: 30px; 
-  margin: 5px;
+  width: 40px; 
+  margin: 15px;
   display: inline-block;
   border-bottom:2px solid transparent;
   padding-bottom: 10px;
@@ -26,7 +26,7 @@
     {text: 'go', img: 'https://i.imgur.com/52n5sZL.jpg'}
   ] 
 
-  langs2 = [
+  frameworks = [
     {text: 'rails', img: 'https://i.imgur.com/pU5kPg7.png'},
     {text: 'django', img: 'https://i.imgur.com/RnCoMxo.png'},
     {text: 'sinatra', img: 'https://i.imgur.com/lYvQv8O.png'},
@@ -35,10 +35,10 @@
     {text: 'heroku', img: 'https://i.imgur.com/YkcJo1h.png'},
   ]
 
-  langs+=langs2
+  #langs+=langs2
 
   %>
-<h3> Every Language and Framework </h3>
+<h4> Any Language. </h4>
 <div class='langs'>
   <% langs.each do |lang| %>
     <a href='/search?q=<%=lang[:text]%>'>
@@ -46,3 +46,14 @@
     </a>
   <% end %>
 </div>
+<br/>
+
+<h4> Any Framework. </h4>
+<div class='langs'>
+  <% frameworks.each do |lang| %>
+    <a href='/search?q=<%=lang[:text]%>'>
+      <img class='single-lang' src='<%=lang[:img]%>' />
+    </a>
+  <% end %>
+</div>
+<br/>
