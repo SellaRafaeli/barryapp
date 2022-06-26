@@ -20,6 +20,9 @@
 .rate {
   font-weight: bold;
 }
+.search-results-name {
+  font-weight: bold;
+}
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
@@ -30,7 +33,7 @@
       <div class='left_half flex6'>
         <div class='top_row' style='display: flex; align-items: center'>          
           <div class='top_row_left flex4' style='margin-right: auto'>
-            <span class='name'><%=res[:title]%></span>
+            <span class='search-results-name'><%=res[:title]%></span>
             <% if res[:location].present? %>
             <span class='location' style='display: inline-block; margin-left: 10px'> › <%=res[:location].to_s %></span>
             <% end %><% if res[:rate].present? %><span class='location rate' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
