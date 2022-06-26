@@ -308,7 +308,7 @@
     <% end %>
 
     <% if !cu %>
-    <a class='' href='/login'><%= !heb ? 'Login' : 'כניסה' %></a>
+    <a class='' href='/signup'><%= !heb ? 'join / sign in' : 'כניסה' %></a>
     <% end %>
     <% if cu && !is_pro(cu) %>
       <a class='noDisplay' href='/pro'><i class='fa fa-plus'></i> <%= 'pro' %> </a>
@@ -317,15 +317,16 @@
     
     
 
-    <% if !cu  %>
+    <% if false && !cu  %>
 
-    <% if _req.path == '/' %>
-      <a class='nzbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
-    <% else %>
-      <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
-    <% end %>
-      <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Register' : 'הרשמה' %></a>  
+      <% if _req.path == '/' %>
+        <a class='nzbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
+      <% else %>
+        <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
+      <% end %>
+        <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Register' : 'הרשמה' %></a>  
     <% end %>    
+    
     <a class='noDisplay' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a>
     <% if false %>
     <a class='' href='/vip'><i class='fa fa-question-smiley' style='margin-right: 5px'></i> <%= 'VIP chat' %> </a>
@@ -362,10 +363,11 @@
     <% end %>
 
     <!-- <a class='' href='/we_love_developers'>We Love Developers</a> -->
-    <a class='' href='/how_it_works'>About</a>
-    <a class='' href='/contact'>Contact</a>
-    <a class='' href='/careers'>Careers & Hiring</a>
-    <a class='' href='/blog'>Blog</a>
+    <a class='' href='/pricing'>pricing</a>
+    <a class='' href='/how_it_works'>about</a>
+    <a class='' href='/contact'>contact</a>
+    <a class='' href='/careers'>careers</a>
+    <a class='' href='/blog'>blog</a>
 
     <% if cu %>      
       <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times-circle' ></i></a>

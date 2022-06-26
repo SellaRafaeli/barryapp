@@ -116,6 +116,16 @@ span.magnifying_class_search {
 .search_controls select {
   width: 50px;
 }
+
+.advanced_search_button {
+  margin-left: 10px; 
+  display: inline-block; 
+  color: grey;
+}
+.advanced_search_button:hover {
+  color: black;
+  cursor: pointer;
+}
 </style>
 
 
@@ -150,6 +160,10 @@ span.magnifying_class_search {
       <option>👤 individuals</option>
       <option>👥 teams</option>
     </select>
+
+    <span class='advanced_search_button'>
+      <i class='fal fa-gear'></i>
+    </span>
   </div>
 
 </div>

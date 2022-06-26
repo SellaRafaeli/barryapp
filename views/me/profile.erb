@@ -57,7 +57,7 @@
   <div class='display_flex' style='margin-top:20px'>
     <%#= user.to_json %>
 
-    <label class=flex1> CV </label>
+    <label class=flex1> CV <small>(optional)</small> </label>
     <input name=license_url      class=license_url value="<%=user['license_url']%>" hidden />    
     <input name=license_filename class=license_filename value="<%=user['license_filename']%>" hidden /> 
     
@@ -72,8 +72,19 @@
 
   <% if is_seller %>
   <div class='display_flex'>                  
-    <label> Pricing Rate (optional) <div></div></label>
-    <input class='input1' placeholder='$10k-30k/mo' value="<%=user['rate']%>" name='rate' style='margin-right: 0px; margin-left: 0'/>
+    <label> Pricing <small>(optional)</small> <div></div></label>
+    <% if true %>
+      <select name=rate style='width: 200px'>
+        <% 
+          icon = '$'
+          [' ',icon, icon*2, icon*3, icon*4].each do |i| 
+        %>
+            <option <%= "selected" if user['rate'] == i %> > <%=i %> </option>
+        <% end  %>
+      </select>
+    <% else %>
+      <input class='input1' placeholder='$10k-30k/mo' value="<%=user['rate']%>" name='rate' style='margin-right: 0px; margin-left: 0'/>
+    <% end %>
   </div>
   <% end %>
 

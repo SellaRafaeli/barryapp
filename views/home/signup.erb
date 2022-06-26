@@ -5,14 +5,20 @@
 
   if pr[:type] && pr[:subtype]
 %>
+
 <h3 id=signup> 
 <% if pr[:type] == 'seller' %>
 <%#= is_heb ? 'ברוכים הבאים.' : "Apply as #{pr[:subtype]}" %>
-<%= is_heb ? 'ברוכים הבאים.' : "Register" %>
+<%= is_heb ? 'ברוכים הבאים.' : "Join" %>
 
 <% elsif pr[:type] == 'buyer' %>
 <%= is_heb ? 'ברוכים הבאים.' : "Sign Up for Beta:" %>
 <% end %>
+
+
+<div>
+  <small><a class=simple_link href='/login'>or sign in</a></small>
+</div>
 </h3>
 <form action='/signup' method='post'>
   <%= erb :'login/signup_fields', locals: {only_signup: true} %>
