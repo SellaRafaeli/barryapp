@@ -2,10 +2,23 @@
 .search_and_homepage {
   zdisplay: flex;
 }
+.hero_msg {
+  text-align: center;
+  margin-bottom: 10px;
+}
 </style>
 
 <div class='search_and_homepage'>
-  <div class=flex1 style='margin-top:60px'><%= erb :'rafaeli/search' %></div>  
+  
+  <div class=flex1 style='margin-top:60px'></div>
+
+  <div class='hero_msg'>
+    Strong, independent developers. 
+  </div> 
+  
+  
+
+  <div><%= erb :'rafaeli/search' %></div>  
   <div class=flex1 style='border-right:2px dashed whitesmoke; padding-right: 10px; margin-right: 10px'><%= erb :'coming_soon', locals: {halfscreen_mode: true} %>    
   </div>
   
