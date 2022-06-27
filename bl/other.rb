@@ -22,6 +22,10 @@ get '/help' do
 	redirect '/about'
 end
 
+get '/pricing' do 
+	erb :'rafaeli/homepage/pricing', default_layout
+end
+
 def get_random_cannabis_img
 	pics = ['https://i.imgur.com/uO7U2xrb.jpg',
 	'https://i.imgur.com/MDtn78Qb.jpg',
