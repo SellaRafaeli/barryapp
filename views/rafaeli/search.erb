@@ -164,7 +164,6 @@ span.magnifying_class_search {
 
   opts = all_opts[search_val] || all_opts.keys
   
-
   keywords = opts
   keywords.each do |keyword|
 %>
@@ -175,7 +174,12 @@ span.magnifying_class_search {
 <div class='main_search_wrapper ct'>
   <form method=get action=search style='display: inline-block;'>
     <span style='position: relative;'>
-      <input id=main_search name=q class='main_search input1' placeholder='Search...' value="<%=search_val%>" autocomplete />
+      <input id=main_search name=q class='main_search input1' placeholder='Search...' value="<%=search_val%>" autocomplete list=suggestions />
+      <datalist id="suggestions">
+        <% all_opts.values.flatten.map(&:downcase).sort.each do |opt| %>
+          <option value="<%=opt%>">
+        <% end %>
+      </datalist>
       <span class=magnifying_class_search>🔎</span>
     </span>
     <button class='btn btn-raised btn-primary'>Go</button>
