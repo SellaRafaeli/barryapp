@@ -26,6 +26,24 @@
 %>
 
 <style>
+.keywords {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+.single_keyword {
+  display: inline-block;
+  zcolor: var(--color1);
+  color: grey;
+  text-transform: lowercase;
+  font-size: 13px;
+  margin: 0 10px;
+}
+.single_keyword:hover {
+  text-decoration: underline !important;
+  zcolor: red;
+}
+
 .main_search_wrapper {
   zmargin-bottom: 10px;
 }
@@ -81,7 +99,7 @@
   font-size: 14px;
 }
 .search_results_wrapper {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
   margin-top: 20px;
 }
@@ -130,6 +148,29 @@ span.magnifying_class_search {
 
 
 <!-- <h1 style='font-size: 20px; text-align: center'>Elite Freelancers.</h1> -->
+
+<div class='keywords znoDisplay'>
+<%  
+  all_opts = {
+    frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
+    backend:  ['java', 'c++', 'python', 'node', 'go', 'ruby'],
+    fullstack: ['express', 'rails', 'django', 'laravel'],
+    mobile: ['ios', 'android', 'swift', 'flutter'],
+    devops: ['aws', 'gcp', 'azure', 'heroku'],
+    'ai/ml': [],
+    web3: ['blockchain','ethereum','DAPPs'],
+    embedded: ['c','c++','vhdl']
+  }.hwia
+
+  opts = all_opts[search_val] || all_opts.keys
+  
+
+  keywords = opts
+  keywords.each do |keyword|
+%>
+  <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
+<% end %>
+</div>
 
 <div class='main_search_wrapper ct'>
   <form method=get action=search style='display: inline-block;'>
@@ -250,42 +291,6 @@ function placeholderSuggest() {
 placeholderSuggest();
 <% end %>
 </script>
-
-<style>
-.keywords {
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-}
-.single_keyword {
-  display: inline-block;
-  zcolor: var(--color1);
-  color: grey;
-  text-transform: lowercase;
-  font-size: 13px;
-  margin: 0 10px;
-}
-</style>
-
-<div class='keywords noDisplay'>
-<%  
-  all_opts = {
-    frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
-    backend:  ['java', 'c++', 'python', 'node', 'go', 'ruby'],
-    fullstack: ['express', 'rails', 'django', 'laravel'],
-    mobile: ['ios', 'android', 'swift', 'flutter'],
-    devops: ['aws', 'gcp', 'azure', 'heroku']
-  }.hwia
-
-  opts = all_opts[search_val] || all_opts.keys
-  
-
-  keywords = opts
-  keywords.each do |keyword|
-%>
-  <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
-<% end %>
-</div>
 
 
 <% if true || is_verified %>
