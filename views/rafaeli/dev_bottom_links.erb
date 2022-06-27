@@ -4,7 +4,7 @@
 
 <div class='bottom_links'>
   <% if res[:license_url].present? %>            
-    <a class='bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >📎 CV</a> ·
+    <a class='bottom_link' href='<%=res[:license_url].to_s%>' target=_blank >📎</a> ·
   <% end %>   
 
   <% RAFA_NUM_LINKS.times do |i| %>
@@ -17,12 +17,14 @@
           <% else %> href='//<%=link_val%>' <% end %> 
         >
 
-        <% if is_email %> 📩 <% end %>
-        <% if link_name.include? 'git' %>   <i class='fa fa-github'></i> <% end %>
-        <% if link_name.include? 'linkedin' %>  <i class='fa fa-linkedin'></i> <% end %>
-        <% if link_name.include? 'home' %>  <i class='fa fa-home'></i> <% end %>
+        <% if is_email %> 📩 
+        <% elsif link_name.include? 'git' %>   <i class='fa fa-github'></i> 
+        <% elsif link_name.include? 'linkedin' %>  <i class='fa fa-linkedin'></i> 
+        <% elsif link_name.include? 'home' %>  <i class='fa fa-home'></i> 
         
-        <%= link_name %>                
+        <% else %>
+        <%= link_name %>     
+        <% end %>           
       </a> 
       <% if res["links_val_"+(i+1).to_s].present? %> <span class='separator-dot'> · </span> <% end %>
       <% end %>
