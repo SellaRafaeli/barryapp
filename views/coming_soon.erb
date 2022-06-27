@@ -186,11 +186,24 @@ text-align: center;
     'https://i.imgur.com/dB5tWJY.png'
   ]
 %>
+
+<style>
+
+.trusted_by_img {
+  width: 80px;
+}
+
+@media screen and (min-width: 1000px) {
+  .trusted_by_img { width: 150px; }
+}
+
+</style>
+
 <div class=ct>
   <div class='ct' style='max-width: 850px; margin: auto'>
     <h3 style='margin-bottom: 20px'> Trusted By</h3>
     <% trusted_by.each_with_index do |img, idx| %>
-      <img style='width: 150px' src='<%=img%>' />
+      <img class='trusted_by_img' src='<%=img%>' />
     <% end %>
   </div>
   <!-- Find and hire elite developers at <a href='https://www.rafaeli.io'>rafaeli.io.</a> -->
