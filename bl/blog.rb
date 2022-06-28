@@ -20,7 +20,7 @@ post '/admin/blog/new_post' do
 	author = pr[:author]
 	body   = erb :'blog/editable_post_template'
 	
-	$blog.add({title: title, orig_title: orig_title, body: body, author: author})
+	$blog.add({title: title, orig_title: title, body: body, author: author})
 	redirect back
 end
 
