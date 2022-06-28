@@ -95,7 +95,7 @@ ADMIN_EMAILS = ['sella.rafaeli@gmail.com']
 
 def is_admin(user = cu)
   # return true if !$prod #&& cu[:email].to_s=='sella.rafaeli@gmail.com'
-  cu[:email].in?(ADMIN_EMAILS) #&& cuid.in?(ADMIN_IDS) && admin_authorized?
+  user[:email].in?(ADMIN_EMAILS) #&& cuid.in?(ADMIN_IDS) && admin_authorized?
 rescue 
   false
 end
