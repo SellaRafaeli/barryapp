@@ -3,7 +3,20 @@
   post = $blog.get(id)
 %>
 
-
+<style>
+.post_container {
+  max-width: 700px;
+  margin: auto;
+}
+.post_body p {
+  line-height: 27px;
+  font-size: 20px;
+  max-width: 700px;
+}
+.post_body {
+  padding: 5px;
+}
+</style>  
 <% if is_admin %>
 <div class='admin_edit' style='position: absolute; left: 50px; top: 100px' >
   <button id=btn class='zbtn btn-raised btn-info' onclick=updatePost()><span style='margin-right: 5px'>💾</span> Save </button>
