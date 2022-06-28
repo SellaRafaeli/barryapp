@@ -53,7 +53,7 @@
                 <% val = subdata[k] || -0 %>
                 <% total += val %>
                 <span class=flex1><%= k %> 
-                  <% if topic == :ips %> country: <%= geocode(k) %><% end %>
+                  <% if (topic == :ips) && (val >=10) %> country: <%= geocode(k) %><% end %>
                 </span>
                 
                 <span class=flex1><%= val %></span>
