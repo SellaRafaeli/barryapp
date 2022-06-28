@@ -1,4 +1,7 @@
-manageable_collections = ['stats', 'casts', 'users', 'enrolls', 'locations', 'stripe_customers', 'stripe_notifs', 'single_payments', 'stripe_subscriptions', 'subs', 'analytics', 'errors', 'emails_sent']
+manageable_collections_old = ['stats', 'casts', 'users', 'enrolls', 'locations', 'stripe_customers', 'stripe_notifs', 'single_payments', 'stripe_subscriptions', 'subs', 'analytics', 'errors', 'emails_sent']
+
+manageable_collections = ['users']
+# manageable_collections = manageable_collections_old
 #manageable_collections += $mongo.collection_names
 manageable_collections.uniq!
 manageable_collections.map! {|n| $mongo.collection(n) }

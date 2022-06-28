@@ -37,6 +37,7 @@ GEM
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
+    geocoder (1.8.0)
     hashery (2.1.2)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
@@ -162,6 +163,7 @@ DEPENDENCIES
   colorize
   dotenv
   faker
+  geocoder
   json (= 2.1.0)
   mongo (~> 2.5.0)
   nokogiri

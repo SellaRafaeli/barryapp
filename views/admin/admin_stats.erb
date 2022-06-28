@@ -44,14 +44,25 @@
       <h5> Data </h5>
       <div class='single_list_item' style='display: zinline-block;'>
         <% data.keys.each do |topic| %>
+          <% total = 0 %>
           <h4> <%= topic %></h4>
           <% subdata = data[topic] %>
             <% subdata.keys.each do |k| %>
+              <%# k = '79.179.143.0' %>
               <div class=display_flex>
-                <span class=flex1><%= k %> </span><span class=flex1><%= subdata[k] %></span>
+                <% val = subdata[k] || -0 %>
+                <% total += val %>
+                <span class=flex1><%= k %> 
+                  <% if topic == :ips %> country: <%= geocode(k) %><% end %>
+                </span>
+                
+                <span class=flex1><%= val %></span>
               </div>
             <% end %>
+          <br/>
+          <span style='background-color: black; color: white'>total: <%= total %></span>
           <% end %>
+
       </div>
     <% end %>
     <hr/>

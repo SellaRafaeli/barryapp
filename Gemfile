@@ -39,6 +39,7 @@ gem 'postmark'
 gem "sinatra-cross_origin", "~> 0.3.1"
 gem 'rack-protection'
 gem 'zip-codes'
+gem 'geocoder'
 # gem 'detect_language'
 
 # gem 'redcarpet'

@@ -15,6 +15,12 @@ rescue => e
 	log_e(e)
 end
 
+$geocode_data = {}
+
+def geocode(ip)
+	$geocode_data[ip] ||= ($geocode_data[ip] || Geocoder.search(ip).first.country rescue 'error')
+end
+
 get '/refresh' do
 	true
 end
