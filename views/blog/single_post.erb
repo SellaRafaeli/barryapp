@@ -52,7 +52,7 @@ function updatePost() {
 <% end %>
 
 <div class='post_container' <% if is_admin %> onkeyup=updatePost() <% end %>>
-  <h1 class=post_title contenteditable> <%= post[:title] %> </h1>  
+  <h1 class=post_title <% if is_admin %> contenteditable <% end %>> <%= post[:title] %> </h1>  
   <% if post[:hidden] %> <h3> (Hidden) </h3> <% end %>
-  <div class='post_body' contenteditable><%= post[:body] %></div>
+  <div class='post_body' <% if is_admin %> contenteditable <% end %>><%= post[:body] %></div>
 </div>
