@@ -123,11 +123,11 @@ span.magnifying_class_search {
   opacity: 0.5;
 } 
 
-#main_search:focus {
+#main_search, #main_search:focus {
   -webkit-box-shadow: 2px 3px 0px -2px #ccc;
 }
 
-#main_search:focus~.magnifying_class_search {
+#main_search~.magnifying_class_search, #main_search:focus~.magnifying_class_search {
   opacity: 1;
 }
 
@@ -175,7 +175,7 @@ span.magnifying_class_search {
   <form method=get action=search style='display: inline-block;'>
     <span style='position: relative;'>
       <input id=main_search name=q class='main_search input1' placeholder='Search...' value="<%=search_val%>" autocomplete list=suggestions />
-      <datalist id="suggestions">
+      <datalist id="zsuggestions">
         <% all_opts.values.flatten.map(&:downcase).sort.each do |opt| %>
           <option value="<%=opt%>">
         <% end %>
