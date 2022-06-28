@@ -2,11 +2,26 @@
 .search_and_homepage {
   zdisplay: flex;
 }
-.hero_msg {
-  text-align: center;
+.hero_and_img{
+  max-width: 700px;
+  margin: auto;  
   margin-bottom: 30px;
   font-size: 35px;
   font-family: 'Poppins';
+}
+.main_pic {
+  width: 200px;
+}
+.main_img_container {
+  text-align: center;
+  justify-content: center;
+  zdisplay: flex;
+  align-items: start;
+  padding-top: 15px;
+}
+.img_caption {
+  padding: 10px;
+  font-size: 12px;
 }
 </style>
 
@@ -14,13 +29,27 @@
   
   <div class=flex1 style='margin-top:40px'></div>
 
-  <div class='hero_msg'>
-    
-    <span style='color: #ab1234'>independent</span>
-    <span style='color: #12AB89'>software developers</span>
-    for hire 
-    <br/>
-  </div> 
+  <div class='hero_and_img display_flex'>
+    <div class='hero_msg flex1'>    
+      <div style='color: #ab1234'>independent</div>
+      <div style='color: #12AB89'>software developers</div>
+      <div style='color: #0e1104'>for hire </div>
+      <br/>
+    </div> 
+
+    <div class='main_img_container flex1'>
+      <img class=main_pic src='https://i.imgur.com/SrCq3xY.png' />
+      <div class='img_caption'>
+        <a href='/@sella rafaeli1'>Sella Rafaeli,</a> 
+        <a href='/search?q=tel aviv'>Tel Aviv</a> 
+        <br/>
+        <a href='/search?q=ruby,javascript'>Ruby, JavaScript, Fullstack</a>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+    </div>
+  </div>
   
   
 
