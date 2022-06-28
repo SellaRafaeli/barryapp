@@ -2,29 +2,46 @@
 #main {
   padding:10px;
 }
+
+code {
+  background-color: grey;
+  padding: 10px;
+}
 </style>
 
+<div id=main contenteditable>
+  <h1> H1 </h1>
+  <h2> H2 </h2>
+  <h3> H3 </h3>
+  <a href='https://google.com'>link to google.com</a>
+  <ol>
+    <li> Ordered Item 1 </li>
+    <li> Ordered Item 2 </li>
+  </ol>
 
+  <ul>
+    <li> Unordered Item 1 </li>
+    <li> Unordered Item 2 </li>
+  </ul>
 
-<div id=main contenteditable="">
-  <h1> Test </h1>
-  <h2> Hello World </h2>
-  <h3> Subtitle </h3>
-  <a href='https://google.com'>google.com</a>
   <p> foo </p>
   <br/>
+  <code class='language-css'> CSS: .foo {bar: 1} </code>
+  <br/>
+  <code class='language-js'> JS: alert(123) </code>
+  <br/>
+  <code class='language-rb'> 
+    get '/foo' do 
+      {msg: 123}
+    end 
 
-  <pre><code class='language-css'>alert('hello world')</code></pre>  
+  </code>
 
-  <img src='https://i.imgur.com/JhdL9mJ.jpeg' height=400px />
-  
-  <p><b> Bold </b> </p>
+  <div>
+    <img src='https://i.imgur.com/JhdL9mJ.jpeg' height=400px />
+  </div>
+
 </div>
-
-
-
-
-
 
 
 <link href="/lib/prism.css" rel="stylesheet">

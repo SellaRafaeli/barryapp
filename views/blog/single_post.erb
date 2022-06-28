@@ -1,0 +1,45 @@
+<%
+  id   = pr[:id]
+  post = $blog.get(id)
+%>
+
+
+<% if is_admin %>
+<div class='admin_edit' style='position: absolute; left: 50px; top: 100px' >
+  <button id=btn class='zbtn btn-raised btn-info' onclick=updatePost()><span style='margin-right: 5px'>💾</span> Save </button>
+
+  <br/>
+  <br/>
+  <form method=post action=/admin/blog/<%=id%>/toggle>
+    <button onclick=toggleHide()> 
+      <%= post[:hidden] ? '👀 Publish' : '🙈 Hide' %> 
+    </button>
+  </form>
+  <br/>
+  <a class=simple_link href='/blog'> Blog Index </a>
+</div>
+<script>
+var btn = $("#btn");
+var oldText = $(btn).text();
+
+function updatePost() {
+  window.clearTimeout(window.editPostTimeout);
+
+  window.editPostTimeout = setTimeout(()=>{
+    $(btn).text('Saving...')
+    var title = $('.post_title').html();
+    var body  = $('.post_body').html();
+    var data  = {_id: "<%=id%>", title, body}
+    $.post('/admin/blog/edit_post', data).then(res => $(btn).text(oldText));
+  },700)
+}
+
+//setInterval(updatePost,3000);
+</script>
+<% end %>
+
+<div class='post_container' <% if is_admin %> onkeyup=updatePost() <% end %>>
+  <h1 class=post_title contenteditable> <%= post[:title] %> </h1>  
+  <% if post[:hidden] %> <h3> (Hidden) </h3> <% end %>
+  <div class='post_body' contenteditable><%= post[:body] %></div>
+</div>
