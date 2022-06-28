@@ -16,10 +16,11 @@ end
 # admin 
 
 post '/admin/blog/new_post' do 
-	title = pr[:title]
-	body  = erb :'blog/editable_post_template'
+	title  = pr[:title]
+	author = pr[:author]
+	body   = erb :'blog/editable_post_template'
 	
-	$blog.add({title: title, body: body})
+	$blog.add({title: title, orig_title: orig_title, body: body, author: author})
 	redirect back
 end
 

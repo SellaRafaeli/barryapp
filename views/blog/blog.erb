@@ -10,7 +10,10 @@
     if !post[:hidden] || is_admin 
   %>
   <div class='single_post'>
-    <a href='/blog/<%=post[:_id]%>/<%=slugify(post[:title])%>'><%= post[:title] %> </a>
+    <% 
+      orig_title = post[:orig_title] || post[:title] 
+    %> 
+    <a href='/blog/<%=post[:_id]%>/<%=slugify(orig_title)%>'><%= post[:title] %> </a>
     <% if post[:hidden] %>
     (HIDDEN)
     <% end %>
@@ -23,6 +26,7 @@
 <br/>
 <br/>
 <form method=post action=/admin/blog/new_post>
+  <input placeholder='author email' name=email>
   <input placeholder='title' name=title>
   <button> Add post </button>
 </form>
