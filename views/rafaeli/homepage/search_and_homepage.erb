@@ -3,9 +3,9 @@
   zdisplay: flex;
 }
 .hero_and_img{
-  max-width: 700px;
+  max-width: 850px;
   margin: auto;  
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 35px;
   font-family: 'Poppins';
 }
@@ -31,8 +31,8 @@
 
   <div class='hero_and_img display_flex'>
     <div class='hero_msg flex1'>    
-      <div style='color: #ab1234'>independent</div>
-      <div style='color: #12AB89'>software developers</div>
+      <div style='color: #12AB89'>independent</div>
+      <div style='color: #ab1234'>software developers</div>
       <div style='color: #0e1104'>for hire </div>
       <br/>
     </div> 
@@ -59,22 +59,5 @@
     <%= erb :'other/how_it_works' %>
   </div>
 
-  <br/>
-
-  <div class='mw1000'>
-    <%= erb :'rafaeli/homepage/pricing' %>
-  </div>
-
-  <br/> 
-
-  <div class=flex1 style='border-right:2px dashed whitesmoke; padding-right: 10px; margin-right: 10px'><%= erb :'coming_soon', locals: {halfscreen_mode: true} %>    
-  </div>
-  
-  <br/>
-
-  <div class='mw1000'>
-    <%= erb :'other/contact' %>
-  </div>
-
-  
+  <br/>  
 </div>

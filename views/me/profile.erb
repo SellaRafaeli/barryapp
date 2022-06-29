@@ -44,7 +44,7 @@
   </div>
 
   <div class='display_flex'>                  
-      <label> Title <div></div></label>
+      <label> Headline <div></div></label>
       <input class='input1' placeholder='Your description in one line' value="<%=user['title']%>" name='title' style='margin-right: 5px; margin-left: 0'/>
   </div>
 
@@ -70,7 +70,7 @@
   <% end %>
 
 
-  <% if is_seller %>
+  <% if is_seller && false %>
   <div class='display_flex'>                  
     <label> Pricing <small>(optional)</small> <div></div></label>
     <% if true %>
@@ -136,7 +136,7 @@
   <% end %>
 
   <div class='display_flex'>
-    <label> About - When and Why Should People Hire You  </label>
+    <label> Description </label>
     <!-- <div class=help_text>
       <div>Add as much information about yourself as possible.</div>
     </div> -->

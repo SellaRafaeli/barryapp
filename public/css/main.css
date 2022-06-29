@@ -8,13 +8,16 @@ body {
 }
 :root {
   --zcolor1: rgb(26, 13, 171);
-  --color1: #1a0dab;
+  --color1_: #1a0dab;
+  --color1: #ab1234;
   --zcolor2: #a12345;
-  --color2: #690DAB;
+  --color2_old: #690DAB;
+  --color2: #12AB89;
   --color3: #ab1234;
   --color4: #abc123;
   --lightblue: #30ccff;
   --colorP1: #1e5353;
+  --hover-brightness: 1.2;
 }
 #editor {
   font-size: 16px;

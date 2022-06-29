@@ -177,12 +177,15 @@ label {
     background-color: #009688;
     background-color: #00b140; /*green-screen green*/
     background-color: #1e5353;
+    background-color: var(--color2);
     color: rgba(255,255,255,.84);
 }
 
 .btn.btn-raised:not(.btn-link):hover.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link).active.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):active.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):focus.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-primary {
-    background-color: #00aa9a;
-    background-color: #15cb12; /*green-screen green even lighter*/
+    zbackground-color: #00aa9a;
+    zbackground-color: #15cb12; /*green-screen green even lighter*/
+    zbackground-color: var(--color1);
+    filter: brightness(var(--hover-brightness));
     /*color: black;*/
 }
 

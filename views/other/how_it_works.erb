@@ -21,4 +21,24 @@
 %>
 <img src='<%=img_url%>' style='width: 100%'/>
 
+  <div class='mw1000'>
+    <%= erb :'rafaeli/homepage/pricing' %>
+  </div>
+
+  <br/> 
+
+  <div class=flex1 style='border-right:2px dashed whitesmoke; padding-right: 10px; margin-right: 10px'><%= erb :'coming_soon', locals: {halfscreen_mode: true} %>    
+  </div>
+  
+  <br/>
+  
+  <div class='mw1000'>
+    <%= erb :'other/careers' %>
+  </div>
+
+  <div class='mw1000'>
+    <%= erb :'other/contact' %>
+  </div>
+
+
 <%#= erb :'/other/template_page', locals: data %>

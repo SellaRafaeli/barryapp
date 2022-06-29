@@ -23,8 +23,8 @@
   color: #1e5353;
   color: #12abcd;
   color: var(--color1);
-  color: var(--color2);
-  color: black;
+  zcolor: var(--color2);
+  zcolor: black;
   margin: 20px;
   font-size: 15px;
   font-weight: bold;
@@ -32,8 +32,17 @@
 
 .top-nav a:not(.logo):hover {
   color: black;
-  color: var(--lightblue) !important;
+  zcolor: var(--lightblue) !important;
+  color: #12AB89;
+  color: var(--color2);
   ztext-decoration: underline !important;
+}
+
+.top-nav #user_name {
+  color: var(--color2);
+}
+.top-nav #user_name:hover {
+  color: var(--color1);
 }
 
 @media screen and (min-width: 1000px) {
@@ -267,11 +276,11 @@
       }
     </style>
     <a class='zbtn' href='/' style='display: inline; flex-direction: column;'>
-      <span class='logo-text'> &lt;/&gt; <span style='color:#ab1234'>indy</span>devs </span>
+      <span class='logo-text'> &lt;/&gt; <span style='color:var(--color2)'>indy</span>devs </span>
       <span class='sub-logo-text' style='font-size: 80%'>strong independent developers</span>
     </a>
     <% if cu %>
-      <a class='user_name' href='/me'>
+      <a id=user_name class='user_name' href='/me'>
         <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
         <%#= cu_logo %>         
 
@@ -309,7 +318,7 @@
     <% end %>
 
     <% if !cu %>
-    <a class='' href='/signup'><%= !heb ? 'join / sign in' : 'כניסה' %></a>
+    <a class='' href='/signup'><%= !heb ? 'join' : 'כניסה' %></a>
     <% end %>
     <% if false && cu && !is_pro(cu) %>
      <!-- get pro -->
@@ -365,14 +374,16 @@
     <% end %>
 
     <!-- <a class='' href='/we_love_developers'>We Love Developers</a> -->
-    <a class='' href='/pricing'>pricing</a>
+    <!-- <a class='' href='/pricing'>pricing</a> -->
     <a class='' href='/how_it_works'>about</a>
-    <a class='' href='/contact'>contact</a>
-    <a class='' href='/careers'>careers</a>
+    <!-- <a class='' href='/contact'>contact</a> -->
+    <!-- <a class='' href='/careers'>careers</a> -->
+    <% if is_admin %>
     <a class='' href='/blog'>blog</a>
+    <% end %>
 
     <% if cu %>      
-      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times-circle' ></i></a>
+      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times' ></i></a>
     <% end %>    
 
     <%= erb :'header/hamburger' %>
