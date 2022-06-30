@@ -1,0 +1,34 @@
+<style>
+.vip_projects_container {
+  display: flex;
+}
+.vip_projects_container .text {
+  flex: 1;
+  padding-right: 20px;
+}
+.vip_projects_container .vip_img {
+  flex: 1;
+  height: 200px;
+}
+
+.vip_img img {
+  height: 200px;
+}
+
+</style>
+
+<h2> VIP Projects </h2>
+
+
+<div class='vip_projects_container'>
+
+  <div class='text'>
+    We also support VIP Projects, where we handle the development ourselves. For details please contact vip@indydevs.com.
+  </div>
+
+  <div class='vip_img'>
+    <img src='https://imgur.com/Tfk85eK.png' />
+  </div>
+</div>
+
+<%= erb :'vip/trusted_by' %>
