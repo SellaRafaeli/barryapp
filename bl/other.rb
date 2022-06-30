@@ -39,5 +39,5 @@ get '/deck' do
 	msg = "deck view: #{code}"+Time.now.to_s
 	send_email('sella@indydevs.com', msg, msg)
 
-	redirect 'https://docs.google.com/presentation/d/1wdm2qpinIsxqPvPWj3pOuPtPkqrhKsy-cClAYHmUE6M/edit?usp=sharing'
+	redirect 'https://docs.google.com/presentation/d/18MxHxayh9YKQ5FIrE04lfYchN5jFrnsSz0mfdhw-GEk/edit?usp=sharing'
 end
