@@ -368,7 +368,7 @@ end
 
 def ensure_payment_casts
 	$users.update_id('system', {name: 'IndyDevs, LLC', email: 'payments@indydevs.com'}, upsert: true)
-	$casts.update_id('level1_payment_cast', {user_id: 'system', cost_dollars: 100, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil
+	$casts.update_id('level1_payment_cast', {title: 'Pro Account', user_id: 'system', cost_dollars: 100, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil
 end
 
 get '/pro' do 

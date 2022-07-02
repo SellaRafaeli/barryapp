@@ -9,7 +9,7 @@ end
 def is_pro(user = cu)
 	#return false
 	#return true if !$prod
-	user && user[NOWCAST_PRO]
+	user && user[:tags].to_a.any? {|tag| tag.to_s.downcase.include?('payment')}
 end
 
 def is_verified(user = cu)
