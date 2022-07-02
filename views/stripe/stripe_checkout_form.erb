@@ -16,6 +16,9 @@
   offer_pay = true
 %>
 
+
+<script src="https://js.stripe.com/v3"></script>
+
 <style>
 .submit_stripe_form_btn {
   position: absolute;
@@ -110,6 +113,12 @@
           <% end %>
         </div>
       <% else %>
+      <%
+bp
+x=77
+      %>
+
+
         <div class='total_amount'>cost: $<%=cast[:cost_dollars]%> <%="per month" if is_billing %></div>
       <% end %>
 

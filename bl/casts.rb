@@ -366,8 +366,13 @@ def casts_by_dow_and_hour(casts, dow, hour)
 	casts.select { |c| (get_cast_dow(c) == dow) && (get_cast_hour(c) == hour) }
 end
 
+def ensure_payment_casts
+	$users.update_id('system', {name: 'IndyDevs, LLC'}, upsert: true)
+	$casts.update_id('level1_payment_cast', {user_id: 'system', cost_dollars: 100, recurring: true}, upsert: true) rescue nil
+end
+
 get '/pro' do 
-	pr[:_id] = ENV['PRO_CAST_ID']
+	pr[:_id] = 'level1_payment_cast' #ENV['PRO_CAST_ID']
 	show_cast_by_id
 end
 

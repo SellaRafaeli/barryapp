@@ -1,4 +1,4 @@
-const dowsHash = {
+dowsHash = window.dowsHash || {
 	mon: 'Mondays',
 	tue: 'Tuesdays',
 	wed: 'Wednesdays',
