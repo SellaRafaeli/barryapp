@@ -18,6 +18,7 @@
   results = users
 
   # results = results.sort_by {|u| search_user_score(u, search_val) }.reverse
+  results = results.sort_by {|u| is_verified(u).to_s }.reverse
   
   x=1
 %>
