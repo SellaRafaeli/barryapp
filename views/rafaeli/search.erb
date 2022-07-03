@@ -2,7 +2,7 @@
   search_val     = pr[:q].to_s.downcase
 
   #search_val = 'javascript' unless val.present?
-  all_sellers = $users.all(type: 'seller').reverse
+  all_sellers = @all_sellers  
 
   fields = [:name, :title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
@@ -28,6 +28,7 @@
   max-width: 800px;
   margin: auto;
   text-align: center;
+  margin-bottom: 15px;
 }
 .single_keyword {
   display: inline-block;
@@ -35,7 +36,7 @@
   color: var(--color2);
   zcolor: grey;
   text-transform: lowercase;
-  font-size: 13px;
+  font-size: 20px;
   margin: 0 10px;
 }
 .single_keyword:hover {

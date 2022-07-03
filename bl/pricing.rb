@@ -11,3 +11,4 @@ def is_pro(user = cu)
 	#return true if !$prod
 	user && user[:tags].to_s.downcase.include?('payment')
 end
+

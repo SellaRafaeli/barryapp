@@ -1,3 +1,8 @@
+<%
+  @all_sellers ||= $users.all(type: 'seller').reverse
+
+  verified_sellers = @all_sellers.select {|u| is_verified(u) }
+%>
 <style>
 .search_and_homepage {
   zdisplay: flex;
@@ -15,8 +20,14 @@
     text-align: center;
   }  
 }
+@media screen and (min-width: 900px) {
+  .main_pic {
+    position: relative;
+    left: 100px;
+  }
+}
 .main_pic {
-  width: 200px;
+  width: 400px;
 }
 .main_img_container {
   text-align: center;
@@ -29,35 +40,51 @@
   padding: 10px;
   font-size: 12px;
 }
+.top_hero_container {
+  background-color: var(--color1);
+}
 </style>
 
 <div class='search_and_homepage'>
   
-  <div class=flex1 style='margin-top:40px'></div>
+  <div class='top_hero_container'>
+    <div class=flex1 style='padding-top:40px'></div>
 
-  <div class='hero_and_img display_flex'>
-    <div class='hero_msg flex1'>    
-      <div style='color: #0e1104; font-size: 24px' class='minimsg'>the best</div>
-      <div style='color: var(--color2)'>independent</div>
-      <div style='color: var(--color1)'>software developers</div>
-      <div style='color: #0e1104; font-size: 24px; text-align: right; position: relative; right: 20px' class='minimsg'>for hire </div>
-      <br/>
-    </div> 
+    <div class='hero_and_img display_flex'>
+      <div class='hero_msg flex1'>    
+        <div style='color: var(--color2); font-size: 24px' class='minimsg'>the best</div>
+        <div style='color: white'>independent</div>
+        <div style='color: white'>software developers</div>
+        <div style='color: var(--color2); font-size: 24px; text-align: right; position: relative; right: 20px' class='minimsg'>for hire </div>
+        <br/>
+      </div> 
 
-    <div class='main_img_container flex1'>
-      <img class=main_pic src='https://i.imgur.com/SrCq3xY.png' />
-      <div class='img_caption'>
-        <a href='/@sella rafaeli1'>Sella Rafaeli,</a> 
-        <a href='/search?q=tel aviv'>Tel Aviv</a> 
-        <br/>
-        <a href='/search?q=ruby,javascript'>Ruby, JavaScript, Fullstack</a>
-        <br/>
-        <br/>
-        <br/>
+      <div class='main_img_container flex1'>
+        <% verified_sellers.each do |user| %>
+          <!-- <img class=main_pic src='https://i.imgur.com/SrCq3xY.png' /> -->
+          <!-- <img class=small_main_pic src='<%=user[:img_url]%>' /> -->
+        <% end %>
+
+        <!-- <img class=main_pic src='https://imgur.com/1lpnHRQ.png' /> -->
+        <!-- <img class=main_pic src='https://imgur.com/cpilXcm.png' /> -->
+        <img class=main_pic src='https://imgur.com/K7gHEUU.png' />
+
+
+        <% if false %>
+          <div class='img_caption'>
+            <a href='/@sella rafaeli1'>Sella Rafaeli,</a> 
+            <a href='/search?q=tel aviv'>Tel Aviv</a> 
+            <br/>
+            <a href='/search?q=ruby,javascript'>Ruby, JavaScript, Fullstack</a>
+            <br/>
+            <br/>
+            <br/>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
-  
+
   <div><%= erb :'rafaeli/search' %></div>  
   
   <div class='mw1000'>

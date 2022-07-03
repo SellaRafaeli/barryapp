@@ -9,14 +9,16 @@ body {
 :root {
   --zcolor1: rgb(26, 13, 171);
   --color1_: #1a0dab;
-  
-  --color2: #ab1234;
-  --color1: #12AB89;
-
   --zcolor2: #a12345;
   --color2_old: #690DAB;
   
-  --color3: #ab1234;
+
+  --color1: #12AB89;
+
+  --color1: #ab1234;  
+  --color2: #34AB12;  
+  --color3: #1234AB;
+
   --color4: #abc123;
   --lightblue: #30ccff;
   --colorP1: #1e5353;
