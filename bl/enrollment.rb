@@ -24,9 +24,9 @@ def enroll_user(user_id, cast_id, data = {})
 	cast = $casts.get(cast_id)
 	if is_pro_cast(cast) 
 		user = $users.get(user_id)
-		tags = user[:tags].to_a || []
-		tags.push(cast[:_id])
-		tags = tags.uniq
+		tags = user[:tags].to_s || ''
+		tags += (cast[:_id])
+		# tags = tags.uniq
 		$users.update_id(user_id, tags: tags) 
 		html = "data: #{data.to_json}, cast_id: #{cast_id}"
 		Thread.new { send_email('sella@indydevs.com', "pro purchase: #{buyer_id}"+Time.now.to_s, html) }

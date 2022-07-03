@@ -19,7 +19,12 @@ get '/search/autocomplete' do
 	{res: res}
 end
 
+def is_verified(u)
+	u[:tags].to_s.downcase.include?('verified')
+end
+
 def search_user_score(u, search_val)
+	return is_verified(u).to_s
 	score = 0
 	
 	score+= 20000 if u[:img_url].present? && !u[:img_url].to_s.include?('profile.png')
@@ -28,12 +33,12 @@ def search_user_score(u, search_val)
 	score+= 20 if u[:desc].present? 
 	score+= 20 if u[:location].present? 
 
-	5.times do |i|
-		i = i.to_s
-		score += 10 if u['edu_achievement_'+i].present? 
-		score += 20 if u['links_val_'+i].present? 
-		score += 30 if u['interview_answers_'+i].present? 
-	end
+	# 5.times do |i|
+	# 	i = i.to_s
+	# 	score += 10 if u['edu_achievement_'+i].present? 
+	# 	score += 20 if u['links_val_'+i].present? 
+	# 	score += 30 if u['interview_answers_'+i].present? 
+	# end
 
 	puts "img_url: #{u[:img_url]}, score: #{score}"
 	u[:score] = score

@@ -16,8 +16,11 @@
   offer_pay = true
 %>
 
-
+<script> console.log('Loading stripe...') </script>
 <script src="https://js.stripe.com/v3"></script>
+<script> console.log('Loaded stripe...') </script>
+<script> console.log(Stripe) </script>
+
 
 <style>
 .submit_stripe_form_btn {
@@ -363,6 +366,9 @@ function variableAmountSet(amount) {
 }
 
 <% if offer_pay %>
-$(document).ready(setupStripeForm);
+setTimeout(()=>{
+  $(document).ready(setupStripeForm);  
+},500)
+
 <% end %>
 </script>

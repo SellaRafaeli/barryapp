@@ -8,8 +8,8 @@ dowsHash = window.dowsHash || {
 	sun: 'Sundays'
 }
 
-const dowsOrder = ['mon','tue','wed','thu','fri','sat','sun'];
-const dowsIndex = {
+window.dowsOrder = window.dowsOrder || ['mon','tue','wed','thu','fri','sat','sun'];
+window.dowsIndex = window.dowsIndex || {
 	mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6
 }
 
