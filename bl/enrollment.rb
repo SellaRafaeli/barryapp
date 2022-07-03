@@ -23,9 +23,13 @@ def enroll_user(user_id, cast_id, data = {})
 	
 	cast = $casts.get(cast_id)
 	if is_pro_cast(cast) 
-		$users.update_id(user_id, NOWCAST_PRO: Time.now) 
+		user = $users.get(user_id)
+		tags = user[:tags].to_s || ''
+		tags += (cast[:_id])
+		# tags = tags.uniq
+		$users.update_id(user_id, tags: tags) 
 		html = "data: #{data.to_json}, cast_id: #{cast_id}"
-		Thread.new { send_email('sella@good-weed.com', "pro purchase: #{buyer_id}"+Time.now.to_s, html) }
+		Thread.new { send_email('sella@indydevs.com', "pro purchase: #{buyer_id}"+Time.now.to_s, html) }
 	end
 
 	send_enrollment_emails(user_id, cast_id)

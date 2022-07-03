@@ -51,7 +51,13 @@
         </div>
         <div class='title'>      
           <a target=_blank href='<%=$root_url%><%=user_link(res)%>'>
-            <% if res[:name].present? %><span class='title'><%=res[:name]%></span> <% end %>
+            <% if res[:name].present? %> 
+              <span class='title'>
+                <%=res[:name]%>
+                <% if is_verified(res) %><span style='margin-left: 5px'> ✅ </span><% end %>
+              </span> 
+            <% end %>
+
           </a>            
         </div>
         <div><%= erb :'rafaeli/partials/chips_list', locals: {user: res} %></div>

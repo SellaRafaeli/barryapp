@@ -355,7 +355,7 @@ def require_cast_owner(cast_id)
 end
 
 def is_pro_cast(cast)
-	cast[:tags].to_s.downcase.include?(NOWCAST_PRO.downcase)
+	cast[:_id].to_s.downcase.include?('payment_cast')
 end
 
 def is_cast_owner(cast)
@@ -366,8 +366,13 @@ def casts_by_dow_and_hour(casts, dow, hour)
 	casts.select { |c| (get_cast_dow(c) == dow) && (get_cast_hour(c) == hour) }
 end
 
+def ensure_payment_casts
+	$users.update_id('system', {name: 'IndyDevs, LLC', email: 'payments@indydevs.com'}, upsert: true)
+	$casts.update_id('level1_payment_cast', {title: 'Pro Account', user_id: 'system', cost_dollars: 100, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil
+end
+
 get '/pro' do 
-	pr[:_id] = ENV['PRO_CAST_ID']
+	pr[:_id] = 'level1_payment_cast' #ENV['PRO_CAST_ID']
 	show_cast_by_id
 end
 
