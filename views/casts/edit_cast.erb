@@ -78,7 +78,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 </style>
 <div class='ct' style='font-size:16px; padding-bottom: 200px'>
   <h1> 
-    <span><%= is_new ? 'Create' : 'Edit' %> Experience </span>    
+    <span><%= is_new ? 'Create' : 'Edit' %> Portfolio Item </span>    
   </h1>
   <div style='font-weight: bold; font-size: 120%; margin:20px'>
   
@@ -112,14 +112,15 @@ tags = cast[:tags].to_a.join(',') rescue ''
     <div class='nc_box ct'>
 
       <div class=''>
-      <label style='zwidth: auto'> Client Name </label>
-      <input name=client_name style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Hysolate" value="<%= nc[:client_name] %>" required />
-      <br/>
 
-      <label style='zwidth: auto'> Project </label>
+      <!-- <label style='zwidth: auto'> Client Name </label>
+      <input name=client_name style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Hysolate" value="<%= nc[:client_name] %>" required />
+      <br/> -->
+
+      <label style='zwidth: auto'> Title </label>
 
       <input name=type hidden value='<%=cast[:type]%>' />
-      <input name=title style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Admin dashboard" value="<%= nc[:title] %>" required />
+      <input name=title style='width: 40%; margin-left: 0' class='zinput1 nc_name' placeholder="Admin dashboard" value="<%= nc[:title] %>" required />
       <br/>
 
 
@@ -202,7 +203,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
       </div>
 
       
-      <% if true %>
+      <% if false %>
       <br/>
       <div>
         <label> Time
@@ -241,6 +242,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
       
       <div>
         <!-- <label>Cast Image</label> -->
+        <% if false %>
         <div class='display_flex' style='margin-top:20px'>
           <span type=file id=img_uploader style='display: none'> </span>
           <label class='pic_label' onclick=$("#img_uploader").click()>
@@ -252,6 +254,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
           <img style='cursor: pointer; min-width: 40px; border: 1px solid grey' id=cast_input_img onclick=$("#img_uploader").click() class=user_img_fullsize src="<%=img_url%>" />          
           <span></span>        
         </div>
+        <% end %>
 
         <% if false %>
         <div class='display_flex' style='margin-top: 20px'>
@@ -309,7 +312,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
         <% end %>
 
 
-        <h4 style='margin-bottom: 40px'> Additional Images/Videos </h4>      
+        <div style='margin-bottom: 40px'> Images / Videos </div>      
         <%= erb :'/me/upload_media', locals: locals.merge(item: cast) %>
 
         <% if is_special %>

@@ -1,7 +1,7 @@
 <style>
 #site_imgs {
-  height: 100px;
-  background-color: whitesmoke;
+  height: 400px;
+  zbackground-color: whitesmoke;
   overflow-y: scroll;
 }
 .single_site_media {
@@ -12,8 +12,8 @@
   vertical-align: -webkit-baseline-middle;
 }
 .single_site_media img {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 300px;
+  max-height: 300px;
   object-fit: <%=item[:media_object_fit] %>;
 }
 .remove_media {
@@ -49,7 +49,7 @@
     
 </div>
 
-<button class='btn btn-raised btn-primary' type=button onclick='filestackUpload(res=>addSiteMedia(res))'>+ Add </button>
+<button class='btn btn-raised zbtn-primary' type=button onclick='filestackUpload(res=>addSiteMedia(res))'>+ Add <i style='margin-left:5px' class='fal fa-image'></i></button>
 
 <script>
 var siteMedia      = <%= item[:media].to_a.to_json %>;

@@ -1,7 +1,9 @@
 <%
   # user = cast[:user] || $users.get(cast[:user_id]) || {}  
   is_owner = cast[:user_id] == cuid
+  
   cast_pic = cast[:img_url]
+  cast_pic = cast[:media].to_a.first[:url] rescue nil
   cast_pic = DEFAULT_PIC unless cast_pic.present?
   #user_pic = user[:img_url]
   #user_pic = cast_pic unless user_pic.present? && CGI.unescape_html(user_pic)!=DEFAULT_PIC   

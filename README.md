@@ -8,7 +8,8 @@ Summer Goals:
 * Raise Money
 * X devs paying X money
 
-
+Search:
+-*/public/css/lib/fontawesome*
 
 Wizard questions:
 - How many people at your company? 

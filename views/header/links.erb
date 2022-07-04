@@ -4,6 +4,7 @@
 .top-nav {
   margin: 0 20px;
   margin: 0;
+  display: inline-flex;
   <% if !$prod %>
   border: 1px solid goldenrod;
   <% end %>
@@ -52,6 +53,13 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
+  }
+  .top-nav {
+    display: inline-flex;
+    justify-content: space-between;
+  }
+  .topnav_half {
+    display: flex;
   }
   .search_go_btn {
     /*display: none;*/
@@ -248,7 +256,7 @@
     <% end %>
     <% end %>       
 
-
+    <% if false %>
     <div class='logo_container' style='display: inline-block; display: none'>
       <a href='/' class='logo'>
         <b style='color: #00b140'>
@@ -259,6 +267,7 @@
         </small>
       </a>    
     </div>
+    <% end %>
     
     <% unless @hide_header %>
     
@@ -273,119 +282,100 @@
       }
       .sub-logo-text {
         display: none;
-      }
+      }      
     </style>
-    <a class='zbtn' href='/' style='display: inline; flex-direction: column;'>
-      <span class='logo-text'> &lt;/&gt; <span style='color:var(--color2)'>indy</span>devs </span>
-      <span class='sub-logo-text' style='font-size: 80%'>strong independent developers</span>
-    </a>
-    <% if cu %>
-      <a id=user_name class='user_name' href='/me'>
-        <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
-        <%#= cu_logo %>         
-
-         <b><%= cu[:name] %> </b>
-
-         <%#= cu[:type] %>
-         <%#= cu[:subtype] %>
-        <span style='display: none; z: inline-block; padding:0 7px; position: relative; top: 1px'>
-          <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'talent' %>👤<% end %>
-          <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'team' %>  👥<% end %>
-          <% if cu[:type].to_s == 'buyer' %> 🦄<% end %>
-        </span>
-        <%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_pro(cu) %>
-
-       </a>       
-      
-    <% else %>      
-      
-      
-
-      
-      
-      <% if false %>
-      <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>
-      
-      <i class='fal fa-smile' style='margin-right: 10px'></i> <%= !heb ? 'Sign up to buy' : 'הרשמה' %>
-      
-      </a>          
-      <% end %>  
-      
-    <% end %>
-
-    <% if false && cu && is_verified %>
-    <a class='' href='/search'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'Search' %></span> </a>
-    <% end %>
-
-    <% if !cu %>
-    <a class='' href='/signup'><%= !heb ? 'join' : 'כניסה' %></a>
-    <% end %>
-    <% if cu && !is_pro(cu) %>
-     <!-- get pro -->
-      <a class='znoDisplay' href='/pro'><i class='noDisplay fa fa-plus'></i> get <span style='display: inline-block; margin-left: 3px'>pro </span> </a>
-    <% end %>
-    
-    
-    
-
-    <% if false && !cu  %>
-
-      <% if _req.path == '/' %>
-        <a class='nzbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
-      <% else %>
-        <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
-      <% end %>
-        <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Register' : 'הרשמה' %></a>  
-    <% end %>    
-    
-    <a class='noDisplay' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a>
-    <% if false %>
-    <a class='' href='/vip'><i class='fa fa-question-smiley' style='margin-right: 5px'></i> <%= 'VIP chat' %> </a>
-    <% end %>
-    <% if false%>
-    <a class='noD' href='/help'><i class='fa fa-question-circle noDisplay' style='margin-right: 5px'></i> <%= 'About' %> </a>
-    <% end %>
-    
-    
-      <% ([] || ['usa', 'israel']).each do |country| %>
-        <a style='padding: 0' class='country_icon_container' href='/?country=<%=country%>'><img class='country_icon' src='/img/icons/<%=country%>.png' /></a>
-      <% end %>
-      <!-- <a class='' href='/community'>Community</a> -->
-    <% if cu && false %>
-      <a href='/chat'>
-
-        <i style='zfont-size: 50%; position: relative; zbottom:5px; zmargin-left:20px' class='fal fa-envelope'></i>
-        <span class='header_envelope_num_unreads noDisplay'></span>
-        <span style='margin-left: 5px'>Messages</span>
+    <span class='topnav_half left_topnav_half'>
+      <a class='zbtn' href='/' style='display: inline; flex-direction: column;'>
+        <span class='logo-text'> &lt;/&gt; <span style='color:var(--color2)'>indy</span>devs </span>
+        <span class='sub-logo-text' style='font-size: 80%'>strong independent developers</span>
       </a>
-    <% end %>
+    </span>
 
-    <%#= erb :'search/search_inputs_row' if search_input_on_top %>      
-    <% 
-      link = cu ? '/create' : '/signup?type=event' 
-      text = cu ? '+ create' : 'join'
-    %>
+    <span class='topnav_half right_topnav_half'>
+      <% if cu %>
+        <a id=user_name class='user_name' href='/me'>
+          <img class='links_profile_pic' src='<%=cu[:img_url]%>'>
+           <b><%= cu[:name] %> </b>
+          <span style='display: none; z: inline-block; padding:0 7px; position: relative; top: 1px'>
+            <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'talent' %>👤<% end %>
+            <% if cu[:type].to_s == 'seller' && cu[:subtype].to_s == 'team' %>  👥<% end %>
+            <% if cu[:type].to_s == 'buyer' %> 🦄<% end %>
+          </span>
+          <%= "<span style='position: relative; left: 3px; top: 2px'>✅</span>" if is_pro(cu) %>
+         </a>       
+      <% else %>      
+        <% if false %>
+          <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>      
+          <i class='fal fa-smile' style='margin-right: 10px'></i> <%= !heb ? 'Sign up to buy' : 'הרשמה' %>
+          </a>          
+        <% end %>        
+      <% end %>
+      <% if false && cu && is_verified %>
+      <a class='' href='/search'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'Search' %></span> </a>
+      <% end %>
+      <% if !cu %>
+      <a class='' href='/signup'><%= !heb ? 'join' : 'כניסה' %></a>
+      <% end %>
+      <% if cu && !is_pro(cu) %>
+       <!-- get pro -->
+        <a class='znoDisplay' href='/pro'><i class='noDisplay fa fa-plus'></i> get <span style='display: inline-block; margin-left: 3px'>pro </span> </a>
+      <% end %>
+      <% if false && !cu  %>
 
-    <% if false %>
-      <a href='<%= link %>' class='btn btn-primary btn-raised btn-info' id='top_plus_btn'><%= text %></a>
-    <% end %>
-    
-    
-    <% end %>
+        <% if _req.path == '/' %>
+          <a class='nzbtn zbtn-primary zbtn-raised' href='/signup?type=seller' zhref='/signup?type=seller'>      
+        <% else %>
+          <a class='zbtn zbtn-primary zbtn-raised' href='/signup?ztype=seller'>      
+        <% end %>
+          <i class='fas zfa-store' style='margin-right: 10px'></i><%= !heb ? 'Register' : 'הרשמה' %></a>
+      <% end %>    
+      <a class='noDisplay' href='/forum'><i class='fa fa-forum'></i> <%= 'forum' %> </a>
+      <% if false %>
+      <a class='' href='/vip'><i class='fa fa-question-smiley' style='margin-right: 5px'></i> <%= 'VIP chat' %> </a>
+      <% end %>
+      <% if false%>
+      <a class='noD' href='/help'><i class='fa fa-question-circle noDisplay' style='margin-right: 5px'></i> <%= 'About' %> </a>
+      <% end %>
+      
+        <% ([] || ['usa', 'israel']).each do |country| %>
+          <a style='padding: 0' class='country_icon_container' href='/?country=<%=country%>'><img class='country_icon' src='/img/icons/<%=country%>.png' /></a>
+        <% end %>
+        <!-- <a class='' href='/community'>Community</a> -->
+      <% if cu && false %>
+        <a href='/chat'>
 
-    <!-- <a class='' href='/we_love_developers'>We Love Developers</a> -->
-    <!-- <a class='' href='/pricing'>pricing</a> -->
-    <a class='' href='/how_it_works'>about</a>
-    <!-- <a class='' href='/contact'>contact</a> -->
-    <!-- <a class='' href='/careers'>careers</a> -->
-    <% if is_admin %>
-    <a class='' href='/blog'>blog</a>
-    <% end %>
+          <i style='zfont-size: 50%; position: relative; zbottom:5px; zmargin-left:20px' class='fal fa-envelope'></i>
+          <span class='header_envelope_num_unreads noDisplay'></span>
+          <span style='margin-left: 5px'>Messages</span>
+        </a>
+      <% end %>
 
-    <% if cu %>      
-      <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times' ></i></a>
-    <% end %>    
+      <%#= erb :'search/search_inputs_row' if search_input_on_top %>      
+      <% 
+        link = cu ? '/create' : '/signup?type=event' 
+        text = cu ? '+ create' : 'join'
+      %>
 
+      <% if false %>
+        <a href='<%= link %>' class='btn btn-primary btn-raised btn-info' id='top_plus_btn'><%= text %></a>
+      <% end %>
+      
+      
+      <% end %>
+
+      <!-- <a class='' href='/we_love_developers'>We Love Developers</a> -->
+      <!-- <a class='' href='/pricing'>pricing</a> -->
+      <a class='' href='/how_it_works'>about</a>
+      <!-- <a class='' href='/contact'>contact</a> -->
+      <!-- <a class='' href='/careers'>careers</a> -->
+      <% if is_admin %>
+      <a class='' href='/blog'>blog</a>
+      <% end %>
+
+      <% if cu %>      
+        <a class='' href='/logout' onclick="return confirm('Are you sure you wish to log out?')"><i class='fal fa-times' ></i></a>
+      <% end %>    
+    </span> <!-- end right top_nav_half -->
     <%= erb :'header/hamburger' %>
   </div>  
 <% end %>   

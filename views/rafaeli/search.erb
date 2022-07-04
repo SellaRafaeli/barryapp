@@ -2,7 +2,7 @@
   search_val     = pr[:q].to_s.downcase
 
   #search_val = 'javascript' unless val.present?
-  all_sellers = @all_sellers  
+  all_sellers = get_all_sellers
 
   fields = [:name, :title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
@@ -155,11 +155,11 @@ span.magnifying_class_search {
     frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
     backend:  ['java', 'c++', 'python', 'node', 'go', 'ruby'],
     fullstack: ['express', 'rails', 'django', 'laravel'],
-    mobile: ['ios', 'android', 'swift', 'flutter'],
-    devops: ['aws', 'gcp', 'azure', 'heroku'],
-    'ai/ml': [],
-    web3: ['blockchain','ethereum','DAPPs'],
-    embedded: ['c','c++','vhdl']
+    # mobile: ['ios', 'android', 'swift', 'flutter'],
+    # devops: ['aws', 'gcp', 'azure', 'heroku'],
+    # 'ai/ml': [],
+    # web3: ['blockchain','ethereum','DAPPs'],
+    # embedded: ['c','c++','vhdl']
   }.hwia
 
   opts = all_opts[search_val] || all_opts.keys
@@ -194,8 +194,8 @@ span.magnifying_class_search {
       <option <%="selected" if pr[:country]=='us'%>>🇺🇸 USA</option>
       <option <%="selected" if pr[:country]=='uk'%>>🇬🇧 United Kingdom</option>
       <option <%="selected" if pr[:country]=='eu'%>>🇪🇺 European Union</option>    
-      <option <%="selected" if pr[:country]=='ua'%>>🇺🇦 ukraine</option>
-      <option <%="selected" if pr[:country]=='il'%>>🇮🇱 israel</option>
+      <option <%="selected" if pr[:country]=='ua'%>>🇺🇦 Ukraine</option>
+      <option <%="selected" if pr[:country]=='il'%>>🇮🇱 Israel</option>
       <option <%="selected" if pr[:country]=='ae'%>>🇦🇪 Dubai</option>    
       
     </select>
