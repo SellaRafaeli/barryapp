@@ -375,6 +375,7 @@ def ensure_payment_casts
 	$casts.update_id('level4_payment_cast', {title: 'Gold', user_id: 'system', cost_dollars: 1000, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil
 	$casts.update_id('level5_payment_cast', {title: 'Platinum', user_id: 'system', cost_dollars: 2000, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil
 end
+ensure_payment_casts
 
 get '/pro' do 
 	pr[:_id] = 'level1_payment_cast' #ENV['PRO_CAST_ID']
