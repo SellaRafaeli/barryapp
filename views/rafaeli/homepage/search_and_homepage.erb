@@ -1,7 +1,7 @@
 <%
-  @all_sellers ||= $users.all(type: 'seller').reverse
+  all_sellers = get_all_sellers
 
-  verified_sellers = @all_sellers.select {|u| is_verified(u) }
+  verified_sellers = all_sellers.select {|u| is_verified(u) }
 %>
 <style>
 .search_and_homepage {

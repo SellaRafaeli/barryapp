@@ -2,7 +2,7 @@
   search_val     = pr[:q].to_s.downcase
 
   #search_val = 'javascript' unless val.present?
-  all_sellers = @all_sellers  
+  all_sellers = get_all_sellers
 
   fields = [:name, :title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
