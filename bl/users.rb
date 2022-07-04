@@ -96,6 +96,10 @@ def is_team(user = cu)
 	user && user[:subtype].to_s == 'team'
 end
 
+def get_all_sellers
+	@all_sellers ||= $users.all(type: 'seller').reverse
+end
+
 get '/me' do
 	redirect_unless_user
 
