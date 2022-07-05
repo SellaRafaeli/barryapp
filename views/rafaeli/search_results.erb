@@ -29,6 +29,11 @@
   display: inline-flex;
   background-color: whitesmoke;
 }
+.search_result_desc {
+  color: rgb(77, 81, 86);
+  font-size: 14px;
+  margin: 10px 10px 10px 0;
+}
 </style>
 <div class='search_results_wrapper'>
 <% if results.any? %>
@@ -45,9 +50,7 @@
             <% end %><% if res[:rate].present? %><span class='location rate' style='display: inline-block; margin-left: 10px'> › <%=res[:rate].to_s %></span>            
             <% end %>    
           </div>
-          <div class='top_row_right flex3' style='padding-right: 20px'>
-            
-          </div>
+          <!-- <div class='top_row_right flex3' style='padding-right: 20px'></div> -->
         </div>
         <div class='title'>      
           <a target=_blank href='<%=$root_url%><%=user_link(res)%>'>
@@ -61,12 +64,12 @@
           </a>            
         </div>
         <!-- <div><%= erb :'rafaeli/partials/chips_list', locals: {user: res} %></div> -->
-        <div class='desc'>
+        <div class='search_result_desc'>
           <%= res[:desc] %>          
         </div>
 
         <!-- LINKS -->
-        <% use_bottom_links = true %>
+        <% use_bottom_links = false %>
         <% if use_bottom_links  %>          
               <!-- <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Chat </a> ·
               <a class='bottom_link' href='#' zonclick='alert("Not implemented yet, will be done by 1 Sept");'> Hire </a> · -->
