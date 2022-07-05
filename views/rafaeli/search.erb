@@ -25,7 +25,7 @@
 
 <style>
 .keywords {
-  max-width: 800px;
+  zmax-width: 800px;
   margin: auto;
   text-align: center;
   margin-bottom: 15px;
@@ -38,9 +38,14 @@
   text-transform: lowercase;
   font-size: 20px;
   margin: 0 10px;
+  border: 1px solid var(--color2);
+  padding: 5px 10px;
+  margin: 5px;
 }
 .single_keyword:hover {
   text-decoration: underline !important;
+  background-color: var(--color2);
+  color: white;
   zcolor: red;
 }
 
@@ -165,6 +170,8 @@ span.magnifying_class_search {
   opts = all_opts[search_val] || all_opts.keys
   
   keywords = opts
+
+  keywords = ['FullStack', 'Frontend', 'Backend', 'React', 'Angular', 'Vue', 'Node', 'Python', 'CTO-as-a-service']
   keywords.each do |keyword|
 %>
   <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>

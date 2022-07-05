@@ -93,13 +93,9 @@ function convertTimesToLocal() {
 	return 'ok'
 }
 
-function onLoadMain() {
-	
-}
-
 $(document).ready(function() {
-	$.material.init(); //init material design
+	//$.material.init(); //init material design
 	
-	onLoadMain();
+	// onLoadMain();
 	console.log('main.js: done on-document-ready')
 }); 
