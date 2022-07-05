@@ -189,6 +189,36 @@ label {
     /*color: black;*/
 }
 
+.btn.btn1 {
+    background-color: var(--color1);
+}
+
+.btn.btn1:hover {
+    background-color: var(--color1);
+    filter: brightness(var(--hover-brightness));
+}
+
+.btn.btn2 {
+    background-color: var(--color2);
+    color: var(--color1);
+    color: white;
+    zborder-color: var(--color1);
+}
+.btn.btn2:hover {
+    background-color: var(--color2);
+    color: white;
+    border-color: white;
+    filter: brightness(var(--hover-brightness));
+}
+
+.btn.btn3 {
+    background-color: var(--color2);
+}
+.btn.btn3:hover {
+    background-color: var(--color3);
+    filter: brightness(var(--hover-brightness));
+}
+
 .btn_green {
     background-color: #b4f5a8;
 }
