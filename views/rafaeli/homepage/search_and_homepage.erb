@@ -44,8 +44,8 @@
   background-color: var(--color1);
 }
 .hero_btns {
-  margin-top: 25px;
-  ztext-align: center;
+  margin-top: 15px;
+  text-align: center;
 }
 .hero_btns .btn {
   min-width: 35%;
@@ -61,15 +61,15 @@
 
     <div class='hero_and_img display_flex'>
       <div class='hero_msg flex1'>    
-        <div style='color: var(--color2); font-size: 24px' class='minimsg'>hire the best</div>
+        <div style='color: var(--color2); font-size: 24px' class='minimsg'>the best</div>
         <div style='color: white'>independent</div>
         <div style='color: white'>software developers</div>
-        <div style='color: var(--color2); font-size: 24px; text-align: right; position: relative; right: 20px' class='minimsg'>on a monthly retainer</div>
+        <div style='color: var(--color2); font-size: 24px; text-align: right; position: relative; right: 20px' class='minimsg'>in the world</div>
 
-        <div class='hero_btns'> 
-          <a href='/request_quotes' class='btn btn-raised btn2'> Request Quotes </a>
-          <a href='/search' class='btn btn-raised btn2'> Search Developers </a>
-        </div>
+        <!-- <div class='hero_btns'>           
+          <a href='/search' class='btn btn-raised btn2'> See Talent </a>
+          <a href='/request_quotes' class='btn btn-raised btn2'> Post Job Ad </a>
+        </div> -->
       </div>
 
 
@@ -100,7 +100,7 @@
     </div>
   </div>
 
-  <div><%#= erb :'rafaeli/search' %></div>  
+  <div><%= erb :'rafaeli/search' %></div>  
   
   <div class='mw1000'>
     <%= erb :'other/how_it_works' %>
