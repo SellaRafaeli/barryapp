@@ -1,0 +1,229 @@
+<%
+  search_val     = pr[:q].to_s.downcase
+
+  #search_val = 'javascript' unless val.present?
+  all_sellers = get_all_sellers
+
+  fields = [:name, :title, :location, :desc, :rate] 
+  users  = all_sellers.select {|u| 
+
+    text = fields.map {|f| " "+u[f].to_s }.join(' ')
+
+    # text += (casts_text = $casts.all(user_id: u[:_id]).map {|cast| "#{cast[:desc]} #{cast[:client_name]} #{cast[:title]} #{cast[:custom_time]}" }).join(' ')
+
+    u[:text] = text
+    search_val && text.downcase.include?(search_val.to_s) 
+  }
+  # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
+  results = users
+
+  # results = results.sort_by {|u| search_user_score(u, search_val) }.reverse
+  results = results.sort_by {|u| is_verified(u).to_s }.reverse
+  
+  x=1
+%>
+
+<style>
+.main_tabs {
+  display: inline-block;
+}
+.keywords {
+  max-width: 800px;
+  zmargin: auto;
+  ztext-align: center;
+  margin-bottom: 15px;
+}
+.single_keyword {
+  display: inline-block;
+  color: var(--color1);
+  color: var(--color2);
+  zcolor: grey;
+  text-transform: lowercase;
+  font-size: 20px;
+  margin: 0 10px;
+  border: 1px solid var(--color2);
+  padding: 5px 10px;
+  margin: 5px;
+}
+.single_keyword:hover {
+  text-decoration: underline !important;
+  background-color: var(--color2);
+  color: white;
+  zcolor: red;
+}
+
+.main_search_wrapper {
+  display: inline-block;
+  max-width: 700px;
+  zmargin: auto;
+  zborder: 1px solid red;
+}
+.main_search {
+  border-radius: 0px;
+}
+.single_result {
+  zbackground-color: whitesmoke;
+  padding:10px 0 9px 0;
+  border-bottom: 1px dashed whitesmoke;
+  zmargin-bottom: 30px;
+  zdisplay: flex;
+  zborder: 4px dashed whitesmoke;
+  zpadding: 30px;
+  padding-left: 0;
+  zborder-radius: 5px;
+}
+.name {
+  font-weight: bold;
+}
+.top_row {
+  font-size: 14px;
+}
+.title {
+  zcolor: rgb(26, 13, 171);
+  color: var(--color1);
+  margin:7px 0 3px 0;
+  display: block;
+  font-size: 20px;
+}
+.location {
+  font-size: 14px;
+  color: #746e6e;
+}
+.desc {
+  color: rgb(77, 81, 86);
+  font-size: 14px;
+  margin: 10px 0;
+}
+.rate {
+  margin-top: 10px;
+}
+.img_container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.img_container img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 100px;
+}
+.bottom_link {
+  color: rgb(26, 13, 171);
+  font-size: 14px;
+}
+.search_results_wrapper {
+  zmax-width: 700px;
+  zmargin: auto;
+  margin-top: 20px;
+}
+#main_search {
+  zwidth: 300px;
+  /*border-top: none;
+  border-right: none;
+  border-left: none;*/
+  zborder-radius: 50px;
+  font-size: 14px;
+  outline: none;
+  color: grey;
+  color: #202124;
+  padding-left: 45px;
+}
+
+span.magnifying_class_search {
+  position: absolute;
+  top: 3px;
+  left: 38px;
+  opacity: 0.5;
+} 
+
+#main_search, #main_search:focus {
+  -webkit-box-shadow: 2px 3px 0px -2px #ccc;
+}
+
+#main_search~.magnifying_class_search, #main_search:focus~.magnifying_class_search {
+  opacity: 1;
+}
+
+.search_controls select {
+  width: 50px;
+}
+
+.advanced_search_button {
+  margin-left: 10px; 
+  display: inline-block; 
+  color: grey;
+}
+.advanced_search_button:hover {
+  color: black;
+  cursor: pointer;
+}
+</style>
+
+
+<!-- <h1 style='font-size: 20px; text-align: center'>Elite Freelancers.</h1> -->
+
+<!-- <h1> Remove this message </h1> -->
+<script>
+function switchSide(btn) {
+  var selectedClass = 'btn-primary'
+  if ($(btn).hasClass(selectedClass)) return;
+  $('.main_tabs .btn').removeClass(selectedClass); $(btn).addClass(selectedClass);
+  $('.size_filter').toggleClass('noDisplay');
+}
+</script>
+<div class='container1000'>
+  <div class='main_tabs'>
+    <button class='btn btn-raised' onclick=switchSide(this)> Jobs </button>
+    <button class='btn btn-raised btn-primary' onclick=switchSide(this)> Developers </button>
+  </div>
+
+  <div class='main_search_wrapper ct'>    
+    <%#= erb :'rafaeli/homepage/langs' %>    
+    <%#= erb :'rafaeli/homepage/countries' %>    
+    <div class='search_controls ct' style='font-size: 15px; display: inline-block;'>
+      <br/>  
+      <select style='border: none'>
+        <option>🌎 anywhere</option>        
+        <option <%="selected" if pr[:country]=='us'%>>🇺🇸 USA</option>
+        <option <%="selected" if pr[:country]=='uk'%>>🇬🇧 United Kingdom</option>
+        <option <%="selected" if pr[:country]=='eu'%>>🇪🇺 European Union</option>    
+        <option <%="selected" if pr[:country]=='ua'%>>🇺🇦 Ukraine</option>
+        <option <%="selected" if pr[:country]=='il'%>>🇮🇱 Israel</option>
+        <option <%="selected" if pr[:country]=='ae'%>>🇦🇪 Dubai</option>    
+        <option <%="selected" if pr[:country]=='mx'%>>🇲🇽 Mexico</option>    
+        <option <%="selected" if pr[:country]=='ug'%>>🇺🇾 Uruguay</option>    
+        <option <%="selected" if pr[:country]=='vz'%>>🇻🇪 Venezuela</option> 
+        <option <%="selected" if pr[:country]=='co'%>>🇨🇴 Colombia</option> 
+        <option <%="selected" if pr[:country]=='br'%>>🇧🇷 Brazil</option>    
+        <option <%="selected" if pr[:country]=='ch'%>>🇨🇱 Chile</option>    
+        <option <%="selected" if pr[:country]=='ar'%>>🇦🇷 Argentina</option>    
+      </select>
+
+      <select class='size_filter' style='border: none'>
+        <option>👤 professionals</option>
+        <option>👥 teams</option>        
+      </select>
+
+      <select class='size_filter noDisplay' style='border: none'>
+        <option>🚀 startups</option>
+        <option>🏢 corporations</option>
+      </select>
+      
+      
+    </div>
+
+    <form method=get action=search style='display: inline-block;'>
+      <span style='position: relative;'>
+        <input id=main_search name=q class='main_search input1' placeholder='Search...' value="<%=search_val%>" autocomplete list=suggestions />
+        <span class=magnifying_class_search>🔎</span>
+      </span>
+      <!-- <button class='btn btn-raised btn-primary'>Go</button> -->
+    </form>
+
+    <span class='advanced_search_button'>
+        <i class='fal fa-gear'></i>
+      </span>
+  </div>
+  <%#= erb :'/rafaeli/search_results', locals: {results: results, search_val: search_val} %>
+  <%= erb :'/rafaeli/search_results2', locals: {results: results, search_val: search_val} %>
+</div>

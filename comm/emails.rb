@@ -54,7 +54,7 @@ end
 def send_welcome_email(user)
   # token = update_user_token(user)
   # url   = "#{$root_url}/email_login?token=#{token}"
-  send_email(user[:email], "Hey #{user[:name]}, welcome to nowcast", email_by_view('welcome'))  
+  send_email(user[:email], "Hey #{user[:name]}, welcome!", email_by_view('welcome'))  
 rescue => e 
   log_e(e)
 end

@@ -26,8 +26,8 @@
 <style>
 .keywords {
   max-width: 800px;
-  margin: auto;
-  text-align: center;
+  zmargin: auto;
+  ztext-align: center;
   margin-bottom: 15px;
 }
 .single_keyword {
@@ -51,7 +51,7 @@
 
 .main_search_wrapper {
   max-width: 700px;
-  margin: auto;
+  zmargin: auto;
   zborder: 1px solid red;
 }
 .main_search {
@@ -156,39 +156,17 @@ span.magnifying_class_search {
 
 <!-- <h1 style='font-size: 20px; text-align: center'>Elite Freelancers.</h1> -->
 
-<div class='keywords znoDisplay'>
-<%  
-  all_opts = {
-    frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
-    backend:  ['java', 'c++', 'python', 'node', 'go', 'ruby'],
-    fullstack: ['express', 'rails', 'django', 'laravel'],
-    mobile: ['ios', 'android', 'swift', 'flutter'],
-    devops: ['aws', 'gcp', 'azure', 'heroku'],
-    'ai/ml': [],
-    web3: ['blockchain','ethereum','DAPPs'],
-    embedded: ['c','c++','vhdl']
-  }.hwia
-
-  opts = all_opts[search_val] || all_opts.keys
-  
-  keywords = opts
-
-  keywords = ['FullStack', 'Frontend', 'Backend', 'React', 'Angular', 'Vue', 'Node', 'Python', 'CTO-as-a-service', 'Mobile', 'iOS', 'Android', 'Flutter', 'Data Science', 'AI']
-  keywords.each do |keyword|
-%>
-  <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
-<% end %>
-</div>
-
 <div class='main_search_wrapper ct'>
   <form method=get action=search style='display: inline-block;'>
     <span style='position: relative;'>
       <input id=main_search name=q class='main_search input1' placeholder='Search...' value="<%=search_val%>" autocomplete list=suggestions />
+      <% if false %>
       <datalist id="zsuggestions">
-        <% all_opts.values.flatten.map(&:downcase).sort.each do |opt| %>
+        <% false && all_opts.values.flatten.map(&:downcase).sort.each do |opt| %>
           <option value="<%=opt%>">
         <% end %>
       </datalist>
+      <% end %>
       <span class=magnifying_class_search>🔎</span>
     </span>
     <button class='btn btn-raised btn-primary'>Go</button>
@@ -237,6 +215,30 @@ span.magnifying_class_search {
     </span>
   </div>
 
+</div>
+
+<div class='keywords znoDisplay'>
+<%  
+  all_opts = {
+    frontend: ['react', 'vue', 'angular', 'ember', 'vanilla'],
+    backend:  ['java', 'c++', 'python', 'node', 'go', 'ruby'],
+    fullstack: ['express', 'rails', 'django', 'laravel'],
+    mobile: ['ios', 'android', 'swift', 'flutter'],
+    devops: ['aws', 'gcp', 'azure', 'heroku'],
+    'ai/ml': [],
+    web3: ['blockchain','ethereum','DAPPs'],
+    embedded: ['c','c++','vhdl']
+  }.hwia
+
+  opts = all_opts[search_val] || all_opts.keys
+  
+  keywords = opts
+
+  keywords = ['FullStack', 'Frontend', 'Backend', 'React', 'Angular', 'Vue', 'Node', 'Python', 'CTO-as-a-service', 'Mobile', 'iOS', 'Android', 'Flutter', 'Data Science', 'AI']
+  keywords.each do |keyword|
+%>
+  <a class='single_keyword <%="selected_val" if search_val==keyword%>' href='/search?q=<%=keyword%>'><%=keyword%></a>
+<% end %>
 </div>
 
 <script>

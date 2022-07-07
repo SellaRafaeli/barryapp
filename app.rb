@@ -168,7 +168,8 @@ end
 get '/' do		
 	#erb :'rafaeli/search', default_layout
 	#erb :'coming_soon', default_layout
-	erb :'rafaeli/homepage/search_and_homepage', default_layout
+	#erb :'rafaeli/homepage/search_and_homepage', default_layout
+	erb :'rafaeli/homepage/simple_board', default_layout
 end
 
 get '/search' do 
