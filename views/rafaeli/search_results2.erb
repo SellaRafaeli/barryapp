@@ -45,13 +45,22 @@
 .top_field {
   flex:1;
   display: inline-block;
+  font-size: 14px;
+  color: #746e6e;
+  margin-right: 10px;
+}
+.top_field_name {
+  font-size: 120%;
 }
 .top_field_img_container {
   display: inline-block;
   zwidth: 50px;
 }
 .top_field_img {
-  width: 50px;
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 .small_action {
 
@@ -66,26 +75,29 @@
     <div class='single_result zsingle_result_card'>
       <div class='top_fields'>
                 
-        <span class='top_field'>
-          <%= res[:name] %>
-          <% if is_verified(res) %><span style='margin-left: 5px'> ✅ </span><% end %>
+        <span class='top_field top_field_name'>
+          <%= res[:name] %>          
         </span>
         
         <span class='top_field line_title'><%= res[:title] %></span>
       
-        <span class='top_field location' style='display: inline-block; margin-left: 10px'><%=res[:location].to_s %></span>
+        <span class='top_field' style='display: inline-block; margin-left: 10px'><%=res[:location].to_s %></span>
 
-        <span class='top_field location rate' style='display: inline-block; margin-left: 10px'> <%=res[:rate] %></span>
-        
-        <span class='top_field'>
-          <button class='small_action'>contact</button>
-          <button class='small_action'>hire</button>
-        </span>
+        <span class='top_field' style='display: inline-block; margin-left: 10px'> <%=res[:rate] %></span>
 
-        <span class='top_field top_field_img_container'>
+        <span class='top_field top_field_img_container ct'>
+          <% if is_verified(res) %>
+            <span style='display: block; margin-left: 5px'> ✅ </span>
+          <% end %>
+          
           <% if res[:img_url].present? && (!res[:img_url].to_s.include?('profile.png')) %>
           <img class=top_field_img src='<%=res[:img_url]%>' />
           <% end %>
+          
+          <div>
+            <button class='small_action'>contact</button>
+            <button class='small_action'>hire</button>
+          </div>
         </span>
       </div>
       <div class='bottom_fields'>
