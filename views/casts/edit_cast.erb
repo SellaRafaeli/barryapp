@@ -39,7 +39,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 .cost_input {
   width: 65px;
   margin-left: 10px;
-  font-size: 22px;
+  zfont-size: 22px;
   vertical-align: text-bottom;
 }
 .recurrence_btn {
@@ -78,7 +78,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 </style>
 <div class='ct' style='font-size:16px; padding-bottom: 200px'>
   <h1> 
-    <span><%= is_new ? 'Create' : 'Edit' %> Experience </span>    
+    <span><%= is_new ? 'Create' : 'Edit' %> Job Ad </span>    
   </h1>
   <div style='font-weight: bold; font-size: 120%; margin:20px'>
   
@@ -111,12 +111,17 @@ tags = cast[:tags].to_a.join(',') rescue ''
     </div> -->
     <div class='nc_box ct'>
 
+      
       <div class=''>
+        <% if false %>
       <label style='zwidth: auto'> Client Name </label>
       <input name=client_name style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Hysolate" value="<%= nc[:client_name] %>" required />
+      
       <br/>
+      <% end %>
 
-      <label style='zwidth: auto'> Project </label>
+
+      <label style='zwidth: auto'> Title </label>
 
       <input name=type hidden value='<%=cast[:type]%>' />
       <input name=title style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="Admin dashboard" value="<%= nc[:title] %>" required />
@@ -185,7 +190,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 
     <% elsif is_website %>
       <% if !is_new %>
-      <h3> Code </h3>
+      <h3> Code </h3>e
       <div style='flex:4; overflow: scroll'>
         <%= erb :'casts/html_editor', locals: {is_owner: true, cast_id: cast[:_id], cast: cast} %>
       </div>
@@ -197,30 +202,32 @@ tags = cast[:tags].to_a.join(',') rescue ''
           <div>Description</div>
           <div style='margin-top:20px; color:grey; padding-right: 20px'><!-- What can people expect from you? Make it both informational and attractive! The more info and details you can give, the more prepared and interested potential viewers will be. --></div>
         </label>
-        <textarea placeholder="Describe the work you did. Include scope, technology, date, and rate." style='width: 40%; font-family: inherit;' class='ml10 cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
+        <textarea placeholder="Describe the position. Include scope, technology, date, and rate." style='width: 40%; font-family: inherit;' class='ml10 cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
 
       </div>
 
       
-      <% if true %>
+      <% if false %>
       <br/>
       <div>
-        <label> Time
+        <label> Custom Time
         <!-- <div style='margin-top:20px; color:grey; padding-right: 20px'>Specify when course classes take place, and how much it costs.</div> -->
         </label>
-        <input name=custom_time style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="When did this work take place?" value="<%= nc[:custom_time] %>" required />
+        <input name=custom_time style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="US / Europe working hours" value="<%= nc[:custom_time] %>" required />
 
       </div>
       <% end %>
       
 
-      <% if false %>
+      <% if true %>
         <br/>
         <div>
-          <label style='vertical-align: top;'>Cost
+          <label style='vertical-align: top;'>Compensation Range
           <!-- <div><small>Leave at 0 to decide later.</small></div> -->
           </label>
-          <span style='position: relative; bottom: 10px;'>$</span><input class='cost_input' value="<%= nc[:cost_dollars].to_i %>" name=cost_dollars type=number min=<%=min_cast_cost%> onchange="toggleOnlyIfCostsMoney()" /> <span class='only_if_recurring'> </span>
+          <!-- <span style='position: relative; bottom: 10px;'>$</span> -->
+
+          <input class='cost_input' style='width: 30%' placeholder='$10,000-20,000/mo' value="<%= nc[:cost_dollars].to_s %>" name=cost_dollars ztype=number min=<%=min_cast_cost%> onchange="toggleOnlyIfCostsMoney()" /> <span class='only_if_recurring'> </span>
         </div>
         <br/>
         
@@ -241,7 +248,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
       
       <div>
         <!-- <label>Cast Image</label> -->
-        <div class='display_flex' style='margin-top:20px'>
+        <div class='noDisplay zdisplay_flex' style='margin-top:20px'>
           <span type=file id=img_uploader style='display: none'> </span>
           <label class='pic_label' onclick=$("#img_uploader").click()>
             <div> Client Logo </div>
@@ -309,8 +316,10 @@ tags = cast[:tags].to_a.join(',') rescue ''
         <% end %>
 
 
+        <% if false %>
         <h4 style='margin-bottom: 40px'> Additional Images/Videos </h4>      
         <%= erb :'/me/upload_media', locals: locals.merge(item: cast) %>
+        <% end %>
 
         <% if is_special %>
         <div class='display_flex' style='margin-top:20px'>

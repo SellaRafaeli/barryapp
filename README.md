@@ -8,6 +8,9 @@ Summer Goals:
 * Raise Money
 * X devs paying X money
 
+Competition:
+https://freshremote.work/checkout/
+
 Search files:
 -*/public/css/lib/fontawesome*
 

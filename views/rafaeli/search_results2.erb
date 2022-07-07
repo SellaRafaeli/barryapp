@@ -36,29 +36,35 @@
   color: rgb(77, 81, 86);
   font-size: 14px;
   margin: 10px 10px 10px 0;
+  text-align: center;
 }
 .single_result {  
 }
 .top_fields {
   display: flex;
+  padding:10px 5px;
+}
+.top_fields:hover{
+  background-color:whitesmoke;
+  cursor: pointer;
 }
 .top_field {
   flex:1;
   display: inline-block;
-  font-size: 14px;
-  color: #746e6e;
+  font-size: 17px;
+  color: var(--color1);
   margin-right: 10px;
 }
 .top_field_name {
-  font-size: 120%;
+  zfont-size: 120%;
 }
 .top_field_img_container {
   display: inline-block;
   zwidth: 50px;
 }
 .top_field_img {
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   object-fit: contain;
   border-radius: 50%;
 }
@@ -73,8 +79,14 @@
   <% results.each do |res| %>
     <%  user_casts = [] #$casts.all(user_id: res[:_id]) %>
     <div class='single_result zsingle_result_card'>
-      <div class='top_fields'>
-                
+      <div class='top_fields' zonclick="$(this).parent().find('.bottom_fields').toggleClass('noDisplay')">
+        
+        <span class='top_field top_field_img_container ct'>          
+          <% if res[:img_url].present? && (!res[:img_url].to_s.include?('profile.png')) %>
+          <img class=top_field_img src='<%=res[:img_url]%>' />
+          <% end %>          
+        </span>
+
         <span class='top_field top_field_name'>
           <%= res[:name] %>          
         </span>
@@ -85,22 +97,20 @@
 
         <span class='top_field' style='display: inline-block; margin-left: 10px'> <%=res[:rate] %></span>
 
-        <span class='top_field top_field_img_container ct'>
+        <span class='top_field'>
+          <button class='small_action'>contact</button>
+        </span>
+
+        <span class='top_field'>
           <% if is_verified(res) %>
             <span style='display: block; margin-left: 5px'> ✅ </span>
           <% end %>
-          
-          <% if res[:img_url].present? && (!res[:img_url].to_s.include?('profile.png')) %>
-          <img class=top_field_img src='<%=res[:img_url]%>' />
-          <% end %>
-          
-          <div>
-            <button class='small_action'>contact</button>
-            <button class='small_action'>hire</button>
-          </div>
         </span>
+
+        
       </div>
-      <div class='bottom_fields'>
+
+      <div class='bottom_fields znoDisplay'>
         <div class='search_result_desc'>
           <%= res[:desc] %>          
         </div>

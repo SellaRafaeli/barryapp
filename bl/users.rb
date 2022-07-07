@@ -142,6 +142,7 @@ post '/update_me' do
 	pr[:media_img].to_a.each_with_index { |url, idx| pr[:media].push({type: pr[:media_types][idx], url: url}) }
 
 	pr[:zipcodes] = [] #pr[:zipcodes].split(',').map(&:strip).map(&:to_i)
+	
 	data = pr.just_keys(USER_KEYS)
 
 	# data[:handle]   = data[:handle].to_s.gsub(/[^0-9A-Za-z]/, '') 

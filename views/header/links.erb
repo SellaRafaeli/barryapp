@@ -272,12 +272,12 @@
 
       }
       .sub-logo-text {
-        display: none;
+        zdisplay: none;
       }
     </style>
     <a class='zbtn' href='/' style='display: inline; flex-direction: column;'>
       <span class='logo-text'> &lt;/&gt; <span style='color:var(--color2)'>indy</span>devs </span>
-      <span class='sub-logo-text' style='font-size: 80%'>strong independent developers</span>
+      <span class='sub-logo-text' style='font-size: 80%; color: black'></span>
     </a>
     <% if cu %>
       <a id=user_name class='user_name' href='/me'>
@@ -318,7 +318,7 @@
     <% end %>
 
     <% if !cu %>
-    <a class='' href='/signup'><%= !heb ? 'apply' : 'כניסה' %></a>
+    <a class='' href='/signup'><%= !heb ? 'post' : 'כניסה' %></a>
     <% end %>
     <% if false && cu && !is_pro(cu) %>
      <!-- get pro -->
@@ -375,7 +375,7 @@
 
     <!-- <a class='' href='/we_love_developers'>We Love Developers</a> -->
     <!-- <a class='' href='/pricing'>pricing</a> -->
-    <a class='' href='/how_it_works'>about</a>
+    <!-- <a class='' href='/how_it_works'>about us</a> -->
     <!-- <a class='' href='/contact'>contact</a> -->
     <!-- <a class='' href='/careers'>careers</a> -->
     <% if is_admin %>

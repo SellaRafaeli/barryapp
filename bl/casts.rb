@@ -436,7 +436,7 @@ post '/casts/edit/:id' do
 		require_cast_owner(id)
 	end
 
-	
+
 	pr[:media] = []
 	pr[:media_img].to_a.each_with_index { |url, idx| pr[:media].push({type: pr[:media_types][idx], url: url}) }
 
@@ -444,7 +444,7 @@ post '/casts/edit/:id' do
 	
 	data.delete(:tags) unless is_admin
 
-	[:cost_dollars, :hour, :mins, :length].each { |k| data[k] = data[k].to_i if data[k].present? }
+	[:zcost_dollars, :hour, :mins, :length].each { |k| data[k] = data[k].to_i if data[k].present? }
 
 	# puts data
 

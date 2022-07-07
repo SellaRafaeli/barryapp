@@ -13,9 +13,9 @@
   <br/>
   <%= erb :'casts/casts_list', locals: {casts: user_casts, is_owner: true, show_enrolls: true} %>      
   <% else %>
-    <h3 class='ct no_data_yet'>List your first experience. </h3>
+    <h3 class='ct no_data_yet'>Post a job ad.</h3>
   <% end %>
   <div class=ct style='margin-top: 40px'>
-  <a href='/casts/edit/new?type=cast' class='btn btn-primary btn-raised'>+ Add Experience</a>
+  <a href='/casts/edit/new?type=cast' class='btn btn-primary btn-raised'>+ 💼</a>
   </div>
 </div>

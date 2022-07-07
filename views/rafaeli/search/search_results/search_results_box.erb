@@ -1,0 +1,68 @@
+<style>
+.search_results_wrapper {
+  zmax-width: 700px;
+  zmargin: auto;
+  margin-top: 20px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.single_result_box {
+  flex: 1;
+  background-color: whitesmoke;
+  margin:10px;
+  display: inline-block;
+  width: 20%;
+  margin: auto;
+}
+.srb_title {
+  display: block;
+}
+</style>
+
+
+<% if results.any? %>
+  <div class='search_results_wrapper'>
+  <% results = results[0..4] %>
+  <% results.each do |res| %>
+    <%  user_casts = [] #$casts.all(user_id: res[:_id]) %>
+    <div class='single_result single_result_box zsingle_result_card'>
+
+      <div class='above_img'>
+        <span class='srb_name'><%= res[:name] %></span>
+        <span class='srb_title'><%= res[:title] %></span>
+        <% if is_verified(res) %>
+          <span style='display: block; margin-left: 5px'> ✅ </span>
+        <% end %>
+      </div>
+      <div class='img_container'>
+        <img class=top_field_img src='<%=res[:img_url]%>' />      
+      </div>
+
+      <div class='below_img'>
+        <span class='srb_location'><%= res[:location] %></span>
+        <span class='srb_rate'><%= res[:rate] %></span>
+      </div>
+
+      <div>
+        <button class='small_action'>contact</button>
+        <button class='small_action'>hire</button>
+      </div>
+    </div>
+  <% end %>   
+  </div> 
+  <%= erb :'rafaeli/search/page_numbers' %>
+<% else %>
+<div class='search_results_wrapper'>
+  <div class='no_results ct'>
+    <br/>
+    <h5> 
+      No results found.
+      <br/>
+      <br/>
+      You can <a class=simple_link href='mailto:requests@indydevs.com?subject=Request for talent'>mail us</a> for specific requests.</a>
+      <div>
+    </h5>
+  </div>
+</div>
+<% end %>

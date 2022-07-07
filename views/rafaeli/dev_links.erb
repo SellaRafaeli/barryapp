@@ -9,10 +9,10 @@
 x=1
 
 %>
-<% 4.times do |i| %>  
+<% 1.times do |i| %>  
   <div class='display_flex'>
     <% if i ==0 %>
-      <label> External Links </label> 
+      <label> Website </label> 
     <% else %>
       <label> </label> 
     <% end %>
@@ -20,9 +20,11 @@ x=1
       <div>Add as much information about yourself as possible.</div>
     </div> -->
 
+    <% if false %>
     <input list="links-options" id="links-list-<%=i%>" value="<%=user['links_name_'+i.to_s]%>" name=links_name_<%=i%> class='links_input' placeholder='Site name' />
+    <% end %>
 
-    <input value="<%=user['links_val_'+i.to_s]%>" name=links_val_<%=i%> class='links_input' placeholder='Link' />
+    <input value="<%=user['links_val_'+i.to_s]%>" name=links_val_<%=i%> class='links_input' placeholder='https://www.yoursite.com' />
   </div>
   <br/>
 <% end %>

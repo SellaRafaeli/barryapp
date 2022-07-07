@@ -16,6 +16,8 @@ DOWS = [
   {val: 'sun', label: 'Sundays'},
 ]
 
+JOIN_WORD = 'join' #'post' #'join' #'apply'
+
 def dow_idx(dow) 
   DOWS.index {|d| d[:val] == dow.to_s }
 end

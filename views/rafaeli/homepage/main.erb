@@ -2,23 +2,36 @@
   search_val     = pr[:q].to_s.downcase
 
   #search_val = 'javascript' unless val.present?
-  all_sellers = get_all_sellers
+  show_jobs = pr[:type] == 'jobs'
+  if show_jobs
+    results = $casts.all.reverse
+    results = [results[0]]
+    results.map {|cast| 
+      cast[:rate] = cast[:cost_dollars] 
+      owner = $users.get(cast[:user_id])
+    
+      cast[:name]     = owner[:name]
+      cast[:img_url]  = owner[:img_url].present? ? owner[:img_url] : DEFAULT_PIC
+      cast[:location] = owner[:location]
+    }
+  else 
+    all_sellers = get_all_sellers
+    fields = [:name, :title, :location, :desc, :rate] 
+    users  = all_sellers.select {|u| 
 
-  fields = [:name, :title, :location, :desc, :rate] 
-  users  = all_sellers.select {|u| 
+      text = fields.map {|f| " "+u[f].to_s }.join(' ')
 
-    text = fields.map {|f| " "+u[f].to_s }.join(' ')
+      # text += (casts_text = $casts.all(user_id: u[:_id]).map {|cast| "#{cast[:desc]} #{cast[:client_name]} #{cast[:title]} #{cast[:custom_time]}" }).join(' ')
 
-    # text += (casts_text = $casts.all(user_id: u[:_id]).map {|cast| "#{cast[:desc]} #{cast[:client_name]} #{cast[:title]} #{cast[:custom_time]}" }).join(' ')
+      u[:text] = text
+      search_val && text.downcase.include?(search_val.to_s) 
+    }
+    # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
+    results = users
 
-    u[:text] = text
-    search_val && text.downcase.include?(search_val.to_s) 
-  }
-  # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
-  results = users
-
-  # results = results.sort_by {|u| search_user_score(u, search_val) }.reverse
-  results = results.sort_by {|u| is_verified(u).to_s }.reverse
+    # results = results.sort_by {|u| search_user_score(u, search_val) }.reverse
+    results = results.sort_by {|u| is_verified(u).to_s }.reverse
+  end
   
   x=1
 %>
@@ -171,10 +184,12 @@ function switchSide(btn) {
   $('.size_filter').toggleClass('noDisplay');
 }
 </script>
+
 <div class='container1000'>
   <div class='main_tabs'>
-    <button class='btn btn-raised' onclick=switchSide(this)> Jobs </button>
-    <button class='btn btn-raised btn-primary' onclick=switchSide(this)> Developers </button>
+    <a href='/?type=talent' class='btn btn-raised <%= "btn-primary" unless show_jobs %>' zonclick=switchSide(this)> Remote Talent </a>
+    <a href='/?type=jobs' class='btn btn-raised <%= "btn-primary" if show_jobs %>' zonclick=switchSide(this)> Remote Jobs </a>
+    
   </div>
 
   <div class='main_search_wrapper ct'>    
