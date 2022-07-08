@@ -203,6 +203,7 @@ label {
     color: var(--color1);
     color: white;
     zborder-color: var(--color1);
+    padding: 10px 20px;
 }
 .btn.btn2:hover {
     background-color: var(--color2);
