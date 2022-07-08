@@ -7,7 +7,7 @@
   if show_jobs # showing casts
     results = $casts.all.reverse
     results = results.select {|res| res[:user_id] != SYSTEM_USER_ID }
-    results = [results[0]]
+    
     results.map {|cast| 
       cast[:rate] = cast[:cost_dollars] 
       owner = $users.get(cast[:user_id])
