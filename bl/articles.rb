@@ -3,6 +3,7 @@ $weed_pics    = ['https://imgur.com/fR6gWEV.png']
 
 def get_articles_list
 	articles = Dir['./views/articles/**/*.erb'].sort
+
 	res = articles.map {|path|
 		articles_folder = path.index('/articles/')
 		link  = path[articles_folder..-5]
@@ -11,6 +12,10 @@ def get_articles_list
 		name = link[link_folder..]    
 
     {name: name, link: link, topic: topic}
+	}
+
+	res = res.select {|ar| 
+		!ar[:name].to_s.include?('cannabis') && !ar[:name].to_s.include?('weed') && !ar[:name].to_s.include?('marijuana')
 	}
 	return res
 end
