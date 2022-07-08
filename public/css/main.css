@@ -25,6 +25,8 @@ body {
   --colorP1: #1e5353;
   --hover-brightness: 1.2;
 }
+
+
 #editor {
   font-size: 16px;
   font-family: Lora;
