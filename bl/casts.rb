@@ -366,8 +366,9 @@ def casts_by_dow_and_hour(casts, dow, hour)
 	casts.select { |c| (get_cast_dow(c) == dow) && (get_cast_hour(c) == hour) }
 end
 
+SYSTEM_USER_ID = 'system'
 def ensure_payment_casts
-	$users.update_id('system', {name: 'IndyDevs, LLC', email: 'payments@indydevs.com'}, upsert: true)
+	$users.update_id(SYSTEM_USER_ID, {name: 'IndyDevs, LLC', email: 'payments@indydevs.com'}, upsert: true)
 
 	$casts.update_id('level1_payment_cast', {title: 'Pro', user_id: 'system', cost_dollars: 100, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil
 	$casts.update_id('level2_payment_cast', {title: 'Plus', user_id: 'system', cost_dollars: 250, recurrence: RECURRENCE_MULTI}, upsert: true) rescue nil

@@ -4,8 +4,9 @@
   #search_val = 'javascript' unless val.present?
   show_jobs = (pr[:type] == 'jobs') || !pr[:type].present?
 
-  if show_jobs
+  if show_jobs # showing casts
     results = $casts.all.reverse
+    results = results.select {|res| res[:user_id] != SYSTEM_USER_ID }
     results = [results[0]]
     results.map {|cast| 
       cast[:rate] = cast[:cost_dollars] 
