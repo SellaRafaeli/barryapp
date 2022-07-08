@@ -2,7 +2,8 @@
   search_val     = pr[:q].to_s.downcase
 
   #search_val = 'javascript' unless val.present?
-  show_jobs = pr[:type] == 'jobs'
+  show_jobs = (pr[:type] == 'jobs') || !pr[:type].present?
+
   if show_jobs
     results = $casts.all.reverse
     results = [results[0]]
@@ -66,9 +67,9 @@
 }
 
 .main_search_wrapper {
-  display: inline-block;
-  max-width: 700px;
-  zmargin: auto;
+  zdisplay: inline-block;
+  max-width: 750px;
+  margin: auto;
   zborder: 1px solid red;
 }
 .main_search {
@@ -186,13 +187,12 @@ function switchSide(btn) {
 </script>
 
 <div class='container1000'>
-  <div class='main_tabs'>
-    <a href='/?type=talent' class='btn btn-raised <%= "btn-primary" unless show_jobs %>' zonclick=switchSide(this)> Remote Talent </a>
-    <a href='/?type=jobs' class='btn btn-raised <%= "btn-primary" if show_jobs %>' zonclick=switchSide(this)> Remote Jobs </a>
-    
-  </div>
-
   <div class='main_search_wrapper ct'>    
+      <div class='main_tabs'>
+      <a href='/?type=jobs' class='btn btn-raised <%= "btn-primary" if show_jobs %>' zonclick=switchSide(this)> Jobs </a>
+      <a href='/?type=talent' class='btn btn-raised <%= "btn-primary" unless show_jobs %>' zonclick=switchSide(this)> Talent </a>
+    </div>
+
     <%#= erb :'rafaeli/homepage/langs' %>    
     <%#= erb :'rafaeli/homepage/countries' %>    
     <div class='search_controls ct' style='font-size: 15px; display: inline-block;'>

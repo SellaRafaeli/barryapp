@@ -28,6 +28,7 @@
   margin: 20px;
   font-size: 15px;
   font-weight: bold;
+  border:1px solid;
 }
 
 .top-nav a:not(.logo):hover {
@@ -275,9 +276,12 @@
         zdisplay: none;
       }
     </style>
-    <a class='zbtn' href='/' style='display: inline; flex-direction: column;'>
-      <span class='logo-text'> &lt;/&gt; <span style='color:var(--color2)'>indy</span>devs </span>
-      <span class='sub-logo-text' style='font-size: 80%; color: black'></span>
+    <a class='zbtn logo' href='/' style='display: inline; flex-direction: column; '>
+      <span class='logo-text' style='color: var(--color1)'> &lt;/&gt; 
+        <span style='color:var(--color2)'>indy</span>
+        <span style='color:var(--color1)'> devs </span>
+      <span class='separator' style='color:var(--black1'>:</span>
+      <span class='sub-logo-text' style='font-size: 90%; color: var(--black1)'>the talent marketplace</span>
     </a>
     <% if cu %>
       <a id=user_name class='user_name' href='/me'>
