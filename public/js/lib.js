@@ -268,3 +268,5 @@ function setCurrentCursorPosition(chars) {
         }
     }
 };
+
+console.log('loaded lib.js')

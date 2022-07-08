@@ -73,6 +73,7 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 	 'website',
 	 'show_profile_to', 'rate',
 
+	 'type',
 	 # buyer fields 
 	 'looking_for',
 	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key) + RAFAELI_KEYS
@@ -81,19 +82,19 @@ DEFAULT_IMG_OLD = '/img/profile.png'
 DEFAULT_IMG = DEFAULT_PIC = 'https://i.imgur.com/bnxiNtq.png' #'/img/leaf.svg'
 
 def is_seller(user = cu)
-	user && user[:type].to_s == 'seller'
+	user && user[:type].to_s == SELLER_TYPE
 end
 
 def is_buyer(user = cu) 
-	user && user[:type].to_s == 'buyer'
+	user && user[:type].to_s == BUYER_TYPE
 end
 
 def is_talent(user = cu) 
-	user && user[:subtype].to_s == 'talent'
+	user && user[:subtype].to_s == SUBTYPE_SMALL
 end
 
 def is_team(user = cu)
-	user && user[:subtype].to_s == 'team'
+	user && user[:subtype].to_s == TEAM_SUBTYPE
 end
 
 def get_all_sellers
@@ -142,7 +143,7 @@ post '/update_me' do
 	pr[:media_img].to_a.each_with_index { |url, idx| pr[:media].push({type: pr[:media_types][idx], url: url}) }
 
 	pr[:zipcodes] = [] #pr[:zipcodes].split(',').map(&:strip).map(&:to_i)
-	
+
 	data = pr.just_keys(USER_KEYS)
 
 	# data[:handle]   = data[:handle].to_s.gsub(/[^0-9A-Za-z]/, '') 

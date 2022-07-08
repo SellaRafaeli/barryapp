@@ -1,3 +1,27 @@
+SELLER_TYPE = 'seller'
+BUYER_TYPE  = 'buyer'
+
+SUBTYPE_BIG   = 'subtype_big'
+SUBTYPE_SMALL = 'subtype_small'
+
+TALENT_SUBTYPE = 'talent'
+SUBTYPE_TALENT = TALENT_SUBTYPE
+TALENT_EMOJI   = '💪'
+
+TEAM_SUBTYPE   = 'team'
+SUBTYPE_TEAM   = TEAM_SUBTYPE
+TEAM_EMOJI     = '👥'
+
+STARTUP_SUBTYPE     = 'startup'
+SUBTYPE_STARTUP     = STARTUP_SUBTYPE
+COMPANY_EMOJI       = '🚀'
+
+ROCKET_EMOJI = '🚀'
+BIG_COMPANY_SUBTYPE = 'corporation'
+SUBTYPE_BIG_COMPANY = BIG_COMPANY_SUBTYPE
+
+
+
 LOGOS = [
   'logo_fb.png',
   'logo_zoom.jpg',

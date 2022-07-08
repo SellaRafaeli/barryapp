@@ -214,16 +214,23 @@ function switchSide(btn) {
         <option <%="selected" if pr[:country]=='ar'%>>🇦🇷 Argentina</option>    
       </select>
 
+
+      
+      <% if show_jobs %>
+
+      <select class='size_filter' style='border: none'>
+        <option>🚀 startups</option>
+        <option>🏢 corporations</option>
+      </select>
+
+      <% else %>
+      
       <select class='size_filter' style='border: none'>
         <option>👤 professionals</option>
         <option>👥 teams</option>        
       </select>
 
-      <select class='size_filter noDisplay' style='border: none'>
-        <option>🚀 startups</option>
-        <option>🏢 corporations</option>
-      </select>
-      
+      <% end %>
       
     </div>
 

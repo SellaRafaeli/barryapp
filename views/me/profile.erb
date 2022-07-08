@@ -44,16 +44,61 @@
   </div>
 
   <div class='display_flex'>                  
-      <label> Title <div></div></label>
+      <label> Headline <div></div></label>
       <input class='input1' placeholder='Your description in one line' value="<%=user['title']%>" name='title' style='margin-right: 5px; margin-left: 0'/>
   </div>
+  <br/>
+  <div class='display_flex'>                  
+      <label> You are a <div></div></label>
+      <select name=type onchange=$('#submitMeForm').click()>
+        <option <%="selected" if user[:type] == SELLER_TYPE %> value=<%=SELLER_TYPE%>> Professional 👤</option>
+        <option <%="selected" if user[:type] == BUYER_TYPE %>  value=<%=BUYER_TYPE%>>Company <%= COMPANY_EMOJI %></option>
+      </select>
+  </div>
+  <br/>
+  
+  <div class='display_flex'>                  
+      <label> You are a <div></div></label>
+      <select name=subtype onchange=$('#submitMeForm').click()>
+        <% if is_seller %>
+        
+        <!-- small seller -->
+        <option <%="selected" if user[:subtype] == SUBTYPE_SMALL %> value=<%=SUBTYPE_SMALL%>> 
+          Individual <%= TALENT_EMOJI %> 
+        </option>
+        
+        <!-- big seller -->
+        <option <%="selected" if user[:subtype] == SUBTYPE_BIG %> value=<%=SUBTYPE_BIG%>>
+          Team <%= TEAM_EMOJI %> 
+        </option>
+        
+
+        <% elsif is_buyer %>
+
+        <!-- small buyer -->
+        <option <%="selected" if user[:subtype] == SUBTYPE_SMALL %> value=<%=SUBTYPE_SMALL%>>
+          Startup <%= ROCKET_EMOJI %> 
+        </option>
+        
+        <!-- big buyer -->
+        <option <%="selected" if user[:subtype] == SUBTYPE_BIG %> value=<%=SUBTYPE_BIG%>> 
+          Corporation <%= TALENT_EMOJI %> 
+        </option>
+
+        <% end %>
+      </select>
+  </div>
+  
+
+  
+  <br/>
 
   <div class='display_flex'>                  
     <label> Location <div></div></label>
     <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
   </div>
 
-  <% if false && is_seller && is_talent %>
+  <% if is_seller && is_talent %>
   <div class='display_flex' style='margin-top:20px'>
     <%#= user.to_json %>
 
@@ -148,7 +193,7 @@
 
 
 
-  <% if is_buyer %>
+  <% if false%>
   <div class='display_flex'>
     <label> Looking For </label>
     <!-- <div class=help_text>
@@ -449,7 +494,7 @@
   <br/>
 
   <!-- <br/> -->
-  <button type='submit' style='display: none'>submit </button>
+  <button type='submit' style='display: none'>submit</button>
   <br/>
       <div class=ct>
         <button id=submitMeForm onclick='$("#me_form").submit()' class='btn btn-raised btn-info'>Save</button>
