@@ -200,6 +200,29 @@ function switchSide(btn) {
 
 <div class='homepage_container container1400'>
   <div class='main_search_wrapper ct'>    
+      <div class='main_msg'>
+         <%
+         pr[:country] = 'Israel'
+          msg = "Startups and Developers" if pr[:country] == 'USA'
+          msg = "Startups and Developers" if pr[:country] == 'United Kingdom'
+          msg = "Startups and Developers" if pr[:country] == 'European Union'    
+          msg = "Startups and Developers" if pr[:country] == 'Ukraine'
+          msg = "מתכנתים וסטארטאפים" if pr[:country] == 'Israel'
+          msg = "Startups and Developers" if pr[:country] == 'Dubai'    
+          msg = "Startups and Developers" if pr[:country] == 'Mexico'    
+          msg = "Startups and Developers" if pr[:country] == 'Uruguay'    
+          msg = "Startups and Developers" if pr[:country] == 'Venezuela' 
+          msg = "Startups and Developers" if pr[:country] == 'Colombia' 
+          msg = "Startups and Developers" if pr[:country] == 'Brazil'    
+          msg = "Startups and Developers" if pr[:country] == 'Chile'    
+          msg = "Startups and Developers" if pr[:country] == 'Argentina'    
+          %>
+          <%= "Startups and Developers" %>
+          <div>
+            מתכנתים וסטארטאפים
+          </div>
+      </div>
+      <br/>
       <div class='main_tabs'>
       <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring </a>
       <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire </a>
