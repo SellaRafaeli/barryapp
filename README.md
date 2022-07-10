@@ -13,6 +13,7 @@ https://freshremote.work/checkout/
 
 Search files:
 -*/public/css/lib/fontawesome*
+-*/public/css/lib/fontawesome*, -*/CordovaCann_files/*
 
 Wizard questions:
 - How many people at your company? 

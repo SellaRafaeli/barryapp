@@ -243,6 +243,10 @@ def is_special_item(cast)
 	cast[:type] == SPECIAL_ITEM
 end
 
+def is_owner(cast, user_id = cuid)
+	cast[:user_id] == user_id
+end
+
 def is_cast_forum(cast)
 	type = FORUM_THREAD.to_s.downcase
 	(pr[:type].to_s.downcase == type) || (cast[:type].to_s.downcase == type)
@@ -456,6 +460,12 @@ post '/casts/edit/:id' do
 	
 	pr[:tags] = pr[:tags].to_s.split(',').map(&:strip)
 	$casts.update_id(id, data)
+	
+	# cache casts on cu
+	cu[:casts]     = cu[:casts] || {}
+	cu[:casts][id] = data
+	$users.update_id(cuid,{casts:cu[:casts]})
+	
 	if pr[:ajax] 
 		{msg: 'ok'}
 	else 

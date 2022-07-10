@@ -60,7 +60,7 @@
   <div class='display_flex'>                  
       <label> You are a <div></div></label>
       <select name=subtype onchange=$('#submitMeForm').click()>
-        <% if is_seller %>
+        <% if is_developer %>
         
         <!-- small seller -->
         <option <%="selected" if user[:subtype] == SUBTYPE_SMALL %> value=<%=SUBTYPE_SMALL%>> 
@@ -73,7 +73,7 @@
         </option>
         
 
-        <% elsif is_buyer %>
+        <% elsif is_startup %>
 
         <!-- small buyer -->
         <option <%="selected" if user[:subtype] == SUBTYPE_SMALL %> value=<%=SUBTYPE_SMALL%>>
@@ -94,7 +94,7 @@
   <br/>
 
   <div class='display_flex'>                  
-    <label> Location <div></div></label>
+    <label> HQ Location <div></div></label>
     <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
   </div>
 
@@ -113,7 +113,6 @@
     </div>    
   </div>
   <% end %>
-
 
   <% if is_seller && false %>
   <div class='display_flex'>                  
@@ -189,6 +188,29 @@
   </div>
   <br/>
 
+  <% if true %>
+  <div class='display_flex'>
+    <%#= user.to_json %>
+    <label class='ztooltip'> Web Site </label>
+    
+    <input class=input1 style='margin-left:0; margin-right: 0;' name=website value="<%=user[:website]%>" placeholder='Your site' />
+  </div>
+
+  <br/>
+
+  <div class='display_flex'>                  
+    <% if is_developer %>
+    <label> Contact Link / Email </label>
+    <% elsif is_startup %>
+    <label> Jobs URL / Email to apply </label>
+    <% end %>
+    
+    <input class='input1' placeholder='startup.com or hi@domain.com' value="<%=user['contact']%>" name='contact' style='margin-right: 0px; margin-left: 0'/>
+  </div>
+
+
+
+  <% end %>
 
 
 
@@ -233,17 +255,6 @@
 
   <br/>
 
-
-
-  <div class='display_flex' style='margin-top:20px; display: none'>
-    <%#= user.to_json %>
-    <label class='ztooltip'> Web Site </label>
-    
-    <input name=website value="<%=user[:website]%>" placeholder='Your site' />
-  </div>
-
-  <br/>
-  
   <% if false %>
   <div class='display_flex'>
     <label> Type </label>

@@ -1,0 +1,120 @@
+<%
+  positions = res[:casts].to_h.values
+%>
+<% if !@tv_boxes_style %>
+<% @tv_boxes_style = :declared %>
+<style>
+.tv_box {
+  width: 20%;
+  zborder:1px solid red;
+  display: inline-block;
+  margin: 10px;
+  margin-bottom: 20px;
+  color: var(--black2);
+}
+.tv_box iframe { height: 100%; width: 100%; }
+
+.text_box {
+  display: flex;
+  margin-top: 10px;
+}
+.tv_box_logo {
+  height: 40px; 
+  width: 40px;
+}
+.video_texts {  
+  margin-left: 10px;
+  zborder:1px solid red;
+  text-align: left;
+  width: 100%;
+}
+.video_title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.lower_texts {
+  font-size: 14px;
+  color: var(--grey1);
+}
+.social_signals .hq { 
+  display: inline-block; 
+}
+.social_signals .social-signal {
+  display: inline-block;
+}
+.tv_box_bottom_connector {
+  display: inline-block;
+  margin:4px;
+}
+.main_positions {
+  margin-top: 10px;
+  margin-left: 10px;
+  color: var(--grey1);
+  font-size: 14px;
+}
+
+.pos_title {
+  display: inline-block;
+}
+.tv_box_contact {
+  text-align: right;
+  font-size: 14px;
+}
+.tv_box_contact { visibility: hidden; }
+.tv_box:hover .tv_box_contact{ visibility: visible; }
+}
+</style>
+<% end %>
+
+<div class='tv_box'>
+  <!-- <h4> TV Box </h4> -->
+  
+
+  <div class='video_wrapper'>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/NMtsjhJkYbE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <div class='text_box'>
+    <div class='tv_box_logo'>
+      <img src='https://fiverr-res.cloudinary.com/npm-assets/layout-server/favicon-32x32.8f21439.png'>
+    </div>
+
+    <div class='video_texts'> 
+      <div class='video_title'>
+        <%= res[:name] %> 
+      </div>
+
+      <div class='lower_texts'>
+        <div class='video_subtitle'>
+          <%= res[:title] %>
+        </div>
+
+        <div class='social_signals'>
+          <div class='hq'> <%= res[:location] %> </div>
+          
+          <% if positions.any? %>
+          <span class='tv_box_bottom_connector'>•</span>
+          <div class='social-signal'> <%= positions.size %> positions </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if positions.any? %>
+      <div class='main_positions'>
+        <% positions.each do |pos| %>
+          <div class='single_pos'> 
+            • <div class='pos_title'><%= pos[:title] %></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class='tv_box_contact'>
+        <a target=_blank class='apply_link simple_link' href='<%=res[:contact] %>'> apply </a>
+      </div>
+      <br/>
+      <% end %>
+    </div>
+  </div>
+
+
+</div>      

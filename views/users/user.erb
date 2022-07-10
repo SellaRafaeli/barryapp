@@ -331,8 +331,9 @@
 
   <% if user_casts.any? %>    
     <div class=user_section>      
-      <h4> Experience </h4>      
-      <%= erb :'casts/casts_list', locals: {casts: user_casts, show_product_categories: false} %>
+      <h4> Positions </h4>      
+      <%#= erb :'casts/casts_list', locals: {casts: user_casts, show_product_categories: false} %>
+      <%= erb :'rafaeli/positions/positions_list', locals: {casts: user_casts} %>
     </div>
   <% end %>
 

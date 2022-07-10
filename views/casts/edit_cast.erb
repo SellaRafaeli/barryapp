@@ -552,15 +552,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 
         <br/>
 
-        <div id='delete_cast_btn'>
-          <small style='text-align: right; display: inline-block; width: 100%'>
-            <button type=button class='btn btn-danger btn-raised' onclick="deleteCast();">Delete <i class='fa fa-trash'></i>
-            </button>
-          </small>
-          <small style='text-align: right; display: inline-block; width: 100%'>
-            <a href='/casts/duplicate/<%=cast[:_id]%>' style='color:black' class='btn btn-info btn-raised btn-warning'>Duplicate <i class='fa fa-copy'></i></a>
-          </small>
-        </div>
+        
       </div>
 
       <% end #end more options %>
@@ -572,7 +564,19 @@ tags = cast[:tags].to_a.join(',') rescue ''
     <br/>    
     
     <br/>
-    <div><button class='btn btn-raised btn-info'>Update</button>    </div>
+    <div class=ct>
+      <button class='btn btn-raised btn-info'>Update</button>    
+      <br/>
+      <div id='delete_cast_btn'>
+        <small style='ztext-align: right; margin-top: 10px; display: inline-block; width: 100%'>
+          <button type=button class='zbtn zbtn-danger btn-raised' onclick="deleteCast();"><i class='fa fa-trash'></i>
+          </button>
+        </small>
+        <!-- <small style='text-align: right; display: inline-block; width: 100%'>
+          <a href='/casts/duplicate/<%=cast[:_id]%>' style='color:black' class='btn btn-info btn-raised btn-warning'>Duplicate <i class='fa fa-copy'></i></a>
+        </small> -->
+      </div>
+    </div>
   </form>
 
   
@@ -580,7 +584,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 
 <script>
 function deleteCast() {
-  if (confirm('Are you sure? This is not  reversible')) {
+  if (confirm('Are you sure you wish to delete this? This action is irreversible')) {
     postJSON('/casts/delete/<%=id%>').then(res => { 
       alert(res.msg || res.err); 
       document.location = '/me';

@@ -41,7 +41,7 @@ body, html {
 
 .no_data_yet {
   padding: 20px;
-  background-color: green;
+  background-color: var(--color2);
   color: white;
 }
 
@@ -586,11 +586,13 @@ end
 
 .simple_link {
   text-decoration: underline;
-  color: darkgreen;
+  color: var(--color2);
   cursor: pointer;
 }
 .simple_link:hover {
-  color: #150000;
+  filter: brightness(var(--hover-brightness));
+  text-decoration: underline;
+  color: var(--color1);
 }
 
 
@@ -644,8 +646,8 @@ end
   cursor: pointer;
   /*text-transform: uppercase;
   letter-spacing: 1.05px;*/
-  padding: 15px 15px;
-  
+  padding:8px 30px;
+  border-radius: 3px;
   border: 1px solid white;
   font-size: 15px;
   background-color: #00b140;

@@ -5,17 +5,18 @@
   show_jobs = (pr[:type] == 'jobs') || !pr[:type].present?
 
   if show_jobs # showing casts
-    results = $casts.all.reverse
+    # results = $casts.all.reverse
+    results = get_all_buyers
     results = results.select {|res| res[:user_id] != SYSTEM_USER_ID }
     
-    results.map {|cast| 
-      cast[:rate] = cast[:cost_dollars] 
-      owner = $users.get(cast[:user_id])
+    # results.map {|cast| 
+    #   cast[:rate] = cast[:cost_dollars] 
+    #   owner = $users.get(cast[:user_id])
     
-      cast[:name]     = owner[:name]
-      cast[:img_url]  = owner[:img_url].present? ? owner[:img_url] : DEFAULT_PIC
-      cast[:location] = owner[:location]
-    }
+    #   cast[:name]     = owner[:name]
+    #   cast[:img_url]  = owner[:img_url].present? ? owner[:img_url] : DEFAULT_PIC
+    #   cast[:location] = owner[:location]
+    # }
   else 
     all_sellers = get_all_sellers
     fields = [:name, :title, :location, :desc, :rate] 
@@ -192,8 +193,8 @@ function switchSide(btn) {
 <div class='container1400'>
   <div class='main_search_wrapper ct'>    
       <div class='main_tabs'>
-      <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Hiring </a>
-      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> For Hire </a>
+      <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring </a>
+      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire </a>
     </div>
 
     <%#= erb :'rafaeli/homepage/langs' %>    
@@ -237,7 +238,7 @@ function switchSide(btn) {
       
     </div>
 
-    <form method=get action=search style='display: inline-block;'>
+    <form method=get action=/ style='display: inline-block;'>
       <span style='position: relative;'>
         <input id=main_search name=q class='main_search input1' placeholder='Search...' value="<%=search_val%>" autocomplete list=suggestions />
         <span class=magnifying_class_search>🔎</span>

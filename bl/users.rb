@@ -89,6 +89,14 @@ def is_buyer(user = cu)
 	user && user[:type].to_s == BUYER_TYPE
 end
 
+def is_startup
+	is_buyer
+end
+
+def is_developer
+	is_seller
+end
+
 def is_talent(user = cu) 
 	user && user[:subtype].to_s == SUBTYPE_SMALL
 end
@@ -99,6 +107,10 @@ end
 
 def get_all_sellers
 	@all_sellers ||= $users.all(type: 'seller').reverse
+end
+
+def get_all_buyers 
+	@all_buyers ||= $users.all(type: 'buyer').reverse
 end
 
 get '/me' do

@@ -1,0 +1,52 @@
+<%
+  casts ||= []
+
+%> 
+
+<style>
+.single_cast {
+  margin-bottom: 20px;
+}
+.cast_title {
+  font-size: 24px;
+}
+.cast_compensation {
+  color: var(--grey1);
+  font-size: 14px;
+}
+.cast_desc {
+  margin-top: 20px;
+  color: var(--grey1);
+  font-size: 14px;
+}
+.edit-cast-emoji {
+  font-size: 14px;
+  margin-left: 10px;
+  position: relative;
+  bottom: 3px;
+}
+</style>
+
+<% casts.each do |cast| %>
+
+<% cost = cast[:cost_dollars] %>
+  <div class='single_cast'>
+
+    <div class='cast_title'>      
+      <%= cast[:title] %>
+      <% if is_owner(cast) %> 
+      <a href='/casts/edit/<%=cast[:_id]%>'><i class='edit-cast-emoji fal fa-edit'></i></a>
+      <% end %>
+    </div>
+
+    <% if cost.present? %> 
+    <div class='cast_compensation'>
+      $<%= cost %>
+    </div>
+    <% end %>
+
+    <div class='cast_desc'>
+      <%= cast[:desc] %>
+    </div>
+  </div>
+<% end %>

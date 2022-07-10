@@ -11,11 +11,12 @@
   <%  user_casts = $casts.all(user_id: user_id) %>
   <% if user_casts.any? %>
   <br/>
-  <%= erb :'casts/casts_list', locals: {casts: user_casts, is_owner: true, show_enrolls: true} %>      
+  <%#= erb :'casts/casts_list', locals: {casts: user_casts, is_owner: true, show_enrolls: true} %>      
+  <%= erb :'rafaeli/positions/positions_list', locals: {casts: user_casts, is_owner: true} %>      
   <% else %>
-    <h3 class='ct no_data_yet'>Post a job ad.</h3>
+    <h3 class='ct no_data_yet'>Positions for Hire.</h3>
   <% end %>
   <div class=ct style='margin-top: 40px'>
-  <a href='/casts/edit/new?type=cast' class='btn btn-primary btn-raised'>+ 💼</a>
+  <a href='/casts/edit/new?type=cast' class='btn2'>+ add </a>
   </div>
 </div>

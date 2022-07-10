@@ -291,8 +291,8 @@
     <a class='zbtn logo' href='/' style='display: inline; flex-direction: column; '>
       <span class='logo-text' style='color: var(--color1)'> &lt;/&gt; 
         <span style='color:var(--color2)'>indy</span><span style='color:var(--color1)'>devs </span>
-      <span class='separator' style='color:var(--black1'>:</span>
-      <span class='sub-logo-text' style='font-size: 90%; color: var(--black1)'>the talent marketplace</span>
+      <span class='separator' style='display: none; color:var(--black1'>:</span>
+      <span class='sub-logo-text' style='display: none; font-size: 90%; color: var(--black1)'>the talent marketplace</span>
     </a>
     <% if cu %>
       <a id=user_name class='user_name' href='/me'>
@@ -329,10 +329,10 @@
     <% end %>
 
     <% if !cu %>
-    <a id='top-nav-btn1' href='/signup'><%= !heb ? 'start' : 'כניסה' %></a>
+    <a id='top-nav-btn1' href='/signup'><%= !heb ? 'add yourself' : 'כניסה' %></a>
     <% end %>
 
-    <% if true || false && cu && is_verified %>
+    <% if false && cu && is_verified %>
     <a class='' href='/'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'search' %></span> </a>
     <% end %>
 
