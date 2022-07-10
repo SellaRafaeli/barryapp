@@ -94,6 +94,13 @@
   <br/>
 
   <div class='display_flex'>                  
+    <label> Main Video URL <div></div></label>
+    <input class='input1' placeholder='https://www.youtube.com/watch?v=0cPOPNSWoJ8' value="<%=user['video_url']%>" name='video_url' style='margin-right: 0px; margin-left: 0'/>
+  </div>
+
+  <br/>
+
+  <div class='display_flex'>                  
     <label> HQ Location <div></div></label>
     <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
   </div>
@@ -134,7 +141,7 @@
 
   <br/> 
 
-  <% if is_seller %>
+  <% if true %>
   <div class='display_flex' style='margin-top:20px'>
     <%#= user.to_json %>
     

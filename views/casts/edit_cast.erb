@@ -6,7 +6,7 @@ cast   = nc = {}
 cast   = nc = $casts.get(id) || {recurrence: RECURRENCE_ON_DEMAND}
 
 min_cast_cost = 1 
-nc[:cost_dollars] = min_cast_cost if nc[:cost_dollars].to_i < min_cast_cost
+# nc[:cost_dollars] = min_cast_cost if nc[:cost_dollars].to_i < min_cast_cost
 
 cast[:type] ||= pr[:type]
 dows = DOWS
@@ -25,6 +25,10 @@ is_website = cast[:type].to_s=='website' || pr[:type]=='website'
 is_forum = is_cast_forum(nc)
 
 tags = cast[:tags].to_a.join(',') rescue ''
+
+cost = nc[:cost_dollars]#.to_s
+
+x=1
 %>
 <style>
 .nc_box {
@@ -78,7 +82,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
 </style>
 <div class='ct' style='font-size:16px; padding-bottom: 200px'>
   <h1> 
-    <span><%= is_new ? 'Create' : 'Edit' %> Job Ad </span>    
+    <span><%= is_new ? 'Create' : 'Edit' %> Position </span>    
   </h1>
   <div style='font-weight: bold; font-size: 120%; margin:20px'>
   
@@ -227,7 +231,7 @@ tags = cast[:tags].to_a.join(',') rescue ''
           </label>
           <!-- <span style='position: relative; bottom: 10px;'>$</span> -->
 
-          <input class='cost_input' style='width: 30%' placeholder='$10,000-20,000/mo' value="<%= nc[:cost_dollars].to_s %>" name=cost_dollars ztype=number min=<%=min_cast_cost%> onchange="toggleOnlyIfCostsMoney()" /> <span class='only_if_recurring'> </span>
+          <input class='cost_input' style='width: 30%' placeholder='$10,000-20,000/mo' value="<%= cost %>" name=cost_dollars ztype=number min=<%=min_cast_cost%> onchange="toggleOnlyIfCostsMoney()" /> <span class='only_if_recurring'> </span>
         </div>
         <br/>
         

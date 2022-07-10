@@ -1,5 +1,6 @@
 <%
   positions = res[:casts].to_h.values
+  img_url   = res[:img_url] || 'https://fiverr-res.cloudinary.com/npm-assets/layout-server/favicon-32x32.8f21439.png'
 %>
 <% if !@tv_boxes_style %>
 <% @tv_boxes_style = :declared %>
@@ -21,6 +22,10 @@
 .tv_box_logo {
   height: 40px; 
   width: 40px;
+}
+.tv_box_logo img {
+  width: 100%;
+  border-radius: 50%;
 }
 .video_texts {  
   margin-left: 10px;
@@ -76,7 +81,7 @@
 
   <div class='text_box'>
     <div class='tv_box_logo'>
-      <img src='https://fiverr-res.cloudinary.com/npm-assets/layout-server/favicon-32x32.8f21439.png'>
+      <img src='<%=img_url%>'>
     </div>
 
     <div class='video_texts'> 

@@ -76,6 +76,7 @@ USER_KEYS = ["email",  "name", "handle", "img_url", "timezone",
 	 'type',
 	 # buyer fields 
 	 'looking_for',
+	 'video_url',
 	 'shipping', 'zipcodes', 'ambassador', 'subtype', 'room'] + SOCIAL_NETWORKS + FACETS.mapo(:key) + RAFAELI_KEYS
 
 DEFAULT_IMG_OLD = '/img/profile.png'
@@ -215,7 +216,7 @@ def verify_signup_data
 	password = pr[:password].to_s#.downcase
 	name     = pr[:name].to_s#.downcase	
 
-	pr[:type] = :buyer unless pr[:type].to_s == 'seller' 
+	pr[:type] = BUYER_TYPE unless pr[:type].to_s == SELLER_TYPE
 
 	if !valid_email(email)
 		if pr[:ajax] 
