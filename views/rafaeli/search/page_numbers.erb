@@ -6,13 +6,28 @@
   font-weight: bold;
   background-color: goldenrod;
   color: white;
+  position: relative;
+  top: 5px;
+}
+.unselected_page {
+  color: var(--gold1);
+  font-size: 20px;
+  position: relative;
+  bottom: 3px;
 }
 </style>
 
 <div class='page_nums display_flex ct' style='justify-content: center; margin: 20px;'>
   <% 10.times do |i| %>
   <div class='single_page_num_wrapper' style='margin:0 3px'>
-    <div class='page_icon'>⭕</div>
+    
+    <div class='page_icon'>
+      <% if page_num==i %>
+        ⭕
+      <% else %>
+        <span class='unselected_page'>◯</span>
+      <% end %>
+    </div>
     <div class='page_num <%="selected_page" if page_num==i%>' ><%= i %></div>
   </div>
   

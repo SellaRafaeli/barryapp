@@ -131,6 +131,7 @@
   zmax-width: 700px;
   zmargin: auto;
   margin-top: 20px;
+  text-align: center;
 }
 #main_search {
   zwidth: 300px;
@@ -188,11 +189,11 @@ function switchSide(btn) {
 }
 </script>
 
-<div class='container1000'>
+<div class='container1400'>
   <div class='main_search_wrapper ct'>    
       <div class='main_tabs'>
-      <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Jobs </a>
-      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Talent </a>
+      <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Hiring </a>
+      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> For Hire </a>
     </div>
 
     <%#= erb :'rafaeli/homepage/langs' %>    

@@ -73,51 +73,16 @@
 .small_action {
 
 }
-
 </style>
+
 <div class='search_results_wrapper'>
 <% if results.any? %>
   <% results = results[0..4] %>
   <% results.each do |res| %>
     <%  user_casts = [] #$casts.all(user_id: res[:_id]) %>
-    <div class='single_result zsingle_result_card'>
-      <div class='top_fields' zonclick="$(this).parent().find('.bottom_fields').toggleClass('noDisplay')">
-        
-        <span class='top_field top_field_img_container ct'>          
-          <% if res[:img_url].present? && (!res[:img_url].to_s.include?('profile.png')) %>
-          <img class=top_field_img src='<%=res[:img_url]%>' />
-          <% end %>          
-        </span>
-
-        <span class='top_field top_field_name'>
-          <%= res[:name] %>          
-        </span>
-        
-        <span class='top_field line_title'><%= res[:title] %></span>
-      
-        <span class='top_field' style='display: inline-block; margin-left: 10px'><%=res[:location].to_s %></span>
-
-        <span class='top_field' style='display: inline-block; margin-left: 10px'> <%=res[:rate] %></span>
-
-        <span class='top_field'>
-          <button class='small_action'>contact</button>
-        </span>
-
-        <span class='top_field'>
-          <% if is_verified(res) %>
-            <span style='display: block; margin-left: 5px'> ✅ </span>
-          <% end %>
-        </span>
-
-        
-      </div>
-
-      <div class='bottom_fields znoDisplay'>
-        <div class='search_result_desc'>
-          <%= res[:desc] %>          
-        </div>
-      </div>
-    </div>
+    <%#= erb :'rafaeli/search/search_results/list_elem', locals: {res: res} %>
+    <%= erb :'rafaeli/search/search_results/tv_box', locals: {res: res} %>
+    
   <% end %>
   <%= erb :'rafaeli/search/page_numbers' %>
 <% else %>

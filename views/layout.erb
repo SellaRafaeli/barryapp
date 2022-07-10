@@ -19,6 +19,7 @@ path = _req.path.to_s rescue 'error-path'
       show_wide = true if path.start_with?('/customers')
 
       containerClass = 'container1000' unless show_wide
+      containerClass = pr[:container] if pr[:container]
     %>
     <div class='<%=containerClass%> <%="container" unless @no_container || path=='z/' || path.to_s.starts_with?("/admin") %> <%=@custom_container_class%>'>
       <%= yield %> 
