@@ -175,6 +175,14 @@ span.magnifying_class_search {
   color: black;
   cursor: pointer;
 }
+
+@media (min-width: 1200px) {
+  .homepage_container {
+    position: relative;
+    bottom: 40px;
+  }  
+} 
+
 </style>
 
 
@@ -190,7 +198,7 @@ function switchSide(btn) {
 }
 </script>
 
-<div class='container1400'>
+<div class='homepage_container container1400'>
   <div class='main_search_wrapper ct'>    
       <div class='main_tabs'>
       <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring </a>
@@ -207,7 +215,7 @@ function switchSide(btn) {
         <option <%="selected" if pr[:country]=='uk'%>>🇬🇧 United Kingdom</option>
         <option <%="selected" if pr[:country]=='eu'%>>🇪🇺 European Union</option>    
         <option <%="selected" if pr[:country]=='ua'%>>🇺🇦 Ukraine</option>
-        <option <%="selected" if pr[:country]=='il'%>>🇮🇱 Israel</option>
+        <option selected <%="selected" if pr[:country]=='il'%>>🇮🇱 Israel</option>
         <option <%="selected" if pr[:country]=='ae'%>>🇦🇪 Dubai</option>    
         <option <%="selected" if pr[:country]=='mx'%>>🇲🇽 Mexico</option>    
         <option <%="selected" if pr[:country]=='ug'%>>🇺🇾 Uruguay</option>    
