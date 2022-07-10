@@ -14,7 +14,7 @@ $postmark_client = Postmark::ApiClient.new(ENV['POSTMARK_API_TOKEN'])
 # on payment, to cast owner?
 
 EMAILS_ON     = ENV['EMAILS_ON'].to_s == 'yes'
-EMAILS_FROM   = 'hi@rafaeli.io' # more "from" emails can be added on Postmark
+EMAILS_FROM   = 'hi@indydevs.com' # more "from" emails can be added on Postmark
 
 def send_email(to, subj, html_body, opts = {})
   res = 'unset'

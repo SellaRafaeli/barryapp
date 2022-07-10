@@ -288,6 +288,8 @@ def add_user
 			z=2
 		end
 	end
+
+	user
 end
 
 def user_link(user)
