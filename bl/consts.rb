@@ -21,6 +21,26 @@ BIG_COMPANY_SUBTYPE = 'corporation'
 SUBTYPE_BIG_COMPANY = BIG_COMPANY_SUBTYPE
 
 
+INDUSTRIES_LIST = ["👓 AR/VR",
+"🧠 AI/ML",
+"🎯 AdTech",
+"🌿 AgriTech",
+"🚙 Autonomous Cars",
+"🤝 B2B",
+"📈 Big Data",
+"🔑 Crypto",
+"🛡️ Cybersecurity",
+"📚 EdTech",
+"💡 Energy",
+"💰 FinTech",
+"🤖 IoT & Robotics",
+"🧬 MedTech & BioTech",
+"📱 Mobile",
+"🏙 Smart Cities",
+"📣 Social",
+"✈️ Tourism",
+"🛍 eCommerce"]
+#  ["🔑 Crypto", "✈️ Tourism", "✌️ Social", "🌿 AgriTech", "🎯 AdTech", "🏙 Smart Cities", "👓 AR/VR", "💡 Energy", "💰 FinTech", "📈 Big Data", "📚 EdTech", "📱 Mobile", "🚙 Autonomous Cars", "🛍 eCommerce", "🛡️ Cybersecurity", "🤖 IoT & Robotics", "🤝 B2B", "🧠 AI/ML", "🧬 MedTech & BioTech"]
 
 LOGOS = [
   'logo_fb.png',

@@ -235,6 +235,12 @@ function switchSide(btn) {
         <option>🏢 corporations</option>
       </select>
 
+      <select class='zsize_filter' style='border: none'>
+        <% INDUSTRIES_LIST.each do |industry| %>
+          <option><%= industry %></option>  
+        <% end %>
+      </select>
+
       <% else %>
       
       <select class='size_filter' style='border: none'>
