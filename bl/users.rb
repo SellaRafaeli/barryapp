@@ -256,8 +256,8 @@ end
 
 def add_user
 	email    = pr[:email].to_s.downcase	
-	password = pr[:password].to_s.downcase
-	name     = pr[:name].to_s.downcase
+	password = pr[:password].to_s#.downcase
+	name     = pr[:name].to_s#.downcase
 	room     = pr[:room].to_s.downcase
 
 	# state    = pr[:state] || 'NY'

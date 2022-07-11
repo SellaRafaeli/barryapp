@@ -284,7 +284,7 @@ end
 
 get '/sitemap.txt' do	
 	# ping google to let them know sitemap has updated: 
-	# https://www.google.com/ping?sitemap=https://good-weed.com/sitemap.txt 
+	# https://www.google.com/ping?sitemap=https://indydevs.com/sitemap.txt 
 	headers['Content-Type'] = 'text/plain'
 	
 	# z.write('hi')

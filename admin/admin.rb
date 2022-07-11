@@ -89,7 +89,7 @@ get '/admin/earnings/?:earn_id?' do
 end
 
 zADMIN_EMAILS = ['abelyael@gmail.com', 'tzlilberlin11@gmail.com', 'sella.rafaeli@gmail.com', 'galweinstock@icloud.com', 'tifrah2008@gmail.com']
-zADMIN_EMAILS = ['sella@good-weed.com', 'tifrah2008@gmail.com']
+zADMIN_EMAILS = ['sella@indydevs.com', 'tifrah2008@gmail.com']
 ADMIN_IDS    = ['8FNGN', 'kOdWD', 'XS0xK', 'GMf07', 'grTIU']
 ADMIN_EMAILS = ['sella.rafaeli@gmail.com']
 
