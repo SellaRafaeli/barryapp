@@ -402,7 +402,7 @@ post '/users/contact' do
 	else 
 		to        = target[:email]
 		subj      = 'New message on indydevs ('+Time.now.to_s+')'
-		html_body = subj+':\n\n'+msg
+		html_body = subj+':<br/><br/>'+msg
 		send_email(to, subj, html_body, from: 'messages@indydevs.com')
 		send_email('sella@indydevs.com', subj, html_body+"(to #{to})", from: 'messages@indydevs.com')
 	end
