@@ -406,6 +406,9 @@ post '/users/contact' do
 		send_email(to, subj, html_body, from: 'messages@indydevs.com')
 		send_email('sella@indydevs.com', subj, html_body+"(to #{to})", from: 'messages@indydevs.com')
 	end
+
+	flash.message = 'Message sent.'
+	redirect back
 end
 
 post '/beta_signup' do 
