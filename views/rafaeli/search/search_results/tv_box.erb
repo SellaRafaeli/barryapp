@@ -2,6 +2,8 @@
   positions = res[:casts].to_h.values
   img_url   = res[:img_url] || 
   img_url   = DEFAULT_PIC unless img_url.present? #'https://fiverr-res.cloudinary.com/npm-assets/layout-server/favicon-32x32.8f21439.png'
+  location  = res[:location]
+  location  = 'Tel Aviv, Israel' unless location.present?
 %>
 <% if !@tv_boxes_style %>
 <% @tv_boxes_style = :declared %>
@@ -65,7 +67,7 @@
 }
 
 .pos_title {
-  display: inline-block;
+  display: inline;
 }
 .tv_box_contact {
   text-align: right;
@@ -101,11 +103,11 @@
         </div>
 
         <div class='social_signals'>
-          <div class='hq'> <%= res[:location] %> </div>
+          <div class='hq'> <%= location %> </div>
           
           <% if positions.any? %>
           <span class='tv_box_bottom_connector'>•</span>
-          <div class='social-signal'> <%= positions.size %> positions </div>
+          <div class='social-signal'> <%= positions.size %> dev positions </div>
           <% end %>
         </div>
       </div>
