@@ -204,7 +204,11 @@
   </div>
 
   <br/>
+  <label> Media </label>
+  <%= erb :'/me/upload_media', locals: locals.merge(item: user) %>
+  <br/>
 
+  <% if false %>
   <div class='display_flex'>                  
     <% if is_developer %>
     <label> Contact Link / Email </label>
@@ -214,6 +218,7 @@
     
     <input class='input1' placeholder='startup.com or hi@domain.com' value="<%=user['contact']%>" name='contact' style='margin-right: 0px; margin-left: 0'/>
   </div>
+  <% end %>
 
 
 
@@ -233,11 +238,14 @@
   </div>
   <br/>
   <%#= cu.to_json %>
+  
+
   <% elsif is_seller %>
     <% if false && is_talent %>
     <%= erb :'rafaeli/dev_education', locals: {user: user} %>
-    <% end %>
     <%= erb :'rafaeli/dev_links', locals: {user: user} %>
+    <% end %>
+    
     <%#= erb :'rafaeli/dev_interview_questions', locals: {user: user} %>
     <%#= erb :'rafaeli/dev_questions' %>
   <% end %>
@@ -411,7 +419,7 @@
 
   <h4 style='margin-left: 20px; margin-bottom: 40px'> Images And Videos </h4>      
 
-  <%= erb :'/me/upload_media', locals: locals.merge(item: user) %>
+
 <% end %>
   <% if false %>
   <h4 style='margin-left: 20px; margin-bottom: 40px'> My Social Media </h4>      

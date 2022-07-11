@@ -392,6 +392,22 @@ get '/email_login' do
 	end
 end
 
+post '/users/contact' do 
+	target = $users.get(user[:_id])
+	msg    = pr[:text]
+
+	if !target
+		flash.message = 'No user found.'
+		redirect back
+	else 
+		to        = target[:email]
+		subj      = 'New message on indydevs ('+Time.now.to_s+')'
+		html_body = subj+':\n\n'+msg
+		send_email(to, subj, html_body, from: 'messages@indydevs.com')
+		send_email('sella@indydevs.com', subj, html_body+"(to #{to})", from: 'messages@indydevs.com')
+	end
+end
+
 post '/beta_signup' do 
 	send_email('sella.rafaeli@gmail.com', 'New user '+pr.to_json, 'New user '+pr.to_json) rescue nil	
 	flash.message = 'Ok, thanks!'

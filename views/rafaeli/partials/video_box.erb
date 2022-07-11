@@ -1,1 +1,12 @@
-<iframe width="560" height="315" src="https://www.youtube.com/embed/NMtsjhJkYbE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<%
+  video = user[:video_url].to_s
+  # video = 'https://www.youtube.com/embed/NMtsjhJkYbE'
+  video = CGI.unescapeHTML(video)
+  video = video.gsub('/watch?v=','/embed/') if video.include? 'youtube.com/watch?v='
+%>
+
+<% if true %>
+<iframe width="560" height="315" src="<%=video%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<% else %>
+
+<% end %>

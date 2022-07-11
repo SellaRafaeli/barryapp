@@ -1,8 +1,8 @@
 <style>
 #site_imgs {
-  height: 100px;
+  zheight: 100px;
   background-color: whitesmoke;
-  overflow-y: scroll;
+  zoverflow-y: scroll;
 }
 .single_site_media {
   display: inline-block;
@@ -11,21 +11,27 @@
   vertical-align: bottom;
   vertical-align: -webkit-baseline-middle;
 }
+
 .single_site_media img {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 100px;
+  max-height: 100px;
   object-fit: <%=item[:media_object_fit] %>;
 }
 .remove_media {
+  display: none;
   position: absolute;
   top: 10px;
   right: 10px;
-  color: grey;
+  color: white;
+  border-radius: 3px;
+  background-color: black;
   cursor: pointer;
 }
-
 .remove_media:hover {
   color: lightgrey;
+}
+.single_site_media:hover .remove_media {
+  display: block;
 }
 </style>
 

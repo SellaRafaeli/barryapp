@@ -1,6 +1,7 @@
 <%
   positions = res[:casts].to_h.values
-  img_url   = res[:img_url] || 'https://fiverr-res.cloudinary.com/npm-assets/layout-server/favicon-32x32.8f21439.png'
+  img_url   = res[:img_url] || 
+  img_url   = DEFAULT_PIC unless img_url.present? #'https://fiverr-res.cloudinary.com/npm-assets/layout-server/favicon-32x32.8f21439.png'
 %>
 <% if !@tv_boxes_style %>
 <% @tv_boxes_style = :declared %>
@@ -118,10 +119,12 @@
         <% end %>
       </div>
 
-      <div class='tv_box_contact'>
-        <a target=_blank class='apply_link simple_link' href='<%=res[:contact] %>'> apply </a>
-      </div>
-      <br/>
+        <% if false %>
+        <div class='tv_box_contact'>
+          <a target=_blank class='apply_link simple_link' href='<%=res[:contact] %>'> apply </a>
+        </div>
+        <br/>
+        <% end %>
       <% end %>
     </div>
   </div>

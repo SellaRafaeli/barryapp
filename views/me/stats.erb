@@ -1,10 +1,12 @@
 <%
-  my_cast_ids      = $casts.all(user_id: cuid).mapo(:_id)
-  
-  my_product_views = $stats.all(type: 'product_view', cast_id: {'$in': my_cast_ids})
-  my_store_views   = $stats.all(type: 'store_view', seller_id: cuid)
+  # my_cast_ids      = $casts.all(user_id: cuid).mapo(:_id)  
+  # my_product_views = $stats.all(type: 'product_view', cast_id: {'$in': my_cast_ids})
+  # my_store_views   = $stats.all(type: 'store_view', seller_id: cuid)
 
-  stats = (my_product_views + my_store_views).sort_by {|s| s[:created_at] }.reverse
+  # stats = (my_product_views + my_store_views).sort_by {|s| s[:created_at] }.reverse
+
+  # stats = $requests.all
+  stats = []
   # stats = (my_store_views).sort_by {|s| s[:created_at] }.reverse
 %>  
 <style>

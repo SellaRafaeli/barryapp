@@ -19,7 +19,6 @@ h3 {
 }
 </style>
 
-
 <%
   anals_last_day = $anals.get_many({type: :pageview, created_at: {'$gt': 1.day.ago}})
 %>

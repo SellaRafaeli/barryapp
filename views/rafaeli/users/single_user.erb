@@ -2,6 +2,8 @@
   name      = user[:name]
   website   = user[:website]
   positions = user[:casts].to_h.values
+  img_url   = user[:img_url]
+  img_url   = DEFAULT_PIC unless img_url.present?
 %>
 
 <style>
@@ -34,7 +36,7 @@
 
 .position_desc {
   color: var(--grey1);
-  font-size: 14px;
+  font-size: 16px;
   margin-top:20px;  
 }
 
@@ -64,20 +66,38 @@
   height: 300px;
 }
 
+.messageArea {
+  background-color: var(--color1);
+  text-align: center;
+  padding:10px;
+  margin:10px;
+}
+
 </style>
 <div class='single_user_wrapper'>
   <div class='single_user'>
     <div class='single_user_left_half'>
       <h1> 
         <span class='profile_logo'>
-          <img style='height: 60px; width: 60px; margin-right: 10px; border-radius: 50%' src='<%=user[:img_url]%>' />
+          <img style='height: 60px; width: 60px; margin-right: 10px; border-radius: 50%' src='<%=img_url%>' />
         </span>
         <%= name %> 
+        <span class='contact_btn btn2' style='margin-left: 10px' onclick=$(".messageArea").toggle()>contact</span>
       </h1>
 
       <div class='hq_location' style='color:var(--grey1)'>
         <%= user[:location] %><% if user[:website].present? %>, 
         <a target=_blank class=simple_link href='//<%=website%>'><%= website %></a><% end %>
+
+        
+      </div>
+
+      <div class='messageArea noDisplay'>
+        <form method=post action=/users/contact>
+        <input name=user_id value="<%=user[:_id]%>" hidden />
+        <h4> Message for <%= name %> </h4>
+        <textarea class=input1 name=text placeholder='Hi! Would love to connect.'></textarea>
+        <div><button class='btn2'> Submit </button></div>
       </div>
 
       <div class='single_user_video_wrapper' style='margin-top:10px; height: 100%'>
@@ -88,9 +108,11 @@
     </div>
 
     <div class='single_user_right_half'>
-      <div class='user_desc'>
-        <%= user[:desc] %>
-      </div>
+      <% if user[:desc].present? %>
+        <div class='user_desc'>
+          <%= user[:desc] %>
+        </div>
+      <% end %>
 
       <% if positions.any? %>
         <div class='positions_list'>

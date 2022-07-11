@@ -11,8 +11,8 @@ get '/customers/:id' do
 end
 
 post '/customers' do 
-	$customers.add({user_id: cuid, name: 'New Customer'})
-	flash.message = 'Customer added.'
+	$customers.add({user_id: cuid, name: 'My Project'})
+	flash.message = 'Added.'
 	redirect back
 end
 
@@ -20,7 +20,7 @@ post '/customers/:id' do
 	customer = $customers.get(pr[:id])
 	halt('unauthorized') unless customer[:user_id] == cuid
 	$customers.update_id(pr[:id], pr)
-	flash.message = 'Customer updated.'
+	flash.message = 'Updated.'
 	redirect back
 end
 
