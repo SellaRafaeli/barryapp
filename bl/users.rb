@@ -393,7 +393,7 @@ get '/email_login' do
 end
 
 post '/users/contact' do 
-	target = $users.get(user[:_id])
+	target = $users.get(pr[:user_id])
 	msg    = pr[:text]
 
 	if !target
