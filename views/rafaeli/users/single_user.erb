@@ -1,0 +1,115 @@
+<% 
+  name      = user[:name]
+  website   = user[:website]
+  positions = user[:casts].to_h.values
+%>
+
+<style>
+.single_user {
+  display: flex;
+}
+.single_user_left_half {
+  flex:1;
+  margin-right: 20px;
+}
+.single_user_right_half {
+  flex: 1;
+}
+
+.user_desc {
+  background-color: whitesmoke;
+  padding: 5px 10px;
+}
+.single_position {
+  margin-top: 10px;
+}
+
+.position_title {
+  padding:15px 10px;
+}
+.position_title:hover {
+  border:1px solid whitesmoke;
+  cursor: pointer;
+}
+
+.position_desc {
+  color: var(--grey1);
+  font-size: 14px;
+  margin-top:20px;  
+}
+
+.single_position .position_desc {
+  display: none;
+  padding:10px;
+}
+.single_position.open .position_desc {
+  display: block;
+}
+
+.position_logo {
+  height: 20px; 
+  transition-duration: 0.3s; 
+}
+
+.single_position.open .position_logo {
+  transform: rotate(90deg); 
+  
+}
+
+.single_user_wrapper {
+  padding-bottom: 100px;
+}
+.single_user_video_wrapper iframe {
+  max-width: 100%;
+  height: 300px;
+}
+
+</style>
+<div class='single_user_wrapper'>
+  <div class='single_user'>
+    <div class='single_user_left_half'>
+      <h1> 
+        <span class='profile_logo'>
+          <img style='height: 60px; width: 60px; margin-right: 10px; border-radius: 50%' src='<%=user[:img_url]%>' />
+        </span>
+        <%= name %> 
+      </h1>
+
+      <div class='hq_location' style='color:var(--grey1)'>
+        <%= user[:location] %><% if user[:website].present? %>, 
+        <a target=_blank class=simple_link href='//<%=website%>'><%= website %></a><% end %>
+      </div>
+
+      <div class='single_user_video_wrapper' style='margin-top:10px; height: 100%'>
+        <%= erb :'rafaeli/partials/video_box', locals: {user: user} %>
+      </div>
+      <br/>
+      <br/>
+    </div>
+
+    <div class='single_user_right_half'>
+      <div class='user_desc'>
+        <%= user[:desc] %>
+      </div>
+
+      <% if positions.any? %>
+        <div class='positions_list'>
+        <% positions.each do |position| %>
+          <div class='single_position'>
+            <div class='position_title' onclick="$(this).parent().toggleClass('open')" style='display: flex; justify-content: space-between;'>
+              <span><%= position[:title] %></span>
+              <span><img src='https://imgur.com/Fx2PStO.png' class='position_logo'></span>
+            </div>
+
+            <div class='position_desc'>
+              <%= position[:desc] %>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+</div>

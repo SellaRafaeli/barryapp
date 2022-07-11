@@ -224,8 +224,8 @@ function switchSide(btn) {
       </div>
       <br/>
       <div class='main_tabs'>
-      <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring </a>
-      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire </a>
+      <a href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring <span style='margin-left:5px'>🚀</span></a>
+      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire <span style='margin-left:5px'>👷</span></a>
     </div>
 
     <%#= erb :'rafaeli/homepage/langs' %>    
@@ -254,7 +254,7 @@ function switchSide(btn) {
       <% if show_jobs %>
 
       <select class='size_filter' style='border: none'>
-        <option>🚀 startups</option>
+        <option>🦄. startups</option>
         <option>🏢 corporations</option>
       </select>
 

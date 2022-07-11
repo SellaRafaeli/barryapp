@@ -11,6 +11,8 @@ Summer Goals:
 Competition:
 https://freshremote.work/checkout/
 
+https://emojidb.org/startup-emojis
+
 Search files:
 -*/public/css/lib/fontawesome*
 -*/public/css/lib/fontawesome*, -*/CordovaCann_files/*

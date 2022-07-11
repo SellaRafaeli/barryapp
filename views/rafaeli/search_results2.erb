@@ -77,7 +77,7 @@
 
 <div class='search_results_wrapper'>
 <% if results.any? %>
-  <% results = results[0..4] %>
+  <%# results = results[0..4] %>
   <% results.each do |res| %>
     <%  user_casts = [] #$casts.all(user_id: res[:_id]) %>
     <%#= erb :'rafaeli/search/search_results/list_elem', locals: {res: res} %>

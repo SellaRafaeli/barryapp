@@ -8,11 +8,12 @@
 %>
 
 <h3 id=signup> 
-<% if pr[:type] == 'seller' %>
+  
+<% if true %>
 <%#= is_heb ? 'ברוכים הבאים.' : "Apply as #{pr[:subtype]}" %>
 <%= is_heb ? 'ברוכים הבאים.' : JOIN_WORD.capitalize %>
 
-<% elsif pr[:type] == 'buyer' %>
+<% else %>
 <%= is_heb ? 'ברוכים הבאים.' : "Sign Up for Beta:" %>
 <% end %>
 

@@ -124,6 +124,12 @@ get '/me' do
 	res
 end
 
+get '/u/:id' do
+	user = $users.get(pr[:id])
+	pr[:container] = 'container1200'
+	erb :'/rafaeli/users/single_user', default_layout.merge(locals: {user: user})
+end
+
 get '/users/:id' do
 	user = $users.get(pr[:id])
 	redirect user_link(user)

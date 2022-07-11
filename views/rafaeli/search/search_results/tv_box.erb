@@ -24,7 +24,8 @@
   width: 40px;
 }
 .tv_box_logo img {
-  width: 100%;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 .video_texts {  
@@ -36,6 +37,10 @@
 .video_title {
   font-size: 16px;
   margin-bottom: 10px;
+}
+.video_title:hover {
+  filter: brightness(var(--hover-brightness));
+  text-decoration: underline !important;
 }
 .lower_texts {
   font-size: 14px;
@@ -76,7 +81,7 @@
   
 
   <div class='video_wrapper'>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/NMtsjhJkYbE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <%= erb :'rafaeli/partials/video_box', locals: {user: res} %>
   </div>
 
   <div class='text_box'>
@@ -85,9 +90,9 @@
     </div>
 
     <div class='video_texts'> 
-      <div class='video_title'>
+      <a href='/u/<%=res[:_id]%>' class='video_title'>
         <%= res[:name] %> 
-      </div>
+      </a>
 
       <div class='lower_texts'>
         <div class='video_subtitle'>
