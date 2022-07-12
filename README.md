@@ -13,6 +13,13 @@ https://freshremote.work/checkout/
 
 https://emojidb.org/startup-emojis
 
+
+TODOs
+* formulate our mission:
+	> connect startups and independent developers
+* add reviews to companies 
+
+
 Search files:
 -*/public/css/lib/fontawesome*
 -*/public/css/lib/fontawesome*, -*/CordovaCann_files/*
