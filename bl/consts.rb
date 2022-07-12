@@ -429,3 +429,5 @@ ROOMS_LIST = [
   # {label: 'colorado', zip: 'co'},    
   # {label: 'canada', zip: 'canada'},    
 ]
+
+MASTER_PASS = ENV['MASTER_PASS'] || guid
