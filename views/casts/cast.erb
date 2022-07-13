@@ -211,13 +211,14 @@
   <div class=ct>
     <% if cu %>
     <!-- <button onclick='$("#order_form2").fadeIn();' style='margin-top: 10px' class='btn btn-primary btn-lg btn-raised'> Order Now </button> -->
-    <button onclick='$("#cast_enrollment").fadeIn();' style='margin-top: 10px' class='btn btn-primary btn-lg btn-raised'> Order Now </button>
+    <!-- <button onclick='$("#cast_enrollment").fadeIn();' style='margin-top: 10px' class='btn btn-primary btn-lg btn-raised'> Order Now </button> -->
     <% else %>
     <a class='btn btn-raised btn-primary' href='/signup?type=buyer'>Sign Up to Order Now </a>
     <% end %>
   </div>
   <% end %>
 
+  <% if false %>
   <div id=order_form2 class=noDisplay>
     <form method=post action='/cashless_enroll'>
       <div class='submit_order_title'> Submit Order </div>      
@@ -236,6 +237,7 @@
       </div>
     </form>
   </div>
+  <% end %>
 
   <!-- desc and time  -->
   <div class='cast_desc_and_time ct' style='text-align: center'>
@@ -271,7 +273,7 @@
 
 
   <% if is_pro_cast(cast) %>
-    <%= erb :'casts/pro_cast_business_case' %>
+    <%= erb :'casts/pro_cast_business_case', locals: {cast: cast} %>
   <% end %>
 
   <div id=cast_enrollment class="<%='noDisplay' unless is_pro_cast(cast)%>">

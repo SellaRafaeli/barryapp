@@ -25,6 +25,7 @@ def enroll_user(user_id, cast_id, data = {})
 	if is_pro_cast(cast) 
 		user = $users.get(user_id)
 		tags = user[:tags].to_s || ''
+		### 'payment_cast'
 		tags += (cast[:_id])
 		# tags = tags.uniq
 		$users.update_id(user_id, tags: tags) 

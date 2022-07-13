@@ -6,15 +6,15 @@
 }
 </style>
 
-<h3> A pro account gives you the following benefits: </h3>
+<h3> A <%= cast[:title].to_s.downcase %> IndyDevs account gives you the following benefits: </h3>
 <!-- <small> Last updated: Oct 20th, '21. </small> -->
 <ul class='pro_benefits'>
   <li>A "verified" checkmark and pro sign on your profile in search results. <i class='fas fa-badge-check'></i></li>
 
   <li>Precedence in search results before regular accounts.</li>
-  <li>Support for video reviews, including 1 pro video interview, shot and supplied by us.</li>
-  <% if is_seller %>
-  <li>Limited time offer: 0% commission on projects.</li>
+  <li>Support for video reviews, including pro video interviews, shot and supplied by us, online or on-site at your location.</li>
+  <% if false && is_seller %>
+  <li>Limited time offer (July 22): 0% commission on projects.</li>
   <% end %>
 </ul>
 <div>For any questions please email <a href='mailto:hi@indydevs.com'>hi@indydevs.com.</a></div>

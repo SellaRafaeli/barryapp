@@ -383,7 +383,14 @@ end
 ensure_payment_casts
 
 get '/pro' do 
+	require_user
 	pr[:_id] = 'level1_payment_cast' #ENV['PRO_CAST_ID']
+	show_cast_by_id
+end
+
+get '/silver' do 
+	require_user
+	pr[:_id] = 'level3_payment_cast' #ENV['PRO_CAST_ID']
 	show_cast_by_id
 end
 
@@ -539,7 +546,7 @@ def show_cast_by_id
 		flash.message = 'Messages cleared.'
 	end
 
-	$stats.add(type: 'product_view', cast_id: cast_id, buyer_id: cu && cu[:_id], path: _req.path) if cuid!=cast[:user_id] 
+	# $stats.add(type: 'product_view', cast_id: cast_id, buyer_id: cu && cu[:_id], path: _req.path) if cuid!=cast[:user_id] 
 	erb :'casts/cast', default_layout
 end
 
