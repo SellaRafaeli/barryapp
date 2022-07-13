@@ -2,7 +2,7 @@
   search_val     = pr[:q].to_s.downcase
 
   #search_val = 'javascript' unless val.present?
-  show_jobs = (pr[:type] == 'jobs') 
+  show_jobs = (pr[:type] == 'jobs') || !pr[:type].present?
 
   if show_jobs # showing casts
     # results = $casts.all.reverse
@@ -224,8 +224,9 @@ function switchSide(btn) {
       </div>
       <br/>
       <div class='main_tabs'>      
-      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire <span style='margin-left:5px'>👷</span></a>
+      
       <a style='display: inline-block' href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring <span style='margin-left:5px'>🚀</span></a>
+      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire <span style='margin-left:5px'>👷</span></a>
     </div>
 
     <%#= erb :'rafaeli/homepage/langs' %>    
