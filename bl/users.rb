@@ -349,7 +349,7 @@ end
 
 post '/login' do
 	email    = pr[:email].to_s.downcase
-	password = pr[:password].to_s.downcase
+	password = pr[:password].to_s
 	user     = $users.get(email: email)
 
 	if (user) && user[:password].present? && (BCrypt::Password.new(user[:password]) == password)
