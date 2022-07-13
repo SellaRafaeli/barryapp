@@ -91,7 +91,7 @@ end
 zADMIN_EMAILS = ['abelyael@gmail.com', 'tzlilberlin11@gmail.com', 'sella.rafaeli@gmail.com', 'galweinstock@icloud.com', 'tifrah2008@gmail.com']
 zADMIN_EMAILS = ['sella@indydevs.com', 'tifrah2008@gmail.com']
 ADMIN_IDS    = ['8FNGN', 'kOdWD', 'XS0xK', 'GMf07', 'grTIU']
-ADMIN_EMAILS = ['sella.rafaeli@gmail.com']
+ADMIN_EMAILS = ['sella.rafaeli@gmail.com','adi@indydevs.com']
 
 def is_admin(user = cu)
   # return true if !$prod #&& cu[:email].to_s=='sella.rafaeli@gmail.com'
