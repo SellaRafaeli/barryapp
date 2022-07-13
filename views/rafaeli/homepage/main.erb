@@ -207,7 +207,7 @@ function switchSide(btn) {
           msg = "Startups and Developers" if pr[:country] == 'United Kingdom'
           msg = "Startups and Developers" if pr[:country] == 'European Union'    
           msg = "Startups and Developers" if pr[:country] == 'Ukraine'
-          msg = "מתכנתים וסטארטאפים" if pr[:country] == 'Israel'
+          msg = "foo"                     if pr[:country] == 'Israel'
           msg = "Startups and Developers" if pr[:country] == 'Dubai'    
           msg = "Startups and Developers" if pr[:country] == 'Mexico'    
           msg = "Startups and Developers" if pr[:country] == 'Uruguay'    
@@ -217,15 +217,15 @@ function switchSide(btn) {
           msg = "Startups and Developers" if pr[:country] == 'Chile'    
           msg = "Startups and Developers" if pr[:country] == 'Argentina'    
           %>
-          <%= "Highest-Ranked Startups and Developers" %>
+          <%= "Dev Jobs" %>
           <div>
-            מתכנתים תותחים, סטארטאפים רותחים 
+            <!-- מתכנתים תותחים, סטארטאפים רותחים  -->
           </div>
       </div>
       <br/>
       <div class='main_tabs'>
-      <a style='display: inline-block' href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring <span style='margin-left:5px'>🚀</span></a>
-      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire <span style='margin-left:5px'>👷</span></a>
+      <!-- <a style='display: inline-block' href='/?type=jobs' class='btn <%= "btn2" if show_jobs %> btn-raised' zonclick=switchSide(this)> Startups Hiring <span style='margin-left:5px'>🚀</span></a>
+      <a href='/?type=talent' class='btn <%= "btn2" unless show_jobs %> btn-raised' zonclick=switchSide(this)> Developers For Hire <span style='margin-left:5px'>👷</span></a> -->
     </div>
 
     <%#= erb :'rafaeli/homepage/langs' %>    

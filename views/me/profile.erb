@@ -13,7 +13,6 @@
   facets = FACETS
 %>
 
-
 <% if false %>
 <div style='text-align: right'>
   <a class='btn' href='/me/analytics'><i class='fal fa-analytics'></i> Profile Analytics </a>
@@ -48,20 +47,26 @@
       <input class='input1' placeholder='Your description in one line' value="<%=user['title']%>" name='title' style='margin-right: 5px; margin-left: 0'/>
   </div>
   <br/>
-  <div class='display_flex'>                  
-      <label> You are a <div></div></label>
-      <select name=type onchange=$('#submitMeForm').click()>
-        <option <%="selected" if user[:type] == SELLER_TYPE %> value=<%=SELLER_TYPE%>> Professional 👤</option>
-        <option <%="selected" if user[:type] == BUYER_TYPE %>  value=<%=BUYER_TYPE%>>Company <%= COMPANY_EMOJI %></option>
-      </select>
-  </div>
+
+  <%= erb :'/login/type_chooser', locals: {user: user} %>
+  
   <br/>
   
   <div class='display_flex'>                  
+      <label> Team Size </label>
+      <select name=team_size onchange=$('#submitMeForm').click()>
+        <% ['',1,'2-10','10-50','50-100','100+'].each do |v| %>
+          <option <%="selected" if user[:team_size]==v%> value="<%=v%>"><%=TEAM_EMOJI if v.present? %> <%=v%></option>
+        <% end %>
+      </select>
+  </div>  
+  <br/>
+
+  <% if false %>
+  <div class='display_flex'>                  
       <label> You are a <div></div></label>
       <select name=subtype onchange=$('#submitMeForm').click()>
-        <% if is_developer %>
-        
+        <% if is_developer %>  
         <!-- small seller -->
         <option <%="selected" if user[:subtype] == SUBTYPE_SMALL %> value=<%=SUBTYPE_SMALL%>> 
           Individual <%= TALENT_EMOJI %> 
@@ -87,11 +92,9 @@
 
         <% end %>
       </select>
-  </div>
-  
-
-  
+  </div>  
   <br/>
+  <% end %>
 
   <div class='display_flex'>                  
     <label> Main Video URL <div></div></label>
