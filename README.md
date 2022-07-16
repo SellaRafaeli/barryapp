@@ -4,6 +4,26 @@ Business Plan
 > We oversee these services and vouch for success / good work for 10% commission.
 > We promote in search results for money. (Our gold members are immune from commission as well.)
 
+Why you should join indydevs, the freelance developers' union
+indydevs, the union of freelance developers
+indydevs, the cartel of freelance developers
+benefits of joining us:
+
+* Publish leads and links
+* Private social group: limited to 500 members, enough to fit in a single Whatsapp group. 
+* Client/lead referrals for negotiated commission (standard is 10%)
+* 24/7 online support, coaching, mentoring, networking.
+* Send international freelance payments through us.
+* Channels on every social media channel imaginable. 
+* First month free. No credit card required.
+* If you'd like to join, please contact us on Whatsapp: 052-293-4321. 
+
+
+
+
+
+
+
 Summer Goals:
 * Raise Money
 * X devs paying X money
