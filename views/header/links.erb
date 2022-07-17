@@ -27,10 +27,13 @@
   zcolor: black;
   margin: 20px;
   font-size: 15px;
-  font-weight: bold;
-  border:1px solid;
+  font-weight: bold;  
   position: relative;
   bottom: 3px;
+}
+
+.top-nav a.border {
+  border:1px solid;
 }
 
 .top-nav a:not(.logo):hover {
@@ -332,8 +335,18 @@
     <% end %>
 
     <% if !cu %>
-    <a id='ztop-nav-btn1' href='/signup'><%= !heb ? 'join' : 'כניסה' %></a>
+    <a class=border id='top-nav-btn1' href='/signup'><%= !heb ? 'join' : 'כניסה' %></a>
     <% end %>
+
+    <a href='/about'>About</a>
+    <a href='/careers'>Careers</a>
+    <a href='/articles/about/values'>Values</a>
+  
+    <a href='/pro'>Pro</a>
+    <a href='/contact'>Contact</a>
+  
+    <a class="margin-2" href='/articles'>Articles</a>
+    
 
     <% if false && cu && is_verified %>
     <a class='' href='/'><i class='fa fa-search'></i> <span style='display: inline-block; margin-left: 5px'><%= 'search' %></span> </a>

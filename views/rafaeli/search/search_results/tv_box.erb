@@ -83,13 +83,15 @@
 .tv_box_contact { visibility: hidden; }
 .tv_box:hover .tv_box_contact{ visibility: visible; }
 
+.video_wrapper {
+  text-align: left;
+}
 
 .video_wrapper .img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: 150px;
   object-fit: cover;
-  vertical-align: top;
-  max-height: 200px;
+  vertical-align: top;  
 }
 
 </style>
@@ -100,7 +102,7 @@
   
 
   <div class='video_wrapper'>
-    <% if res[:video_url].present? %>
+    <% if false && res[:video_url].present? %>
     <%= erb :'rafaeli/partials/video_box', locals: {user: res} %>
     <% else %>
       <img class=img src='<%=img_url%>'>
