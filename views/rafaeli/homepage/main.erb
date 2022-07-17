@@ -28,9 +28,9 @@
       text = fields.map {|f| " "+u[f].to_s }.join(' ')
 
       # text += (casts_text = $casts.all(user_id: u[:_id]).map {|cast| "#{cast[:desc]} #{cast[:client_name]} #{cast[:title]} #{cast[:custom_time]}" }).join(' ')
-
-      u[:text] = text
-      search_val && text.downcase.include?(search_val.to_s) 
+      img_present = u[:img_url].present?
+      u[:text]    = text
+      img_present && search_val && text.downcase.include?(search_val.to_s) 
     }
     # users   = all_sellers # .select {|u| val && u.to_s.include?(val.to_s) }
     results = users
