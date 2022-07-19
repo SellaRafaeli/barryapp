@@ -14,7 +14,8 @@ path = _req.path.to_s rescue 'error-path'
     <%= erb :"header/links" unless @hide_links %>
     
     <%
-      show_wide = (path == '/') || path.start_with?('/me') || path.to_s.starts_with?("/admin")
+      # show_wide = (path == '/') || path.start_with?('/me') || path.to_s.starts_with?("/admin")
+      show_wide = path.start_with?('/me') || path.to_s.starts_with?("/admin")
       show_wide = true if path.start_with?('/locations')
       show_wide = true if path.start_with?('/customers')
 
@@ -113,6 +114,7 @@ function filestackUpload(cb, opts = {}) {
   };
   var options = {
     onFileUploadFinished: cb,
+    maxFiles: 15,
     fromSources: ['local_file_system','webcam','video'],
     onFileSelected: file => {
         // If you throw any error in this function it will reject the file selection.
@@ -130,6 +132,6 @@ function filestackUpload(cb, opts = {}) {
 <% if pr[:css] %>
 <link rel="stylesheet" type="text/css" href="<%=pr[:css]%>">  
 <% end %>
-<%= erb :"layout/footer" if $prod || true %>           
+<%#= erb :"layout/footer" if $prod || true %>           
 </body>
 </html>

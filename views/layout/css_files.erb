@@ -590,14 +590,15 @@ end
 }
 
 .simple_link {
-  text-decoration: underline;
-  color: var(--color2);
+  ztext-decoration: underline;
+  color: var(--color1);
   cursor: pointer;
 }
 .simple_link:hover {
-  filter: brightness(var(--hover-brightness));
-  text-decoration: underline;
   color: var(--color1);
+  filter: brightness(var(--hover-brightness));
+  text-decoration: underline !important;
+  
 }
 
 
