@@ -195,8 +195,14 @@ span.magnifying_class_search {
   zpadding: 30px;
   zbackground-color: var(--color2);
   zcolor: white;
-  color: var(--color2);
-  
+    
+}
+
+.color1box {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: var(--color1);
+  color: white;
 }
 
 .main_msg_text {
@@ -204,6 +210,9 @@ span.magnifying_class_search {
   margin: auto;
   ztext-align: left;
   font-size: 35px;
+  color: white;
+  background-color: var(--color1);
+  padding: 5px 10px;  
 }
 
 .main_msg_tags {
@@ -224,9 +233,11 @@ span.magnifying_class_search {
 }
 
 .sub_msg {
-  font-size: 30px;
+  font-size: 23px;
   max-width: 80%;
   margin: auto;
+  color: var(--color1);
+  font-weight: bold;
 }
 .bottom_msg {
   margin:20px auto;
@@ -272,7 +283,7 @@ function switchSide(btn) {
           msg = "Startups and Developers" if pr[:country] == 'Chile'    
           msg = "Startups and Developers" if pr[:country] == 'Argentina'    
           %>
-          <div class='main_msg_text'>
+          <div class='main_msg_text color1box'>
             <%= "Elite Global Talent" %>
           </div>
           <div class='main_msg_tags'>
