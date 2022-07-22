@@ -10,6 +10,7 @@ TALENT_EMOJI   = '💪'
 
 TEAM_SUBTYPE   = 'team'
 SUBTYPE_TEAM   = TEAM_SUBTYPE
+PERSON_EMOJI   = '👤'
 TEAM_EMOJI     = '👥'
 
 STARTUP_SUBTYPE     = 'startup'

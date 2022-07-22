@@ -187,6 +187,57 @@ span.magnifying_class_search {
   }  
 } 
 
+.main_msg {
+  font-size: 50px;
+  
+  max-width: 700px;
+  margin: auto;
+  zpadding: 30px;
+  zbackground-color: var(--color2);
+  zcolor: white;
+  color: var(--color2);
+  
+}
+
+.main_msg_text {
+  max-width: 80%;
+  margin: auto;
+  ztext-align: left;
+  font-size: 35px;
+}
+
+.main_msg_tags {
+  max-width: 80%;
+  margin: auto;
+  font-size: 16px;
+  margin:20px auto;
+}
+.main_msg_single_tag {
+  color: var(--color2);
+  background-color: white;
+  background-color: var(--color2);
+  background-color: grey;
+  color:white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: auto 5px;
+}
+
+.sub_msg {
+  font-size: 30px;
+  max-width: 80%;
+  margin: auto;
+}
+.bottom_msg {
+  margin:20px auto;
+  font-size: 20px;
+  margin: 20px auto;
+  font-size: 30px;
+  color: grey;
+  font-weight: bold;
+}
+}
+    
 </style>
 
 
@@ -221,9 +272,20 @@ function switchSide(btn) {
           msg = "Startups and Developers" if pr[:country] == 'Chile'    
           msg = "Startups and Developers" if pr[:country] == 'Argentina'    
           %>
-          <%= "Israeli Dev Teams & Elite Devs" %>
-          <div>
-            <!-- מתכנתים תותחים, סטארטאפים רותחים  -->
+          <div class='main_msg_text'>
+            <%= "Elite Global Talent" %>
+          </div>
+          <div class='main_msg_tags'>
+            <% ['Find', 'Hire', 'Manage', 'Pay'].each do |tag| %>
+            <span class='main_msg_single_tag'> <%= tag %></span>
+            <% end %>
+          </div>
+          <div class='sub_msg'>
+            <div>Developers as a service</div>
+          </div>
+          <div class='bottom_msg'>
+            <div>Endless scale for your R&D team</div>
+            <img style='width:100%' src='/img/signature_line.png' />
           </div>
       </div>
       <br/>

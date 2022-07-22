@@ -48,15 +48,17 @@
   </div>
   <br/>
 
-  <%= erb :'/login/type_chooser', locals: {user: user} %>
+  <%#= erb :'/login/type_chooser', locals: {user: user} %>
   
   <br/>
   
   <div class='display_flex'>                  
-      <label> Team Size </label>
+      <label> Your Team Size </label>
       <select name=team_size onchange=$('#submitMeForm').click()>
-        <% ['',1,'2-10','10-50','50-100','100+'].each do |v| %>
-          <option <%="selected" if user[:team_size]==v%> value="<%=v%>"><%=TEAM_EMOJI if v.present? %> <%=v%></option>
+        <% ['','1','2-10','10-50','50-100','100-500','500-1000','1000+'].each do |v| %>
+          <option <%="selected" if user[:team_size]==v%> value="<%=v%>">
+            <% if v.present? %><%= v=='1' ? PERSON_EMOJI : TEAM_EMOJI %> <%=v%><% end %>
+          </option>
         <% end %>
       </select>
   </div>  
@@ -97,14 +99,14 @@
   <% end %>
 
   <div class='display_flex'>                  
-    <label> Main Video URL <div></div></label>
+    <label> Video URL <div></div></label>
     <input class='input1' placeholder='https://www.youtube.com/watch?v=0cPOPNSWoJ8' value="<%=user['video_url']%>" name='video_url' style='margin-right: 0px; margin-left: 0'/>
   </div>
 
   <br/>
 
   <div class='display_flex'>                  
-    <label> HQ Location <div></div></label>
+    <label> Location <div></div></label>
     <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
   </div>
 

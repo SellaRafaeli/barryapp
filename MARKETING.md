@@ -1,15 +1,15 @@
-* each cannabis experience is personal 
-* find the best cannabis for you.
-* find your personal cannabis experience 
-* find the good weed for you. 
+Marketing plan for BetterDevs
+- contact companies on clutch
+- every day new post 
+- 
 
+A B2C Marketplace can't work. Fighting for attention for too many people.
 
-* onboarding - profile the user and give personal recommendations based on reviews and AI. (based on age, gender, and desired experience type, desired experience level, desired setting)  
+A B2B Marketplace could totally work. 
+	> for devs this is exactly what they need.
+	
+> to get "the message out there" -- 
 
-* we are a commando team for e-commerce
+Marketing
+	> email campaign to companies hiring -- asking for feedback 
 
-* we sell the team, knowledge and tech
-
-* due to corona - e-commerce will raise
-
-* suggest supporting products based on what you bought

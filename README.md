@@ -18,6 +18,47 @@ benefits of joining us:
 * First month free. No credit card required.
 * If you'd like to join, please contact us on Whatsapp: 052-293-4321. 
 
+You are not going to remember anything. Anything but your name. INDYDEVS. 
+
+We help INDY DEVS. 
+> teams, companies, whatever. It's not free. Join for 10$ / mo. Get analytics about who sees you. 
+Who will see you? Nobody. Because marketplaces don't work. There are too many of them. The internet is one big marketplace; that's why marketplaces don't work. 
+
+MARKETPLACES VERY RARELY WORK.
+
+Market education won't work. Whaddaya gonna do, teach the market how to work? No. SOLVE A PAIN POINT.
+
+Dev teams. 
+
+Who needs Barry? Barry.
+
+
+
+
+
+Tech works. If you can sell it. So, build some tech, and sell it. Who do you sell it to? You sell it to enterprises. How do you sell it to enterprises? 
+
+Well, you can sell labor to companies that are hiring. 
+Or you can sell tech to a company that needs something. 
+
+Business is SALES. So what can you SELL? You can sell VALUE. Value is a technology that helps THE OTHER GUY SELL. 
+
+Target audience: INDY DEVS. Sell them for 10$ a month. 1,000 such dudes? 
+
+The dude can't be the product and the customer. He is one or the other. If he's the customer, the product is tech. 
+
+Indydev is the customer. 
+
+Solve a pain point. WHAT IS THE PAIN POINT? What is an indydev's pain point? Projects. Who has projects? Clients. 
+
+Beautiful FE apps. Code included. 
+
+
+What would help ME sell? Certainly a decent profile. 
+
+
+
+Beautiful profiles and a network. 
 
 
 
