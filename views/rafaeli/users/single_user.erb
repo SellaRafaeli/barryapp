@@ -141,6 +141,13 @@
         </div>
       <% end %>
 
+      <% if user[:media].to_a.any? %>
+        <div class='user_sub_imgs'>
+          <br/><%= erb :'casts/show_media', locals: {item: user} %><br/>
+        </div><br/>    
+      <% end %>
+
+
     </div>
   </div>
 

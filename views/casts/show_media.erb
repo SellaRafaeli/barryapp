@@ -23,9 +23,14 @@
 .cast_media img {
   width: 150px;
   height: 150px;
-  border-radius: 50%;
-  object-fit: <%= item[:media_object_fit] || 'cover' %> ;
+  zborder-radius: 50%;
+  object-fit: <%= item[:media_object_fit] || 'contain' %> ;
   padding: 3px solid white;
+  transition: transform .2s; /* Animation */
+}
+
+.cast_media img:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 </style>
