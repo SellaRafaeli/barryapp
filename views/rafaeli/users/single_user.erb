@@ -7,6 +7,10 @@
 %>
 
 <style>
+.linkified {
+  text-decoration: underline;
+  color: var(--color2);
+}
 .single_user {
   display: flex;
 }
@@ -16,11 +20,14 @@
 }
 .single_user_right_half {
   flex: 1;
+  max-width:60%;
 }
 
 .user_desc {
   background-color: whitesmoke;
   padding: 5px 10px;
+  font-size: 30px;
+  white-space: pre-wrap;
 }
 .single_position {
   margin-top: 10px;
@@ -114,9 +121,7 @@
 
     <div class='single_user_right_half'>
       <% if user[:desc].present? %>
-        <div class='user_desc'>
-          <%= user[:desc] %>
-        </div>
+        <pre class='user_desc'><%= user[:desc] %></pre>
       <% end %>
 
       <% if positions.any? %>
@@ -140,3 +145,11 @@
   </div>
 
 </div>
+
+<script>
+function onUserLoad() {
+  $('.user_desc').linkify({target: "_blank"});
+}
+
+$(document).ready(onUserLoad);
+</script>
