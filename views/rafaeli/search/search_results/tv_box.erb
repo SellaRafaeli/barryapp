@@ -13,8 +13,9 @@
   zborder:1px solid red;
   display: inline-block;
   margin: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: var(--black2);
+  position: relative;
 }
 
 @media (max-width: 800px) {
@@ -27,6 +28,11 @@
 .text_box {
   display: flex;
   margin-top: 10px;
+  position: absolute;
+  bottom: -20px;
+  background-color: whitesmoke;
+  padding: 5px 10px;
+  right: 0;
 }
 .tv_box_logo {
   height: 40px; 
@@ -123,11 +129,11 @@
       </a>
 
       <div class='lower_texts'>
-        <div class='video_subtitle'>
+        <div class='video_subtitle ib'>
           <%= res[:title] %>
         </div>
 
-        <div class='social_signals'>
+        <div class='social_signals ib'>
           <div class='hq'> <%= location %> </div>
           
           <% if positions.any? %>
