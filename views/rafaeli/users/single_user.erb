@@ -68,6 +68,16 @@
 .single_user_wrapper {
   padding-bottom: 100px;
 }
+
+@media screen and (max-width: 1000px) {
+  .single_user {
+    flex-direction: column;
+  }
+  .single_user_right_half {
+    width: 90%;
+    margin: auto;
+  }
+}
 .single_user_video_wrapper iframe {
   max-width: 100%;
   height: 300px;
@@ -80,6 +90,12 @@
   margin:10px;
 }
 
+.contact_btn {
+  width: 60px;
+  text-align: center;
+  display: inline-block;
+}
+
 </style>
 <div class='single_user_wrapper'>
   <div class='single_user'>
@@ -90,6 +106,7 @@
         </span>
         <%= name %> 
         <span class='contact_btn btn2' style='margin-left: 10px' onclick=$(".messageArea").toggle()>contact</span>
+        <span class='contact_btn btn2' style='margin-left: 10px' onclick=$(".messageArea").toggle()>hire </span>
 
         <% if is_admin %>
           <a style='zposition: absolute; left: 10px' class='btn btn-raised btn-danger' href='/admin/login_as?email=<%=user[:email]%>'>admin login</a>

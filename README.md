@@ -45,6 +45,9 @@ Business is SALES. So what can you SELL? You can sell VALUE. Value is a technolo
 
 Target audience: INDY DEVS. Sell them for 10$ a month. 1,000 such dudes? 
 
+Sell Elite Global Talent to 
+
+
 The dude can't be the product and the customer. He is one or the other. If he's the customer, the product is tech. 
 
 Indydev is the customer. 
@@ -55,6 +58,21 @@ Beautiful FE apps. Code included.
 
 
 What would help ME sell? Certainly a decent profile. 
+
+Companies: VP R&D -> ask for feedback. 
+
+I would really rather develop deep tech. But 
+But what
+
+Deep tech that does what
+Solves the problem of building a FE? What's in it? You just gotta decide. 
+An AI that builds websites. 
+
+I manage a talent network.
+The world's best freelance developers and teams. 
+Membership is 10$/mo for a junior, 
+100$/mo for a senior,
+500$/mo for a team.
 
 
 
@@ -84,6 +102,7 @@ TODOs
 Search files:
 -*/public/css/lib/fontawesome*
 -*/public/css/lib/fontawesome*, -*/CordovaCann_files/*
+-*/public/css/lib/*, -*/CordovaCann_files/*, -*/js/lib/*
 
 Wizard questions:
 - How many people at your company? 
