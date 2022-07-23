@@ -282,9 +282,11 @@ function switchSide(btn) {
           msg = "Startups and Developers" if pr[:country] == 'Brazil'    
           msg = "Startups and Developers" if pr[:country] == 'Chile'    
           msg = "Startups and Developers" if pr[:country] == 'Argentina'    
+
+          msgs = ['Elite Global Talent, On-Demand','Your Scalable R&D team','Developers as a service'].shuffle
           %>
           <div class='main_msg_text color1box'>
-            <%= "Elite Global Talent" %>
+            <%= msgs[0] %>
           </div>
           <div class='main_msg_tags'>
             <% ['Find', 'Hire', 'Manage', 'Pay'].each do |tag| %>
@@ -292,10 +294,10 @@ function switchSide(btn) {
             <% end %>
           </div>
           <div class='sub_msg'>
-            <div>Developers as a service</div>
+            <div><%= msgs[1] %></div>
           </div>
           <div class='bottom_msg'>
-            <div>Endless scale for your R&D team</div>
+            <div><%= msgs[2] %></div>
             <img style='width:100%' src='/img/signature_line.png' />
           </div>
       </div>
