@@ -190,7 +190,7 @@ span.magnifying_class_search {
 .main_msg {
   font-size: 50px;
   
-  max-width: 700px;
+  max-width: 800px;
   margin: auto;
   zpadding: 30px;
   zbackground-color: var(--color2);
@@ -283,7 +283,7 @@ function switchSide(btn) {
           msg = "Startups and Developers" if pr[:country] == 'Chile'    
           msg = "Startups and Developers" if pr[:country] == 'Argentina'    
 
-          msgs = ['Elite Global Talent, On-Demand','Your Scalable R&D team','Developers as a service'].shuffle
+          msgs = ['Endless Elite Talent','Your Scalable R&D Team, On-Demand','Developers as a service'].shuffle
           %>
           <div class='main_msg_text color1box'>
             <%= msgs[0] %>
@@ -298,7 +298,7 @@ function switchSide(btn) {
           </div>
           <div class='bottom_msg'>
             <div><%= msgs[2] %></div>
-            <img style='width:100%' src='/img/signature_line.png' />
+            <img style='width:100%; max-width: 500px' src='/img/signature_line.png' />
           </div>
       </div>
       <br/>
