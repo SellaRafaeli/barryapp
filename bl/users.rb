@@ -223,7 +223,7 @@ def verify_signup_data
 	password = pr[:password].to_s#.downcase
 	name     = pr[:name].to_s#.downcase	
 
-	pr[:type] = BUYER_TYPE # unless pr[:type].to_s == SELLER_TYPE
+	pr[:type] = SELLER_TYPE #BUYER_TYPE # unless pr[:type].to_s == SELLER_TYPE
 
 	if !valid_email(email)
 		if pr[:ajax] 
