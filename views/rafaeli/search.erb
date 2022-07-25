@@ -4,7 +4,7 @@
   #search_val = 'javascript' unless val.present?
   all_sellers = get_all_sellers
 
-  fields = [:name, :title, :location, :desc, :rate] 
+  fields = [:name, :email, :title, :location, :desc, :rate] 
   users  = all_sellers.select {|u| 
 
     text = fields.map {|f| " "+u[f].to_s }.join(' ')
