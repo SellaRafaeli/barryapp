@@ -46,12 +46,12 @@
       <label> Headline <div></div></label>
       <input class='input1' placeholder='Your description in one line' value="<%=user['title']%>" name='title' style='margin-right: 5px; margin-left: 0'/>
   </div>
-  <br/>
+  
 
   <%#= erb :'/login/type_chooser', locals: {user: user} %>
   
-  <br/>
-  
+
+  <% if false %>  
   <div class='display_flex'>                  
       <label> Your Team Size </label>
       <select name=team_size onchange=$('#submitMeForm').click()>
@@ -64,7 +64,6 @@
   </div>  
   <br/>
 
-  <% if false %>
   <div class='display_flex'>                  
       <label> You are a <div></div></label>
       <select name=subtype onchange=$('#submitMeForm').click()>
@@ -95,36 +94,13 @@
         <% end %>
       </select>
   </div>  
-  <br/>
+  
   <% end %>
-
-  <div class='display_flex'>                  
-    <label> Video URL <div></div></label>
-    <input class='input1' placeholder='https://www.youtube.com/watch?v=0cPOPNSWoJ8' value="<%=user['video_url']%>" name='video_url' style='margin-right: 0px; margin-left: 0'/>
-  </div>
-
-  <br/>
-
+  
   <div class='display_flex'>                  
     <label> Location <div></div></label>
     <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
   </div>
-
-  <% if false && is_seller && is_talent %>
-  <div class='display_flex' style='margin-top:20px'>
-    <%#= user.to_json %>
-
-    <label class=flex1> CV <small>(optional)</small> </label>
-    <input name=license_url      class=license_url value="<%=user['license_url']%>" hidden />    
-    <input name=license_filename class=license_filename value="<%=user['license_filename']%>" hidden /> 
-    
-    <div class=flex1>
-      <button type=button class='btn btn-raised btn-primary' onclick=submitLicense()> Click to upload</button>
-      <a class='simple_link license_url' href='<%=user['license_url']%>' target=_blank><%=user['license_filename']%></a>
-
-    </div>    
-  </div>
-  <% end %>
 
   <% if is_seller && false %>
   <div class='display_flex'>                  
@@ -144,10 +120,8 @@
   </div>
   <% end %>
 
-  <br/> 
-
   <% if true %>
-  <div class='display_flex' style='margin-top:20px'>
+  <div class='display_flex' style='zmargin-top:20px'>
     <%#= user.to_json %>
     
     <div style='flex:1'>
@@ -200,7 +174,31 @@
   </div>
   <br/>
 
-  <% if true %>
+  <% if is_seller #&& is_talent %>
+  <div class='display_flex' style='margin-top:20px'>
+    <%#= user.to_json %>
+
+    <label class=flex1> CV <small>(optional)</small> </label>
+    <input name=license_url      class=license_url value="<%=user['license_url']%>" hidden />    
+    <input name=license_filename class=license_filename value="<%=user['license_filename']%>" hidden /> 
+    
+    <div class=flex1>
+      <button type=button class='btn btn-raised btn-primary' onclick=submitLicense()> Click to upload</button>
+      <a class='simple_link license_url' href='<%=user['license_url']%>' target=_blank><%=user['license_filename']%></a>
+
+    </div>    
+  </div>
+  <% end %>
+
+
+  <div class='display_flex'>                  
+    <label> Video URL <div></div></label>
+    <input class='input1' placeholder='https://www.youtube.com/watch?v=0cPOPNSWoJ8' value="<%=user['video_url']%>" name='video_url' style='margin-right: 0px; margin-left: 0'/>
+  </div>
+
+  <br/>
+
+  <% if false %>
   <div class='display_flex'>
     <%#= user.to_json %>
     <label class='ztooltip'> Web Site </label>
