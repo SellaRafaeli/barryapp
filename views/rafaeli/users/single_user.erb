@@ -105,16 +105,21 @@
           <img style='height: 60px; width: 60px; margin-right: 10px; border-radius: 50%' src='<%=img_url%>' />
         </span>
         <%= name %> 
+
         <span class='contact_btn btn2' style='margin-left: 10px' onclick=$(".messageArea").toggle()>contact</span>
         <span class='contact_btn btn2' style='margin-left: 10px' onclick=$(".messageArea").toggle()>hire </span>
 
         <% if is_admin %>
-          <a style='zposition: absolute; left: 10px' class='btn btn-raised btn-danger' href='/admin/login_as?email=<%=user[:email]%>'>admin login</a>
+          <a style='position: absolute; left: 10px; top: 50px' class='btn btn-raised btn-danger' href='/admin/login_as?email=<%=user[:email]%>'>admin login</a>
         <% end %>
       </h1>
 
 
-      <div class='hq_location' style='color:var(--grey1)'>
+      <div>
+        <%= user[:title] %> 
+      </div>
+
+      <div class='hq_location' style='color:var(--grey1)'>        
         <%= user[:location] %><% if user[:website].present? %>, 
         <a target=_blank class=simple_link href='//<%=website%>'><%= website %></a><% end %>
 
