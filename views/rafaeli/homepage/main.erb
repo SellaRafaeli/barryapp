@@ -195,7 +195,7 @@ span.magnifying_class_search {
   zpadding: 30px;
   zbackground-color: var(--color2);
   zcolor: white;
-  display: none;
+  zdisplay: none;
 }
 
 .color1box {
@@ -216,7 +216,7 @@ span.magnifying_class_search {
 }
 
 .main_msg_tags {
-  max-width: 80%;
+  zmax-width: 80%;
   margin: auto;
   font-size: 16px;
   margin:20px auto;
@@ -230,6 +230,9 @@ span.magnifying_class_search {
   border-radius: 5px;
   padding: 5px 10px;
   margin: auto 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .sub_msg {
@@ -286,20 +289,24 @@ function switchSide(btn) {
           msgs = ['Endless Elite Talent','The Best Freelancers in the World','Developers as a service'].shuffle
           msgs = ['Hire the best in the world','A network of elite web developers','Top Global Talent'].shuffle
           %>
+          <% if false %>
           <div class='main_msg_text color1box'>
             <%= msgs[0] %>
           </div>
-          <div class='main_msg_tags'>
-            <% ['Find', 'Hire', 'Manage', 'Pay'].each do |tag| %>
-            <span class='main_msg_single_tag'> <%= tag %></span>
-            <% end %>
-          </div>
+          
+          <% end %>
           <div class='sub_msg'>
-            <div><%= msgs[1] %></div>
+            <div>The network & platform for freelance developers</div>
           </div>
           <div class='bottom_msg'>
-            <div><%= msgs[2] %></div>
+            <div>Hire the best developers money can buy 🧑‍💻</div>
             <img style='width:100%; max-width: 500px' src='/img/signature_line.png' />
+          </div>
+          <div class='main_msg_tags'>
+            <!-- 'Dispute Management 🧤', -->
+            <% ['Award-Winning Platform 🏆', 'Reviews and search ⭐','Concierge Service 🐩', 'Easy Payment 💳', 'Lowest Commissions 💵', 'Live online support 🧑‍💻'].each do |tag| %>
+            <span class='main_msg_single_tag'> <%= tag %></span>
+            <% end %>
           </div>
       </div>
       <br/>
