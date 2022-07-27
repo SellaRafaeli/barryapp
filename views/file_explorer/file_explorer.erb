@@ -1,0 +1,45 @@
+<%
+  
+%>
+
+<script>
+const files = <%= files.to_json %>
+</script>
+
+<style>
+.file_explorer {
+  height: 100%;
+  min-height: 500px;
+  width: 300px;
+  background-color: whitesmoke;
+}
+.fe_title {
+  font-weight: bold;
+}
+.files-list {
+  padding: 10px;
+}
+.single_file {
+  display: block;
+  color: var(--black1);
+  padding:5px 10px;
+}
+.single_file:hover {
+  color: black;
+  font-weight: bold
+}
+.single_file.selected {
+  background-color: gold;
+}
+</style>
+
+<div class='file_explorer'>
+  <div class='fe_title'> File Explorer </div>
+  <div class='files-list'>
+    <% files.each do |file| %>
+      <a class='single_file <%="selected" if pr[:file_id]==file[:_id]%>' href='/apps/<%=app_id%>?file_id=<%=file[:_id]%>' ><%=file[:name]%></a>
+    <% end %>
+  </div>
+</div>
+
+

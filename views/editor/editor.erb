@@ -1,0 +1,66 @@
+<style type="text/css" media="screen">
+    #editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
+</head>
+<body>
+
+<div id="editor"><% if file %><%= file[:text] %><% end %></div>
+    
+<script src="https://pagecdn.io/lib/ace/1.4.5/ace.js"></script>
+
+<script>
+const editor = ace.edit("editor");
+function loadEditor() {  
+  editor.setTheme("ace/theme/monokai");
+  //editor.session.setMode("ace/mode/javascript");
+  editor.session.setMode("ace/mode/html_ruby");
+  editor.session.setUseWorker(true);
+  editor.focus();
+}
+
+function KeyPress(e) {
+  var evtobj  = window.event? event : e
+  var keyCode = evtobj.keyCode;
+  var ctrlKey = evtobj.ctrlKey;
+  var cmndKey = evtobj.metaKey;
+
+  var K_keycode = 75; 
+  var S_keycode = 83;
+  var Z_keycode = 90;
+  if (keyCode == K_keycode && ctrlKey) alert("Ctrl+z");
+  if (keyCode == K_keycode && cmndKey) gotoFile(e); //alert("Cmnd+K");
+  if (keyCode == S_keycode && cmndKey) saveFile(e); //alert("Cmnd+K");
+  console.log(keyCode, ctrlKey, cmndKey);
+}
+document.onkeydown = KeyPress;
+
+function gotoFile() {
+  if (name = prompt('What file to go to?')) {
+    var file = files.filter(f=> f.name.toLowerCase().includes(name))[0];
+    document.location = '/apps/<%=app_id%>?file_id='+file._id;
+    //alert(file._id)
+  }
+}
+
+ 
+
+function saveFile(e) {
+  e.preventDefault();
+  var text = editor.getValue();
+  
+  var oldText = saveBtn.innerText;
+  saveBtn.innerText = 'Saving...'
+  <% if file %>
+  postJSON('/files/<%=file_id%>',{text}).then(res => saveBtn.innerText = oldText);
+  <% end %>
+}
+
+
+loadEditor();   
+</script>

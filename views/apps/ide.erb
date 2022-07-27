@@ -1,0 +1,48 @@
+<%
+  app_id  = pr[:id]
+  app     = $apps.get(app_id)
+  files   = $files.all(app_id: app_id)
+  file_id = pr[:file_id]
+
+  if file_id
+    file = $files.get(file_id)    
+    halt unless file && (file[:user_id] == cuid)
+  end
+
+  local_data = {app_id: app_id, files: files, file: file, file_id: file_id}
+%>
+
+<style>
+#editor {
+  max-width: 800px;
+  margin-top: 50px;
+  margin-left: 300px;
+}
+.ib {
+  display: inline-block;
+}
+</style>
+
+<%= erb :'apps/app.js', locals: local_data %>
+
+<div class='header' style='height: 42px'>
+  <h1 style='display: inline-block; height: 50px; margin:0'> 
+    <a href='/apps/<%=app_id%>' class='app-name' style='margin-right: 20px'><%= app[:name] %></a>
+  </h1>
+  <button id=newFileBtn class='btn2' onclick='addFile()'> New File </button>
+  <button id=saveBtn class='btn2' onclick=saveFile()> Save </button>
+  <button id=publishBtn class='btn2'> Publish </button> 
+</div>
+
+<div class='editor_wrapper'>
+<%= erb :'/file_explorer/file_explorer', locals: local_data %>
+<%= erb :'/editor/editor', locals: local_data %>
+</div>
+
+<script>
+function addFile() {
+  if (name = prompt('Enter name for new file')) {
+    postJSON('/file',{name, app_id: '<%=app_id%>'}).then(r => document.location.reload());
+  }
+}
+</script>

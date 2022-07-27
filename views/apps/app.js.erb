@@ -1,0 +1,19 @@
+<script>
+function postJSON(url, data) {
+  data = data || {};
+  data.ajax = true;
+  //console.log('posting JSON', data)
+  return fetch(url, {
+    method: 'post',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(res => {
+    //console.log('postJSON response: ', res);
+    return res.json();
+  }).catch(err => {
+    console.log('failed parsing response from ',url,'err is',err);
+    return {err: err}
+  });
+}
+
+</script>

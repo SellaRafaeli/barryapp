@@ -189,11 +189,16 @@ label {
     /*color: black;*/
 }
 
-.btn.btn1 {
+.btn1 {
     background-color: var(--color1);
+    color: white;
+    padding: 5px 10px;
+    font-size: 18px;
+    border: none;
 }
 
-.btn.btn1:hover {
+.btn1:hover {
+    cursor: pointer;
     background-color: var(--color1);
     filter: brightness(var(--hover-brightness));
 }

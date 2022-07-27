@@ -1,0 +1,62 @@
+<%
+  tasks = $tasks.all
+%>
+
+<style>
+.box {
+  background-color: whitesmoke;
+  padding: 5px 10px;
+}
+.task {
+  cursor: pointer;
+}
+.task.done {
+  text-decoration: line-through;
+  color: grey;
+}
+</style>
+
+<div class='box'>
+  <h1> Todos </h1>
+
+  <ul>
+  <% tasks.each do |task| %>
+    <div class='task <%="done" if task[:done]%>' onclick="toggleTask(this, '<%=task[:_id]%>')">      
+      <li> <%= task[:name] %> </li>
+    </div>
+  <% end %>
+  </ul>
+
+  <br/>
+
+  <form action=tasks method=post>
+    <input id=new_task name=name placeholder='New task...' />
+    <button> Submit </button>
+  </form>
+</div>
+
+<script>
+function toggleTask(el, id) {
+  toggleClass(el,'done');
+  postJSON(`/tasks/${id}`, {done: el.classList.contains('done')});
+}
+</script>
+
+
+
+
+
+<script>
+const qs      = z => document.querySelector(z);
+const headers = {'Content-Type': 'application/json'};
+
+function postJSON(url, body = {}) {
+  return fetch (url, {method: 'POST', headers, body: JSON.stringify(body)}).then(res => res.json());
+}
+
+function toggleClass(el,className) {
+  el.classList.toggle(className);
+}
+
+
+</script>

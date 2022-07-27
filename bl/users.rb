@@ -337,7 +337,8 @@ post '/signup' do
 	send_email('sella.rafaeli@gmail.com', 'New user '+res.to_json, 'New user '+res.to_json) rescue nil	
 	# res
 
-	redirect '/me'
+	flash.message = 'Welcome.'
+	redirect '/'
 end
 
 get '/forgot_password' do

@@ -1,0 +1,23 @@
+<style>
+.home_wrapper {
+  max-width: 800px;
+  margin:auto;
+}
+
+</style>
+<div class='home_wrapper'>
+  <h1> Home </h1>
+  <h3> Welcome to Barry. </h3>
+
+  <% if cu %>
+    <% apps = $apps.all(user_id: cuid) %>
+    <%= erb :'/apps/apps_list', locals: {apps: apps} %>
+    <br/>
+    <form method=post action='/app'>
+      <input name=name value='hello-world' placeholder='My new app' />
+      <button class='btn2' onclick=createApp()>Create New App</button>
+    </form>
+  <% else %>
+  <a href='/login' class='btn1'>Log In</a> or <a href='/login' class='btn1'>Join</a>.
+  <% end %>  
+</div>
