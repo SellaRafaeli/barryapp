@@ -1,16 +1,16 @@
 <style type="text/css" media="screen">
     #editor { 
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
     }
 </style>
 </head>
 <body>
 
-<div id="editor"><% if file %><%= file[:text] %><% end %></div>
+<div id="editor"></div>
     
 <script src="https://pagecdn.io/lib/ace/1.4.5/ace.js"></script>
 
@@ -21,7 +21,19 @@ function loadEditor() {
   //editor.session.setMode("ace/mode/javascript");
   editor.session.setMode("ace/mode/html_ruby");
   editor.session.setUseWorker(true);
+  editor.setOptions({
+    //fontFamily: "tahoma",
+    fontSize: "16px"
+  });
   editor.focus();
+
+  <% if file %>  
+  fetch('/files/<%=file[:_id]%>').then(res => res.json()).then(res => {
+    var str = res.file.text;
+    editor.setValue(str, -1);  
+  });
+  
+  <% end %>
 }
 
 function KeyPress(e) {
@@ -36,7 +48,7 @@ function KeyPress(e) {
   if (keyCode == K_keycode && ctrlKey) alert("Ctrl+z");
   if (keyCode == K_keycode && cmndKey) gotoFile(e); //alert("Cmnd+K");
   if (keyCode == S_keycode && cmndKey) saveFile(e); //alert("Cmnd+K");
-  console.log(keyCode, ctrlKey, cmndKey);
+  // console.log('keyCode', keyCode, ctrlKey, cmndKey);
 }
 document.onkeydown = KeyPress;
 
@@ -48,7 +60,6 @@ function gotoFile() {
   }
 }
 
- 
 
 function saveFile(e) {
   e.preventDefault();
@@ -57,7 +68,10 @@ function saveFile(e) {
   var oldText = saveBtn.innerText;
   saveBtn.innerText = 'Saving...'
   <% if file %>
-  postJSON('/files/<%=file_id%>',{text}).then(res => saveBtn.innerText = oldText);
+  postJSON('/files/<%=file_id%>',{text}).then(res => {
+    console.log('file saved ',res)
+    saveBtn.innerText = oldText;
+  });
   <% end %>
 }
 

@@ -1,7 +1,5 @@
 <% apps.each do |app| %>
   <div class='single_app'>
-    <button class='btn2'>
-      <a href='/apps/<%=app[:_id]%>'><%= app[:name] %></a>
-    </button>
+    <a class=btn2 href='/apps/<%=app[:_id]%>'><%= app[:name] %></a>
   </div>
 <% end %>

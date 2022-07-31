@@ -10,8 +10,15 @@ end
 post '/files/:id' do 
 	file_id = pr[:id]
 	file    = $files.get(file_id)
+	text    = pr[:text]
 	halt unless file[:user_id] == cuid 
 
-	$files.update_id(file_id, text: pr[:text])
-	{msg: 'ok'}
+	$files.update_id(file_id, text: text)
+	{msg: 'ok', text: text}
+end
+
+get '/files/:id' do 
+	file = $files.get(pr[:id])
+	halt unless file && file[:user_id] == cuid 	
+	{file: file}
 end

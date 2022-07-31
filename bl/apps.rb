@@ -1,7 +1,7 @@
 $apps = $mongo.collection('apps')
 
 get '/apps/:id' do 
-	erb :'/apps/ide'
+	erb :'/apps/single_app_ide'
 end
 
 post '/app' do 

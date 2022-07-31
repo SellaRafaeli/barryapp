@@ -13,10 +13,35 @@
 %>
 
 <style>
+:root {
+  --fe_width: 12%;
+  --editor_width: 50%;
+}
+.ide_wrapper {
+  zdisplay: flex:;
+}
+.file_explorer {
+  height: 100%;
+  min-height: 500px;
+  width: var(--fe_width);
+  zflex: 1;
+  background-color: whitesmoke;
+  display: inline-block;
+}
 #editor {
-  max-width: 800px;
+  width: var(--editor_width);
   margin-top: 50px;
-  margin-left: 300px;
+  margin-left: var(--fe_width);; 
+  flex: 4;
+  /*file_explorer_width*/
+}
+#preview {
+  margin-left: calc(var(--editor_width));
+  border:1px solid blue;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  width: 35%;
 }
 .ib {
   display: inline-block;
@@ -34,9 +59,11 @@
   <button id=publishBtn class='btn2'> Publish </button> 
 </div>
 
-<div class='editor_wrapper'>
+<div class='ide_wrapper'>
+<% @file_explorer_width = '5%' %>
 <%= erb :'/file_explorer/file_explorer', locals: local_data %>
 <%= erb :'/editor/editor', locals: local_data %>
+<%= erb :'/preview/preview', locals: local_data %>
 </div>
 
 <script>
