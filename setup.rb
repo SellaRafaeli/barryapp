@@ -1,5 +1,5 @@
 $prod       = settings.production? #RACK_ENV==production?
-$prod_url   = 'https://www.indydevs.com'
+$prod_url   = 'https://www.barry4.com'
 $root_url   = $prod ? $prod_url : 'http://localhost:8200'
 
 ONE_YEAR_IN_SECONDS = 31556952
