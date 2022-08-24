@@ -23,7 +23,7 @@
         <br/> -->
 
     <div>
-      <label class='w200'> 
+      <label class='w200 ib'> 
       <%= is_heb ? 'שם' : 'Name' %> 
     </label>
       <input required zautofocus id=signup_name_input class='input1' placeholder='<%= is_heb ? "יעל ההייטקיסטית" : 'Jane Doe' %>' name='name' value="<%=pr[:name] || (!$prod ? "test" : '') %>" style='margin-right: 5px;'/>
@@ -37,7 +37,7 @@
     <!-- <div><small>We won't show this to anybody.</small></div> -->
 
     <div>
-      <label class='w200'> 
+      <label class='w200 ib'> 
       <%= is_heb ? 'אימייל' : 'Email' %>
     </label>
       <input id=signup_email_input class='input1 ltr' value="<%=pr[:email] || (!$prod ? 'test' : '') %>" placeholder='jane@awesomecorp.com' name='email' <%="zautofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
@@ -57,7 +57,7 @@
     <% end %>
     <% if true %>
     <div>
-      <label class='w200'> New Password </label>
+      <label class='w200 ib'> New Password </label>
       <input class='input1' value="<%=pr[:password]%>" placeholder='Secret Password' name='password' type=password style='margin-right: 5px'/>
     </div>
 

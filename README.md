@@ -1,3 +1,11 @@
 # Barry
 
-Easy, beautiful, maintainable web applications.
+Easy, beautiful, dashboards.
+
+## App types 
+# Dashboards 
+# Blog
+# Personal Pages 
+# CRM 
+# CMS 
+

@@ -42,6 +42,7 @@
       <input class='input1' placeholder='' value="<%=user['name']%>" name='name' style='margin-right: 5px; margin-left: 0'/>
   </div>
 
+  <% if false %>  
   <div class='display_flex'>                  
       <label> Headline <div></div></label>
       <input class='input1' placeholder='Your description in one line' value="<%=user['title']%>" name='title' style='margin-right: 5px; margin-left: 0'/>
@@ -51,7 +52,7 @@
   <%#= erb :'/login/type_chooser', locals: {user: user} %>
   
 
-  <% if false %>  
+
   <div class='display_flex'>                  
       <label> Your Team Size </label>
       <select name=team_size onchange=$('#submitMeForm').click()>
@@ -97,10 +98,12 @@
   
   <% end %>
   
+  <% if false %>
   <div class='display_flex'>                  
     <label> Location <div></div></label>
     <input class='input1' placeholder='Tel Aviv, Israel' value="<%=user['location']%>" name='location' style='margin-right: 0px; margin-left: 0'/>
   </div>
+  <% end %>
 
   <% if is_seller && false %>
   <div class='display_flex'>                  
@@ -120,7 +123,7 @@
   </div>
   <% end %>
 
-  <% if true %>
+  <% if false %>
   <div class='display_flex' style='zmargin-top:20px'>
     <%#= user.to_json %>
     
@@ -165,6 +168,7 @@
 
   <% end %>
 
+  <% if false %>
   <div class='display_flex'>
     <label> Description </label>
     <!-- <div class=help_text>
@@ -173,8 +177,8 @@
     <textarea name=desc placeholder="Describe yourself." value=""><%=user['desc']%></textarea>     
   </div>
   <br/>
-
-  <% if is_seller #&& is_talent %>
+  
+  
   <div class='display_flex' style='margin-top:20px'>
     <%#= user.to_json %>
 
@@ -191,6 +195,7 @@
   <% end %>
 
 
+  <% if false %>
   <div class='display_flex'>                  
     <label> Video URL <div></div></label>
     <input class='input1' placeholder='https://www.youtube.com/watch?v=0cPOPNSWoJ8' value="<%=user['video_url']%>" name='video_url' style='margin-right: 0px; margin-left: 0'/>
@@ -198,7 +203,7 @@
 
   <br/>
 
-  <% if false %>
+  
   <div class='display_flex'>
     <%#= user.to_json %>
     <label class='ztooltip'> Web Site </label>

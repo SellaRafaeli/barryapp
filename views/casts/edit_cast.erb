@@ -38,7 +38,8 @@ x=1
   margin-right: auto;
 }
 .nc_box label {
-  width: 50%;
+  width: 150px;
+  display: inline-block;
 }
 .cost_input {
   width: 65px;
@@ -82,7 +83,7 @@ x=1
 </style>
 <div class='ct' style='font-size:16px; padding-bottom: 200px'>
   <h1> 
-    <span><%= is_new ? 'Create' : 'Edit' %> Position </span>    
+    <span><%= is_new ? 'Create' : 'Edit' %> App </span>    
   </h1>
   <div style='font-weight: bold; font-size: 120%; margin:20px'>
   
@@ -202,28 +203,25 @@ x=1
     
     <% else %>              
       <div>
-        <label>
-          <div>Description</div>
-          <div style='margin-top:20px; color:grey; padding-right: 20px'><!-- What can people expect from you? Make it both informational and attractive! The more info and details you can give, the more prepared and interested potential viewers will be. --></div>
-        </label>
-        <textarea placeholder="Describe the position. Include scope, technology, date, and rate." style='width: 40%; font-family: inherit;' class='ml10 cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
+        <label>Description</label>
+        <textarea placeholder="Describe app. Include tech stack, functionality, and any other note." style='width: 44%; font-family: inherit;' class='cast_desc_textarea' name=desc><%=nc[:desc]%></textarea>
 
       </div>
 
       
-      <% if false %>
+      <% if true %>
       <br/>
       <div>
-        <label> Custom Time
+        <label> Git URL
         <!-- <div style='margin-top:20px; color:grey; padding-right: 20px'>Specify when course classes take place, and how much it costs.</div> -->
         </label>
-        <input name=custom_time style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="US / Europe working hours" value="<%= nc[:custom_time] %>" required />
+        <input name=custom_time style='width: 40%; margin-left: 0' class='input1 nc_name' placeholder="git@github.com:user/repo.git" value="<%= nc[:git_url] %>" required />
 
       </div>
       <% end %>
       
 
-      <% if true %>
+      <% if false %>
         <br/>
         <div>
           <label style='vertical-align: top;'>Compensation Range
@@ -320,8 +318,8 @@ x=1
         <% end %>
 
 
-        <% if false %>
-        <h4 style='margin-bottom: 40px'> Additional Images/Videos </h4>      
+        <% if true %>
+        <h4 style='margin-bottom: 40px'> Screenshots </h4>      
         <%= erb :'/me/upload_media', locals: locals.merge(item: cast) %>
         <% end %>
 

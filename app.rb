@@ -13,7 +13,7 @@ Bundler.require
 puts "loading dotenv..."
 Dotenv.load
 
-$app_name   = 'devshops'
+$app_name   = 'barry4'
 
 require './setup'
 require './my_lib'

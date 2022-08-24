@@ -73,7 +73,8 @@ CAST_FIELDS = [
 	'location',
 	'product_type',
 	'strain',
-	'thc'
+	'thc',
+	'git_url',
 ] + CAST_AMENITIES_NAMES + CAST_AMENITIES_DETAILS + RAFAELI_FIELDS
 
 MIN_VARIABLE_AMOUNT = 5

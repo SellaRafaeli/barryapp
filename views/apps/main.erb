@@ -1,0 +1,74 @@
+<%
+  apps = $apps.all 
+
+  apps = [
+    {name: 'Dashboard', img: 'https://blog.bismart.com/hubfs/captura%20dashboard%20cuadro%20de%20mando%20bismart%20customer%20journey.jpg', src: 'https://github.com/bla', owner: 'moshe@foo.com'},
+    {name: 'Blog', img: 'https://www.dreamhost.com/blog/wp-content/uploads/2019/01/Blog-experts-opt-750x498.jpg'},
+    {name: 'Admin Dashboard', img: 'https://d85wutc1n854v.cloudfront.net/live/products/600x375/WB0GR2JGP.png?v=1.0'},
+    {name: 'Landing Page', img: 'https://wp.disruptiveadvertising.com/wp-content/uploads/2018/01/landing-page-blog-1.jpg'},
+    {name: 'API', img: 'https://miro.medium.com/max/1400/1*A8Qdn25nTyo_lKbHMfGxeA.png'},
+    {name: 'Startup Site', img: 'https://assets.awwwards.com/awards/screenshots/2014/06/53a171ee73da7.jpeg'}
+  
+
+  ]
+%>
+
+<style>
+.search_facets {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+.apps_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.single_app {
+  flex:1;
+  flex-basis: 30%;
+  text-align: center;
+  margin:10px;
+}
+.app_name {
+  margin-bottom: 10px;
+}
+.app_img {
+  width: 100%;
+}
+</style>
+
+<h1> Apps </h1>
+<h3> Choose an app to launch. </h3>
+<h4> You'll get an running instance, the full source code, and a team of maintainers you can hire for further development. </h4>
+
+<div class='search_facets'>
+  <%
+    opts = [
+      {label: 'Type', vals: ['All','Dashboard','Admin Panel','Landing Page','Company Homepage','Personal Site','API','E-commerce']},
+      {label: 'Backend', vals: ['All','JavaScript', 'Ruby']},
+      {label: 'Frontend', vals: ['All','JavaScript', 'React', 'Vue','Angular']},
+    ]
+  %>
+  <% opts.each do |opt| %>
+  <label><%=opt[:label]%></label>
+  <select>
+    <% opt[:vals].each do |val| %>
+      <option><%=val%></option>
+    <% end %>  
+  </select>
+  <% end %>
+</div>
+<div class='apps_list'>
+<% apps.each do |app| %>
+  <div class='single_app'>
+    <div class='app_name'><%= app[:name]%></div>
+    <img class=app_img src='<%=app[:img]%>' height=200px />
+    <% if false %>
+    <div>
+      <a target=_blank href='<%=app[:src]%>' class='app_src'>  <%= app[:src] %></a>
+      <a class='app_owner'><%= app[:owner] %></a>
+    </div>
+    <% end %>
+  </div>
+<% end %>
+</div>

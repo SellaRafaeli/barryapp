@@ -1,5 +1,8 @@
 
 <style>
+.barry-lp {
+  text-align: center;
+}
 .barry-lp p {
   font-size: 30px;
 }
@@ -8,16 +11,52 @@
   font-size: 20px;
 }
 
+.hero_boxes {
+  margin-top: 40px;
+  display: flex;
+}
+
+.single_hero_box {
+  flex:1;
+  margin: 20px;
+}
+.hero_box_title {
+  background-color: whitesmoke;
+  color: black;
+  border-bottom:1px solid black;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+}
 
 </style>
 
 <div class='barry-lp container1000'>
-  <h1> Barry </h1>
+  <h1> Launch a web application. </h1>
 
-  <p>
-    Launch an open-source web application you'll love.
-  </p>
+  <p style='max-width: 50%; margin: auto; margin-bottom: 20px'><small>Barry is the easiest way to build an awesome web application.</small></p>
 
-  <button class=btn2>Let's Go</button>
+  <br/>
+  <% if cu %>
+  <a href='/apps' class=btn2>Let's Go</a>
+  <% else %>
+  <a href='/signup' class=btn2>Sign Up</a>
+  <% end %>
+
+  <div class='hero_boxes'>
+    <div class='single_hero_box'>
+      <div class='hero_box_title'>Open Source</div>
+      <div class='hero_box_text'>Choose from a gallery of apps to start with.</div>      
+    </div>
+
+    <div class='single_hero_box'>
+      <div class='hero_box_title'>Frontend, Backend, Fullstack</div>
+      <div class='hero_box_text'>Get the full source code so you can customize whatever you want.</div>
+    </div>
+
+    <div class='single_hero_box'>
+      <div class='hero_box_title'>E2E app in a single click</div>
+      <div class='hero_box_text'>Launch your own app now</div>
+    </div>
+  </div>
 
 </div>
