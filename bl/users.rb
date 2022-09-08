@@ -232,7 +232,7 @@ def verify_signup_data
 			flash_err('Invalid email.') 
 			redirect back #'/signup'
 		end
-	elsif !(email.present? && name.present?)
+	elsif !(email.present?)
 		if pr[:ajax] 
 			halt(401,{err: 'Missing email or name.'})
 		else 
@@ -264,7 +264,7 @@ def add_user
 	# state    = pr[:state] || 'NY'
 	timezone = (pr[:timezone] || 0).to_i
 	
-	handle   = $users.available_field('handle', name.split(/@/).first).to_s.strip.downcase
+	handle   = $users.available_field('handle', email.split(/@/).first).to_s.strip.downcase
 
 	data = {email: email, name: name, handle: handle, type: pr[:type], subtype: pr[:subtype]}
 	# data[:style]    = pr[:style] || DEFAULT_BRAND

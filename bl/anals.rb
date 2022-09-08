@@ -1,15 +1,5 @@
 $anals = $anal = $analytics = $mongo.collection('analytics')
 
-# $anals.indexes.create_one({path: 1}) rescue nil
-# $anals.indexes.create_one(EXTERNAL_REFERER => 1) rescue nil
-# $anals.indexes.create_one(utm: 1) rescue nil
-
-
-
-# def anal(data)
-# 	$analytics.add(data)
-# end
-
 def record_event(info)
 	data = {
 		# path: _req.path,

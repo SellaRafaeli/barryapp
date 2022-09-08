@@ -5,9 +5,9 @@
 <br/>
 
 <form action='/login' method='post' class="center_col znoDisplayImportant">
-    <label class=w200> Email: </label> <input class='input1' placeholder='you@domain.com' name='email' value="<%=pr[:email]%>" <%= pr[:email] ? '' : 'autofocus' %> />
+    <label class='w200 ib'> Email: </label> <input class='input1' placeholder='you@domain.com' name='email' value="<%=pr[:email]%>" <%= pr[:email] ? '' : 'autofocus' %> />
     <br/>
-    <label class=w200> Password: </label> <input class='input1' placeholder='Password' name='password' type=password <%= pr[:email] ? 'autofocus' : '' %> />
+    <label class='w200 ib'> Password: </label> <input class='input1' placeholder='Password' name='password' type=password <%= pr[:email] ? 'autofocus' : '' %> />
     <% if pr[:go_back_to] %>
     <input hidden name=go_back_to value="<%=pr[:go_back_to]%>">
     <% end %>

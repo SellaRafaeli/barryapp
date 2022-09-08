@@ -1,11 +1,11 @@
-# Barry
+This is your Barry App. 
 
-Easy, beautiful, dashboards.
-
-## App types 
-# Dashboards 
-# Blog
-# Personal Pages 
-# CRM 
-# CMS 
-
+# Features
+* Login 
+* Dashboard 
+* Admin Panel 
+* Analytics 
+* API 
+* Blog 
+* Background Worker 
+* Emails (requires Postmark account)
