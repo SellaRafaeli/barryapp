@@ -19,7 +19,6 @@ gem 'rufus-scheduler', '3.4.2'
 # gem 'json'
 # gem 'pry-byebug',           '2.0.0' # binding.pry for breakpoints
 gem 'json',                 '2.1.0'
-gem 'pry-byebug'           #'2.0.0' # binding.pry for breakpoints
 gem 'tux'
 gem 'rack-parser',          '0.6.0' # rack middleware
 gem 'require_all'
@@ -56,4 +55,5 @@ group :development, :test do
   gem 'puma'
   gem 'sinatra-reloader'
   gem 'nokogiri'
+  gem 'pry-byebug'           #'2.0.0' # binding.pry for breakpoints
 end

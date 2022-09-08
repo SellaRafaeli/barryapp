@@ -1,4 +1,5 @@
 $prod       = settings.production? #RACK_ENV==production?
+puts "PROD: #{$prod}"
 $prod_url   = 'https://www.barry4.com'
 $root_url   = $prod ? $prod_url : 'http://localhost:8200'
 
