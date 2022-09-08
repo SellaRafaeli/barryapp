@@ -1,5 +1,6 @@
 $users     = $mongo.collection('users')
-$users.delete_many(city: '5 Cities')
+
+# $users.delete_many(city: '5 Cities')
 # $all_users        = $users.all
 cities_from_data = [] # $all_users.mapo(:city).uniq.compact
 cities_from_data-=['5 Cities']
