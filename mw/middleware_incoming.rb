@@ -5,7 +5,7 @@ use Rack::Parser, :content_types => {
 }
 
 if $prod
-  use Rack::SslEnforcer
+#  use Rack::SslEnforcer
 end
 
 helpers do
